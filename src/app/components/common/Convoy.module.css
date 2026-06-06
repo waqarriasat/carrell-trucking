@@ -1,0 +1,253 @@
+/* src/app/components/common/Convoy.module.css */
+.animationContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px; /* Slightly expanded container buffer height to perfectly encompass the text popups */
+  background-color: transparent !important; /* Forces background to remain clear */
+  overflow: hidden;
+  z-index: 9999;
+  pointer-events: none; /* Allows users to click on any underlying layout buttons safely */
+  display: flex;
+  align-items: flex-end;
+  border-top: none !important; /* Removes any layout clipping borders */
+}
+
+.convoyStream {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  gap: 90px; 
+  width: auto;
+  left: -1300px; 
+  animation: driveConvoy 22s linear infinite;
+}
+
+.ardmoreVehicle {
+  position: relative;
+  width: 220px;
+  height: 75px;
+  flex-shrink: 0;
+}
+
+.truckBody {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.cabin {
+  width: 54px;
+  height: 48px;
+  background-color: #0d47a1;
+  align-self: flex-end;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 4px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.window {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 16px;
+  background-color: #ffffff;
+  border-top-right-radius: 5px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 40% 100%);
+}
+
+.trailer {
+  flex-grow: 1;
+  height: 65px;
+  align-self: flex-end;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.reeferBox, .shippingContainer, .cargoBox {
+  border-radius: 6px 0 0 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.reeferBox { background-color: #1565c0; }
+.coolingMotor {
+  position: absolute;
+  top: 6px;
+  right: -5px;
+  width: 10px;
+  height: 18px;
+  background-color: #e0e0e0;
+  border-radius: 2px;
+  border: 1px solid #9e9e9e;
+  z-index: 2;
+}
+
+.shippingContainer { background-color: #1b5e20; border-radius: 2px 0 0 2px; }
+.containerGrooves {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: repeating-linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 4px, transparent 4px, transparent 12px);
+  z-index: 0;
+}
+
+.cargoBox { background-color: #0d47a1; }
+
+/* Fixed Inner Moving Text Billboard Panel */
+.brandingArea {
+  background-color: #ffffff;
+  width: 95%;
+  height: 86%;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+/* Explicit text constraints restricted purely inside the panel graphic */
+.brandingArea h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 900;
+  color: #0d47a1;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  line-height: 1;
+}
+
+.brandingArea p {
+  margin: 2px 0 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffb300;
+  letter-spacing: 0.8px;
+  line-height: 1;
+}
+
+.containerLabel {
+  background-color: #ffffff !important;
+}
+
+.flatbedChassis {
+  height: 14px !important;
+  background-color: #37474f;
+  border-radius: 2px 0 0 2px;
+  border-top: 2px solid #b0bec5;
+}
+
+.hitchNeck {
+  position: absolute;
+  right: -12px;
+  bottom: 0;
+  width: 15px;
+  height: 24px;
+  background-color: #37474f;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+}
+
+.rearMudguard {
+  position: absolute;
+  left: 2px;
+  bottom: -11px;
+  width: 4px;
+  height: 12px;
+  background-color: #111111;
+}
+
+/* --- PERFECTLY CIRCULAR GEOMETRIC TYRES --- */
+.wheel {
+  position: absolute;
+  bottom: -12px;
+  width: 26px;
+  height: 26px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  background: radial-gradient(circle, #ffffff 25%, #0d47a1 35%, #0d47a1 65%, #111111 75%);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  animation: spinWheel 0.6s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.rimDetail {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.85);
+  box-sizing: border-box;
+}
+
+.frontWheel { right: 14px; }
+.backWheel1 { left: 45px; }
+.backWheel2 { left: 12px; }
+
+.roadTrack {
+  position: absolute;
+  bottom: 19px;
+  width: 100%;
+  height: 2px;
+  background-color: #0d47a1;
+  opacity: 0.15;
+}
+
+/* Custom positioning for text on the low-profile flatbed deck */
+.flatbedText {
+  position: absolute;
+  width: 100%;
+  top: -40px; /* Suspends text neatly floating just above the empty bed rail line */
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.flatbedText h2 {
+  margin: 0;
+  padding-bottom: 3px;
+  font-size: 17px;
+  font-weight: 900;
+  color: #0d47a1; /* Matches the prominent Ardmore branding navy blue */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.flatbedText p {
+  margin: 1px 0 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffb300; /* Amber subtitle pairing */
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+@keyframes driveConvoy {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw + 1450px)); }
+}
+
+@keyframes spinWheel {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

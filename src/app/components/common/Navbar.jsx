@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaBars, FaPhone } from "react-icons/fa6";
@@ -65,25 +65,30 @@ export default function Navbar() {
         {/* ── Main nav row ── */}
         <div className="flex items-center justify-between px-5 md:px-8 lg:px-10 h-16">
 
-          
+
           {/* Wordmark / Logo */}
           <Link
             href="/"
-            className="flex flex-col leading-none group"
+            className="flex items-center gap-3 group"
             aria-label="Ardmore Trailer, Inc. — Home"
           >
-            <span
-              className="font-black text-lg md:text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
-              style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
-            >
-              ARDMORE
-            </span>
-            <span
-              className="text-xs font-bold tracking-[0.22em] uppercase"
-              style={{ color: "#c9a84c" }}
-            >
-              Trailer, Inc.
-            </span>
+           
+
+            <div className="flex flex-col leading-none">
+              <span
+                className="font-black text-lg md:text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
+                style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
+              >
+                ARDMORE
+              </span>
+
+              <span
+                className="text-xs font-bold tracking-[0.22em] uppercase"
+                style={{ color: "#c9a84c" }}
+              >
+                Trailer, Inc.
+              </span>
+            </div>
           </Link>
 
           {/* ── Desktop nav links ── */}
