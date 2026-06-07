@@ -62,9 +62,12 @@ export default function RootLayout({ children }) {
         {children}
 
         {/* Keeping animation layered cleanly over the footer baseline layout */}
-        <Convoy /> 
+        
         
         <Footer />
+
+        <Convoy /> 
+        
       </body>
     </html>
   );

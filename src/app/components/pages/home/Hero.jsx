@@ -1,18 +1,59 @@
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
 import { SITE, FLEET } from "@/app/lib/constants";
 
 const HERO_FLEET_PREVIEW = FLEET.slice(0, 6);
 
+// Live high-resolution paths for heavy-duty containers, reefers, and equipment transport trailers
+const SLIDER_IMAGES = [
+  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80", // Cargo Containers Yard
+  "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=2000&q=80", // Semi-Truck & Fleet Trailer on highway
+  "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80", // Logistics industrial hub
+];
+
 export default function Hero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Automatically cycle images every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDER_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section
       className="relative min-h-[92vh] flex items-center overflow-hidden"
       style={{ backgroundColor: "#0f2d4a" }}
     >
-      {/* Dot-grid texture */}
+      {/* ── BACKGROUND IMAGE SLIDER ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        {SLIDER_IMAGES.map((src, index) => (
+          <div
+            key={src}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
+              index === currentSlide ? "opacity-25 scale-100" : "opacity-0 scale-105"
+            } transform motion-reduce:transition-none`}
+            style={{
+              backgroundImage: `url('${src}')`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Dark overlay matrix tint layer to guarantee typography readability */}
+      <div 
+        className="absolute inset-0 z-0 mix-blend-multiply opacity-80"
+        style={{ backgroundColor: "#0f2d4a" }}
+        aria-hidden="true"
+      />
+
+      {/* Dot-grid structural texture */}
       <div
-        className="absolute inset-0 opacity-[0.07]"
+        className="absolute inset-0 opacity-[0.05] z-0"
         style={{
           backgroundImage: "radial-gradient(circle, #7a9bb5 1px, transparent 1px)",
           backgroundSize: "28px 28px",
@@ -20,34 +61,34 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      {/* Diagonal gold stripe */}
+      {/* Diagonal accent graphic line */}
       <div
-        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03]"
+        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] z-0"
         style={{
           background: "linear-gradient(135deg, transparent 40%, #c9a84c 40%, #c9a84c 42%, transparent 42%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Blue radial glow */}
+      {/* Blue radial spotlight beam */}
       <div
-        className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
+        className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none z-0"
         style={{ background: "radial-gradient(circle, #2d8fdd 0%, transparent 70%)" }}
         aria-hidden="true"
       />
 
-      {/* Bottom fade */}
+      {/* Bottom organic fade blend out */}
       <div
-        className="absolute bottom-0 inset-x-0 h-32 pointer-events-none"
+        className="absolute bottom-0 inset-x-0 h-32 pointer-events-none z-0"
         style={{ background: "linear-gradient(to bottom, transparent, #0f2d4a)" }}
         aria-hidden="true"
       />
 
-      {/* Content */}
+      {/* ── Content Grid Layout ── */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-20 lg:py-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          {/* Left: headline + CTAs */}
+          {/* Left: Headline & Call To Actions Panel */}
           <div>
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-6">
@@ -57,7 +98,7 @@ export default function Hero() {
               </span>
             </div>
 
-            {/* Headline */}
+            {/* Main Headline Statement */}
             <h1
               className="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-white mb-6"
               style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
@@ -78,8 +119,8 @@ export default function Hero() {
               <span style={{ color: "#c9a84c" }}>Job Site.</span>
             </h1>
 
-            {/* Subtext */}
-            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "#7a9bb5" }}>
+            {/* Context Subtext Description */}
+            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "#cbd5e1" }}>
               Southern Oklahoma&apos;s rental source for dry containers, reefer trailers,
               mobile offices, generators, and custom mud lab units.{" "}
               <span className="text-white font-medium">
@@ -87,7 +128,7 @@ export default function Hero() {
               </span>
             </p>
 
-            {/* CTA pair */}
+            {/* Primary Action Button Cluster */}
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
               <Link
                 href="/quote"
@@ -107,7 +148,7 @@ export default function Hero() {
               </Link>
             </div>
 
-            {/* Phone */}
+            {/* Direct Line Phone Trigger */}
             <a href={SITE.phoneHref} className="inline-flex items-center gap-3 group">
               <span
                 className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors group-hover:border-white/50"
@@ -126,7 +167,7 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Right: fleet preview cards — desktop only */}
+          {/* Right: Fleet Preview Cards — Desktop Viewports Only */}
           <div className="hidden lg:block">
             <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5" style={{ color: "#7a9bb5" }}>
               Available Equipment
@@ -139,8 +180,9 @@ export default function Hero() {
                   href={`/fleet#${item.id}`}
                   className="group relative flex flex-col justify-between p-4 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                   style={{
-                    backgroundColor: i % 2 === 0 ? "#0a2038" : "#112840",
+                    backgroundColor: i % 2 === 0 ? "rgba(10, 32, 56, 0.85)" : "rgba(17, 40, 64, 0.85)",
                     borderColor: "#1e4d7b",
+                    backdropFilter: "blur(4px)",
                   }}
                 >
                   {item.badge && (
@@ -188,12 +230,6 @@ export default function Hero() {
 
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40" aria-hidden="true">
-        <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#7a9bb5" }}>Scroll</span>
-        <span className="w-px h-8 animate-pulse" style={{ backgroundColor: "#7a9bb5" }} />
-      </div> */}
     </section>
   );
 }
