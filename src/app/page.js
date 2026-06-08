@@ -5,6 +5,7 @@ import TrustBar from "./components/pages/home/Trustbar";
 import FleetGrid from "./components/pages/home/Fleetgrid";
 import WhyUs from "./components/pages/home/WhyUs";
 import CtaBanner from "./components/pages/home/CtaBanner";
+import Testimonials from "./components/pages/home/Testimonials";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <TrustBar/>
       <FleetGrid/>
       <WhyUs/>
+      <Testimonials/>
       <CtaBanner/>
       
     </>

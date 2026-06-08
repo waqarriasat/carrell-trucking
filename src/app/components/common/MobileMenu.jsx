@@ -1,21 +1,31 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { FaXmark, FaPhone, FaChevronRight } from "react-icons/fa6";
-import { NAV_LINKS, NAV_CTA, SITE } from "@/app/lib/constants";
+import { FaXmark, FaPhone, FaChevronRight, FaChevronDown } from "react-icons/fa6";
+import { NAV_LINKS, NAV_CTA, SITE, FLEET, SERVICES } from "@/app/lib/constants";
 
-// ─────────────────────────────────────────────
-//  MobileMenu
-//  Slide-down overlay drawer for small screens.
-//  Props:
-//    isOpen   {boolean}  — controls visibility
-//    onClose  {function} — called when user closes menu
-// ─────────────────────────────────────────────
+const SUB_MENUS = {
+  "/fleet": FLEET.map((f) => ({
+    label: f.name,
+    href: `/fleet/${f.id}`,
+  })),
+  "/services": SERVICES.map((s) => ({
+    label: s.label,
+    href: `/services/${s.id}`,
+  })),
+}
 
 export default function MobileMenu({ isOpen, onClose }) {
+  const [openSection, setOpenSection] = useState(null)
+
+  const toggleSection = (href) => {
+    setOpenSection(prev => prev === href ? null : href)
+  }
+
   return (
     <>
-      {/* ── Backdrop ── */}
+      {/* Backdrop */}
       <div
         onClick={onClose}
         className={[
@@ -25,7 +35,7 @@ export default function MobileMenu({ isOpen, onClose }) {
         aria-hidden="true"
       />
 
-      {/* ── Drawer panel ── */}
+      {/* Drawer */}
       <div
         role="dialog"
         aria-modal="true"
@@ -37,7 +47,7 @@ export default function MobileMenu({ isOpen, onClose }) {
         ].join(" ")}
         style={{ backgroundColor: "#0f2d4a" }}
       >
-        {/* Header row */}
+        {/* Header */}
         <div
           className="flex items-center justify-between px-6 py-5 border-b"
           style={{ borderColor: "#1e4d7b" }}
@@ -48,7 +58,7 @@ export default function MobileMenu({ isOpen, onClose }) {
           <button
             onClick={onClose}
             aria-label="Close menu"
-            className="p-2 rounded-md transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+            className="p-2 rounded-md transition-colors hover:bg-white/10"
           >
             <FaXmark className="text-white" size={18} />
           </button>
@@ -57,22 +67,74 @@ export default function MobileMenu({ isOpen, onClose }) {
         {/* Nav links */}
         <nav className="flex-1 overflow-y-auto py-4">
           <ul className="flex flex-col">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={onClose}
-                  className="group flex items-center justify-between px-6 py-4 text-white/90 hover:text-white transition-colors border-b"
-                  style={{ borderColor: "#1e4d7b" }}
-                >
-                  <span className="font-medium tracking-wide">{link.label}</span>
-                  <FaChevronRight
-                    size={12}
-                    className="text-white/30 group-hover:text-white/70 transition-colors"
-                  />
-                </Link>
-              </li>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const subLinks = SUB_MENUS[link.href]
+              const isOpen_ = openSection === link.href
+
+              return (
+                <li key={link.href}>
+                  {/* Main link row */}
+                  {subLinks ? (
+                    // Has submenu — show toggle button
+                    <button
+                      onClick={() => toggleSection(link.href)}
+                      className="w-full flex items-center justify-between px-6 py-4 text-white/90 hover:text-white transition-colors border-b"
+                      style={{ borderColor: "#1e4d7b" }}
+                    >
+                      <span className="font-medium tracking-wide">{link.label}</span>
+                      {isOpen_
+                        ? <FaChevronDown size={12} style={{ color: "#c9a84c" }} />
+                        : <FaChevronRight size={12} className="text-white/30" />
+                      }
+                    </button>
+                  ) : (
+                    // No submenu — direct link
+                    <Link
+                      href={link.href}
+                      onClick={onClose}
+                      className="group flex items-center justify-between px-6 py-4 text-white/90 hover:text-white transition-colors border-b"
+                      style={{ borderColor: "#1e4d7b" }}
+                    >
+                      <span className="font-medium tracking-wide">{link.label}</span>
+                      <FaChevronRight size={12} className="text-white/30 group-hover:text-white/70 transition-colors" />
+                    </Link>
+                  )}
+
+                  {/* Submenu items */}
+                  {subLinks && isOpen_ && (
+                    <ul
+                      className="flex flex-col text-white/80"
+                      style={{ backgroundColor: "#0a2038" }}
+                    >
+                      {/* Link to main page */}
+                      <li>
+                        <Link
+                          href={link.href}
+                          onClick={onClose}
+                          className="flex items-center px-8 py-3 text-xs font-bold uppercase tracking-widest border-b transition-colors hover:text-white"
+                          style={{ color: "#c9a84c", borderColor: "#1e4d7b" }}
+                        >
+                          View All {link.label}
+                        </Link>
+                      </li>
+                      {subLinks.map((sub) => (
+                        <li key={sub.href}>
+                          <Link
+                            href={sub.href}
+                            onClick={onClose}
+                            className="flex items-center justify-between px-8 py-3 text-sm text-white/70 hover:text-white transition-colors border-b"
+                            style={{ borderColor: "#1e4d7b" }}
+                          >
+                            <span>{sub.label}</span>
+                            <FaChevronRight size={10} className="text-white/20" />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              )
+            })}
           </ul>
 
           {/* CTA button */}
@@ -94,7 +156,7 @@ export default function MobileMenu({ isOpen, onClose }) {
           style={{ borderColor: "#1e4d7b", backgroundColor: "#0a2038" }}
         >
           <p className="text-xs font-semibold tracking-widest uppercase mb-3"
-             style={{ color: "#7a9bb5" }}>
+            style={{ color: "#7a9bb5" }}>
             Call Direct
           </p>
           <a
@@ -112,5 +174,5 @@ export default function MobileMenu({ isOpen, onClose }) {
         </div>
       </div>
     </>
-  );
+  )
 }

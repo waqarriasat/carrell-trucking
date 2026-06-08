@@ -1,9 +1,9 @@
 import Link from "next/link"
 import {
-  FaPhone, FaEnvelope, FaMapMarkerAlt,
-  FaShieldAlt, FaHandshake, FaTruck,
+  FaPhone, FaEnvelope, FaLocationDot,
+  FaShield, FaHandshake, FaTruck,
   FaUsers, FaAward, FaClock
-} from "react-icons/fa"
+} from "react-icons/fa6"
 
 const STATS = [
   { value: "8+",   label: "Equipment Types" },
@@ -19,12 +19,12 @@ const TEAM = [
 ]
 
 const VALUES = [
-  { icon: FaShieldAlt,  title: "Quality First",        text: "Every unit is maintained to the highest standard before it leaves our yard." },
-  { icon: FaHandshake,  title: "Honest Service",       text: "No hidden fees, no surprises. Transparent pricing from day one." },
-  { icon: FaTruck,      title: "On-Time Delivery",     text: "We show up when we say we will — every time, no excuses." },
-  { icon: FaAward,      title: "Industry Experience",  text: "Years of experience serving Oklahoma's toughest job sites." },
-  { icon: FaClock,      title: "2-Month Minimum",      text: "Flexible rental terms starting at 2 months to match your project." },
-  { icon: FaUsers,      title: "Local Team",           text: "Talk directly to Rick and the team — no call centers, ever." },
+  { icon: FaShield,    title: "Quality First",        text: "Every unit is maintained to the highest standard before it leaves our yard." },
+  { icon: FaHandshake, title: "Honest Service",       text: "No hidden fees, no surprises. Transparent pricing from day one." },
+  { icon: FaTruck,     title: "On-Time Delivery",     text: "We show up when we say we will — every time, no excuses." },
+  { icon: FaAward,     title: "Industry Experience",  text: "Years of experience serving Oklahoma's toughest job sites." },
+  { icon: FaClock,     title: "2-Month Minimum",      text: "Flexible rental terms starting at 2 months to match your project." },
+  { icon: FaUsers,     title: "Local Team",           text: "Talk directly to Rick and the team — no call centers, ever." },
 ]
 
 const C = {
@@ -134,8 +134,8 @@ export default function AboutPage() {
           </div>
 
           <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "#fff", margin: "0 0 16px", lineHeight: 1.15 }}>
-            Oklahoma's Trusted{" "}
-            <span style={{ color: C.gold }}>Trailer & Container</span>{" "}
+            Oklahoma&apos;s Trusted{" "}
+            <span style={{ color: C.gold }}>Trailer &amp; Container</span>{" "}
             Rental Company
           </h1>
 
@@ -328,7 +328,7 @@ export default function AboutPage() {
             <div>
               <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
                 Ready to Get Started?{" "}
-                <span style={{ color: C.gold }}>Let's Talk.</span>
+                <span style={{ color: C.gold }}>Let&apos;s Talk.</span>
               </h2>
               <p style={{ fontSize: 13, color: C.muted, margin: 0 }}>
                 Call us, send an email, or visit us in Ardmore, OK.
@@ -356,7 +356,7 @@ export default function AboutPage() {
                   fontSize: 13, fontWeight: 700, padding: "12px 22px",
                   borderRadius: 8, border: `2px solid ${C.muted}`, color: C.muted, textDecoration: "none"
                 }}>
-                <FaMapMarkerAlt size={13} /> Get Directions
+                <FaLocationDot size={13} /> Get Directions
               </a>
             </div>
           </div>

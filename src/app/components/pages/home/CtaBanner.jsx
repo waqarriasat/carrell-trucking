@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaFileAlt, FaTruck, FaClipboardCheck, FaShieldAlt } from "react-icons/fa";
+import { FaFileLines, FaTruck, FaClipboardCheck, FaShield } from "react-icons/fa6";
 
 // Unique, non-duplicative metrics focusing on operational excellence
 const STATS = [
@@ -18,7 +18,7 @@ export default function CtaBanner() {
     >
       <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
 
-        {/* ── Standard CSS Grid (No Slider Dependencies) ── */}
+        {/* ── Stats Grid ── */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {STATS.map((s) => (
             <div
@@ -55,12 +55,11 @@ export default function CtaBanner() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2">
 
-            {/* Left — Value Proposition & Action Column */}
+            {/* Left — Value Proposition */}
             <div
               className="p-8 md:p-12 flex flex-col justify-center relative"
               style={{ backgroundColor: "#1e4d7b" }}
             >
-              {/* Subtle design texture overlay */}
               <div
                 className="absolute inset-0 opacity-[0.03] pointer-events-none"
                 style={{
@@ -70,17 +69,9 @@ export default function CtaBanner() {
               />
 
               <div className="relative z-10">
-                {/* Eyebrow */}
                 <div className="flex items-center gap-3 mb-4">
-                  <span
-                    className="h-px w-8 shrink-0"
-                    style={{ backgroundColor: "#c9a84c" }}
-                    aria-hidden="true"
-                  />
-                  <span
-                    className="text-xs font-bold tracking-[0.2em] uppercase"
-                    style={{ color: "#c9a84c" }}
-                  >
+                  <span className="h-px w-8 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+                  <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>
                     Streamlined Logistics
                   </span>
                 </div>
@@ -96,30 +87,26 @@ export default function CtaBanner() {
                   </span>
                 </h2>
 
-                <p
-                  className="text-base leading-relaxed mb-8"
-                  style={{ color: "#cbd5e1" }}
-                >
-                  Don't risk project downtime due to supply constraints. We coordinate 
-                  with your timeline to drop off heavy-duty infrastructure directly where 
+                <p className="text-base leading-relaxed mb-8" style={{ color: "#cbd5e1" }}>
+                  Don&apos;t risk project downtime due to supply constraints. We coordinate
+                  with your timeline to drop off heavy-duty infrastructure directly where
                   you need it most. Secure your minimum 2-month rental allocation today.
                 </p>
 
-                {/* Single explicit action button to separate intent from the Hero section */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
                     href="/quote"
                     className="flex items-center justify-center gap-2 text-sm font-bold px-8 py-4 rounded-lg transition-all duration-200 hover:brightness-110 active:scale-95 shadow-lg"
                     style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
                   >
-                    <FaFileAlt size={14} />
+                    <FaFileLines size={14} />
                     Begin Online Setup
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* Right — The 3-Step Process Panel */}
+            {/* Right — 3-Step Process */}
             <div
               className="p-8 md:p-12 flex flex-col justify-center gap-8 relative"
               style={{ backgroundColor: "#0a2038" }}
@@ -136,7 +123,7 @@ export default function CtaBanner() {
                   desc: "Request your specific sizes, generator capacities, or office styles online.",
                 },
                 {
-                  icon: FaShieldAlt,
+                  icon: FaShield,
                   step: "02",
                   title: "Confirm Allocation",
                   desc: "Review your comprehensive, transparent commercial contract with a 2-month minimum term.",
@@ -175,7 +162,7 @@ export default function CtaBanner() {
                 </div>
               ))}
             </div>
-            
+
           </div>
         </div>
 

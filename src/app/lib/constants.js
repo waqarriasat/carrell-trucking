@@ -33,9 +33,9 @@ export const SITE = {
     facebook: null,
     linkedin: null,
   },
-};
+}
 
-// ── Color Tokens (reference in Tailwind arbitrary values or inline styles) ──
+// ── Color Tokens ──────────────────────────────
 export const COLORS = {
   dark: "#0f2d4a",
   navy: "#1e4d7b",
@@ -43,32 +43,30 @@ export const COLORS = {
   gold: "#c9a84c",
   muted: "#7a9bb5",
   lightBg: "#f0f6fb",
-};
+}
 
 // ── Navigation Links ──────────────────────────
 export const NAV_LINKS = [
-  { label: "Home",    href: "/" },
-  { label: "Fleet",   href: "/fleet" },
-  { label: "About",   href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
+  { label: "Home",     href: "/" },
+  { label: "Fleet",    href: "/fleet" },
+  { label: "Services", href: "/services" },
+  { label: "About",    href: "/about" },
+  { label: "Contact",  href: "/contact" },
+]
 
 export const NAV_CTA = {
   label: "Get a Quote",
   href: "/quote",
-};
+}
 
 // ── Fleet Categories ──────────────────────────
-//  Each category has: id, name, shortName, icon (react-icons key),
-//  description, badge, sizes[], features[], image placeholder color
-
 export const FLEET = [
   {
     id: "container-dry",
-    name: "Dry Storage Containers",
-    shortName: "Dry Container",
+    name: "Container Dry",
+    shortName: "Container Dry",
     iconName: "FaBox",
-    badge: "Most Popular",
+    badge:  "Storage Container Rentals",
     description:
       "Weather-tight steel containers ideal for on-site storage, inventory overflow, and secure equipment housing. Available in three lengths to fit any footprint.",
     sizes: ["10 ft", "20 ft", "40 ft"],
@@ -83,11 +81,11 @@ export const FLEET = [
     accentColor: COLORS.blue,
   },
   {
-    id: "trailer-flatbed",
-    name: "Dry Van Trailers",
-    shortName: "Dry Van",
+    id: "trailers",
+    name: "Trailers",
+    shortName: "Trailers",
     iconName: "FaTruck",
-    badge: null,
+    badge: "Heavy-Duty Trailer Rentals",
     description:
       "Full-size dry van trailers for temporary storage or freight staging. Swing doors, side doors, and vent options available on select units.",
     sizes: ["28 ft", "48 ft", "53 ft"],
@@ -103,10 +101,10 @@ export const FLEET = [
   },
   {
     id: "reefer-diesel",
-    name: "Diesel Reefer Trailers",
+    name: "Reefer Diesel",
     shortName: "Reefer Diesel",
     iconName: "FaTemperatureHalf",
-    badge: "Temperature Controlled",
+    badge: "Diesel Reefer Rentals",
     description:
       "Self-powered diesel reefer trailers that operate independently — no external power needed. Perfect for remote job sites and large-scale temp storage.",
     sizes: ["28 ft", "48 ft", "53 ft"],
@@ -122,10 +120,10 @@ export const FLEET = [
   },
   {
     id: "reefer-electric",
-    name: "Electric Reefer Trailers",
+    name: "Reefer Electric",
     shortName: "Reefer Electric",
     iconName: "FaBolt",
-    badge: null,
+    badge: "Electric Reefer Rentals",
     description:
       "Plug-in electric reefer trailers — quieter, cleaner, and lower operating cost when shore power is available. Ideal for urban or facility-adjacent use.",
     sizes: ["20 ft", "40 ft"],
@@ -141,12 +139,12 @@ export const FLEET = [
   },
   {
     id: "reefer-container",
-    name: "Refrigerated Containers",
+    name: "Reefer Container",
     shortName: "Reefer Container",
     iconName: "FaSnowflake",
-    badge: null,
+    badge: "Refrigerated Container Rentals",
     description:
-      "ISO refrigerated containers combining container security with active refrigeration. Stack-able, lockable, and built for long-term stationary use.",
+      "ISO refrigerated containers combining container security with active refrigeration. Stackable, lockable, and built for long-term stationary use.",
     sizes: ["20 ft", "40 ft"],
     features: [
       "Integrated Carrier/Thermo-King unit",
@@ -160,10 +158,10 @@ export const FLEET = [
   },
   {
     id: "generator",
-    name: "Generator Sets",
-    shortName: "Generator",
+    name: "Generator Units",
+    shortName: "Generator Units",
     iconName: "FaPlug",
-    badge: "Power Solutions",
+    badge: "Industrial Generator Rentals",
     description:
       "Skid-mounted diesel generator sets for powering reefer units, job-site operations, or emergency backup. Multiple kW ratings to match your load.",
     sizes: ["20 kW", "50 kW", "100 kW"],
@@ -178,11 +176,11 @@ export const FLEET = [
     accentColor: COLORS.gold,
   },
   {
-    id: "office-units",
-    name: "Mobile Office Units",
-    shortName: "Office Unit",
+    id: "office",
+    name: "Office Units",
+    shortName: "Office Units",
     iconName: "FaBuilding",
-    badge: null,
+    badge: "Mobile Office Rentals",
     description:
       "Climate-controlled mobile offices with insulation, HVAC, electrical, and interior finishing — ready to set up and plug in on any job site.",
     sizes: ["8×20 ft", "8×40 ft"],
@@ -198,10 +196,10 @@ export const FLEET = [
   },
   {
     id: "mud-lab",
-    name: "Mud Lab Units",
+    name: "Mud Lab",
     shortName: "Mud Lab",
     iconName: "FaFlask",
-    badge: "Custom Build",
+    badge: "Custom Mud Lab Units",
     description:
       "Fully custom-built mud lab trailers engineered for oilfield drilling fluid analysis. Outfitted to your spec — call for a custom quote.",
     sizes: ["Custom"],
@@ -215,7 +213,7 @@ export const FLEET = [
     category: "specialty",
     accentColor: COLORS.gold,
   },
-];
+]
 
 // ── Services / Industries Served ──────────────
 export const SERVICES = [
@@ -243,9 +241,9 @@ export const SERVICES = [
     iconName: "FaIndustry",
     description: "Heavy-duty oilfield, manufacturing, and energy sector solutions — custom specs welcome.",
   },
-];
+]
 
-// ── Why Choose Us (WhyUs section) ────────────
+// ── Why Choose Us ─────────────────────────────
 export const WHY_US = [
   {
     id: "local",
@@ -283,103 +281,94 @@ export const WHY_US = [
     heading: "Prime South-Central Location",
     body: "Situated on Springdale Road in Ardmore, we're centrally positioned to serve the Permian Basin, Dallas corridor, and all points between.",
   },
-];
+]
 
-// ── Trust Bar stats ───────────────────────────
+// ── Trust Bar Stats ───────────────────────────
 export const TRUST_STATS = [
-  { value: "8+",    label: "Equipment Categories" },
-  { value: "2 mo",  label: "Minimum Rental Term" },
-  { value: "580",   label: "Ardmore Area Code — Call Direct" },
-  { value: "OK",    label: "Southern Oklahoma Proud" },
-];
+  { value: "8+", label: "Equipment Categories" },
+  { value: "2 mo", label: "Minimum Rental Term" },
+  { value: "580", label: "Ardmore Area Code — Call Direct" },
+  { value: "OK", label: "Southern Oklahoma Proud" },
+]
 
-// ── Testimonials (placeholder — update with real quotes) ─────────────────
+// ── Testimonials ──────────────────────────────
 export const TESTIMONIALS = [
   {
     id: 1,
-    quote:
-      "Ardmore Trailer had a 40-foot reefer container on our site within 48 hours. Rick was straightforward about pricing — no surprises.",
+    quote: "Ardmore Trailer had a 40-foot reefer container on our site within 48 hours. Rick was straightforward about pricing — no surprises.",
     author: "J. Harmon",
     company: "Harmon Produce, Ardmore OK",
   },
   {
     id: 2,
-    quote:
-      "We rented three dry van trailers for overflow storage during a facility expansion. Solid units, clean, and hassle-free pickup.",
+    quote: "We rented three trailers for overflow storage during a facility expansion. Solid units, clean, and hassle-free pickup.",
     author: "T. Wilkins",
     company: "Wilkins Manufacturing",
   },
   {
     id: 3,
-    quote:
-      "The mud lab trailer was spec'd exactly how we needed it. You won't find that level of customization anywhere else in the region.",
+    quote: "The mud lab trailer was spec'd exactly how we needed it. You won't find that level of customization anywhere else in the region.",
     author: "D. Castillo",
     company: "Southwest Drilling Services",
   },
-];
+]
 
-// ── Quote Form — field config ────────────────
+// ── Quote Form Field Config ───────────────────
 export const QUOTE_EQUIPMENT_OPTIONS = FLEET.map((f) => ({
   value: f.id,
   label: f.name,
-}));
+}))
 
 export const QUOTE_INDUSTRY_OPTIONS = SERVICES.map((s) => ({
   value: s.id,
   label: s.label,
-}));
+}))
 
 export const QUOTE_DURATION_OPTIONS = [
-  { value: "2-3",   label: "2–3 Months" },
-  { value: "3-6",   label: "3–6 Months" },
-  { value: "6-12",  label: "6–12 Months" },
-  { value: "12+",   label: "12+ Months" },
-  { value: "custom",label: "Custom / Ongoing" },
-];
+  { value: "2-3", label: "2–3 Months" },
+  { value: "3-6", label: "3–6 Months" },
+  { value: "6-12", label: "6–12 Months" },
+  { value: "12+", label: "12+ Months" },
+  { value: "custom", label: "Custom / Ongoing" },
+]
 
-// ── Footer columns ────────────────────────────
+// ── Footer Columns ────────────────────────────
 export const FOOTER_COLUMNS = [
   {
     heading: "Company",
     links: [
-      { label: "Home",       href: "/" },
-      { label: "About Us",   href: "/about" },
-      { label: "Our Fleet",  href: "/fleet" },
-      { label: "Get a Quote",href: "/quote" },
+      { label: "Home", href: "/" },
+      { label: "About Us", href: "/about" },
+      { label: "Our Fleet", href: "/fleet" },
+      { label: "Get a Quote", href: "/quote" },
     ],
   },
   {
     heading: "Fleet",
-    links: [
-      { label: "Dry Containers",  href: "/fleet#container-dry" },
-      { label: "Dry Van Trailers", href: "/fleet#trailer-flatbed" },
-      { label: "Diesel Reefers",  href: "/fleet#reefer-diesel" },
-      { label: "Electric Reefers", href: "/fleet#reefer-electric" },
-      { label: "Reefer Containers",href: "/fleet#reefer-container" },
-      { label: "Generator Sets",  href: "/fleet#generator" },
-      { label: "Office Units",    href: "/fleet#office-units" },
-      { label: "Mud Lab Units",   href: "/fleet#mud-lab" },
-    ],
-  },
-  {
-    heading: "Industries",
-    links: SERVICES.map((s) => ({
-      label: s.label,
-      href: `/fleet?industry=${s.id}`,
+    links: FLEET.map((f) => ({
+      label: f.name,
+      href: `/fleet/${f.id}`,
     })),
   },
   {
+  heading: "Industries",
+  links: SERVICES.map((s) => ({
+    label: s.label,
+    href: `/services/${s.id}`,  // ← change from /fleet?industry= to /services/
+  })),
+},
+  {
     heading: "Contact",
     links: [
-      { label: SITE.phone,           href: SITE.phoneHref },
-      { label: SITE.email,           href: SITE.emailHref },
-      { label: SITE.address.full,    href: SITE.address.mapsHref },
-      { label: "Get a Quote",        href: "/quote" },
+      { label: SITE.phone, href: SITE.phoneHref },
+      { label: SITE.email, href: SITE.emailHref },
+      { label: SITE.address.full, href: SITE.address.mapsHref },
+      { label: "Get a Quote", href: "/quote" },
     ],
   },
-];
+]
 
-// ── About Page content ────────────────────────
+// ── About Page Content ────────────────────────
 export const ABOUT = {
   headline: "Southern Oklahoma's Trailer & Container Rental Specialists",
   intro:
@@ -393,12 +382,12 @@ export const ABOUT = {
     email: "rick@carrelltrucking.com",
   },
   values: [
-    { label: "Reliability",    body: "Every unit goes out clean, inspected, and ready to work." },
-    { label: "Transparency",   body: "Straightforward pricing. No hidden fees, no bait-and-switch." },
-    { label: "Local Focus",    body: "We serve Southern Oklahoma because we live and work here too." },
-    { label: "Customization",  body: "If the standard catalog doesn't fit, we build to your spec." },
+    { label: "Reliability", body: "Every unit goes out clean, inspected, and ready to work." },
+    { label: "Transparency", body: "Straightforward pricing. No hidden fees, no bait-and-switch." },
+    { label: "Local Focus", body: "We serve Southern Oklahoma because we live and work here too." },
+    { label: "Customization", body: "If the standard catalog doesn't fit, we build to your spec." },
   ],
-};
+}
 
 // ── Contact Page ──────────────────────────────
 export const CONTACT = {
@@ -431,4 +420,4 @@ export const CONTACT = {
       note: "Ardmore, Oklahoma",
     },
   ],
-};
+}
