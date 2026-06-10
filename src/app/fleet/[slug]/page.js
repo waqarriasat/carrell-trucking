@@ -2,42 +2,43 @@
 import Image from "next/image"
 import { useState, use } from "react"
 import Link from "next/link"
-import { FaChevronRight, FaCheck, FaPhone } from "react-icons/fa"
+import { FaCheck, FaPhone } from "react-icons/fa"
+import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaFileInvoice } from "react-icons/fa6"
 import { FLEET } from "@/app/lib/constants"
 import { notFound } from "next/navigation"
 
 const IMAGES = {
-  "container-dry":    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80",
-  "trailers":         "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80",
-  "reefer-diesel":    "https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=900&q=80",
-  "reefer-electric":  "https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=900&q=80",
+  "container-dry": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80",
+  "trailers": "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80",
+  "reefer-diesel": "https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=900&q=80",
+  "reefer-electric": "https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=900&q=80",
   "reefer-container": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=900&q=80",
-  "generator":        "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80",
-  "office":           "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80",
-  "mud-lab":          "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=900&q=80",
+  "generator": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=80",
+  "office": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80",
+  "mud-lab": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=900&q=80",
 }
 
 const GALLERY = {
-  "container-dry":    ["https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=400&q=80"],
-  "trailers":         ["https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80"],
-  "reefer-diesel":    ["https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80"],
-  "reefer-electric":  ["https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"],
-  "reefer-container": ["https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80"],
-  "generator":        ["https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"],
-  "office":           ["https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"],
-  "mud-lab":          ["https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80","https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80"],
+  "container-dry": ["https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=400&q=80"],
+  "trailers": ["https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80"],
+  "reefer-diesel": ["https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80"],
+  "reefer-electric": ["https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"],
+  "reefer-container": ["https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1590534247854-e97d5e3feef6?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80"],
+  "generator": ["https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"],
+  "office": ["https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=400&q=80"],
+  "mud-lab": ["https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80", "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=400&q=80"],
 }
 
 const C = {
-  dark:   "#0f2d4a",
-  navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
-  gold:   "#c9a84c",
-  muted:  "#7a9bb5",
-  light:  "#f0f6fb",
+  dark: "#0f2d4a",
+  navy: "#1e4d7b",
+  blue: "#2d8fdd",
+  gold: "#c9a84c",
+  muted: "#7a9bb5",
+  light: "#f0f6fb",
   border: "#d6e8f5",
-  text:   "#4a6b85",
+  text: "#4a6b85",
 }
 
 export default function FleetDetailPage({ params }) {
@@ -90,17 +91,17 @@ export default function FleetDetailPage({ params }) {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "100px 40px 24px" }}>
+      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16, fontSize: 12, color: C.muted }}>
-            <Link href="/" style={{ color: C.muted, textDecoration: "none" }}>Home</Link>
-            <FaChevronRight size={9} />
-            <Link href="/fleet" style={{ color: C.muted, textDecoration: "none" }}>Fleet</Link>
-            <FaChevronRight size={9} />
-            <span style={{ color: C.gold }}>{item.name}</span>
-          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
+  <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Home</Link>
+  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
+  <Link href="/fleet" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>Fleet</Link>
+  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
+  <span style={{ color: "#c9a84c", fontWeight: 600 }}>{item.name}</span>
+</div>
 
-          {item.badge && (
+ {item.badge && (
             <span style={{
               display: "inline-block", fontSize: 10, fontWeight: 700,
               textTransform: "uppercase", letterSpacing: 2,
@@ -140,35 +141,35 @@ export default function FleetDetailPage({ params }) {
 
               {/* Main large image */}
               <div style={{ borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320 }}>
-  <Image
-    key={activeImage}
-    src={allImages[activeImage]}
-    alt={item.name}
-    fill
-    sizes="(max-width: 768px) 100vw, 50vw"
-    className="object-cover main-image"
-    priority
-  />
-</div>
+                <Image
+                  key={activeImage}
+                  src={allImages[activeImage]}
+                  alt={item.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover main-image"
+                  priority
+                />
+              </div>
 
 
               {/* Thumbnails */}
               <div className="gallery-grid">
                 {allImages.map((img, i) => (
                   <div
-  key={i}
-  className={`thumb ${activeImage === i ? "active" : ""}`}
-  onClick={() => setActiveImage(i)}
-  style={{ position: "relative", height: 70 }}
->
-  <Image
-    src={img}
-    alt={`${item.name} view ${i + 1}`}
-    fill
-    sizes="100px"
-    className="object-cover"
-  />
-</div>
+                    key={i}
+                    className={`thumb ${activeImage === i ? "active" : ""}`}
+                    onClick={() => setActiveImage(i)}
+                    style={{ position: "relative", height: 70 }}
+                  >
+                    <Image
+                      src={img}
+                      alt={`${item.name} view ${i + 1}`}
+                      fill
+                      sizes="100px"
+                      className="object-cover"
+                    />
+                  </div>
                 ))}
               </div>
             </div>

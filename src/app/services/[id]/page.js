@@ -1,18 +1,19 @@
 import Link from "next/link"
-import { FaCheck, FaPhone, FaChevronRight } from "react-icons/fa"
+import { FaCheck, FaPhone } from "react-icons/fa"
+import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaFileInvoice } from "react-icons/fa6"
 import { notFound } from "next/navigation"
 import { SERVICES, FLEET } from "@/app/lib/constants"
 
 const C = {
-  dark:   "#0f2d4a",
-  navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
-  gold:   "#c9a84c",
-  muted:  "#7a9bb5",
-  light:  "#f0f6fb",
+  dark: "#0f2d4a",
+  navy: "#1e4d7b",
+  blue: "#2d8fdd",
+  gold: "#c9a84c",
+  muted: "#7a9bb5",
+  light: "#f0f6fb",
   border: "#d6e8f5",
-  text:   "#4a6b85",
+  text: "#4a6b85",
 }
 
 const SERVICE_DETAILS = {
@@ -81,15 +82,9 @@ export default async function ServiceDetailPage({ params }) {
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "100px 40px 24px" }}>
+      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16, fontSize: 12, color: C.muted }}>
-            <Link href="/" style={{ color: C.muted, textDecoration: "none" }}>Home</Link>
-            <FaChevronRight size={9} />
-            <Link href="/services" style={{ color: C.muted, textDecoration: "none" }}>Services</Link>
-            <FaChevronRight size={9} />
-            <span style={{ color: C.gold }}>{service.label}</span>
-          </div>
+          <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.label }]} />
 
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />

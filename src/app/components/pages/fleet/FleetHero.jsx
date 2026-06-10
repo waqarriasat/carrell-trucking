@@ -1,31 +1,19 @@
 import Link from "next/link";
-import { FaChevronRight } from "react-icons/fa";
+
 
 export default function FleetHero() {
   return (
     <section
-      className="w-full py-14 md:py-20"
-      style={{ backgroundColor: "#0f2d4a" }}
-    >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+  style={{ backgroundColor: "#0f2d4a", padding: "20px 24px 40px" }}
+>
+      <div style={{ maxWidth: 1100, margin: "0 auto"}}>
 
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 mb-6">
-          <Link
-            href="/"
-            className="text-xs font-semibold hover:underline"
-            style={{ color: "#7a9bb5" }}
-          >
-            Home
-          </Link>
-          <FaChevronRight size={10} style={{ color: "#7a9bb5" }} />
-          <span
-            className="text-xs font-semibold"
-            style={{ color: "#c9a84c" }}
-          >
-            Fleet
-          </span>
-        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
+  <Link href="/" style={{ color: "#7a9bb5", textDecoration: "none" }}>Home</Link>
+  <span style={{ color: "#7a9bb5" }}>›</span>
+  <span style={{ color: "#c9a84c", fontWeight: 600 }}>Fleet</span>
+</div>
 
         {/* Eyebrow */}
         <div className="flex items-center gap-3 mb-4">

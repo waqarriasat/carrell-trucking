@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaUser, FaCheck } from "react-icons/fa"
+import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { submitContact } from "@/app/actions/submitContact"
 
 const C = {
@@ -60,8 +61,9 @@ export default function ContactPage() {
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "100px 24px 48px" }}>
+      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
             <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

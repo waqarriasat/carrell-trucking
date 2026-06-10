@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Breadcrumb from "@/app/components/common/Breadcrumb"
 import {
   FaPhone, FaEnvelope, FaLocationDot,
   FaShield, FaHandshake, FaTruck,
@@ -115,15 +116,11 @@ export default function AboutPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "100px 48px 24px" }}>
+      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
 
           {/* Breadcrumb */}
-          <div style={{ fontSize: 12, color: C.muted, marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-            <Link href="/" style={{ color: C.muted, textDecoration: "none" }}>Home</Link>
-            <span>›</span>
-            <span style={{ color: C.gold }}>About</span>
-          </div>
+          <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "About" }]} />
 
           {/* Eyebrow */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>

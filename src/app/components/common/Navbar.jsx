@@ -137,12 +137,12 @@ export default function Navbar() {
 `}</style>
 
       <header
-        className={[
-          "fixed top-0 inset-x-0 z-30 transition-all duration-300",
-          scrolled ? "shadow-lg" : "bg-transparent",
-        ].join(" ")}
-        style={scrolled ? { backgroundColor: "#0f2d4a" } : {}}
-      >
+  className={[
+    "fixed top-0 inset-x-0 z-30 transition-all duration-300",
+    scrolled ? "shadow-lg" : "",
+  ].join(" ")}
+  style={{ backgroundColor: "#0f2d4a" }}
+>
         {/* Top micro-bar */}
         <div
           className="hidden lg:flex items-center justify-end px-6 py-1.5 text-xs font-medium gap-2 border-b"
