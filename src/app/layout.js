@@ -25,32 +25,18 @@ const inter = Inter({
 
 export const metadata = {
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
-    template: `%s | ${SITE.name}`,
+    default: "Ardmore Trailer, Inc. | Trailer & Container Rental Oklahoma",
+    template: "%s | Ardmore Trailer, Inc.",
   },
-  description: SITE.description,
-  keywords: [
-    "trailer rental",
-    "container rental",
-    "reefer trailer rental",
-    "storage container rental",
-    "Ardmore Oklahoma",
-    "Southern Oklahoma equipment rental",
-    "mobile office rental",
-    "generator rental",
-    "mud lab trailer",
-    "Carrell Trucking",
-  ],
-  authors: [{ name: SITE.president.name }],
+  description: "Southern Oklahoma's trusted trailer and container rental. Reefer, dry containers, generators, office units. Call 580-226-7811.",
+  keywords: ["trailer rental", "container rental", "reefer trailer", "Oklahoma", "Ardmore"],
   openGraph: {
-    title: SITE.name,
-    description: SITE.description,
-    siteName: SITE.name,
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
+    url: "https://ardmoretrailer.com",
+    siteName: "Ardmore Trailer, Inc.",
   },
-  metadataBase: new URL("https://ardmoretrailer.com"),
-};
+}
 
 export default function RootLayout({ children }) {
   return (

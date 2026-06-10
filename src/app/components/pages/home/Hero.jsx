@@ -177,7 +177,7 @@ export default function Hero() {
               {HERO_FLEET_PREVIEW.map((item, i) => (
                 <Link
                   key={item.id}
-                  href={`/fleet#${item.id}`}
+                  href={`/fleet/${item.id}`}
                   className="group relative flex flex-col justify-between p-4 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                   style={{
                     backgroundColor: i % 2 === 0 ? "rgba(10, 32, 56, 0.85)" : "rgba(17, 40, 64, 0.85)",

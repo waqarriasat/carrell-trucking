@@ -60,7 +60,7 @@ export default function ContactPage() {
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "60px 24px 48px" }}>
+      <div style={{ background: C.dark, padding: "100px 24px 48px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />

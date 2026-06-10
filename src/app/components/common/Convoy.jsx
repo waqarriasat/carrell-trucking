@@ -80,7 +80,7 @@ export default function Convoy() {
                 </div>
 
             </div>
-            <div className={styles.roadTrack}></div>
+            {/* <div className={styles.roadTrack}></div> */}
         </div>
     );
 }

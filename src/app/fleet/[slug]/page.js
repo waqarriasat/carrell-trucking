@@ -1,5 +1,5 @@
 "use client"
-
+import Image from "next/image"
 import { useState, use } from "react"
 import Link from "next/link"
 import { FaChevronRight, FaCheck, FaPhone } from "react-icons/fa"
@@ -90,7 +90,7 @@ export default function FleetDetailPage({ params }) {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "60px 40px 24px" }}>
+      <div style={{ background: C.dark, padding: "100px 40px 24px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16, fontSize: 12, color: C.muted }}>
             <Link href="/" style={{ color: C.muted, textDecoration: "none" }}>Home</Link>
@@ -139,30 +139,36 @@ export default function FleetDetailPage({ params }) {
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
 
               {/* Main large image */}
-              <div style={{ borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
-                <img
-                  key={activeImage}
-                  src={allImages[activeImage]}
-                  alt={item.name}
-                  className="main-image"
-                  style={{ width: "100%", height: 320, objectFit: "cover", display: "block" }}
-                />
-              </div>
+              <div style={{ borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320 }}>
+  <Image
+    key={activeImage}
+    src={allImages[activeImage]}
+    alt={item.name}
+    fill
+    sizes="(max-width: 768px) 100vw, 50vw"
+    className="object-cover main-image"
+    priority
+  />
+</div>
+
 
               {/* Thumbnails */}
               <div className="gallery-grid">
                 {allImages.map((img, i) => (
                   <div
-                    key={i}
-                    className={`thumb ${activeImage === i ? "active" : ""}`}
-                    onClick={() => setActiveImage(i)}
-                  >
-                    <img
-                      src={img}
-                      alt={`${item.name} view ${i + 1}`}
-                      style={{ width: "100%", height: 70, objectFit: "cover", display: "block" }}
-                    />
-                  </div>
+  key={i}
+  className={`thumb ${activeImage === i ? "active" : ""}`}
+  onClick={() => setActiveImage(i)}
+  style={{ position: "relative", height: 70 }}
+>
+  <Image
+    src={img}
+    alt={`${item.name} view ${i + 1}`}
+    fill
+    sizes="100px"
+    className="object-cover"
+  />
+</div>
                 ))}
               </div>
             </div>

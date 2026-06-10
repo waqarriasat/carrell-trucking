@@ -20,8 +20,7 @@ const CATEGORY_ACCENT = {
 };
 
 // ── Highly Accurate Pure-CSS Equipment Graphic Engine ──
-function RealisticVehicleIcon({ id, name }) {
-  const checkString = `${id || ""} ${name || ""}`.toLowerCase();
+function RealisticVehicleIcon({ id }) {
 
   // Unified reusable tire set for trailer transport configurations
   const FixedTires = () => (
@@ -48,7 +47,7 @@ function RealisticVehicleIcon({ id, name }) {
   );
 
   // 1. GENERATOR SETS
-  if (checkString.includes("generator") || checkString.includes("power")) {
+  if (id === "generator") {
     return (
       <div className="w-[140px] h-[50px] flex items-end justify-center relative overflow-visible">
         <div className="w-[95px] h-[32px] bg-[#2d3748] border-2 border-[#4a5568] rounded-t-md relative shadow-md">
@@ -68,7 +67,7 @@ function RealisticVehicleIcon({ id, name }) {
   }
 
   // 2. MOBILE OFFICE UNITS
-  if (checkString.includes("office")) {
+  if (id === "office") {
     return (
       <div className="w-[140px] h-[50px] flex items-end justify-center relative overflow-visible">
         <div className="w-[115px] h-[34px] bg-[#e2e8f0] border border-[#cbd5e1] border-b-[3px] border-b-[#94a3b8] rounded-t relative flex items-center justify-between px-2 shadow-sm">
@@ -89,7 +88,7 @@ function RealisticVehicleIcon({ id, name }) {
   }
 
   // 3. MUD LAB UNITS
-  if (checkString.includes("lab") || checkString.includes("mud")) {
+  if (id === "mud-lab") {
     return (
       <div className="w-[140px] h-[50px] flex items-end justify-center relative overflow-visible">
         <div className="w-[110px] h-[34px] bg-[#34495e] border border-[#2c3e50] rounded-t relative shadow-md">
@@ -98,7 +97,7 @@ function RealisticVehicleIcon({ id, name }) {
             <div className="w-2.5 h-[2px] bg-[#1a202c] absolute top-0 -left-0.5" />
           </div>
           <div className="absolute inset-x-2 bottom-1 top-2.5 flex flex-col justify-center items-center text-center">
-            <span className="text-[8px] font-black text-white leading-none uppercase">ARDMORE TECH</span>
+            <span className="text-[8px] font-black text-white leading-none uppercase">ARDMORE</span>
             <span className="text-[5.5px] font-bold text-[#ffb300] tracking-wider leading-none mt-0.5 uppercase">MUD LAB UNIT</span>
           </div>
         </div>
@@ -121,19 +120,19 @@ function RealisticVehicleIcon({ id, name }) {
         </div>
 
         {/* 4. DIESEL REEFER TRAILER */}
-        {checkString.includes("diesel") && checkString.includes("reefer") ? (
+        {id === "reefer-diesel" ? (
           <div className="flex-grow h-[34px] bg-[#0288d1] relative rounded-l-sm box-border shadow-inner">
             <div className="absolute top-[3px] right-[-3px] w-1.5 h-3 bg-[#e2e8f0] border border-[#64748b] rounded-[1px] z-20 flex flex-col gap-[1px] p-[1px]">
               <div className="h-[1.5px] bg-red-500 rounded-full" />
               <div className="h-[1px] bg-[#64748b]" />
             </div>
-            <AlignedSticker main="Ardmore" sub="DIESEL REEFER" subColor="text-red-600" />
+            <AlignedSticker main="Ardmore" sub="REEFER DIESEL" subColor="text-red-600" />
             <FixedTires />
           </div>
         )
 
         // 5. ELECTRIC REEFER TRAILER
-        : (checkString.includes("electric") || checkString.includes("reefer")) && !checkString.includes("dry") ? (
+        : id === "reefer-electric" ? (
           <div className="flex-grow h-[34px] bg-[#00a896] relative rounded-l-sm box-border shadow-inner">
             <div className="absolute top-[8px] right-[-2.5px] w-1 h-2 bg-[#ffb300] border border-[#b57c00] rounded-l-[1px] z-20" />
             <AlignedSticker main="Ardmore" sub="E-POWER REEFER" subColor="text-[#00a896]" />
@@ -142,53 +141,33 @@ function RealisticVehicleIcon({ id, name }) {
         )
 
         // 6. REFRIGERATED STORAGE CONTAINERS
-        : checkString.includes("refrigerated") && checkString.includes("container") ? (
+        : id === "reefer-container" ? (
           <div className="flex-grow h-[34px] bg-[#0288d1] relative rounded-l-sm box-border">
             <div 
               className="absolute inset-0 opacity-15" 
               style={{ background: "repeating-linear-gradient(90deg, #000, #000 2px, transparent 2px, transparent 6px)" }} 
             />
-            <AlignedSticker main="Ardmore" sub="REEFER STORAGE" subColor="text-[#0288d1]" />
+            <AlignedSticker main="Ardmore" sub="REEFER CONTAINER" subColor="text-[#0288d1]" />
             <FixedTires />
           </div>
         )
 
         // 7. DRY STORAGE CONTAINERS
-        : checkString.includes("container") ? (
+        : id === "container-dry" ? (
           <div className="flex-grow h-[34px] bg-[#1b5e20] relative rounded-l-sm box-border">
             <div 
               className="absolute inset-0" 
               style={{ background: "repeating-linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 2px, transparent 2px, transparent 6px)" }} 
             />
-            <AlignedSticker main="Ardmore" sub="STEEL CARGO" subColor="text-[#1b5e20]" />
+            <AlignedSticker main="Ardmore" sub="CONTAINER DRY" subColor="text-[#1b5e20]" />
             <FixedTires />
           </div>
         )
 
-        // 8. FLATBED CHASSIS (FIXED: Places text in the exact red marked area above the beam)
-        : checkString.includes("flatbed") || checkString.includes("chassis") ? (
-          <div className="flex-grow h-[6px] bg-[#334155] border-t border-[#455a64] relative rounded-l-[1px] mb-[1px] box-border">
-            {/* Seamless Gooseneck Drawbar Connection profile */}
-            <div 
-              className="absolute right-[-7px] bottom-0 w-[8px] h-2 bg-[#334155]" 
-              style={{ clipPath: "polygon(0 40%, 100% 0, 100% 100%, 0 100%)" }}
-            />
-            
-            {/* Float Floating Text Block exactly in the requested Red Container Zone */}
-            <div className="absolute bottom-[8px] left-0 right-0 flex items-center justify-center select-none overflow-visible pointer-events-none">
-              <span className="text-[8px] font-black text-[#0f2d4a] tracking-wider whitespace-nowrap bg-white/40 px-1.5 py-0.5 rounded-[2px] uppercase">
-                FLAT BED TRAILER
-              </span>
-            </div>
-
-            <FixedTires />
-          </div>
-        )
-
-        // 9. DRY VAN TRAILERS (FALLBACK TRAILER TYPE)
+        // 8. DRY VAN TRAILERS (trailer-flatbed fallback)
         : (
           <div className="flex-grow h-[34px] bg-[#f59e0b] relative rounded-l-sm box-border shadow-inner">
-            <AlignedSticker main="Ardmore" sub="DRY VAN FREIGHT" subColor="text-[#f59e0b]" />
+            <AlignedSticker main="Ardmore" sub="Trailers" subColor="text-[#f59e0b]" />
             <FixedTires />
           </div>
         )}
@@ -204,7 +183,7 @@ function FleetCard({ item }) {
 
   return (
     <Link
-      href={`/fleet#${item.id}`}
+      href={`/fleet/${item.id}`}
       id={item.id}
       className="group relative flex flex-col rounded-xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
       style={{
@@ -246,7 +225,7 @@ function FleetCard({ item }) {
 
         {/* Scaled Render Layer */}
         <div className="mt-2 transform transition-transform duration-300 group-hover:scale-105">
-          <RealisticVehicleIcon id={item.id} name={item.name} />
+          <RealisticVehicleIcon id={item.id} />
         </div>
       </div>
 
@@ -264,7 +243,7 @@ function FleetCard({ item }) {
           className="font-bold text-base leading-snug mb-1"
           style={{ color: "#0f2d4a" }}
         >
-          {item.name}
+          {item.shortName}
         </h3>
 
         {/* Sizes pill row */}

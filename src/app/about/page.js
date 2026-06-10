@@ -115,7 +115,7 @@ export default function AboutPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "48px 24px" }}>
+      <div style={{ background: C.dark, padding: "100px 48px 24px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
 
           {/* Breadcrumb */}

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import {
   FaBox, FaTruck, FaSnowflake, FaBolt,
   FaIndustry, FaPlug, FaBuilding, FaFlask,
@@ -112,7 +113,6 @@ function FleetCard({ item }) {
   const Icon = item.icon
   return (
     <div className="fleet-card">
-      {/* Details */}
       <div className="fleet-card-left">
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 4 }}>
           <div style={{
@@ -169,12 +169,15 @@ function FleetCard({ item }) {
         </div>
       </div>
 
-      {/* Image */}
+      {/* Image — using Next.js Image */}
       <div className="fleet-card-image">
-        <img
+        <Image
           src={item.image}
           alt={item.name}
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", minHeight: 200 }}
+          fill
+          sizes="280px"
+          className="object-cover"
+          priority={false}
         />
         <div style={{
           position: "absolute", inset: 0,
@@ -213,17 +216,12 @@ export default function FleetList() {
         .fleet-card-image {
           position: relative;
           overflow: hidden;
+          min-height: 200px;
         }
         @media (max-width: 768px) {
-          .fleet-card {
-            grid-template-columns: 1fr;
-          }
-          .fleet-card-image {
-            height: 200px;
-          }
-          .fleet-card-left {
-            padding: 20px 16px;
-          }
+          .fleet-card { grid-template-columns: 1fr; }
+          .fleet-card-image { height: 200px; }
+          .fleet-card-left { padding: 20px 16px; }
         }
       `}</style>
       <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
