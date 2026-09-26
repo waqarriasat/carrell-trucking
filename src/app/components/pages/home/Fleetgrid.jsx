@@ -4,23 +4,13 @@ import {
   FaChevronRight,
   FaCheck,
 } from "react-icons/fa6";
-import { FLEET } from "@/app/lib/constants";
 
 // ─────────────────────────────────────────────
 //  FleetGrid (Server Component)
 // ─────────────────────────────────────────────
 
-// Category accent colors 
-const CATEGORY_ACCENT = {
-  container: "#2d8fdd",
-  trailer:   "#2d8fdd",
-  reefer:    "#2d8fdd",
-  power:     "#c9a84c",
-  specialty: "#c9a84c",
-};
-
 // ── Highly Accurate Pure-CSS Equipment Graphic Engine ──
-function RealisticVehicleIcon({ id }) {
+function RealisticVehicleIcon({ id, brand, label }) {
 
   // Unified reusable tire set for trailer transport configurations
   const FixedTires = () => (
@@ -58,8 +48,8 @@ function RealisticVehicleIcon({ id }) {
             <div className="h-[2px] bg-[#1a202c] rounded-sm" />
           </div>
           <div className="absolute right-2 inset-y-0 left-8 flex flex-col justify-center items-center text-center">
-            <span className="text-[9px] font-black text-[#ffb300] leading-none uppercase">ARDMORE</span>
-            <span className="text-[5.5px] font-bold text-white tracking-widest leading-none mt-0.5 uppercase">POWER GEN</span>
+            <span className="text-[9px] font-black text-[#ffb300] leading-none uppercase">{brand}</span>
+            <span className="text-[5.5px] font-bold text-white tracking-widest leading-none mt-0.5 uppercase">{label}</span>
           </div>
         </div>
       </div>
@@ -75,8 +65,8 @@ function RealisticVehicleIcon({ id }) {
             <div className="absolute top-3 right-0.5 w-[2px] h-[2px] bg-yellow-500 rounded-full" />
           </div>
           <div className="flex flex-col items-center justify-center text-center flex-1 px-1">
-            <span className="text-[8px] font-black text-[#0d47a1] leading-none uppercase">ARDMORE</span>
-            <span className="text-[5.5px] font-black text-[#475569] tracking-tighter leading-none mt-0.5 uppercase">HQ SITE OFFICE</span>
+            <span className="text-[8px] font-black text-[#0d47a1] leading-none uppercase">{brand}</span>
+            <span className="text-[5.5px] font-black text-[#475569] tracking-tighter leading-none mt-0.5 uppercase">{label}</span>
           </div>
           <div className="w-7 h-[16px] bg-[#e0f7fa] border border-[#94a3b8] flex p-[1px] gap-[1px]">
             <div className="flex-1 bg-white/60 border-r border-[#b2ebf2]" />
@@ -97,8 +87,8 @@ function RealisticVehicleIcon({ id }) {
             <div className="w-2.5 h-[2px] bg-[#1a202c] absolute top-0 -left-0.5" />
           </div>
           <div className="absolute inset-x-2 bottom-1 top-2.5 flex flex-col justify-center items-center text-center">
-            <span className="text-[8px] font-black text-white leading-none uppercase">ARDMORE</span>
-            <span className="text-[5.5px] font-bold text-[#ffb300] tracking-wider leading-none mt-0.5 uppercase">MUD LAB UNIT</span>
+            <span className="text-[8px] font-black text-white leading-none uppercase">{brand}</span>
+            <span className="text-[5.5px] font-bold text-[#ffb300] tracking-wider leading-none mt-0.5 uppercase">{label}</span>
           </div>
         </div>
       </div>
@@ -126,7 +116,7 @@ function RealisticVehicleIcon({ id }) {
               <div className="h-[1.5px] bg-red-500 rounded-full" />
               <div className="h-[1px] bg-[#64748b]" />
             </div>
-            <AlignedSticker main="Ardmore" sub="REEFER DIESEL" subColor="text-red-600" />
+            <AlignedSticker main={brand} sub={label} subColor="text-red-600" />
             <FixedTires />
           </div>
         )
@@ -135,7 +125,7 @@ function RealisticVehicleIcon({ id }) {
         : id === "reefer-electric" ? (
           <div className="flex-grow h-[34px] bg-[#00a896] relative rounded-l-sm box-border shadow-inner">
             <div className="absolute top-[8px] right-[-2.5px] w-1 h-2 bg-[#ffb300] border border-[#b57c00] rounded-l-[1px] z-20" />
-            <AlignedSticker main="Ardmore" sub="E-POWER REEFER" subColor="text-[#00a896]" />
+            <AlignedSticker main={brand} sub={label} subColor="text-[#00a896]" />
             <FixedTires />
           </div>
         )
@@ -147,7 +137,7 @@ function RealisticVehicleIcon({ id }) {
               className="absolute inset-0 opacity-15" 
               style={{ background: "repeating-linear-gradient(90deg, #000, #000 2px, transparent 2px, transparent 6px)" }} 
             />
-            <AlignedSticker main="Ardmore" sub="REEFER CONTAINER" subColor="text-[#0288d1]" />
+            <AlignedSticker main={brand} sub={label} subColor="text-[#0288d1]" />
             <FixedTires />
           </div>
         )
@@ -159,7 +149,7 @@ function RealisticVehicleIcon({ id }) {
               className="absolute inset-0" 
               style={{ background: "repeating-linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 2px, transparent 2px, transparent 6px)" }} 
             />
-            <AlignedSticker main="Ardmore" sub="CONTAINER DRY" subColor="text-[#1b5e20]" />
+            <AlignedSticker main={brand} sub={label} subColor="text-[#1b5e20]" />
             <FixedTires />
           </div>
         )
@@ -167,7 +157,7 @@ function RealisticVehicleIcon({ id }) {
         // 8. DRY VAN TRAILERS (trailer-flatbed fallback)
         : (
           <div className="flex-grow h-[34px] bg-[#f59e0b] relative rounded-l-sm box-border shadow-inner">
-            <AlignedSticker main="Ardmore" sub="Trailers" subColor="text-[#f59e0b]" />
+            <AlignedSticker main={brand} sub={label} subColor="text-[#f59e0b]" />
             <FixedTires />
           </div>
         )}
@@ -178,8 +168,8 @@ function RealisticVehicleIcon({ id }) {
 }
 
 // ── Individual fleet card component ─────────────────────
-function FleetCard({ item }) {
-  const accent = CATEGORY_ACCENT[item.category] ?? "#2d8fdd";
+function FleetCard({ item, linkLabel, brand }) {
+  const accent = item.accent || "#2d8fdd";
 
   return (
     <Link
@@ -218,14 +208,14 @@ function FleetCard({ item }) {
                 border: `1px solid ${accent}33`,
               }}
             >
-              {item.category}
+              {item.name}
             </span>
           )}
         </div>
 
         {/* Scaled Render Layer */}
         <div className="mt-2 transform transition-transform duration-300 group-hover:scale-105">
-          <RealisticVehicleIcon id={item.id} />
+          <RealisticVehicleIcon id={item.graphic} brand={brand} label={item.graphicLabel} />
         </div>
       </div>
 
@@ -248,9 +238,9 @@ function FleetCard({ item }) {
 
         {/* Sizes pill row */}
         <div className="flex flex-wrap gap-1.5 mb-3">
-          {item.sizes.map((size) => (
+          {item.sizes.map((size, si) => (
             <span
-              key={size}
+              key={si}
               className="text-[11px] font-semibold px-2 py-0.5 rounded"
               style={{
                 backgroundColor: "#e8f2fb",
@@ -272,8 +262,8 @@ function FleetCard({ item }) {
 
         {/* Features list */}
         <ul className="space-y-1.5 mb-5">
-          {item.features.slice(0, 3).map((feature) => (
-            <li key={feature} className="flex items-start gap-2 text-xs" style={{ color: "#4a6b85" }}>
+          {item.features.slice(0, 3).map((feature, fi) => (
+            <li key={fi} className="flex items-start gap-2 text-xs" style={{ color: "#4a6b85" }}>
               <FaCheck
                 size={10}
                 className="mt-0.5 shrink-0"
@@ -293,7 +283,7 @@ function FleetCard({ item }) {
             className="text-xs font-bold tracking-wider uppercase group-hover:underline"
             style={{ color: accent }}
           >
-            View Details
+            {linkLabel}
           </span>
           <FaChevronRight
             size={11}
@@ -307,7 +297,7 @@ function FleetCard({ item }) {
 }
 
 // ── Main Layout Component ────────────────────────────
-export default function FleetGrid() {
+export default function FleetGrid({ fleetGrid, fleet, brand }) {
   return (
     <section
       className="w-full py-16 md:py-20"
@@ -329,7 +319,7 @@ export default function FleetGrid() {
                 className="text-xs font-bold tracking-[0.2em] uppercase"
                 style={{ color: "#c9a84c" }}
               >
-                What We Rent
+                {fleetGrid.eyebrow}
               </span>
             </div>
 
@@ -341,11 +331,10 @@ export default function FleetGrid() {
                 fontFamily: "'Georgia', 'Times New Roman', serif",
               }}
             >
-              Our Full Fleet
+              {fleetGrid.title}
             </h2>
             <p className="mt-2 text-base max-w-xl" style={{ color: "#4a6b85" }}>
-              Eight equipment categories — dry, refrigerated, powered, and
-              custom specialty — all available on a 2-month minimum rental.
+              {fleetGrid.text}
             </p>
           </div>
 
@@ -354,15 +343,15 @@ export default function FleetGrid() {
             className="hidden md:inline-flex items-center gap-2 text-sm font-bold tracking-wide shrink-0 transition-colors hover:opacity-80"
             style={{ color: "#2d8fdd" }}
           >
-            See full fleet page
+            {fleetGrid.linkLabel}
             <FaArrowRight size={13} style={{ color: "#c9a84c" }} />
           </Link>
         </div>
 
         {/* Card responsive grid system wrapper */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {FLEET.map((item) => (
-            <FleetCard key={item.id} item={item} />
+          {fleet.map((item) => (
+            <FleetCard key={item.id} item={item} linkLabel={fleetGrid.cardLinkLabel} brand={brand} />
           ))}
         </div>
 
@@ -373,7 +362,7 @@ export default function FleetGrid() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded font-bold text-sm tracking-wider uppercase transition-all hover:brightness-110 active:scale-95"
             style={{ backgroundColor: "#2d8fdd", color: "#ffffff" }}
           >
-            View Full Fleet
+            {fleetGrid.mobileButtonLabel}
             <FaArrowRight size={13} />
           </Link>
         </div>

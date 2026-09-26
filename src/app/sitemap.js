@@ -1,16 +1,17 @@
-import { FLEET, SERVICES } from "@/app/lib/constants"
+import { getContent } from "@/app/lib/server/content"
 
-export default function sitemap() {
-  const baseUrl = "https://ardmoretrailer.com"
+export default async function sitemap() {
+  const { fleet, services, seo } = await getContent()
+  const baseUrl = seo.siteUrl.replace(/\/$/, "")
 
-  const fleetPages = FLEET.map((f) => ({
+  const fleetPages = fleet.map((f) => ({
     url: `${baseUrl}/fleet/${f.id}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.8,
   }))
 
-  const servicePages = SERVICES.map((s) => ({
+  const servicePages = services.map((s) => ({
     url: `${baseUrl}/services/${s.id}`,
     lastModified: new Date(),
     changeFrequency: "monthly",

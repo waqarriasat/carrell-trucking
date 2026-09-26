@@ -1,5 +1,7 @@
 "use server"
 
+import { getContent } from "@/app/lib/server/content"
+
 export async function submitContact(formData) {
   const data = {
     name:    formData.get("name"),
@@ -11,6 +13,8 @@ export async function submitContact(formData) {
   if (!data.name || !data.phone || !data.message) {
     return { success: false, error: "Name, phone and message are required." }
   }
+
+  const { site } = await getContent()
 
   try {
     const nodemailer = await import("nodemailer")
@@ -26,7 +30,7 @@ export async function submitContact(formData) {
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "wjatt4752@gmail.com",
+      to: site.formRecipient,
       subject: `New Contact Message from ${data.name}`,
       html: `
         <h2>New Contact Message</h2>
@@ -42,6 +46,6 @@ export async function submitContact(formData) {
     return { success: true }
   } catch (err) {
     console.error("Email error:", err)
-    return { success: false, error: "Failed to send. Please call us at 580-226-7811." }
+    return { success: false, error: `Failed to send. Please call us at ${site.phone}.` }
   }
 }

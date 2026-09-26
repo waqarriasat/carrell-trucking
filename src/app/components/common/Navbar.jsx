@@ -4,21 +4,20 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaBars, FaPhone, FaChevronDown } from "react-icons/fa6";
-import { NAV_LINKS, NAV_CTA, SITE, FLEET, SERVICES } from "@/app/lib/constants";
 import MobileMenu from "./MobileMenu";
 
-const DROPDOWNS = {
-  "/fleet": {
-    items: FLEET.map((f) => ({ label: f.name, href: `/fleet/${f.id}` })),
-    viewAll: { label: "View All Fleet", href: "/fleet" },
-  },
-  "/services": {
-    items: SERVICES.map((s) => ({ label: s.label, href: `/services/${s.id}` })),
-    viewAll: { label: "View All Services", href: "/services" },
-  },
-}
+export default function Navbar({ site, nav, fleet, services }) {
+  const DROPDOWNS = {
+    "/fleet": {
+      items: fleet.map((f) => ({ label: f.name, href: `/fleet/${f.id}` })),
+      viewAll: { label: nav.fleetViewAll, href: "/fleet" },
+    },
+    "/services": {
+      items: services.map((s) => ({ label: s.label, href: `/services/${s.id}` })),
+      viewAll: { label: nav.servicesViewAll, href: "/services" },
+    },
+  }
 
-export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
@@ -149,40 +148,40 @@ export default function Navbar() {
           style={{ backgroundColor: "#0a2038", borderColor: "#1e4d7b", color: "#7a9bb5" }}
         >
           <FaPhone size={11} style={{ color: "#c9a84c" }} />
-          <a href={SITE.phoneHref} className="hover:text-white transition-colors tracking-wide">
-            {SITE.phone}
+          <a href={site.phoneHref} className="hover:text-white transition-colors tracking-wide">
+            {site.phone}
           </a>
           <span className="mx-2 opacity-30">|</span>
-          <span>{SITE.address.city}, {SITE.address.state}</span>
+          <span>{site.city}, {site.state}</span>
         </div>
 
         {/* Main nav row */}
         <div className="flex items-center justify-between px-5 md:px-8 lg:px-10 h-16">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group" aria-label="Ardmore Trailer, Inc. — Home">
+          <Link href="/" className="flex items-center gap-3 group" aria-label={`${site.name} — Home`}>
             <div className="flex flex-col leading-none">
               <span
                 className="font-black text-lg md:text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
                 style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
               >
-                ARDMORE
+                {site.logoTop}
               </span>
               <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: "#c9a84c" }}>
-                Trailer, Inc.
+                {site.logoBottom}
               </span>
             </div>
           </Link>
 
           {/* Desktop nav links */}
           <nav className="hidden lg:flex items-center gap-1" aria-label="Primary navigation">
-            {NAV_LINKS.map((link) => {
+            {nav.links.map((link, li) => {
               const dropdown = DROPDOWNS[link.href]
               const isOpen = activeDropdown === link.href
 
               return (
                 <div
-                  key={link.href}
+                  key={li}
                   style={{ position: "relative" }}
                   onMouseEnter={() => dropdown && openDropdown(link.href)}
                   onMouseLeave={() => dropdown && closeDropdown()}
@@ -277,19 +276,19 @@ export default function Navbar() {
             <span className="mx-2 h-5 w-px opacity-20" style={{ backgroundColor: "#7a9bb5" }} aria-hidden="true" />
 
             <Link
-              href={NAV_CTA.href}
+              href={nav.cta.href}
               className="px-5 py-2 rounded text-sm font-bold tracking-wider uppercase border-2 transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{ borderColor: "#c9a84c", color: "#c9a84c" }}
             >
-              {NAV_CTA.label}
+              {nav.cta.label}
             </Link>
           </nav>
 
           {/* Mobile */}
           <div className="flex items-center gap-3 lg:hidden">
             <a
-              href={SITE.phoneHref}
-              aria-label={`Call ${SITE.phone}`}
+              href={site.phoneHref}
+              aria-label={`Call ${site.phone}`}
               className="flex items-center justify-center w-9 h-9 rounded-full transition-colors hover:bg-white/10"
               style={{ color: "#c9a84c" }}
             >
@@ -307,7 +306,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} site={site} nav={nav} fleet={fleet} services={services} />
     </>
   )
 }

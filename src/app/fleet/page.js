@@ -1,29 +1,18 @@
-"use client";
-
-import { useEffect } from "react";
 import FleetHero from "@/app/components/pages/fleet/FleetHero";
 import FleetList from "@/app/components/pages/fleet/FleetList";
 import FleetCTA from "@/app/components/pages/fleet/FleetCTA";
+import ScrollToHash from "@/app/components/pages/fleet/ScrollToHash";
+import { getContent } from "@/app/lib/server/content";
 
-export default function FleetPage() {
-  useEffect(() => {
-    const hash = window.location.hash?.replace("#", "");
-    if (!hash) return;
-    // Delay allows FleetList to fully render before scrolling
-    const timer = setTimeout(() => {
-      const el = document.getElementById(hash);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }, 400);
-    return () => clearTimeout(timer);
-  }, []);
+export default async function FleetPage() {
+  const { fleetPage, fleet, site } = await getContent();
 
   return (
     <>
-      <FleetHero />
-      <FleetList />
-      <FleetCTA />
+      <ScrollToHash />
+      <FleetHero fleetPage={fleetPage} />
+      <FleetList fleetPage={fleetPage} fleet={fleet} site={site} />
+      <FleetCTA fleetPage={fleetPage} />
     </>
   );
 }

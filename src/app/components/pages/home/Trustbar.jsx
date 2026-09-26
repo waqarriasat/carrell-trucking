@@ -1,19 +1,20 @@
 import { FaPhone, FaChevronRight } from "react-icons/fa6";
 import Link from "next/link";
-import { TRUST_STATS, SERVICES, SITE } from "@/app/lib/constants";
 
 // ─────────────────────────────────────────────
 //  TrustBar
 //  Full-width strip that sits directly below
 //  the Hero. Two rows:
 //
-//  Row 1 — 4 stat counters (from TRUST_STATS)
-//  Row 2 — 4 industry pills (from SERVICES)
+//  Row 1 — stat counters (admin: Home → Trust bar)
+//  Row 2 — industry pills (from services)
 //
 //  No state, no hooks — pure server component.
 // ─────────────────────────────────────────────
 
-export default function TrustBar() {
+export default function TrustBar({ trustBar, site, services }) {
+  const TRUST_STATS = trustBar.stats;
+
   return (
     <section
       className="relative w-full"
@@ -35,7 +36,7 @@ export default function TrustBar() {
         <div className="grid grid-cols-2 lg:grid-cols-4">
           {TRUST_STATS.map((stat, i) => (
             <div
-              key={stat.label}
+              key={i}
               className="relative flex flex-col items-center justify-center text-center py-8 px-4"
             >
               {/* Vertical divider between items (not after last) */}
@@ -87,12 +88,12 @@ export default function TrustBar() {
             className="text-xs font-bold tracking-[0.2em] uppercase shrink-0"
             style={{ color: "#7a9bb5" }}
           >
-            Industries Served:
+            {trustBar.industriesLabel}
           </span>
 
           {/* Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            {SERVICES.map((service) => (
+            {services.map((service) => (
               <Link
                 key={service.id}
                 href={`/fleet?industry=${service.id}`}
@@ -114,12 +115,12 @@ export default function TrustBar() {
 
           {/* Phone CTA — desktop only */}
           <a
-            href={SITE.phoneHref}
+            href={site.phoneHref}
             className="hidden lg:inline-flex items-center gap-2 text-sm font-bold tracking-wide transition-colors hover:text-white shrink-0"
             style={{ color: "#2d8fdd" }}
           >
             <FaPhone size={13} style={{ color: "#c9a84c" }} />
-            {SITE.phone}
+            {site.phone}
           </a>
 
         </div>

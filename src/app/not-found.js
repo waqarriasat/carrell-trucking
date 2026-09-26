@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { FaHome, FaTruck, FaPhone } from "react-icons/fa"
+import { getContent } from "@/app/lib/server/content"
 
 const C = {
   dark:   "#0f2d4a",
@@ -12,7 +13,9 @@ const C = {
   text:   "#4a6b85",
 }
 
-export default function NotFound() {
+export default async function NotFound() {
+  const { notFound: page, site } = await getContent()
+
   return (
     <div style={{
       background: C.dark,
@@ -56,12 +59,11 @@ export default function NotFound() {
           fontWeight: 900, color: "#fff",
           margin: "0 0 12px", lineHeight: 1.2
         }}>
-          Page Not Found
+          {page.title}
         </h1>
 
         <p style={{ fontSize: 14, color: C.muted, lineHeight: 1.8, margin: "0 0 32px" }}>
-          The page you're looking for doesn't exist or has been moved.
-          Let's get you back on track.
+          {page.text}
         </p>
 
         {/* Buttons */}
@@ -72,7 +74,7 @@ export default function NotFound() {
             borderRadius: 8, background: C.gold, color: C.dark,
             textDecoration: "none"
           }}>
-            <FaHome size={14} /> Go Home
+            <FaHome size={14} /> {page.homeLabel}
           </Link>
           <Link href="/fleet" style={{
             display: "inline-flex", alignItems: "center", gap: 8,
@@ -80,15 +82,15 @@ export default function NotFound() {
             borderRadius: 8, border: `2px solid ${C.blue}`, color: C.blue,
             textDecoration: "none"
           }}>
-            <FaTruck size={14} /> View Fleet
+            <FaTruck size={14} /> {page.fleetLabel}
           </Link>
-          <a href="tel:580-226-7811" style={{
+          <a href={site.phoneHref} style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             fontSize: 13, fontWeight: 700, padding: "12px 24px",
             borderRadius: 8, border: `2px solid ${C.muted}`, color: C.muted,
             textDecoration: "none"
           }}>
-            <FaPhone size={14} /> Call Us
+            <FaPhone size={14} /> {page.callLabel}
           </a>
         </div>
 
@@ -99,18 +101,11 @@ export default function NotFound() {
           borderRadius: 14, padding: "20px 24px"
         }}>
           <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold, marginBottom: 14 }}>
-            Quick Links
+            {page.quickLinksLabel}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
-            {[
-              { label: "Homepage",     href: "/" },
-              { label: "Our Fleet",    href: "/fleet" },
-              { label: "Services",     href: "/services" },
-              { label: "About Us",     href: "/about" },
-              { label: "Contact",      href: "/contact" },
-              { label: "Get a Quote",  href: "/quote" },
-            ].map(link => (
-              <Link key={link.href} href={link.href} style={{
+            {page.quickLinks.map((link, i) => (
+              <Link key={i} href={link.href} style={{
                 fontSize: 12, fontWeight: 600, padding: "6px 14px",
                 borderRadius: 20, border: `1px solid ${C.navy}`,
                 color: C.muted, textDecoration: "none",

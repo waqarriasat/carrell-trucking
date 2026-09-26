@@ -1,5 +1,7 @@
 "use server"
 
+import { getContent } from "@/app/lib/server/content"
+
 export async function submitQuote(formData) {
   const data = {
     name:      formData.get("name"),
@@ -17,6 +19,8 @@ export async function submitQuote(formData) {
     return { success: false, error: "Name and phone are required." }
   }
 
+  const { site } = await getContent()
+
   try {
     const nodemailer = await import("nodemailer")
     const transporter = nodemailer.default.createTransport({
@@ -33,8 +37,8 @@ export async function submitQuote(formData) {
     await transporter.verify()
 
     await transporter.sendMail({
-      from: `"Ardmore Trailer" <${process.env.EMAIL_USER}>`,
-      to:   "wjatt4752@gmail.com",
+      from: `"${site.name}" <${process.env.EMAIL_USER}>`,
+      to:   site.formRecipient,
       subject: `New Quote Request from ${data.name}`,
       html: `
         <h2>New Quote Request</h2>

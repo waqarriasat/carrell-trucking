@@ -1,0 +1,711 @@
+// ─────────────────────────────────────────────
+//  DEFAULT SITE CONTENT
+//  Every piece of text / image shown on the
+//  public site lives here. The admin panel
+//  (/admin) edits a saved copy of this object;
+//  these values are only used until the first
+//  save, or for fields that were never saved.
+//
+//  Placeholders like {phone} are replaced with
+//  the values from "site" at render time — see
+//  lib/content/resolve.js for the full list.
+// ─────────────────────────────────────────────
+
+const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
+
+export const DEFAULT_CONTENT = {
+  // ── Business details (used everywhere) ─────
+  site: {
+    name: "Ardmore Trailer, Inc.",
+    logoTop: "ARDMORE",
+    logoBottom: "Trailer, Inc.",
+    phone: "580-226-7811",
+    cell: "580-221-3494",
+    email: "rick@carrelltrucking.com",
+    street: "3801 Springdale Road",
+    city: "Ardmore",
+    state: "OK",
+    zip: "73401",
+    minRental: "2-month minimum rental",
+    formRecipient: "wjatt4752@gmail.com",
+    mapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3252.7!2d-97.1!3d34.17!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s3801+Springdale+Road%2C+Ardmore%2C+OK+73401!5e0!3m2!1sen!2sus!4v1234567890",
+  },
+
+  seo: {
+    title: "Ardmore Trailer, Inc. | Trailer & Container Rental Oklahoma",
+    titleTemplate: "%s | Ardmore Trailer, Inc.",
+    description:
+      "Southern Oklahoma's trusted trailer and container rental. Reefer, dry containers, generators, office units. Call {phone}.",
+    keywords: ["trailer rental", "container rental", "reefer trailer", "Oklahoma", "Ardmore"],
+    siteUrl: "https://ardmoretrailer.com",
+  },
+
+  // ── Header navigation ──────────────────────
+  nav: {
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Fleet", href: "/fleet" },
+      { label: "Services", href: "/services" },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
+    ],
+    cta: { label: "Get a Quote", href: "/quote" },
+    fleetViewAll: "View All Fleet",
+    servicesViewAll: "View All Services",
+    mobileMenuTitle: "Menu",
+    mobileViewAllPrefix: "View All",
+    mobileCallLabel: "Call Direct",
+  },
+
+  // ── Footer ─────────────────────────────────
+  footer: {
+    ctaEyebrow: "Ready to Rent?",
+    ctaTitle: "Get your equipment on-site fast.",
+    ctaButton: { label: "Get a Quote", href: "/quote" },
+    blurb:
+      "Southern Oklahoma's rental source for dry containers, reefers, trailers, generators, and custom specialty units.",
+    fleetHeading: "Fleet",
+    industriesHeading: "Industries",
+    contactHeading: "Contact",
+    contactQuoteLabel: "Get a Quote",
+    copyright: "All rights reserved.",
+  },
+
+  // ── Home page ──────────────────────────────
+  home: {
+    hero: {
+      eyebrow: "Ardmore, Oklahoma",
+      titleStart: "Heavy-Duty",
+      titleAccent1: "Trailers",
+      titleJoin: "&",
+      titleAccent2: "Containers",
+      titleLine2: "for Every",
+      titleAccent3: "Job Site.",
+      text: "Southern Oklahoma's rental source for dry containers, reefer trailers, mobile offices, generators, and custom mud lab units.",
+      textHighlight: "2-month minimum. Direct line to the owner.",
+      primaryButton: { label: "Get a Free Quote", href: "/quote" },
+      secondaryButton: { label: "Browse Fleet", href: "/fleet" },
+      callLabel: "Call Direct",
+      previewLabel: "Available Equipment",
+      previewCount: 6,
+      viewAllText: "View all {count} equipment types",
+      slideSeconds: 5,
+      slides: [
+        U("1586528116311-ad8dd3c8310d", 2000),
+        U("1601584115197-04ecc0da31d7", 2000),
+        U("1578575437130-527eed3abbec", 2000),
+      ],
+    },
+
+    trustBar: {
+      stats: [
+        { value: "8+", label: "Equipment Categories" },
+        { value: "2 mo", label: "Minimum Rental Term" },
+        { value: "580", label: "Ardmore Area Code — Call Direct" },
+        { value: "OK", label: "Southern Oklahoma Proud" },
+      ],
+      industriesLabel: "Industries Served:",
+    },
+
+    fleetGrid: {
+      eyebrow: "What We Rent",
+      title: "Our Full Fleet",
+      text: "Eight equipment categories — dry, refrigerated, powered, and custom specialty — all available on a 2-month minimum rental.",
+      linkLabel: "See full fleet page",
+      mobileButtonLabel: "View Full Fleet",
+      cardLinkLabel: "View Details",
+    },
+
+    whyUs: {
+      eyebrow: "Why Choose Us",
+      title: "Built for Oklahoma's Toughest Jobs",
+      text: "From oilfields to construction sites — we show up with the right equipment, on time, every time.",
+      badge1: { image: "/images/satisfaction.png", alt: "100% Customer Satisfaction Guaranteed" },
+      badge2: { image: "/images/iso.png", alt: "ISO 9001:2015 Certified" },
+      badgeTitle: "100% Satisfaction Guaranteed & ISO 9001:2015 Certified",
+      badgeText:
+        "We stand behind every rental with a satisfaction guarantee and operate to international quality management standards.",
+      items: [
+        {
+          icon: "/images/quality.png",
+          title: "Quality Equipment",
+          text: "Every unit in our fleet is maintained to the highest standard — ready to work the moment it arrives on your site.",
+          stat: "100%",
+          statLabel: "Maintained Fleet",
+        },
+        {
+          icon: "/images/safe-service.png",
+          title: "Safe & Reliable Service",
+          text: "We prioritize safety on every delivery and rental. Our equipment meets all industry standards for your peace of mind.",
+          stat: "100%",
+          statLabel: "Safe Service",
+        },
+        {
+          icon: "/images/support.png",
+          title: "24/7 Support",
+          text: "Our team is always reachable. Whether it's a question or an urgent issue — we're just a call away anytime.",
+          stat: "24/7",
+          statLabel: "Available",
+        },
+        {
+          icon: "/images/customer-satisfaction.png",
+          title: "Customer Satisfaction",
+          text: "We go the extra mile to make sure every customer is happy — from first call to final pickup.",
+          stat: "100%",
+          statLabel: "Satisfaction",
+        },
+        {
+          icon: "/images/cost-efficient.png",
+          title: "Cost Efficient",
+          text: "Competitive rates with no surprises. Get the best value for your rental budget across all equipment types.",
+          stat: "Best",
+          statLabel: "Value",
+        },
+        {
+          icon: "/images/hidden-charges.png",
+          title: "No Hidden Charges",
+          text: "Transparent pricing from day one. What you see is what you pay — no unexpected fees or fine print.",
+          stat: "0",
+          statLabel: "Hidden Fees",
+        },
+        {
+          icon: "/images/experienced-staff.png",
+          title: "Experienced Staff",
+          text: "Our team knows the trailer and container business inside out. Talk directly to Rick and the team — no call centers.",
+          stat: "20+",
+          statLabel: "Years Experience",
+        },
+        {
+          icon: "/images/free-quote.png",
+          title: "Free Quote",
+          text: "Get a fast, no-obligation quote for any equipment type. We'll help you find the right unit for your needs.",
+          stat: "FREE",
+          statLabel: "No Obligation",
+        },
+      ],
+      stripBefore: "Serving Oklahoma & surrounding areas with a",
+      stripHighlight: "2-month minimum",
+      stripAfter: "rental period.",
+      stripButtonLabel: "Call {phone}",
+    },
+
+    testimonials: {
+      eyebrow: "What Customers Say",
+      title: "Trusted by Oklahoma Businesses",
+      text: "Don't just take our word for it — here's what our customers say about renting with Ardmore Trailer.",
+      items: [
+        {
+          quote: "Ardmore Trailer had a 40-foot reefer container on our site within 48 hours. Rick was straightforward about pricing — no surprises.",
+          author: "J. Harmon",
+          company: "Harmon Produce, Ardmore OK",
+        },
+        {
+          quote: "We rented three trailers for overflow storage during a facility expansion. Solid units, clean, and hassle-free pickup.",
+          author: "T. Wilkins",
+          company: "Wilkins Manufacturing",
+        },
+        {
+          quote: "The mud lab trailer was spec'd exactly how we needed it. You won't find that level of customization anywhere else in the region.",
+          author: "D. Castillo",
+          company: "Southwest Drilling Services",
+        },
+      ],
+      ctaTitle: "Ready to experience the Ardmore Trailer difference?",
+      ctaText: "Call {phone} or get a free quote today.",
+      ctaPrimaryButton: { label: "Get a Free Quote", href: "/quote" },
+      ctaCallLabel: "Call {phone}",
+    },
+
+    ctaBanner: {
+      stats: [
+        { value: "20+", label: "Years in Business" },
+        { value: "Direct", label: "Owner Communication" },
+        { value: "On-Site", label: "Prompt Delivery" },
+        { value: "100%", label: "Commercial Grade" },
+      ],
+      eyebrow: "Streamlined Logistics",
+      titleStart: "Lock In Your Fleet Assets",
+      titleAccent: "Before Your Next Project.",
+      text: "Don't risk project downtime due to supply constraints. We coordinate with your timeline to drop off heavy-duty infrastructure directly where you need it most. Secure your minimum 2-month rental allocation today.",
+      button: { label: "Begin Online Setup", href: "/quote" },
+      processLabel: "Our Seamless Rental Process",
+      stepPrefix: "STEP",
+      steps: [
+        {
+          icon: "fa6/FaClipboardCheck",
+          title: "Submit Requirements",
+          text: "Request your specific sizes, generator capacities, or office styles online.",
+        },
+        {
+          icon: "fa6/FaShield",
+          title: "Confirm Allocation",
+          text: "Review your comprehensive, transparent commercial contract with a 2-month minimum term.",
+        },
+        {
+          icon: "fa6/FaTruck",
+          title: "Scheduled Delivery",
+          text: "Our dispatch team drops off the certified ready-to-use fleet assets directly to your site.",
+        },
+      ],
+    },
+  },
+
+  // ── Equipment (fleet) items ────────────────
+  //  Used by: home fleet grid, hero preview,
+  //  /fleet listing, /fleet/[id] detail pages,
+  //  navbar + footer menus, quote form.
+  fleet: [
+    {
+      id: "container-dry",
+      name: "Container Dry",
+      shortName: "Container Dry",
+      badge: "Storage Container Rentals",
+      icon: "fa/FaBox",
+      graphic: "container-dry",
+      graphicLabel: "CONTAINER DRY",
+      accent: "#2d8fdd",
+      sizes: ["10 ft", "20 ft", "40 ft"],
+      description:
+        "Weather-tight steel containers ideal for on-site storage, inventory overflow, and secure equipment housing. Available in three lengths to fit any footprint.",
+      features: ["All-steel corrugated construction", "Lockbox security doors", "Forklift pockets on base", "Wind & watertight seal"],
+      useCases: ["Construction sites", "Retail overflow", "Document storage", "Equipment staging"],
+      listSizes: ["10 ft", "20 ft", "40 ft"],
+      listDescription:
+        "Secure, weather-tight dry containers for on-site storage. Perfect for construction sites, retail overflow, and industrial storage.",
+      listFeatures: ["Weatherproof", "Lockable", "Ground level access", "Multiple sizes", "Pest resistant", "Stackable"],
+      image: U("1586528116311-ad8dd3c8310d", 900),
+      gallery: [U("1578575437130-527eed3abbec", 400), U("1601584115197-04ecc0da31d7", 400), U("1590534247854-e97d5e3feef6", 400)],
+    },
+    {
+      id: "trailers",
+      name: "Trailers",
+      shortName: "Trailers",
+      badge: "Heavy-Duty Trailer Rentals",
+      icon: "fa/FaTruck",
+      graphic: "trailers",
+      graphicLabel: "Trailers",
+      accent: "#2d8fdd",
+      sizes: ["28 ft", "48 ft", "53 ft"],
+      description:
+        "Full-size dry van trailers for temporary storage or freight staging. Swing doors, side doors, and vent options available on select units.",
+      features: ["Swing & roll-up door options", "Interior track & E-track", "Air-ride or spring suspension", "DOT-compliant lighting"],
+      useCases: ["Distribution overflow", "Event staging", "Seasonal storage", "Manufacturing"],
+      listSizes: ["28 ft", "48 ft", "53 ft"],
+      listDescription:
+        "Standard enclosed trailers for all general freight requirements. Ideal for temporary storage and on-site logistics.",
+      listFeatures: ["Dry freight", "Roll-up doors", "Side doors", "Swing doors", "E-track rails", "Logistics ready"],
+      image: U("1601584115197-04ecc0da31d7", 900),
+      gallery: [U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400), U("1621905251189-08b45d6a269e", 400)],
+    },
+    {
+      id: "reefer-diesel",
+      name: "Reefer Diesel",
+      shortName: "Reefer Diesel",
+      badge: "Diesel Reefer Rentals",
+      icon: "fa/FaSnowflake",
+      graphic: "reefer-diesel",
+      graphicLabel: "REEFER DIESEL",
+      accent: "#2d8fdd",
+      sizes: ["28 ft", "48 ft", "53 ft"],
+      description:
+        "Self-powered diesel reefer trailers that operate independently — no external power needed. Perfect for remote job sites and large-scale temp storage.",
+      features: ["Self-contained diesel unit", "±2°F precision temperature", "Remote monitoring capable", "Automatic defrost cycle"],
+      useCases: ["Remote worksites", "Outdoor events", "Pharmaceutical storage", "Produce staging"],
+      listSizes: ["28 ft", "48 ft", "53 ft"],
+      listDescription:
+        "Diesel-powered refrigerated trailers for temperature-sensitive cargo. Self-contained and ready to run independently.",
+      listFeatures: ["Diesel powered", "Multi-temp zones", "24/7 monitoring", "Self-contained", "Independent", "Wide temp range"],
+      image: U("1590534247854-e97d5e3feef6", 900),
+      gallery: [U("1601584115197-04ecc0da31d7", 400), U("1578575437130-527eed3abbec", 400), U("1586528116311-ad8dd3c8310d", 400)],
+    },
+    {
+      id: "reefer-electric",
+      name: "Reefer Electric",
+      shortName: "Reefer Electric",
+      badge: "Electric Reefer Rentals",
+      icon: "fa/FaBolt",
+      graphic: "reefer-electric",
+      graphicLabel: "E-POWER REEFER",
+      accent: "#2d8fdd",
+      sizes: ["20 ft", "40 ft"],
+      description:
+        "Plug-in electric reefer trailers — quieter, cleaner, and lower operating cost when shore power is available. Ideal for urban or facility-adjacent use.",
+      features: ["Shore-power plug-in (460V/3ph)", "Ultra-quiet operation", "Digital thermostat control", "Stainless interior lining"],
+      useCases: ["Warehouses", "Food service", "Retail back-of-house", "Hospital overflow"],
+      listSizes: ["20 ft", "40 ft"],
+      listDescription:
+        "Electric refrigerated units — quiet, efficient, and eco-friendly. Ideal for locations with reliable power access.",
+      listFeatures: ["Electric powered", "Low noise", "Energy efficient", "Precise temp", "Eco friendly", "Indoor suitable"],
+      image: U("1542435503-956c469947f6", 900),
+      gallery: [U("1590534247854-e97d5e3feef6", 400), U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400)],
+    },
+    {
+      id: "reefer-container",
+      name: "Reefer Container",
+      shortName: "Reefer Container",
+      badge: "Refrigerated Container Rentals",
+      icon: "fa/FaIndustry",
+      graphic: "reefer-container",
+      graphicLabel: "REEFER CONTAINER",
+      accent: "#2d8fdd",
+      sizes: ["20 ft", "40 ft"],
+      description:
+        "ISO refrigerated containers combining container security with active refrigeration. Stackable, lockable, and built for long-term stationary use.",
+      features: ["Integrated Carrier/Thermo-King unit", "Stackable ISO corner castings", "Temperature range −20°F to +70°F", "Tamper-evident locking system"],
+      useCases: ["Cold chain storage", "Vaccine/pharma", "Frozen food distribution", "Export prep"],
+      listSizes: ["20 ft", "40 ft"],
+      listDescription:
+        "Refrigerated containers for stationary cold storage on your site. Plug in and keep product at the right temperature.",
+      listFeatures: ["Plug-in electric", "Ground level", "Secure storage", "Temp monitoring", "Weatherproof", "Remote ready"],
+      image: U("1578575437130-527eed3abbec", 900),
+      gallery: [U("1542435503-956c469947f6", 400), U("1590534247854-e97d5e3feef6", 400), U("1601584115197-04ecc0da31d7", 400)],
+    },
+    {
+      id: "generator",
+      name: "Generator Units",
+      shortName: "Generator Units",
+      badge: "Industrial Generator Rentals",
+      icon: "fa/FaPlug",
+      graphic: "generator",
+      graphicLabel: "POWER GEN",
+      accent: "#c9a84c",
+      sizes: ["20 kW", "50 kW", "100 kW"],
+      description:
+        "Skid-mounted diesel generator sets for powering reefer units, job-site operations, or emergency backup. Multiple kW ratings to match your load.",
+      features: ["Tier 4 Final diesel engine", "Automatic transfer switch ready", "Weatherproof enclosure", "Single & three-phase output"],
+      useCases: ["Reefer power supply", "Construction power", "Event backup", "Emergency response"],
+      listSizes: ["20 kW", "50 kW", "100 kW"],
+      listDescription:
+        "Reliable power generation units for remote and industrial sites. Keep your operations running no matter the location.",
+      listFeatures: ["Diesel powered", "Remote monitoring", "Auto transfer", "Weatherproof", "Load ready", "Fuel efficient"],
+      image: U("1621905251189-08b45d6a269e", 900),
+      gallery: [U("1586528116311-ad8dd3c8310d", 400), U("1601584115197-04ecc0da31d7", 400), U("1578575437130-527eed3abbec", 400)],
+    },
+    {
+      id: "office",
+      name: "Office Units",
+      shortName: "Office Units",
+      badge: "Mobile Office Rentals",
+      icon: "fa/FaBuilding",
+      graphic: "office",
+      graphicLabel: "HQ SITE OFFICE",
+      accent: "#c9a84c",
+      sizes: ["8×20 ft", "8×40 ft"],
+      description:
+        "Climate-controlled mobile offices with insulation, HVAC, electrical, and interior finishing — ready to set up and plug in on any job site.",
+      features: ["110V electrical with breaker panel", "HVAC heating & cooling", "Insulated walls & ceiling", "Desk, shelving, windows included"],
+      useCases: ["Construction site offices", "Sales offices", "Security booths", "Command centers"],
+      listSizes: ["8x20 ft", "8x40 ft", "12x60 ft"],
+      listDescription:
+        "Comfortable, ready-to-use portable office spaces for job sites. Climate controlled and fully equipped for daily work.",
+      listFeatures: ["Climate controlled", "Electrical outlets", "Windows", "Lockable doors", "HVAC included", "Move-in ready"],
+      image: U("1497366216548-37526070297c", 900),
+      gallery: [U("1621905251189-08b45d6a269e", 400), U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400)],
+    },
+    {
+      id: "mud-lab",
+      name: "Mud Lab",
+      shortName: "Mud Lab",
+      badge: "Custom Mud Lab Units",
+      icon: "fa/FaFlask",
+      graphic: "mud-lab",
+      graphicLabel: "MUD LAB UNIT",
+      accent: "#c9a84c",
+      sizes: ["Custom"],
+      description:
+        "Fully custom-built mud lab trailers engineered for oilfield drilling fluid analysis. Outfitted to your spec — call for a custom quote.",
+      features: ["Custom lab bench layout", "Fume hood & ventilation", "110/220V electrical service", "Climate control system"],
+      useCases: ["Drilling operations", "Oilfield services", "Geotechnical testing", "Field labs"],
+      listSizes: ["Custom"],
+      listDescription:
+        "Specialized mud lab units for oilfield and drilling operations. Custom fit-out available to match your exact specs.",
+      listFeatures: ["Oilfield spec", "Lab equipment ready", "Climate controlled", "Custom fit-out", "Industry standard", "Durable build"],
+      image: U("1504328345606-18bbc8c9d7d1", 900),
+      gallery: [U("1621905251189-08b45d6a269e", 400), U("1586528116311-ad8dd3c8310d", 400), U("1601584115197-04ecc0da31d7", 400)],
+    },
+  ],
+
+  // ── Fleet listing page (/fleet) ────────────
+  fleetPage: {
+    breadcrumbHome: "Home",
+    breadcrumbCurrent: "Fleet",
+    eyebrow: "What We Rent",
+    title: "Our Full Fleet",
+    text: "Eight equipment categories — dry, refrigerated, powered, and specialty — all available on a 2-month minimum rental. Serving Oklahoma and surrounding areas.",
+    stats: [
+      { value: "8", label: "Equipment Types" },
+      { value: "2 Mo", label: "Min. Rental" },
+      { value: "OK+", label: "Service Area" },
+    ],
+    quoteButtonLabel: "Get a Quote",
+    callButtonLabel: "Call Now",
+    ctaTitle: "Don't See What You Need?",
+    ctaAccent: "Let's Talk.",
+    ctaText: "Call us at {phone} or request a free quote and we'll find the right unit for your job.",
+  },
+
+  // ── Equipment detail pages (/fleet/[id]) ───
+  fleetDetail: {
+    overviewLabel: "Overview",
+    featuresLabel: "Key Features",
+    useCasesLabel: "Common Use Cases",
+    quoteButtonLabel: "Get a Free Quote",
+    callButtonLabel: "Call {phone}",
+    otherLabel: "Other Equipment",
+  },
+
+  // ── Services / industries ──────────────────
+  services: [
+    {
+      id: "commercial",
+      label: "Commercial",
+      icon: "fa/FaStore",
+      description: "Retail overflow, seasonal inventory, temporary warehousing for businesses of all sizes.",
+      image: U("1486406146926-c627a92ad1ab", 800),
+      features: ["Retail overflow storage", "Seasonal inventory", "Temporary warehousing", "Event storage", "Business relocation"],
+      fleet: ["container-dry", "trailers", "reefer-electric", "office"],
+    },
+    {
+      id: "residential",
+      label: "Residential",
+      icon: "fa/FaHome",
+      description: "Moving, renovation, and personal storage with flexible 2-month-minimum terms.",
+      image: U("1570129477492-45c003edd2be", 800),
+      features: ["Home renovation storage", "Moving assistance", "Personal storage", "Garage overflow", "Estate management"],
+      fleet: ["container-dry", "trailers", "office"],
+    },
+    {
+      id: "construction",
+      label: "Construction",
+      icon: "fa/FaHardHat",
+      description: "On-site offices, tool storage, and staging for contractors across Southern Oklahoma.",
+      image: U("1504307651254-35680f356dfd", 800),
+      features: ["On-site tool storage", "Equipment staging", "Site offices", "Material storage", "Crew facilities"],
+      fleet: ["container-dry", "trailers", "office", "generator"],
+    },
+    {
+      id: "industrial",
+      label: "Industrial",
+      icon: "fa/FaIndustry",
+      description: "Heavy-duty oilfield, manufacturing, and energy sector solutions — custom specs welcome.",
+      image: U("1581091226825-a6a2a5aee158", 800),
+      features: ["Oilfield operations", "Manufacturing support", "Energy sector", "Custom mud labs", "Remote site power"],
+      fleet: ["reefer-diesel", "generator", "mud-lab", "office"],
+    },
+  ],
+
+  // ── Services listing page (/services) ──────
+  servicesPage: {
+    metaTitle: "Services | Ardmore Trailer, Inc.",
+    metaDescription:
+      "Trailer and container rental services for commercial, residential, construction, and industrial needs in Oklahoma.",
+    breadcrumbHome: "Home",
+    breadcrumbCurrent: "Services",
+    eyebrow: "What We Do",
+    titleStart: "Industries",
+    titleAccent: "We Serve",
+    text: "From oilfield operations to home renovations — Ardmore Trailer, Inc. provides the right equipment for every job across Oklahoma and surrounding areas.",
+    stats: [
+      { value: "4", label: "Industries" },
+      { value: "8+", label: "Equipment Types" },
+      { value: "2 Mo", label: "Min. Rental" },
+    ],
+    applicationsLabel: "Common Applications",
+    recommendedLabel: "Recommended Equipment",
+    cardButtonLabel: "Get a Quote for {service}",
+    ctaTitle: "Not Sure What You Need?",
+    ctaAccent: "Let's Talk.",
+    ctaText: "Call us at {phone} — Rick and the team will find the right solution for your job.",
+    ctaPrimaryButton: { label: "Get a Free Quote", href: "/quote" },
+  },
+
+  // ── Service detail pages (/services/[id]) ──
+  serviceDetail: {
+    metaTitle: "{service} | Ardmore Trailer, Inc.",
+    eyebrow: "Our Services",
+    titleAccent: "Solutions",
+    applicationsLabel: "Common Applications",
+    recommendedLabel: "Recommended Equipment",
+    whyLabel: "Why Ardmore Trailer",
+    whyItems: ["Local Oklahoma company", "2-month minimum rental", "Direct contact with Rick", "No hidden fees", "On-site delivery"],
+    quoteButtonLabel: "Get a Free Quote",
+    callButtonLabel: "Call {phone}",
+    otherLabel: "Other Services",
+  },
+
+  // ── About page ─────────────────────────────
+  about: {
+    metaTitle: "About Us | Ardmore Trailer, Inc.",
+    metaDescription: "Learn about Ardmore Trailer, Inc. — Oklahoma's trusted trailer and container rental company.",
+    breadcrumbHome: "Home",
+    breadcrumbCurrent: "About",
+    eyebrow: "Who We Are",
+    titleStart: "Oklahoma's Trusted",
+    titleAccent: "Trailer & Container",
+    titleEnd: "Rental Company",
+    text: "Ardmore Trailer, Inc. has been serving Oklahoma and surrounding areas with professional trailer and container rentals. We deliver the right equipment to your site — on time, every time.",
+    stats: [
+      { value: "8+", label: "Equipment Types" },
+      { value: "2 Mo", label: "Min. Rental Period" },
+      { value: "OK+", label: "Service Area" },
+      { value: "24/7", label: "Support Available" },
+    ],
+    storyImage: U("1601584115197-04ecc0da31d7", 700),
+    storyImageAlt: "Ardmore Trailer fleet",
+    storyEyebrow: "Our Story",
+    storyTitle: "Built on Trust, Delivered with Pride",
+    storyParagraph1:
+      "Ardmore Trailer, Inc. was founded with one simple goal — provide reliable, high-quality trailer and container rentals to businesses and individuals across Oklahoma. From our base in Ardmore, we serve customers across the state and surrounding areas.",
+    storyParagraph2:
+      "Whether you need a dry container for on-site storage, a refrigerated trailer for temperature-sensitive cargo, a generator for a remote site, or a purpose-built mud lab — we have the equipment and experience to get the job done right.",
+    storyChecklist: [
+      "Minimum 2-month rental period",
+      "Serving Oklahoma & surrounding areas",
+      "8 equipment types available",
+      "Direct contact — no call centers",
+    ],
+    valuesEyebrow: "What We Stand For",
+    valuesTitle: "Our Values",
+    values: [
+      { icon: "fa6/FaShield", title: "Quality First", text: "Every unit is maintained to the highest standard before it leaves our yard." },
+      { icon: "fa6/FaHandshake", title: "Honest Service", text: "No hidden fees, no surprises. Transparent pricing from day one." },
+      { icon: "fa6/FaTruck", title: "On-Time Delivery", text: "We show up when we say we will — every time, no excuses." },
+      { icon: "fa6/FaAward", title: "Industry Experience", text: "Years of experience serving Oklahoma's toughest job sites." },
+      { icon: "fa6/FaClock", title: "2-Month Minimum", text: "Flexible rental terms starting at 2 months to match your project." },
+      { icon: "fa6/FaUsers", title: "Local Team", text: "Talk directly to Rick and the team — no call centers, ever." },
+    ],
+    teamEyebrow: "Our People",
+    teamTitle: "Meet the Team",
+    team: [
+      { name: "Rick Carrell", role: "President", photo: "" },
+      { name: "Wendy", role: "Billing", photo: "" },
+      { name: "Royce Brad", role: "Office", photo: "" },
+    ],
+    ctaTitle: "Ready to Get Started?",
+    ctaAccent: "Let's Talk.",
+    ctaText: "Call us, send an email, or visit us in Ardmore, OK.",
+    ctaCallLabel: "{phone}",
+    ctaEmailLabel: "Email Us",
+    ctaDirectionsLabel: "Get Directions",
+  },
+
+  // ── Contact page ───────────────────────────
+  contact: {
+    breadcrumbHome: "Home",
+    breadcrumbCurrent: "Contact",
+    eyebrow: "Get In Touch",
+    titleStart: "Contact",
+    titleAccent: "Ardmore Trailer",
+    text: "Have a question about rentals? Need a quote? Reach out to our team directly — no call centers, just real people.",
+    infoEyebrow: "Reach Us",
+    infoTitle: "Contact Information",
+    infoCards: [
+      { icon: "fa/FaPhone", label: "Main Phone", value: "{phone}", sub: "Call us during business hours", href: "{phoneLink}", color: "#c9a84c" },
+      { icon: "fa/FaPhone", label: "Cell", value: "{cell}", sub: "Rick Carrell — President", href: "{cellLink}", color: "#2d8fdd" },
+      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", sub: "We'll respond as soon as possible", href: "{emailLink}", color: "#c9a84c" },
+      { icon: "fa/FaMapMarkerAlt", label: "Address", value: "{street}", sub: "{city}, {state} {zip}", href: "{mapsLink}", color: "#2d8fdd" },
+    ],
+    mapEyebrow: "Find Us",
+    mapTitle: "Visit Our Location",
+    mapLocationName: "{company}",
+    mapLocationAddress: "{address}",
+    hoursTitle: "Business Hours",
+    hours: ["Monday – Friday: 8:00 AM – 5:00 PM", "Saturday: By appointment", "Sunday: Closed"],
+    formEyebrow: "Send a Message",
+    formTitle: "Quick Contact",
+    form: {
+      nameLabel: "Full Name *",
+      namePlaceholder: "Your full name",
+      phoneLabel: "Phone Number *",
+      phonePlaceholder: "Your phone number",
+      emailLabel: "Email Address",
+      emailPlaceholder: "your@email.com",
+      messageLabel: "Message *",
+      messagePlaceholder: "Tell us what you need...",
+      submitLabel: "Send Message",
+      sendingLabel: "Sending...",
+      successMessage: "Message sent! We'll get back to you shortly.",
+      callText: "Or call us at",
+    },
+    teamEyebrow: "Who to Contact",
+    teamTitle: "Reach the Right Person",
+    team: [
+      { name: "Rick Carrell", role: "President", note: "General inquiries & rentals" },
+      { name: "Wendy", role: "Billing", note: "Billing & payment questions" },
+      { name: "Royce Brad", role: "Office Manager", note: "Office & admin questions" },
+    ],
+  },
+
+  // ── Quote page ─────────────────────────────
+  quote: {
+    breadcrumbHome: "Home",
+    breadcrumbCurrent: "Get a Quote",
+    eyebrow: "Free Quote",
+    titleStart: "Get a",
+    titleAccent: "Free Quote",
+    text: "Tell us what you need and we'll get back to you with pricing and availability. No obligation, no pressure.",
+    formEyebrow: "Your Details",
+    formTitle: "Request a Quote",
+    form: {
+      nameLabel: "Full Name *",
+      namePlaceholder: "Your full name",
+      phoneLabel: "Phone Number *",
+      phonePlaceholder: "Your phone number",
+      emailLabel: "Email Address",
+      emailPlaceholder: "your@email.com",
+      companyLabel: "Company Name",
+      companyPlaceholder: "Your company (optional)",
+      equipmentLabel: "Equipment Needed *",
+      serviceLabel: "Service Type",
+      durationLabel: "Estimated Rental Duration",
+      durationPlaceholder: "Select duration",
+      durations: ["2 Months", "3 Months", "4-6 Months", "6-12 Months", "12+ Months"],
+      locationLabel: "Delivery Location *",
+      locationPlaceholder: "City, State or full address",
+      notesLabel: "Additional Notes",
+      notesPlaceholder: "Any specific requirements, sizes, or questions...",
+      submitLabel: "Submit Quote Request",
+      sendingLabel: "Sending...",
+      successMessage: "Quote request sent! We'll get back to you shortly.",
+      callText: "Or call us at",
+    },
+    whyEyebrow: "Why Choose Us",
+    whyTitle: "What You Can Expect",
+    whyItems: [
+      "Free, no-obligation quote",
+      "Fast response from our team",
+      "No hidden fees or charges",
+      "2-month minimum rental",
+      "Serving Oklahoma & surrounding areas",
+      "Talk directly to Rick — no call centers",
+    ],
+    callTitle: "Prefer to Call?",
+    contacts: [
+      { icon: "fa/FaPhone", label: "Main", value: "{phone}", href: "{phoneLink}", color: "#c9a84c" },
+      { icon: "fa/FaPhone", label: "Cell", value: "{cell}", href: "{cellLink}", color: "#2d8fdd" },
+      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", href: "{emailLink}", color: "#c9a84c" },
+      { icon: "fa/FaMapMarkerAlt", label: "Address", value: "3801 Springdale Rd, Ardmore OK", href: "{mapsLink}", color: "#2d8fdd" },
+    ],
+    noteBold: "Minimum Rental Period:",
+    noteText: "2 Months. All rentals subject to availability. Serving Oklahoma and surrounding areas.",
+  },
+
+  // ── 404 page ───────────────────────────────
+  notFound: {
+    title: "Page Not Found",
+    text: "The page you're looking for doesn't exist or has been moved. Let's get you back on track.",
+    homeLabel: "Go Home",
+    fleetLabel: "View Fleet",
+    callLabel: "Call Us",
+    quickLinksLabel: "Quick Links",
+    quickLinks: [
+      { label: "Homepage", href: "/" },
+      { label: "Our Fleet", href: "/fleet" },
+      { label: "Services", href: "/services" },
+      { label: "About Us", href: "/about" },
+      { label: "Contact", href: "/contact" },
+      { label: "Get a Quote", href: "/quote" },
+    ],
+  },
+}
