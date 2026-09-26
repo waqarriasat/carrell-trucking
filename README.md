@@ -41,7 +41,7 @@ Both send a secure link to the admin email. The link works once and expires afte
 | `ADMIN_EMAIL` | Optional | Admin login email for a fresh install (default `waqarriasat@gmail.com`). |
 | `SMTP_HOST`, `SMTP_PORT` | Optional | Use a mail server other than Gmail (`smtp.gmail.com:465`). |
 | `BLOB_READ_WRITE_TOKEN` | **Required on Vercel** | See *Hosting* below. |
-| `BLOB_ACCESS` | Optional | `private` (default) or `public`, matching your Vercel Blob store. |
+| `BLOB_ACCESS` | Optional | `public` or `private`. Normally leave unset — the store's access mode is detected automatically. |
 | `CMS_DATA_DIR` | Optional | Where admin data is stored on disk (default `./data`). |
 
 In development without `EMAIL_USER`/`EMAIL_PASS`, the reset link is printed in the terminal instead of being emailed.
@@ -52,6 +52,8 @@ Admin edits (content, uploaded images and the admin login) have to be stored som
 
 - **A normal Node server / VPS** (`npm run build && npm start`): data is saved to `./data`. Keep that folder when redeploying and include it in backups. It is git-ignored.
 - **Vercel:** the server disk is read-only. In the Vercel dashboard go to **Storage → Create → Blob**, connect it to this project (this adds `BLOB_READ_WRITE_TOKEN`), then redeploy. Without it the admin panel shows a message that it cannot save.
+
+To confirm storage works on a deployment, open **`/api/admin/storage-check`**. It saves and reads back a small test file and shows `"ok": true`, or the exact error from the storage service.
 
 ## Code map
 

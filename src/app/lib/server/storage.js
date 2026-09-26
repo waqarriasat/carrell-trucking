@@ -17,7 +17,22 @@ import path from "path"
 // ─────────────────────────────────────────────
 
 const blobEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN)
-const blobAccess = () => (process.env.BLOB_ACCESS === "public" ? "public" : "private")
+
+// One Blob driver per server instance (it remembers the store's access mode).
+let blobStorePromise = null
+function blobStore() {
+  blobStorePromise ??= Promise.all([import("@vercel/blob"), import("./blob-store")]).then(([sdk, { createBlobStore }]) =>
+    createBlobStore(sdk, { preferredAccess: process.env.BLOB_ACCESS })
+  )
+  return blobStorePromise
+}
+
+export function storageInfo() {
+  return { driver: blobEnabled() ? "vercel-blob" : "filesystem" }
+}
+
+export { blobStore as getBlobStore }
+
 const dataDir = () => process.env.CMS_DATA_DIR || path.join(/*turbopackIgnore: true*/ process.cwd(), "data")
 // Runtime-only paths — tell the bundler not to trace them.
 const dataPath = (...parts) => path.join(/*turbopackIgnore: true*/ dataDir(), ...parts)
@@ -28,46 +43,25 @@ export function isSafeName(name) {
   return SAFE_NAME.test(name) && !name.includes("..")
 }
 
-async function streamToBuffer(stream) {
-  const chunks = []
-  for await (const chunk of stream) chunks.push(Buffer.from(chunk))
-  return Buffer.concat(chunks)
-}
-
 // ── JSON documents ────────────────────────────
 
+// Returns the document, or null if it has never been saved.
+// Any other failure throws — callers must not mistake an outage for "empty".
 export async function readJSON(name) {
   if (!isSafeName(name)) throw new Error("Invalid document name")
+  if (blobEnabled()) return (await blobStore()).readJSON(name)
   try {
-    if (blobEnabled()) {
-      const { get } = await import("@vercel/blob")
-      const res = await get(`cms/${name}`, { access: blobAccess(), useCache: false })
-      if (!res || !res.stream) return null
-      return JSON.parse((await streamToBuffer(res.stream)).toString("utf8"))
-    }
-    const raw = await fs.readFile(dataPath(name), "utf8")
-    return JSON.parse(raw)
+    return JSON.parse(await fs.readFile(dataPath(name), "utf8"))
   } catch (err) {
-    if (err?.code === "ENOENT" || err?.name === "BlobNotFoundError") return null
-    console.error(`[cms] Failed to read ${name}:`, err)
-    return null
+    if (err?.code === "ENOENT") return null
+    throw err
   }
 }
 
 export async function writeJSON(name, data) {
   if (!isSafeName(name)) throw new Error("Invalid document name")
+  if (blobEnabled()) return (await blobStore()).writeJSON(name, data)
   const body = JSON.stringify(data, null, 2)
-  if (blobEnabled()) {
-    const { put } = await import("@vercel/blob")
-    await put(`cms/${name}`, body, {
-      access: blobAccess(),
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      contentType: "application/json",
-      cacheControlMaxAge: 60,
-    })
-    return
-  }
   await fs.mkdir(dataPath(), { recursive: true })
   // Write to a temp file then rename, so a crash never leaves half a file.
   const target = dataPath(name)
@@ -81,12 +75,7 @@ export async function writeJSON(name, data) {
 export async function saveMedia(name, buffer, contentType) {
   if (!isSafeName(name)) throw new Error("Invalid file name")
   if (blobEnabled()) {
-    const { put } = await import("@vercel/blob")
-    await put(`media/${name}`, buffer, {
-      access: blobAccess(),
-      addRandomSuffix: false,
-      contentType,
-    })
+    await (await blobStore()).saveMedia(name, buffer, contentType)
   } else {
     await fs.mkdir(dataPath("uploads"), { recursive: true })
     await fs.writeFile(dataPath("uploads", name), buffer)
@@ -97,16 +86,11 @@ export async function saveMedia(name, buffer, contentType) {
 export async function readMedia(name) {
   if (!isSafeName(name)) return null
   try {
-    if (blobEnabled()) {
-      const { get } = await import("@vercel/blob")
-      const res = await get(`media/${name}`, { access: blobAccess() })
-      if (!res || !res.stream) return null
-      return { body: res.stream, contentType: res.blob.contentType }
-    }
+    if (blobEnabled()) return await (await blobStore()).readMedia(name)
     const body = await fs.readFile(dataPath("uploads", name))
     return { body, contentType: null }
   } catch (err) {
-    if (err?.code === "ENOENT" || err?.name === "BlobNotFoundError") return null
+    if (err?.code === "ENOENT") return null
     console.error(`[cms] Failed to read media ${name}:`, err)
     return null
   }

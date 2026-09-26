@@ -88,7 +88,12 @@ export async function resetPasswordAction(prevState, formData) {
   }
   if (password !== confirm) return { error: "The two passwords don't match." }
 
-  const result = await resetPassword(token, password)
+  let result
+  try {
+    result = await resetPassword(token, password)
+  } catch (err) {
+    return { error: err.message || "Could not save the new password. Please try again." }
+  }
   if (!result.ok) return { error: result.error }
   redirect("/admin?passwordChanged=1")
 }

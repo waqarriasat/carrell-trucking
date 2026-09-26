@@ -52,7 +52,13 @@ export async function POST(request) {
     console.error("[admin] Upload failed:", err)
     const readOnly = ["EROFS", "EACCES", "EPERM"].includes(err?.code)
     return Response.json(
-      { error: readOnly ? STORAGE_ERROR : "Could not save the image. Please try again." },
+      {
+        error: readOnly
+          ? STORAGE_ERROR
+          : err?.code === "BLOB_WRITE_FAILED"
+            ? err.message
+            : "Could not save the image. Please try again.",
+      },
       { status: 500 }
     )
   }

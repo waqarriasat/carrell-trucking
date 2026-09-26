@@ -73,7 +73,7 @@ async function getAccount() {
     await writeJSON(AUTH_FILE, account)
   } catch (err) {
     console.error("[admin] Cannot write auth data:", err)
-    throw new Error(STORAGE_ERROR)
+    throw new Error(err?.code === "BLOB_WRITE_FAILED" ? err.message : STORAGE_ERROR)
   }
   return account
 }
@@ -206,7 +206,12 @@ export async function createResetToken(email) {
 
 export async function isResetTokenValid(token) {
   if (!token) return false
-  const account = await getAccount()
+  let account
+  try {
+    account = await getAccount()
+  } catch {
+    return false
+  }
   const r = account.reset
   if (!r || r.expiresAt < Date.now()) return false
   const a = Buffer.from(sha256(String(token)))
