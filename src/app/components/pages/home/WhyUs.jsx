@@ -39,10 +39,11 @@ export default function WhyUs({ whyUs, site }) {
           </p>
         </div>
 
-        {/* ── Satisfaction + ISO badges row ── */}
+        {/* ── Satisfaction + ISO badges row (hidden when left empty in the admin) ── */}
+        {(whyUs.badgeTitle || whyUs.badgeText || whyUs.badge1.image || whyUs.badge2.image) && (
         <div className="flex flex-wrap items-center gap-6 mb-12 p-6 rounded-xl"
           style={{ backgroundColor: "#f0f6fb", border: "1.5px solid #d6e8f5" }}>
-          <div className="relative w-20 h-20 shrink-0">
+          {whyUs.badge1.image && <div className="relative w-20 h-20 shrink-0">
             <Image
               src={whyUs.badge1.image}
               alt={whyUs.badge1.alt}
@@ -52,8 +53,8 @@ export default function WhyUs({ whyUs, site }) {
               className="object-contain"
               priority
             />
-          </div>
-          <div className="relative w-20 h-20 shrink-0">
+          </div>}
+          {whyUs.badge2.image && <div className="relative w-20 h-20 shrink-0">
             <Image
               src={whyUs.badge2.image}
               alt={whyUs.badge2.alt}
@@ -63,7 +64,7 @@ export default function WhyUs({ whyUs, site }) {
               className="object-contain"
               priority
             />
-          </div>
+          </div>}
           <div className="flex-1">
             <h3 className="text-lg font-bold mb-1" style={{ color: "#0f2d4a" }}>
               {whyUs.badgeTitle}
@@ -73,6 +74,7 @@ export default function WhyUs({ whyUs, site }) {
             </p>
           </div>
         </div>
+        )}
 
         {/* ── Cards Grid ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">

@@ -2,6 +2,9 @@ import Link from "next/link";
 import { FaFileLines } from "react-icons/fa6";
 import { getIcon } from "@/app/lib/content/icons";
 
+// Tailwind needs literal class names, so map the item count to a column class.
+const LG_COLS = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3", 4: "lg:grid-cols-4" };
+
 export default function CtaBanner({ ctaBanner }) {
   // Unique, non-duplicative metrics focusing on operational excellence
   const STATS = ctaBanner.stats;
@@ -15,11 +18,14 @@ export default function CtaBanner({ ctaBanner }) {
       <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
 
         {/* ── Stats Grid ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div className={`grid grid-cols-2 ${LG_COLS[STATS.length] || "lg:grid-cols-4"} gap-4 mb-12`}>
           {STATS.map((s, i) => (
             <div
               key={i}
-              className="flex flex-col items-center text-center rounded-xl py-6 px-4 transition-all"
+              className={`flex flex-col items-center text-center rounded-xl py-6 px-4 transition-all ${
+                // Odd count on mobile: let the last stat use the full row
+                STATS.length % 2 === 1 && i === STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
+              }`}
               style={{
                 backgroundColor: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.06)",

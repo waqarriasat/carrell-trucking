@@ -64,7 +64,7 @@ export const DEFAULT_CONTENT = {
     ctaTitle: "Get your equipment on-site fast.",
     ctaButton: { label: "Get a Quote", href: "/quote" },
     blurb:
-      "Southern Oklahoma's rental source for dry containers, reefers, trailers, generators, and custom specialty units.",
+      "Southern Oklahoma & North Texas' rental source for dry containers, reefers, trailers, generators, and custom specialty units.",
     fleetHeading: "Fleet",
     industriesHeading: "Industries",
     contactHeading: "Contact",
@@ -75,14 +75,14 @@ export const DEFAULT_CONTENT = {
   // ── Home page ──────────────────────────────
   home: {
     hero: {
-      eyebrow: "Ardmore, Oklahoma",
-      titleStart: "Heavy-Duty",
+      eyebrow: "Southern Oklahoma & North Texas",
+      titleStart: "",
       titleAccent1: "Trailers",
       titleJoin: "&",
       titleAccent2: "Containers",
       titleLine2: "for Every",
       titleAccent3: "Job Site.",
-      text: "Southern Oklahoma's rental source for dry containers, reefer trailers, mobile offices, generators, and custom mud lab units.",
+      text: "Trailer and ground level access containers for any job: warehouse, storage, moving & inventory overflow, construction.",
       textHighlight: "2-month minimum. Direct line to the owner.",
       primaryButton: { label: "Get a Free Quote", href: "/quote" },
       secondaryButton: { label: "Browse Fleet", href: "/fleet" },
@@ -101,9 +101,8 @@ export const DEFAULT_CONTENT = {
     trustBar: {
       stats: [
         { value: "8+", label: "Equipment Categories" },
-        { value: "2 mo", label: "Minimum Rental Term" },
         { value: "580", label: "Ardmore Area Code — Call Direct" },
-        { value: "OK", label: "Southern Oklahoma Proud" },
+        { value: "OK & North TX", label: "Southern Oklahoma & North Texas Proud" },
       ],
       industriesLabel: "Industries Served:",
     },
@@ -119,13 +118,12 @@ export const DEFAULT_CONTENT = {
 
     whyUs: {
       eyebrow: "Why Choose Us",
-      title: "Built for Oklahoma's Toughest Jobs",
-      text: "From oilfields to construction sites — we show up with the right equipment, on time, every time.",
-      badge1: { image: "/images/satisfaction.png", alt: "100% Customer Satisfaction Guaranteed" },
-      badge2: { image: "/images/iso.png", alt: "ISO 9001:2015 Certified" },
-      badgeTitle: "100% Satisfaction Guaranteed & ISO 9001:2015 Certified",
-      badgeText:
-        "We stand behind every rental with a satisfaction guarantee and operate to international quality management standards.",
+      title: "Built for Oklahoma & North Texas' Toughest Jobs",
+      text: "From oilfields to construction sites, homes, manufacturing and any other need — we show up with the right equipment, on time, every time.",
+      badge1: { image: "", alt: "" },
+      badge2: { image: "", alt: "" },
+      badgeTitle: "",
+      badgeText: "",
       items: [
         {
           icon: "/images/quality.png",
@@ -192,7 +190,7 @@ export const DEFAULT_CONTENT = {
 
     testimonials: {
       eyebrow: "What Customers Say",
-      title: "Trusted by Oklahoma Businesses",
+      title: "Trusted by Oklahoma & Texas Businesses",
       text: "Don't just take our word for it — here's what our customers say about renting with Ardmore Trailer.",
       items: [
         {
@@ -222,7 +220,6 @@ export const DEFAULT_CONTENT = {
         { value: "20+", label: "Years in Business" },
         { value: "Direct", label: "Owner Communication" },
         { value: "On-Site", label: "Prompt Delivery" },
-        { value: "100%", label: "Commercial Grade" },
       ],
       eyebrow: "Streamlined Logistics",
       titleStart: "Lock In Your Fleet Assets",
@@ -265,12 +262,12 @@ export const DEFAULT_CONTENT = {
       graphic: "container-dry",
       graphicLabel: "CONTAINER DRY",
       accent: "#2d8fdd",
-      sizes: ["10 ft", "20 ft", "40 ft"],
+      sizes: ["20 ft", "40 ft"],
       description:
-        "Weather-tight steel containers ideal for on-site storage, inventory overflow, and secure equipment housing. Available in three lengths to fit any footprint.",
-      features: ["All-steel corrugated construction", "Lockbox security doors", "Forklift pockets on base", "Wind & watertight seal"],
+        "Weather-tight containers ideal for on-site storage, inventory overflow, and secure equipment housing. Available in two lengths to fit any footprint.",
+      features: ["Wind & watertight seal"],
       useCases: ["Construction sites", "Retail overflow", "Document storage", "Equipment staging"],
-      listSizes: ["10 ft", "20 ft", "40 ft"],
+      listSizes: ["20 ft", "40 ft"],
       listDescription:
         "Secure, weather-tight dry containers for on-site storage. Perfect for construction sites, retail overflow, and industrial storage.",
       listFeatures: ["Weatherproof", "Lockable", "Ground level access", "Multiple sizes", "Pest resistant", "Stackable"],
@@ -286,12 +283,12 @@ export const DEFAULT_CONTENT = {
       graphic: "trailers",
       graphicLabel: "Trailers",
       accent: "#2d8fdd",
-      sizes: ["28 ft", "48 ft", "53 ft"],
+      sizes: ["48 ft", "53 ft"],
       description:
-        "Full-size dry van trailers for temporary storage or freight staging. Swing doors, side doors, and vent options available on select units.",
+        "Full-size dry van trailers for temporary storage or freight staging. Swing doors, side doors, and roll-up doors available on select units.",
       features: ["Swing & roll-up door options", "Interior track & E-track", "Air-ride or spring suspension", "DOT-compliant lighting"],
       useCases: ["Distribution overflow", "Event staging", "Seasonal storage", "Manufacturing"],
-      listSizes: ["28 ft", "48 ft", "53 ft"],
+      listSizes: ["48 ft", "53 ft"],
       listDescription:
         "Standard enclosed trailers for all general freight requirements. Ideal for temporary storage and on-site logistics.",
       listFeatures: ["Dry freight", "Roll-up doors", "Side doors", "Swing doors", "E-track rails", "Logistics ready"],
@@ -300,19 +297,19 @@ export const DEFAULT_CONTENT = {
     },
     {
       id: "reefer-diesel",
-      name: "Reefer Diesel",
-      shortName: "Reefer Diesel",
+      name: "Reefer Diesel Trailer",
+      shortName: "Reefer Diesel Trailer",
       badge: "Diesel Reefer Rentals",
       icon: "fa/FaSnowflake",
       graphic: "reefer-diesel",
       graphicLabel: "REEFER DIESEL",
       accent: "#2d8fdd",
-      sizes: ["28 ft", "48 ft", "53 ft"],
+      sizes: ["48 ft", "53 ft"],
       description:
-        "Self-powered diesel reefer trailers that operate independently — no external power needed. Perfect for remote job sites and large-scale temp storage.",
+        "Self-powered diesel reefer trailers — no external power needed. Perfect for remote job sites and large-scale temp storage.",
       features: ["Self-contained diesel unit", "±2°F precision temperature", "Remote monitoring capable", "Automatic defrost cycle"],
       useCases: ["Remote worksites", "Outdoor events", "Pharmaceutical storage", "Produce staging"],
-      listSizes: ["28 ft", "48 ft", "53 ft"],
+      listSizes: ["48 ft", "53 ft"],
       listDescription:
         "Diesel-powered refrigerated trailers for temperature-sensitive cargo. Self-contained and ready to run independently.",
       listFeatures: ["Diesel powered", "Multi-temp zones", "24/7 monitoring", "Self-contained", "Independent", "Wide temp range"],
@@ -321,19 +318,19 @@ export const DEFAULT_CONTENT = {
     },
     {
       id: "reefer-electric",
-      name: "Reefer Electric",
-      shortName: "Reefer Electric",
+      name: "Reefer Electric Trailers",
+      shortName: "Reefer Electric Trailers",
       badge: "Electric Reefer Rentals",
       icon: "fa/FaBolt",
       graphic: "reefer-electric",
       graphicLabel: "E-POWER REEFER",
       accent: "#2d8fdd",
-      sizes: ["20 ft", "40 ft"],
+      sizes: ["48 ft", "53 ft"],
       description:
         "Plug-in electric reefer trailers — quieter, cleaner, and lower operating cost when shore power is available. Ideal for urban or facility-adjacent use.",
-      features: ["Shore-power plug-in (460V/3ph)", "Ultra-quiet operation", "Digital thermostat control", "Stainless interior lining"],
+      features: ["Shore-power plug-in (460V/3ph)", "Stainless interior lining"],
       useCases: ["Warehouses", "Food service", "Retail back-of-house", "Hospital overflow"],
-      listSizes: ["20 ft", "40 ft"],
+      listSizes: ["48 ft", "53 ft"],
       listDescription:
         "Electric refrigerated units — quiet, efficient, and eco-friendly. Ideal for locations with reliable power access.",
       listFeatures: ["Electric powered", "Low noise", "Energy efficient", "Precise temp", "Eco friendly", "Indoor suitable"],
@@ -351,8 +348,8 @@ export const DEFAULT_CONTENT = {
       accent: "#2d8fdd",
       sizes: ["20 ft", "40 ft"],
       description:
-        "ISO refrigerated containers combining container security with active refrigeration. Stackable, lockable, and built for long-term stationary use.",
-      features: ["Integrated Carrier/Thermo-King unit", "Stackable ISO corner castings", "Temperature range −20°F to +70°F", "Tamper-evident locking system"],
+        "Refrigerated containers combining container security with active refrigeration. Lockable and built for long-term stationary use.",
+      features: ["Temperature range −20°F to +70°F", "Tamper-evident locking system"],
       useCases: ["Cold chain storage", "Vaccine/pharma", "Frozen food distribution", "Export prep"],
       listSizes: ["20 ft", "40 ft"],
       listDescription:
@@ -370,12 +367,12 @@ export const DEFAULT_CONTENT = {
       graphic: "generator",
       graphicLabel: "POWER GEN",
       accent: "#c9a84c",
-      sizes: ["20 kW", "50 kW", "100 kW"],
+      sizes: [],
       description:
         "Skid-mounted diesel generator sets for powering reefer units, job-site operations, or emergency backup. Multiple kW ratings to match your load.",
       features: ["Tier 4 Final diesel engine", "Automatic transfer switch ready", "Weatherproof enclosure", "Single & three-phase output"],
       useCases: ["Reefer power supply", "Construction power", "Event backup", "Emergency response"],
-      listSizes: ["20 kW", "50 kW", "100 kW"],
+      listSizes: [],
       listDescription:
         "Reliable power generation units for remote and industrial sites. Keep your operations running no matter the location.",
       listFeatures: ["Diesel powered", "Remote monitoring", "Auto transfer", "Weatherproof", "Load ready", "Fuel efficient"],
@@ -391,12 +388,12 @@ export const DEFAULT_CONTENT = {
       graphic: "office",
       graphicLabel: "HQ SITE OFFICE",
       accent: "#c9a84c",
-      sizes: ["8×20 ft", "8×40 ft"],
+      sizes: ["10 ft", "20 ft", "40 ft"],
       description:
         "Climate-controlled mobile offices with insulation, HVAC, electrical, and interior finishing — ready to set up and plug in on any job site.",
       features: ["110V electrical with breaker panel", "HVAC heating & cooling", "Insulated walls & ceiling", "Desk, shelving, windows included"],
       useCases: ["Construction site offices", "Sales offices", "Security booths", "Command centers"],
-      listSizes: ["8x20 ft", "8x40 ft", "12x60 ft"],
+      listSizes: ["10 ft", "20 ft", "40 ft"],
       listDescription:
         "Comfortable, ready-to-use portable office spaces for job sites. Climate controlled and fully equipped for daily work.",
       listFeatures: ["Climate controlled", "Electrical outlets", "Windows", "Lockable doors", "HVAC included", "Move-in ready"],
@@ -405,8 +402,8 @@ export const DEFAULT_CONTENT = {
     },
     {
       id: "mud-lab",
-      name: "Mud Lab",
-      shortName: "Mud Lab",
+      name: "Oil Field Mud Lab",
+      shortName: "Oil Field Mud Lab",
       badge: "Custom Mud Lab Units",
       icon: "fa/FaFlask",
       graphic: "mud-lab",

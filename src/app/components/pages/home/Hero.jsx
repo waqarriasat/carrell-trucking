@@ -194,9 +194,6 @@ export default function Hero({ hero, site, fleet }) {
                     <p className="text-white font-bold text-sm leading-tight mb-1">
                       {item.shortName}
                     </p>
-                    <p className="text-xs" style={{ color: "#7a9bb5" }}>
-                      {item.sizes.join(" · ")}
-                    </p>
                   </div>
 
                   <FaChevronRight

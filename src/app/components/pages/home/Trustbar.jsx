@@ -12,6 +12,9 @@ import Link from "next/link";
 //  No state, no hooks — pure server component.
 // ─────────────────────────────────────────────
 
+// Tailwind needs literal class names, so map the item count to a column class.
+const LG_COLS = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3", 4: "lg:grid-cols-4" };
+
 export default function TrustBar({ trustBar, site, services }) {
   const TRUST_STATS = trustBar.stats;
 
@@ -33,11 +36,14 @@ export default function TrustBar({ trustBar, site, services }) {
         className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10"
         style={{ borderBottom: "1px solid #1e4d7b" }}
       >
-        <div className="grid grid-cols-2 lg:grid-cols-4">
+        <div className={`grid grid-cols-2 ${LG_COLS[TRUST_STATS.length] || "lg:grid-cols-4"}`}>
           {TRUST_STATS.map((stat, i) => (
             <div
               key={i}
-              className="relative flex flex-col items-center justify-center text-center py-8 px-4"
+              className={`relative flex flex-col items-center justify-center text-center py-8 px-4 ${
+                // Odd count on mobile: let the last stat use the full row
+                TRUST_STATS.length % 2 === 1 && i === TRUST_STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
+              }`}
             >
               {/* Vertical divider between items (not after last) */}
               {i < TRUST_STATS.length - 1 && (
@@ -48,7 +54,7 @@ export default function TrustBar({ trustBar, site, services }) {
                 />
               )}
               {/* Mobile: divider on right for first col items */}
-              {i % 2 === 0 && (
+              {i % 2 === 0 && i < TRUST_STATS.length - 1 && (
                 <span
                   className="lg:hidden absolute right-0 top-1/4 bottom-1/4 w-px"
                   style={{ backgroundColor: "#1e4d7b" }}

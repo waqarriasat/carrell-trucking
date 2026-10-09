@@ -190,7 +190,7 @@ export const ADMIN_PAGES = [
             preview: "heroTitle",
             help: "The headline is split into parts so each keeps its colour.",
             fields: [
-              t("titleStart", "White words", { width: "sm" }),
+              t("titleStart", "White words", { width: "sm", help: "Optional – leave empty to start with the blue word." }),
               t("titleAccent1", "Blue underlined word", { width: "sm" }),
               t("titleJoin", "Joining word", { width: "xs" }),
               t("titleAccent2", "Blue word", { width: "sm" }),
@@ -255,7 +255,7 @@ export const ADMIN_PAGES = [
             label: "Badge image 2",
             fields: [img("image", "Image", { size: "square" }), t("alt", "Image description (for accessibility)")],
           },
-          t("badgeTitle", "Badge box heading"),
+          t("badgeTitle", "Badge box heading", { help: "Leave the badge images, heading and text empty to hide this whole box." }),
           ta("badgeText", "Badge box text", { rows: 2 }),
           {
             type: "list",
