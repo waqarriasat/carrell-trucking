@@ -69,7 +69,7 @@ export const ADMIN_PAGES = [
           t("name", "Company name", { help: "Shown in the footer copyright, page titles and emails. Placeholder: {company}" }),
           t("logoTop", "Logo — top line", { width: "sm", help: "Large word in the header/footer logo (e.g. ARDMORE)." }),
           t("logoBottom", "Logo — bottom line", { width: "sm", help: "Small gold line under the logo." }),
-          t("minRental", "Minimum rental badge", { help: "Gold badge in the footer." }),
+          t("minRental", "Footer badge", { help: "Gold badge in the footer." }),
         ],
       },
       {

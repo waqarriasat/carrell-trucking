@@ -1,19 +1,13 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 5)
+//  The wording before the client's removals
+//  (2-month minimum, Heavy-Duty, kW ratings) were
+//  applied across every page.
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V5 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -26,7 +20,7 @@ export const DEFAULT_CONTENT = {
     city: "Ardmore",
     state: "OK",
     zip: "73401",
-    minRental: "On-site delivery",
+    minRental: "2-month minimum rental",
     formRecipient: "wjatt4752@gmail.com",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3252.7!2d-97.1!3d34.17!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s3801+Springdale+Road%2C+Ardmore%2C+OK+73401!5e0!3m2!1sen!2sus!4v1234567890",
@@ -83,7 +77,7 @@ export const DEFAULT_CONTENT = {
       titleLine2: "for Every",
       titleAccent3: "Job Site.",
       text: "Trailer and ground level access containers for any job: warehouse, storage, moving & inventory overflow, construction.",
-      textHighlight: "Direct line to the owner.",
+      textHighlight: "2-month minimum. Direct line to the owner.",
       primaryButton: { label: "Get a Free Quote", href: "/quote" },
       secondaryButton: { label: "Browse Fleet", href: "/fleet" },
       callLabel: "Call Direct",
@@ -110,7 +104,7 @@ export const DEFAULT_CONTENT = {
     fleetGrid: {
       eyebrow: "What We Rent",
       title: "Our Full Fleet",
-      text: "Eight equipment categories — dry, refrigerated, powered, and custom specialty — delivered right to your site.",
+      text: "Eight equipment categories — dry, refrigerated, powered, and custom specialty — all available on a 2-month minimum rental.",
       linkLabel: "See full fleet page",
       mobileButtonLabel: "View Full Fleet",
       cardLinkLabel: "View Details",
@@ -182,9 +176,9 @@ export const DEFAULT_CONTENT = {
           statLabel: "No Obligation",
         },
       ],
-      stripBefore: "Serving Southern Oklahoma & North Texas with",
-      stripHighlight: "on-site delivery",
-      stripAfter: "and a direct line to the owner.",
+      stripBefore: "Serving Southern Oklahoma & North Texas with a",
+      stripHighlight: "2-month minimum",
+      stripAfter: "rental period.",
       stripButtonLabel: "Call {phone}",
     },
 
@@ -224,7 +218,7 @@ export const DEFAULT_CONTENT = {
       eyebrow: "Streamlined Logistics",
       titleStart: "Lock In Your Fleet Assets",
       titleAccent: "Before Your Next Project.",
-      text: "Don't risk project downtime due to supply constraints. We coordinate with your timeline to drop off equipment directly where you need it most. Secure your rental today.",
+      text: "Don't risk project downtime due to supply constraints. We coordinate with your timeline to drop off heavy-duty infrastructure directly where you need it most. Secure your minimum 2-month rental allocation today.",
       button: { label: "Begin Online Setup", href: "/quote" },
       processLabel: "Our Seamless Rental Process",
       stepPrefix: "STEP",
@@ -237,7 +231,7 @@ export const DEFAULT_CONTENT = {
         {
           icon: "fa6/FaShield",
           title: "Confirm Allocation",
-          text: "Review your comprehensive, transparent commercial contract.",
+          text: "Review your comprehensive, transparent commercial contract with a 2-month minimum term.",
         },
         {
           icon: "fa6/FaTruck",
@@ -278,7 +272,7 @@ export const DEFAULT_CONTENT = {
       id: "trailers",
       name: "Trailers",
       shortName: "Trailers",
-      badge: "Trailer Rentals",
+      badge: "Heavy-Duty Trailer Rentals",
       icon: "fa/FaTruck",
       graphic: "trailers",
       graphicLabel: "Trailers",
@@ -369,7 +363,7 @@ export const DEFAULT_CONTENT = {
       accent: "#c9a84c",
       sizes: [],
       description:
-        "Skid-mounted diesel generator sets for powering reefer units, job-site operations, or emergency backup.",
+        "Skid-mounted diesel generator sets for powering reefer units, job-site operations, or emergency backup. Multiple kW ratings to match your load.",
       features: ["Tier 4 Final diesel engine", "Automatic transfer switch ready", "Weatherproof enclosure", "Single & three-phase output"],
       useCases: ["Reefer power supply", "Construction power", "Event backup", "Emergency response"],
       listSizes: [],
@@ -429,10 +423,10 @@ export const DEFAULT_CONTENT = {
     breadcrumbCurrent: "Fleet",
     eyebrow: "What We Rent",
     title: "Our Full Fleet",
-    text: "Eight equipment categories — dry, refrigerated, powered, and specialty — delivered right to your site. Serving Southern Oklahoma and North Texas.",
+    text: "Eight equipment categories — dry, refrigerated, powered, and specialty — all available on a 2-month minimum rental. Serving Southern Oklahoma and North Texas.",
     stats: [
       { value: "8", label: "Equipment Types" },
-      { value: "4", label: "Industries Served" },
+      { value: "2 Mo", label: "Min. Rental" },
       { value: "OK & North TX", label: "Service Area" },
     ],
     quoteButtonLabel: "Get a Quote",
@@ -467,7 +461,7 @@ export const DEFAULT_CONTENT = {
       id: "residential",
       label: "Residential",
       icon: "fa/FaHome",
-      description: "Moving, renovation, and personal storage with flexible rental terms.",
+      description: "Moving, renovation, and personal storage with flexible 2-month-minimum terms.",
       image: U("1570129477492-45c003edd2be", 800),
       features: ["Home renovation storage", "Moving assistance", "Personal storage", "Garage overflow", "Estate management"],
       fleet: ["container-dry", "trailers", "office"],
@@ -485,7 +479,7 @@ export const DEFAULT_CONTENT = {
       id: "industrial",
       label: "Industrial",
       icon: "fa/FaIndustry",
-      description: "Oilfield, manufacturing, and energy sector solutions — custom specs welcome.",
+      description: "Heavy-duty oilfield, manufacturing, and energy sector solutions — custom specs welcome.",
       image: U("1581091226825-a6a2a5aee158", 800),
       features: ["Oilfield operations", "Manufacturing support", "Energy sector", "Custom mud labs", "Remote site power"],
       fleet: ["reefer-diesel", "generator", "mud-lab", "office"],
@@ -506,7 +500,7 @@ export const DEFAULT_CONTENT = {
     stats: [
       { value: "4", label: "Industries" },
       { value: "8+", label: "Equipment Types" },
-      { value: "OK & North TX", label: "Service Area" },
+      { value: "2 Mo", label: "Min. Rental" },
     ],
     applicationsLabel: "Common Applications",
     recommendedLabel: "Recommended Equipment",
@@ -525,7 +519,7 @@ export const DEFAULT_CONTENT = {
     applicationsLabel: "Common Applications",
     recommendedLabel: "Recommended Equipment",
     whyLabel: "Why Ardmore Trailer",
-    whyItems: ["Local Oklahoma company", "Flexible rental terms", "Direct contact with Rick", "No hidden fees", "On-site delivery"],
+    whyItems: ["Local Oklahoma company", "2-month minimum rental", "Direct contact with Rick", "No hidden fees", "On-site delivery"],
     quoteButtonLabel: "Get a Free Quote",
     callButtonLabel: "Call {phone}",
     otherLabel: "Other Services",
@@ -544,7 +538,7 @@ export const DEFAULT_CONTENT = {
     text: "Ardmore Trailer, Inc. has been serving Southern Oklahoma and North Texas with professional trailer and container rentals. We deliver the right equipment to your site — on time, every time.",
     stats: [
       { value: "8+", label: "Equipment Types" },
-      { value: "4", label: "Industries Served" },
+      { value: "2 Mo", label: "Min. Rental Period" },
       { value: "OK & North TX", label: "Service Area" },
       { value: "24/7", label: "Support Available" },
     ],
@@ -557,7 +551,7 @@ export const DEFAULT_CONTENT = {
     storyParagraph2:
       "Whether you need a dry container for on-site storage, a refrigerated trailer for temperature-sensitive cargo, a generator for a remote site, or a purpose-built mud lab — we have the equipment and experience to get the job done right.",
     storyChecklist: [
-      "Flexible rental terms",
+      "Minimum 2-month rental period",
       "Serving Southern Oklahoma & North Texas",
       "8 equipment types available",
       "Direct contact — no call centers",
@@ -569,7 +563,7 @@ export const DEFAULT_CONTENT = {
       { icon: "fa6/FaHandshake", title: "Honest Service", text: "No hidden fees, no surprises. Transparent pricing from day one." },
       { icon: "fa6/FaTruck", title: "On-Time Delivery", text: "We show up when we say we will — every time, no excuses." },
       { icon: "fa6/FaAward", title: "Industry Experience", text: "Years of experience serving the toughest job sites in Oklahoma and North Texas." },
-      { icon: "fa6/FaClock", title: "Flexible Terms", text: "Flexible rental terms to match your project timeline." },
+      { icon: "fa6/FaClock", title: "2-Month Minimum", text: "Flexible rental terms starting at 2 months to match your project." },
       { icon: "fa6/FaUsers", title: "Local Team", text: "Talk directly to Rick and the team — no call centers, ever." },
     ],
     teamEyebrow: "Our People",
@@ -673,7 +667,7 @@ export const DEFAULT_CONTENT = {
       "Free, no-obligation quote",
       "Fast response from our team",
       "No hidden fees or charges",
-      "Flexible rental terms",
+      "2-month minimum rental",
       "Serving Southern Oklahoma & North Texas",
       "Talk directly to Rick — no call centers",
     ],
@@ -684,8 +678,8 @@ export const DEFAULT_CONTENT = {
       { icon: "fa/FaEnvelope", label: "Email", value: "{email}", href: "{emailLink}", color: "#c9a84c" },
       { icon: "fa/FaMapMarkerAlt", label: "Address", value: "3801 Springdale Rd, Ardmore OK", href: "{mapsLink}", color: "#2d8fdd" },
     ],
-    noteBold: "Please note:",
-    noteText: "All rentals subject to availability. Serving Southern Oklahoma and North Texas.",
+    noteBold: "Minimum Rental Period:",
+    noteText: "2 Months. All rentals subject to availability. Serving Southern Oklahoma and North Texas.",
   },
 
   // ── 404 page ───────────────────────────────
