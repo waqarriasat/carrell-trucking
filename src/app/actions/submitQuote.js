@@ -1,6 +1,8 @@
 "use server"
 
 import { getContent } from "@/app/lib/server/content"
+import { sendMail } from "@/app/lib/server/mailer"
+import { buildLeadEmail } from "@/app/lib/server/lead-email"
 
 export async function submitQuote(formData) {
   const data = {
@@ -22,44 +24,22 @@ export async function submitQuote(formData) {
   const { site } = await getContent()
 
   try {
-    const nodemailer = await import("nodemailer")
-    const transporter = nodemailer.default.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
+    const mail = buildLeadEmail({
+      kind: "Quote request",
+      site,
+      customer: data,
+      fields: [
+        { label: "Equipment", value: data.equipment, list: true },
+        { label: "Service type", value: data.service },
+        { label: "Rental duration", value: data.duration },
+        { label: "Delivery location", value: data.location },
+        { label: "Notes", value: data.notes, block: true },
+      ],
     })
-
-    // Verify connection first
-    await transporter.verify()
-
-    await transporter.sendMail({
-      from: `"${site.name}" <${process.env.EMAIL_USER}>`,
-      to:   site.formRecipient,
-      subject: `New Quote Request from ${data.name}`,
-      html: `
-        <h2>New Quote Request</h2>
-        <table style="border-collapse:collapse;width:100%">
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Name</strong></td><td style="padding:8px;border:1px solid #ddd">${data.name}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Phone</strong></td><td style="padding:8px;border:1px solid #ddd">${data.phone}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Email</strong></td><td style="padding:8px;border:1px solid #ddd">${data.email || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Company</strong></td><td style="padding:8px;border:1px solid #ddd">${data.company || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Equipment</strong></td><td style="padding:8px;border:1px solid #ddd">${data.equipment.join(", ") || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Service Type</strong></td><td style="padding:8px;border:1px solid #ddd">${data.service || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Duration</strong></td><td style="padding:8px;border:1px solid #ddd">${data.duration || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Location</strong></td><td style="padding:8px;border:1px solid #ddd">${data.location || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Notes</strong></td><td style="padding:8px;border:1px solid #ddd">${data.notes || "N/A"}</td></tr>
-        </table>
-      `,
-    })
-
+    await sendMail({ to: site.formRecipient, fromName: `${site.name} Website`, ...mail })
     return { success: true }
   } catch (err) {
-    console.error("Email error:", err)
-    console.error("Error details:", err.message)
-    return { success: false, error: `Failed to send: ${err.message}` }
+    console.error("Quote email error:", err)
+    return { success: false, error: `Sorry, your request could not be sent. Please call us at ${site.phone}.` }
   }
 }

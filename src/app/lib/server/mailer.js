@@ -6,7 +6,7 @@ export function isMailConfigured() {
   return Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS)
 }
 
-export async function sendMail({ to, subject, html, text }) {
+export async function sendMail({ to, subject, html, text, fromName = "Website Admin", replyTo }) {
   const nodemailer = await import("nodemailer")
   const port = Number(process.env.SMTP_PORT || 465)
   const transporter = nodemailer.default.createTransport({
@@ -19,8 +19,9 @@ export async function sendMail({ to, subject, html, text }) {
     },
   })
   await transporter.sendMail({
-    from: `"Website Admin" <${process.env.EMAIL_USER}>`,
+    from: `"${fromName.replace(/"/g, "")}" <${process.env.EMAIL_USER}>`,
     to,
+    replyTo,
     subject,
     html,
     text,
