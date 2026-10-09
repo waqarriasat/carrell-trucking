@@ -1,19 +1,12 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 6)
+//  The wording before the quote/contact form
+//  recipient was changed to Rick's email.
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V6 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -27,7 +20,7 @@ export const DEFAULT_CONTENT = {
     state: "OK",
     zip: "73401",
     minRental: "On-site delivery",
-    formRecipient: "rick@carrelltrucking.com",
+    formRecipient: "wjatt4752@gmail.com",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3252.7!2d-97.1!3d34.17!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s3801+Springdale+Road%2C+Ardmore%2C+OK+73401!5e0!3m2!1sen!2sus!4v1234567890",
   },
