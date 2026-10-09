@@ -14,7 +14,9 @@
 import { DEFAULT_CONTENT } from "./defaults"
 import { LEGACY_CONTENT_V1 } from "./legacy-v1"
 
-export const CONTENT_VERSION = 2
+// 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
+//    saved after the update (they were stamped 2 while still holding old text).
+export const CONTENT_VERSION = 3
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
 
@@ -47,7 +49,7 @@ function upgrade(saved, oldDef, newDef) {
   return saved
 }
 
-// `version` is the content version the saved copy was written with (1 if missing).
+// `version` is the content version the copy was written / loaded with (1 if missing).
 export function upgradeContent(content, version = 1) {
   if (!isPlainObject(content) || version >= CONTENT_VERSION) return content
   return upgrade(content, LEGACY_CONTENT_V1, DEFAULT_CONTENT)

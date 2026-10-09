@@ -106,13 +106,13 @@ async function requireAdmin() {
   return session
 }
 
-export async function saveContentAction(content) {
+export async function saveContentAction(content, contentVersion) {
   try {
     const session = await requireAdmin()
     if (!content || typeof content !== "object" || Array.isArray(content)) {
       return { ok: false, error: "Invalid content." }
     }
-    const saved = await saveContent(content, session.email)
+    const saved = await saveContent(content, session.email, Number(contentVersion) || 1)
     // Every public page reads this content — refresh all of them.
     revalidatePath("/", "layout")
     return { ok: true, content: saved, savedAt: new Date().toISOString() }

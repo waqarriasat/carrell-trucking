@@ -23,8 +23,10 @@ export async function getContentMeta() {
   return { updatedAt: saved?.updatedAt ?? null, updatedBy: saved?.updatedBy ?? null }
 }
 
-export async function saveContent(content, updatedBy) {
-  const clean = mergeWithDefaults(content, DEFAULT_CONTENT)
+// `loadedVersion` is the content version the editor loaded; an editor opened on an
+// older build sends old text, so upgrade it before it is stamped as current.
+export async function saveContent(content, updatedBy, loadedVersion = 1) {
+  const clean = mergeWithDefaults(upgradeContent(content, loadedVersion), DEFAULT_CONTENT)
   await writeJSON(CONTENT_FILE, {
     version: CONTENT_VERSION,
     updatedAt: new Date().toISOString(),

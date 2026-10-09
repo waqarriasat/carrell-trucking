@@ -27,7 +27,7 @@ const PAGE_ICONS = {
   alert: FaTriangleExclamation,
 }
 
-export default function AdminApp({ initialContent, adminEmail, lastSaved, notice }) {
+export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice }) {
   const [content, setContent] = useState(initialContent)
   const [savedJson, setSavedJson] = useState(() => JSON.stringify(initialContent))
   const [savedMeta, setSavedMeta] = useState(lastSaved)
@@ -86,7 +86,7 @@ export default function AdminApp({ initialContent, adminEmail, lastSaved, notice
     }
     setSaving(true)
     try {
-      const res = await saveContentAction(content)
+      const res = await saveContentAction(content, contentVersion)
       if (!res.ok) throw new Error(res.error)
       setContent(res.content)
       setSavedJson(JSON.stringify(res.content))
@@ -97,7 +97,7 @@ export default function AdminApp({ initialContent, adminEmail, lastSaved, notice
     } finally {
       setSaving(false)
     }
-  }, [content])
+  }, [content, contentVersion])
 
   const discard = () => {
     if (!window.confirm("Discard all unsaved changes?")) return
