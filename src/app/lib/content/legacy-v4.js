@@ -1,19 +1,12 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 4)
+//  The wording before the client changes were
+//  carried over to the fleet list and stats.
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V4 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -270,7 +263,7 @@ export const DEFAULT_CONTENT = {
       listSizes: ["20 ft", "40 ft"],
       listDescription:
         "Secure, weather-tight dry containers for on-site storage. Perfect for construction sites, retail overflow, and industrial storage.",
-      listFeatures: ["Weatherproof", "Ground level access", "Multiple sizes", "Pest resistant"],
+      listFeatures: ["Weatherproof", "Lockable", "Ground level access", "Multiple sizes", "Pest resistant", "Stackable"],
       image: U("1586528116311-ad8dd3c8310d", 900),
       gallery: [U("1578575437130-527eed3abbec", 400), U("1601584115197-04ecc0da31d7", 400), U("1590534247854-e97d5e3feef6", 400)],
     },
@@ -311,8 +304,8 @@ export const DEFAULT_CONTENT = {
       useCases: ["Remote worksites", "Outdoor events", "Pharmaceutical storage", "Produce staging"],
       listSizes: ["48 ft", "53 ft"],
       listDescription:
-        "Diesel-powered refrigerated trailers for temperature-sensitive cargo. Self-contained — no external power needed.",
-      listFeatures: ["Diesel powered", "Multi-temp zones", "24/7 monitoring", "Self-contained", "Wide temp range", "No external power needed"],
+        "Diesel-powered refrigerated trailers for temperature-sensitive cargo. Self-contained and ready to run independently.",
+      listFeatures: ["Diesel powered", "Multi-temp zones", "24/7 monitoring", "Self-contained", "Independent", "Wide temp range"],
       image: U("1590534247854-e97d5e3feef6", 900),
       gallery: [U("1601584115197-04ecc0da31d7", 400), U("1578575437130-527eed3abbec", 400), U("1586528116311-ad8dd3c8310d", 400)],
     },
@@ -333,7 +326,7 @@ export const DEFAULT_CONTENT = {
       listSizes: ["48 ft", "53 ft"],
       listDescription:
         "Electric refrigerated units — quiet, efficient, and eco-friendly. Ideal for locations with reliable power access.",
-      listFeatures: ["Electric powered", "Shore-power plug-in", "Energy efficient", "Stainless interior", "Eco friendly", "Indoor suitable"],
+      listFeatures: ["Electric powered", "Low noise", "Energy efficient", "Precise temp", "Eco friendly", "Indoor suitable"],
       image: U("1542435503-956c469947f6", 900),
       gallery: [U("1590534247854-e97d5e3feef6", 400), U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400)],
     },
@@ -433,7 +426,7 @@ export const DEFAULT_CONTENT = {
     stats: [
       { value: "8", label: "Equipment Types" },
       { value: "2 Mo", label: "Min. Rental" },
-      { value: "OK & North TX", label: "Service Area" },
+      { value: "OK+", label: "Service Area" },
     ],
     quoteButtonLabel: "Get a Quote",
     callButtonLabel: "Call Now",
@@ -545,7 +538,7 @@ export const DEFAULT_CONTENT = {
     stats: [
       { value: "8+", label: "Equipment Types" },
       { value: "2 Mo", label: "Min. Rental Period" },
-      { value: "OK & North TX", label: "Service Area" },
+      { value: "OK+", label: "Service Area" },
       { value: "24/7", label: "Support Available" },
     ],
     storyImage: U("1601584115197-04ecc0da31d7", 700),

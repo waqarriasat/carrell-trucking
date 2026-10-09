@@ -14,17 +14,20 @@
 import { DEFAULT_CONTENT } from "./defaults"
 import { LEGACY_CONTENT_V1 } from "./legacy-v1"
 import { LEGACY_CONTENT_V3 } from "./legacy-v3"
+import { LEGACY_CONTENT_V4 } from "./legacy-v4"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
 // 4: regional wording + layout polish.
-export const CONTENT_VERSION = 4
+// 5: client changes carried over to the fleet list page and stats.
+export const CONTENT_VERSION = 5
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
 const STEPS = [
   { upTo: 3, from: LEGACY_CONTENT_V1, to: LEGACY_CONTENT_V3 },
-  { upTo: 4, from: LEGACY_CONTENT_V3, to: DEFAULT_CONTENT },
+  { upTo: 4, from: LEGACY_CONTENT_V3, to: LEGACY_CONTENT_V4 },
+  { upTo: 5, from: LEGACY_CONTENT_V4, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
