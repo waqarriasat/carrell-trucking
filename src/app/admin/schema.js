@@ -91,6 +91,22 @@ export const ADMIN_PAGES = [
         ],
       },
       {
+        title: "WhatsApp chat button",
+        description: "Green button in the bottom-right corner of every page. Visitors tap it to send you a WhatsApp message.",
+        path: "site",
+        fields: [
+          t("whatsapp", "WhatsApp number", {
+            width: "sm",
+            help: "Include the country code, e.g. +1 (580) 221-3494. Leave empty to hide the button.",
+          }),
+          t("whatsappLabel", "Button label", { width: "sm", help: "Shown when hovering the button on a computer." }),
+          ta("whatsappMessage", "Pre-filled message", {
+            rows: 2,
+            help: "Text already typed for the visitor when WhatsApp opens. They can change it before sending.",
+          }),
+        ],
+      },
+      {
         title: "Form submissions",
         path: "site",
         fields: [

@@ -1,6 +1,8 @@
 "use server"
 
 import { getContent } from "@/app/lib/server/content"
+import { sendMail } from "@/app/lib/server/mailer"
+import { buildLeadEmail } from "@/app/lib/server/lead-email"
 
 export async function submitContact(formData) {
   const data = {
@@ -17,35 +19,16 @@ export async function submitContact(formData) {
   const { site } = await getContent()
 
   try {
-    const nodemailer = await import("nodemailer")
-    const transporter = nodemailer.default.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
+    const mail = buildLeadEmail({
+      kind: "Contact message",
+      site,
+      customer: data,
+      fields: [{ label: "Message", value: data.message, block: true }],
     })
-
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: site.formRecipient,
-      subject: `New Contact Message from ${data.name}`,
-      html: `
-        <h2>New Contact Message</h2>
-        <table style="border-collapse:collapse;width:100%">
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Name</strong></td><td style="padding:8px;border:1px solid #ddd">${data.name}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Phone</strong></td><td style="padding:8px;border:1px solid #ddd">${data.phone}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Email</strong></td><td style="padding:8px;border:1px solid #ddd">${data.email || "N/A"}</td></tr>
-          <tr><td style="padding:8px;border:1px solid #ddd"><strong>Message</strong></td><td style="padding:8px;border:1px solid #ddd">${data.message}</td></tr>
-        </table>
-      `,
-    })
-
+    await sendMail({ to: site.formRecipient, fromName: `${site.name} Website`, ...mail })
     return { success: true }
   } catch (err) {
-    console.error("Email error:", err)
+    console.error("Contact email error:", err)
     return { success: false, error: `Failed to send. Please call us at ${site.phone}.` }
   }
 }
