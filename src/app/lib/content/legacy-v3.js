@@ -1,19 +1,17 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 3)
+//  The wording after the first round of client
+//  changes (October 2026), before the regional
+//  wording and layout polish.
+//  Only used by lib/content/upgrade.js to tell
+//  untouched saved text (still equal to this)
+//  apart from text someone edited in the admin.
+//  Do not edit.
 // ─────────────────────────────────────────────
 
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V3 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -33,11 +31,11 @@ export const DEFAULT_CONTENT = {
   },
 
   seo: {
-    title: "Ardmore Trailer, Inc. | Trailer & Container Rental in Oklahoma & North Texas",
+    title: "Ardmore Trailer, Inc. | Trailer & Container Rental Oklahoma",
     titleTemplate: "%s | Ardmore Trailer, Inc.",
     description:
       "Southern Oklahoma's trusted trailer and container rental. Reefer, dry containers, generators, office units. Call {phone}.",
-    keywords: ["trailer rental", "container rental", "reefer trailer", "Oklahoma", "North Texas", "Ardmore"],
+    keywords: ["trailer rental", "container rental", "reefer trailer", "Oklahoma", "Ardmore"],
     siteUrl: "https://ardmoretrailer.com",
   },
 
@@ -182,7 +180,7 @@ export const DEFAULT_CONTENT = {
           statLabel: "No Obligation",
         },
       ],
-      stripBefore: "Serving Southern Oklahoma & North Texas with a",
+      stripBefore: "Serving Oklahoma & surrounding areas with a",
       stripHighlight: "2-month minimum",
       stripAfter: "rental period.",
       stripButtonLabel: "Call {phone}",
@@ -429,7 +427,7 @@ export const DEFAULT_CONTENT = {
     breadcrumbCurrent: "Fleet",
     eyebrow: "What We Rent",
     title: "Our Full Fleet",
-    text: "Eight equipment categories — dry, refrigerated, powered, and specialty — all available on a 2-month minimum rental. Serving Southern Oklahoma and North Texas.",
+    text: "Eight equipment categories — dry, refrigerated, powered, and specialty — all available on a 2-month minimum rental. Serving Oklahoma and surrounding areas.",
     stats: [
       { value: "8", label: "Equipment Types" },
       { value: "2 Mo", label: "Min. Rental" },
@@ -496,13 +494,13 @@ export const DEFAULT_CONTENT = {
   servicesPage: {
     metaTitle: "Services | Ardmore Trailer, Inc.",
     metaDescription:
-      "Trailer and container rental services for commercial, residential, construction, and industrial needs in Southern Oklahoma and North Texas.",
+      "Trailer and container rental services for commercial, residential, construction, and industrial needs in Oklahoma.",
     breadcrumbHome: "Home",
     breadcrumbCurrent: "Services",
     eyebrow: "What We Do",
     titleStart: "Industries",
     titleAccent: "We Serve",
-    text: "From oilfield operations to home renovations — Ardmore Trailer, Inc. provides the right equipment for every job across Southern Oklahoma and North Texas.",
+    text: "From oilfield operations to home renovations — Ardmore Trailer, Inc. provides the right equipment for every job across Oklahoma and surrounding areas.",
     stats: [
       { value: "4", label: "Industries" },
       { value: "8+", label: "Equipment Types" },
@@ -541,7 +539,7 @@ export const DEFAULT_CONTENT = {
     titleStart: "Oklahoma's Trusted",
     titleAccent: "Trailer & Container",
     titleEnd: "Rental Company",
-    text: "Ardmore Trailer, Inc. has been serving Southern Oklahoma and North Texas with professional trailer and container rentals. We deliver the right equipment to your site — on time, every time.",
+    text: "Ardmore Trailer, Inc. has been serving Oklahoma and surrounding areas with professional trailer and container rentals. We deliver the right equipment to your site — on time, every time.",
     stats: [
       { value: "8+", label: "Equipment Types" },
       { value: "2 Mo", label: "Min. Rental Period" },
@@ -553,12 +551,12 @@ export const DEFAULT_CONTENT = {
     storyEyebrow: "Our Story",
     storyTitle: "Built on Trust, Delivered with Pride",
     storyParagraph1:
-      "Ardmore Trailer, Inc. was founded with one simple goal — provide reliable, high-quality trailer and container rentals to businesses and individuals across Southern Oklahoma and North Texas. From our base in Ardmore, we serve customers throughout the region.",
+      "Ardmore Trailer, Inc. was founded with one simple goal — provide reliable, high-quality trailer and container rentals to businesses and individuals across Oklahoma. From our base in Ardmore, we serve customers across the state and surrounding areas.",
     storyParagraph2:
       "Whether you need a dry container for on-site storage, a refrigerated trailer for temperature-sensitive cargo, a generator for a remote site, or a purpose-built mud lab — we have the equipment and experience to get the job done right.",
     storyChecklist: [
       "Minimum 2-month rental period",
-      "Serving Southern Oklahoma & North Texas",
+      "Serving Oklahoma & surrounding areas",
       "8 equipment types available",
       "Direct contact — no call centers",
     ],
@@ -568,7 +566,7 @@ export const DEFAULT_CONTENT = {
       { icon: "fa6/FaShield", title: "Quality First", text: "Every unit is maintained to the highest standard before it leaves our yard." },
       { icon: "fa6/FaHandshake", title: "Honest Service", text: "No hidden fees, no surprises. Transparent pricing from day one." },
       { icon: "fa6/FaTruck", title: "On-Time Delivery", text: "We show up when we say we will — every time, no excuses." },
-      { icon: "fa6/FaAward", title: "Industry Experience", text: "Years of experience serving the toughest job sites in Oklahoma and North Texas." },
+      { icon: "fa6/FaAward", title: "Industry Experience", text: "Years of experience serving Oklahoma's toughest job sites." },
       { icon: "fa6/FaClock", title: "2-Month Minimum", text: "Flexible rental terms starting at 2 months to match your project." },
       { icon: "fa6/FaUsers", title: "Local Team", text: "Talk directly to Rick and the team — no call centers, ever." },
     ],
@@ -674,7 +672,7 @@ export const DEFAULT_CONTENT = {
       "Fast response from our team",
       "No hidden fees or charges",
       "2-month minimum rental",
-      "Serving Southern Oklahoma & North Texas",
+      "Serving Oklahoma & surrounding areas",
       "Talk directly to Rick — no call centers",
     ],
     callTitle: "Prefer to Call?",
@@ -685,7 +683,7 @@ export const DEFAULT_CONTENT = {
       { icon: "fa/FaMapMarkerAlt", label: "Address", value: "3801 Springdale Rd, Ardmore OK", href: "{mapsLink}", color: "#2d8fdd" },
     ],
     noteBold: "Minimum Rental Period:",
-    noteText: "2 Months. All rentals subject to availability. Serving Southern Oklahoma and North Texas.",
+    noteText: "2 Months. All rentals subject to availability. Serving Oklahoma and surrounding areas.",
   },
 
   // ── 404 page ───────────────────────────────

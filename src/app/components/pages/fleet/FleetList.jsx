@@ -94,8 +94,10 @@ function FleetCard({ item, fleetPage, site }) {
         }} />
         <span style={{
           position: "absolute", top: 12, left: 12,
+          maxWidth: "calc(100% - 24px)", whiteSpace: "nowrap",
+          overflow: "hidden", textOverflow: "ellipsis",
           fontSize: 10, fontWeight: 800,
-          textTransform: "uppercase", letterSpacing: 2,
+          textTransform: "uppercase", letterSpacing: 1.2,
           padding: "4px 10px", borderRadius: 20,
           background: C.gold, color: C.dark
         }}>{item.badge}</span>

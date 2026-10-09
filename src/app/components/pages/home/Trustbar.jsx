@@ -40,7 +40,7 @@ export default function TrustBar({ trustBar, site, services }) {
           {TRUST_STATS.map((stat, i) => (
             <div
               key={i}
-              className={`relative flex flex-col items-center justify-center text-center py-8 px-4 ${
+              className={`relative flex flex-col items-center justify-start text-center py-8 px-4 ${
                 // Odd count on mobile: let the last stat use the full row
                 TRUST_STATS.length % 2 === 1 && i === TRUST_STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
               }`}
@@ -64,7 +64,7 @@ export default function TrustBar({ trustBar, site, services }) {
 
               {/* Stat value */}
               <span
-                className="block text-3xl md:text-4xl font-black tracking-tight mb-1"
+                className="block text-3xl md:text-4xl font-black tracking-tight leading-tight whitespace-nowrap mb-1"
                 style={{
                   color: "#c9a84c",
                   fontFamily: "'Georgia', 'Times New Roman', serif",
@@ -75,7 +75,7 @@ export default function TrustBar({ trustBar, site, services }) {
 
               {/* Stat label */}
               <span
-                className="text-xs font-semibold tracking-wider uppercase leading-snug max-w-[120px]"
+                className="text-xs font-semibold tracking-wider uppercase leading-snug max-w-[220px]"
                 style={{ color: "#7a9bb5" }}
               >
                 {stat.label}

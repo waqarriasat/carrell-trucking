@@ -237,7 +237,8 @@ function FleetCard({ item, linkLabel, brand }) {
         </h3>
 
         {/* Sizes pill row */}
-        <div className="flex flex-wrap gap-1.5 mb-3">
+        {/* min-h keeps rows aligned when an item has no sizes */}
+        <div className="flex flex-wrap gap-1.5 mb-3 min-h-[20px]">
           {item.sizes.map((size, si) => (
             <span
               key={si}
@@ -254,14 +255,14 @@ function FleetCard({ item, linkLabel, brand }) {
 
         {/* Description */}
         <p
-          className="text-sm leading-relaxed mb-4 flex-1"
+          className="text-sm leading-relaxed mb-4 sm:min-h-[5.7rem]"
           style={{ color: "#4a6b85" }}
         >
           {item.description}
         </p>
 
         {/* Features list */}
-        <ul className="space-y-1.5 mb-5">
+        <ul className="space-y-1.5 mb-5 flex-1">
           {item.features.slice(0, 3).map((feature, fi) => (
             <li key={fi} className="flex items-start gap-2 text-xs" style={{ color: "#4a6b85" }}>
               <FaCheck

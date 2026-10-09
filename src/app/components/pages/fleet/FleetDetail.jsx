@@ -31,6 +31,10 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
           gap: 32px;
           align-items: start;
         }
+        /* 7 other items: 4 + 3 on desktop, centered so no card is left alone */
+        .other-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .other-card { flex: 0 1 calc(25% - 7.5px); min-width: 0; }
+        @media (max-width: 768px) { .other-card { flex-basis: calc(50% - 5px); } }
         .gallery-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -247,11 +251,12 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               {fleetDetail.otherLabel}
             </span>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 10 }}>
+          <div className="other-grid">
             {fleet.filter(f => f.id !== item.id).map(f => (
               <Link
                 key={f.id}
                 href={`/fleet/${f.id}`}
+                className="other-card"
                 style={{
                   display: "block", padding: "12px 16px",
                   borderRadius: 10, border: `1px solid ${C.navy}`,
@@ -259,7 +264,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                 }}
               >
                 <div style={{ fontSize: 12, fontWeight: 700, color: "#fff", marginBottom: 2 }}>{f.name}</div>
-                <div style={{ fontSize: 10, color: C.muted }}>{f.sizes.join(" · ")}</div>
+                <div style={{ fontSize: 10, color: C.muted, minHeight: 14 }}>{f.sizes.join(" · ")}</div>
               </Link>
             ))}
           </div>

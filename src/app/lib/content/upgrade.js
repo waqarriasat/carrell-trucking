@@ -13,10 +13,19 @@
 // ─────────────────────────────────────────────
 import { DEFAULT_CONTENT } from "./defaults"
 import { LEGACY_CONTENT_V1 } from "./legacy-v1"
+import { LEGACY_CONTENT_V3 } from "./legacy-v3"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
-export const CONTENT_VERSION = 3
+// 4: regional wording + layout polish.
+export const CONTENT_VERSION = 4
+
+// Each step: copies saved before `upTo` that still hold `from` text get `to`.
+// Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
+const STEPS = [
+  { upTo: 3, from: LEGACY_CONTENT_V1, to: LEGACY_CONTENT_V3 },
+  { upTo: 4, from: LEGACY_CONTENT_V3, to: DEFAULT_CONTENT },
+]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
 
@@ -51,6 +60,6 @@ function upgrade(saved, oldDef, newDef) {
 
 // `version` is the content version the copy was written / loaded with (1 if missing).
 export function upgradeContent(content, version = 1) {
-  if (!isPlainObject(content) || version >= CONTENT_VERSION) return content
-  return upgrade(content, LEGACY_CONTENT_V1, DEFAULT_CONTENT)
+  if (!isPlainObject(content)) return content
+  return STEPS.reduce((c, step) => (version < step.upTo ? upgrade(c, step.from, step.to) : c), content)
 }
