@@ -47,6 +47,13 @@ export function mergeWithDefaults(saved, defaults = DEFAULT_CONTENT) {
 
 const digits = (s = "") => String(s).replace(/[^\d+]/g, "")
 
+// wa.me needs the full international number as digits only (no +, spaces or dashes).
+function whatsappLink(number, message) {
+  const n = String(number || "").replace(/\D/g, "")
+  if (!n) return ""
+  return `https://wa.me/${n}` + (message ? `?text=${encodeURIComponent(message)}` : "")
+}
+
 export function buildTokens(site) {
   const address = `${site.street}, ${site.city}, ${site.state} ${site.zip}`
   const mapsQuery = `${site.street} ${site.city} ${site.state} ${site.zip}`.trim().replace(/\s+/g, "+")
@@ -94,6 +101,7 @@ export function resolveContent(raw) {
     phoneHref: tokens.phoneLink,
     cellHref: tokens.cellLink,
     emailHref: tokens.emailLink,
+    whatsappHref: whatsappLink(resolved.site.whatsapp, resolved.site.whatsappMessage),
     address: tokens.address,
     mapsHref: tokens.mapsLink,
   }

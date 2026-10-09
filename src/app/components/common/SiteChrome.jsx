@@ -2,9 +2,9 @@
 
 import { usePathname } from "next/navigation"
 
-// Public pages get the navbar, footer and convoy animation;
+// Public pages get the navbar, footer, convoy animation and WhatsApp button;
 // the admin panel (/admin/*) renders on its own.
-export default function SiteChrome({ navbar, footer, convoy, children }) {
+export default function SiteChrome({ navbar, footer, convoy, whatsapp, children }) {
   const pathname = usePathname() || ""
   if (pathname === "/admin" || pathname.startsWith("/admin/")) return children
 
@@ -14,6 +14,7 @@ export default function SiteChrome({ navbar, footer, convoy, children }) {
       {children}
       {footer}
       {convoy}
+      {whatsapp}
     </>
   )
 }

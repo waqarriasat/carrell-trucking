@@ -28,6 +28,9 @@ export const DEFAULT_CONTENT = {
     zip: "73401",
     minRental: "On-site delivery",
     formRecipient: "rick@carrelltrucking.com",
+    whatsapp: "+1 (580) 221-3494",
+    whatsappMessage: "Hi Ardmore Trailer, I'd like to ask about renting equipment.",
+    whatsappLabel: "Chat on WhatsApp",
     mapEmbedUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3252.7!2d-97.1!3d34.17!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s3801+Springdale+Road%2C+Ardmore%2C+OK+73401!5e0!3m2!1sen!2sus!4v1234567890",
   },

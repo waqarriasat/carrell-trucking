@@ -5,6 +5,7 @@ import Footer from "@/app/components/common/Footer";
 import SiteChrome from "@/app/components/common/SiteChrome";
 import { getContent } from "@/app/lib/server/content";
 import Convoy from "./components/common/Convoy";
+import WhatsAppButton from "@/app/components/common/WhatsAppButton";
 
 // ─────────────────────────────────────────────
 //  Root Layout
@@ -55,6 +56,7 @@ export default async function RootLayout({ children }) {
           navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} />}
           footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} />}
           convoy={<Convoy />}
+          whatsapp={<WhatsAppButton site={site} />}
         >
           {/* Children maps your main page sections dynamically */}
           {children}
