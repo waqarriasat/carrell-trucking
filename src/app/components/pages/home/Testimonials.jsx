@@ -1,4 +1,3 @@
-import { TESTIMONIALS, SITE } from "@/app/lib/constants"
 import { FaQuoteLeft, FaStar } from "react-icons/fa"
 
 const C = {
@@ -12,7 +11,9 @@ const C = {
   text:   "#4a6b85",
 }
 
-export default function Testimonials() {
+export default function Testimonials({ testimonials, site }) {
+  const TESTIMONIALS = testimonials.items
+
   return (
     <section style={{ background: C.dark, padding: "64px 24px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -22,15 +23,15 @@ export default function Testimonials() {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
             <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
-              What Customers Say
+              {testimonials.eyebrow}
             </span>
             <div style={{ width: 32, height: 2, background: C.gold }} />
           </div>
           <h2 style={{ fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 900, color: "#fff", margin: "0 0 12px" }}>
-            Trusted by Oklahoma Businesses
+            {testimonials.title}
           </h2>
           <p style={{ fontSize: 14, color: C.muted, maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>
-            Don't just take our word for it — here's what our customers say about renting with Ardmore Trailer.
+            {testimonials.text}
           </p>
         </div>
 
@@ -49,9 +50,9 @@ export default function Testimonials() {
         `}</style>
 
         <div className="testimonials-grid">
-          {TESTIMONIALS.map((t) => (
+          {TESTIMONIALS.map((t, i) => (
             <div
-              key={t.id}
+              key={i}
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: `1.5px solid ${C.navy}`,
@@ -98,7 +99,7 @@ export default function Testimonials() {
                   flexShrink: 0
                 }}>
                   <span style={{ fontSize: 16, fontWeight: 900, color: C.gold }}>
-                    {t.author.charAt(0)}
+                    {(t.author || "").charAt(0)}
                   </span>
                 </div>
                 <div>
@@ -122,14 +123,14 @@ export default function Testimonials() {
           border: `1px solid ${C.navy}`
         }}>
           <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
-            Ready to experience the Ardmore Trailer difference?
+            {testimonials.ctaTitle}
           </p>
           <p style={{ fontSize: 13, color: C.muted, marginBottom: 20 }}>
-            Call {SITE.phone} or get a free quote today.
+            {testimonials.ctaText}
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
            <a 
-              href={`/quote`}
+              href={testimonials.ctaPrimaryButton.href}
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "11px 24px",
@@ -137,10 +138,10 @@ export default function Testimonials() {
                 textDecoration: "none"
               }}
             >
-              Get a Free Quote
+              {testimonials.ctaPrimaryButton.label}
             </a>
             <a
-              href={SITE.phoneHref}
+              href={site.phoneHref}
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "11px 24px",
@@ -148,7 +149,7 @@ export default function Testimonials() {
                 color: C.blue, textDecoration: "none"
               }}
             >
-              Call {SITE.phone}
+              {testimonials.ctaCallLabel}
             </a>
           </div>
         </div>

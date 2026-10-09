@@ -1,15 +1,14 @@
 import Link from "next/link";
-import { FaFileLines, FaTruck, FaClipboardCheck, FaShield } from "react-icons/fa6";
+import { FaFileLines } from "react-icons/fa6";
+import { getIcon } from "@/app/lib/content/icons";
 
-// Unique, non-duplicative metrics focusing on operational excellence
-const STATS = [
-  { value: "20+",    label: "Years in Business" },
-  { value: "Direct",  label: "Owner Communication" },
-  { value: "On-Site", label: "Prompt Delivery" },
-  { value: "100%",   label: "Commercial Grade" },
-];
+// Tailwind needs literal class names, so map the item count to a column class.
+const LG_COLS = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3", 4: "lg:grid-cols-4" };
 
-export default function CtaBanner() {
+export default function CtaBanner({ ctaBanner }) {
+  // Unique, non-duplicative metrics focusing on operational excellence
+  const STATS = ctaBanner.stats;
+
   return (
     <section
       className="w-full py-16 md:py-20 overflow-hidden"
@@ -19,11 +18,14 @@ export default function CtaBanner() {
       <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
 
         {/* ── Stats Grid ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-          {STATS.map((s) => (
+        <div className={`grid grid-cols-2 ${LG_COLS[STATS.length] || "lg:grid-cols-4"} gap-4 mb-12`}>
+          {STATS.map((s, i) => (
             <div
-              key={s.label}
-              className="flex flex-col items-center text-center rounded-xl py-6 px-4 transition-all"
+              key={i}
+              className={`flex flex-col items-center text-center rounded-xl py-6 px-4 transition-all ${
+                // Odd count on mobile: let the last stat use the full row
+                STATS.length % 2 === 1 && i === STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
+              }`}
               style={{
                 backgroundColor: "rgba(255,255,255,0.03)",
                 border: "1px solid rgba(255,255,255,0.06)",
@@ -72,7 +74,7 @@ export default function CtaBanner() {
                 <div className="flex items-center gap-3 mb-4">
                   <span className="h-px w-8 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
                   <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>
-                    Streamlined Logistics
+                    {ctaBanner.eyebrow}
                   </span>
                 </div>
 
@@ -81,26 +83,24 @@ export default function CtaBanner() {
                   className="text-3xl md:text-4xl font-black leading-tight mb-4"
                   style={{ color: "#ffffff" }}
                 >
-                  Lock In Your Fleet Assets{" "}
+                  {ctaBanner.titleStart}{" "}
                   <span style={{ color: "#c9a84c" }}>
-                    Before Your Next Project.
+                    {ctaBanner.titleAccent}
                   </span>
                 </h2>
 
                 <p className="text-base leading-relaxed mb-8" style={{ color: "#cbd5e1" }}>
-                  Don&apos;t risk project downtime due to supply constraints. We coordinate
-                  with your timeline to drop off heavy-duty infrastructure directly where
-                  you need it most. Secure your minimum 2-month rental allocation today.
+                  {ctaBanner.text}
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
-                    href="/quote"
+                    href={ctaBanner.button.href}
                     className="flex items-center justify-center gap-2 text-sm font-bold px-8 py-4 rounded-lg transition-all duration-200 hover:brightness-110 active:scale-95 shadow-lg"
                     style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
                   >
                     <FaFileLines size={14} />
-                    Begin Online Setup
+                    {ctaBanner.button.label}
                   </Link>
                 </div>
               </div>
@@ -112,29 +112,15 @@ export default function CtaBanner() {
               style={{ backgroundColor: "#0a2038" }}
             >
               <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/50 mb-2">
-                Our Seamless Rental Process
+                {ctaBanner.processLabel}
               </p>
 
-              {[
-                {
-                  icon: FaClipboardCheck,
-                  step: "01",
-                  title: "Submit Requirements",
-                  desc: "Request your specific sizes, generator capacities, or office styles online.",
-                },
-                {
-                  icon: FaShield,
-                  step: "02",
-                  title: "Confirm Allocation",
-                  desc: "Review your comprehensive, transparent commercial contract with a 2-month minimum term.",
-                },
-                {
-                  icon: FaTruck,
-                  step: "03",
-                  title: "Scheduled Delivery",
-                  desc: "Our dispatch team drops off the certified ready-to-use fleet assets directly to your site.",
-                },
-              ].map((item) => (
+              {ctaBanner.steps.map((step, i) => ({
+                icon: getIcon(step.icon),
+                step: String(i + 1).padStart(2, "0"),
+                title: step.title,
+                desc: step.text,
+              })).map((item) => (
                 <div key={item.step} className="flex gap-4 items-start relative group">
                   <div
                     className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 border"
@@ -149,7 +135,7 @@ export default function CtaBanner() {
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-[10px] font-bold tracking-wider px-1.5 py-0.5 rounded text-[#c9a84c] bg-[#c9a84c]/10">
-                        STEP {item.step}
+                        {ctaBanner.stepPrefix} {item.step}
                       </span>
                       <h3 className="text-sm font-bold text-white uppercase tracking-wide">
                         {item.title}

@@ -6,16 +6,15 @@ import {
   FaTruck,
   FaChevronRight,
 } from "react-icons/fa6";
-import { SITE, FOOTER_COLUMNS } from "@/app/lib/constants";
 
 // ─────────────────────────────────────────────
 //  Footer
 //  4-column grid layout (stacks to 2-col on
 //  mobile, single col on xs).
 //
-//  Columns (from constants.js FOOTER_COLUMNS):
-//    1. Company links
-//    2. Fleet links (hash anchors)
+//  Columns (text from the admin-managed content):
+//    1. Company (logo + blurb)
+//    2. Fleet links
 //    3. Industries served
 //    4. Contact info
 //
@@ -72,8 +71,28 @@ function FooterLink({ href, children }) {
 }
 
 // ── Main component ────────────────────────────
-export default function Footer() {
+export default function Footer({ site, footer, fleet, services }) {
   const currentYear = new Date().getFullYear();
+
+  const columns = [
+    {
+      heading: footer.fleetHeading,
+      links: fleet.map((f) => ({ label: f.name, href: `/fleet/${f.id}` })),
+    },
+    {
+      heading: footer.industriesHeading,
+      links: services.map((s) => ({ label: s.label, href: `/services/${s.id}` })),
+    },
+    {
+      heading: footer.contactHeading,
+      links: [
+        { label: site.phone, href: site.phoneHref },
+        { label: site.email, href: site.emailHref },
+        { label: site.address, href: site.mapsHref },
+        { label: footer.contactQuoteLabel, href: "/quote" },
+      ],
+    },
+  ];
 
   return (
     <footer style={{ backgroundColor: "#0a2038" }}>
@@ -89,27 +108,27 @@ export default function Footer() {
               className="text-xs font-bold tracking-widest uppercase mb-1"
               style={{ color: "#c9a84c" }}
             >
-              Ready to Rent?
+              {footer.ctaEyebrow}
             </p>
             <p className="text-white font-semibold text-lg leading-tight">
-              Get your equipment on-site fast.
+              {footer.ctaTitle}
             </p>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <a
-              href={SITE.phoneHref}
+              href={site.phoneHref}
               className="flex items-center gap-2 px-5 py-2.5 rounded font-bold text-sm tracking-wide border-2 transition-all hover:brightness-110"
               style={{ borderColor: "#7a9bb5", color: "#7a9bb5" }}
             >
               <FaPhone size={13} />
-              {SITE.phone}
+              {site.phone}
             </a>
             <Link
-              href="/quote"
+              href={footer.ctaButton.href}
               className="px-5 py-2.5 rounded font-bold text-sm tracking-wider uppercase transition-all hover:brightness-110 active:scale-95"
               style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
             >
-              Get a Quote
+              {footer.ctaButton.label}
             </Link>
           </div>
         </div>
@@ -127,19 +146,18 @@ export default function Footer() {
                 className="block font-black text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
                 style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
               >
-                ARDMORE
+                {site.logoTop}
               </span>
               <span
                 className="block text-xs font-bold tracking-[0.22em] uppercase"
                 style={{ color: "#c9a84c" }}
               >
-                Trailer, Inc.
+                {site.logoBottom}
               </span>
             </Link>
 
             <p className="text-sm leading-relaxed mb-5" style={{ color: "#7a9bb5" }}>
-              Southern Oklahoma&apos;s rental source for dry containers, reefers,
-              trailers, generators, and custom specialty units.
+              {footer.blurb}
             </p>
 
             {/* Min rental badge */}
@@ -148,17 +166,17 @@ export default function Footer() {
               style={{ borderColor: "#c9a84c", color: "#c9a84c" }}
             >
               <FaTruck size={11} />
-              {SITE.minRental}
+              {site.minRental}
             </span>
           </div>
 
-          {/* Cols 2–4 — from FOOTER_COLUMNS (skip index 0 — we handled Company above) */}
-          {FOOTER_COLUMNS.slice(1).map((col) => (
-            <div key={col.heading}>
+          {/* Cols 2–4 — Fleet, Industries, Contact */}
+          {columns.map((col, ci) => (
+            <div key={ci}>
               <ColHeading>{col.heading}</ColHeading>
               <ul>
-                {col.links.map((link) => (
-                  <li key={link.label}>
+                {col.links.map((link, li) => (
+                  <li key={li}>
                     <FooterLink href={link.href}>{link.label}</FooterLink>
                   </li>
                 ))}
@@ -178,38 +196,38 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-xs text-center sm:text-left" style={{ color: "#7a9bb5" }}>
-            © {currentYear} {SITE.name}. All rights reserved.
+            © {currentYear} {site.name}{`. ${footer.copyright}`}
           </p>
 
           {/* Address + contact row */}
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <a
-              href={SITE.address.mapsHref}
+              href={site.mapsHref}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
               style={{ color: "#7a9bb5" }}
             >
               <FaLocationDot size={11} style={{ color: "#c9a84c" }} />
-              {SITE.address.city}, {SITE.address.state} {SITE.address.zip}
+              {site.city}, {site.state} {site.zip}
             </a>
 
             <a
-              href={SITE.phoneHref}
+              href={site.phoneHref}
               className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
               style={{ color: "#7a9bb5" }}
             >
               <FaPhone size={11} style={{ color: "#c9a84c" }} />
-              {SITE.phone}
+              {site.phone}
             </a>
 
             <a
-              href={SITE.emailHref}
+              href={site.emailHref}
               className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
               style={{ color: "#7a9bb5" }}
             >
               <FaEnvelope size={11} style={{ color: "#c9a84c" }} />
-              {SITE.email}
+              {site.email}
             </a>
           </div>
 

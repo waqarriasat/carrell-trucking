@@ -896,9 +896,11 @@ export default function Convoy() {
 
   return (
     <div style={{
-      position: "fixed", bottom: 0, left: 0, right: 0,
+      // Sits below the footer (not fixed) so it never covers page content.
+      position: "relative",
       height: 72, overflow: "hidden",
-      pointerEvents: "none", zIndex: 9999,
+      pointerEvents: "none",
+      background: "#0a2038",
     }}>
       {/* Road */}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 20, background: "#0a1628", borderTop: "2px solid #1e3a5f" }} />

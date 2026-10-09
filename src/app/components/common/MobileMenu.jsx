@@ -3,20 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FaXmark, FaPhone, FaChevronRight, FaChevronDown } from "react-icons/fa6";
-import { NAV_LINKS, NAV_CTA, SITE, FLEET, SERVICES } from "@/app/lib/constants";
 
-const SUB_MENUS = {
-  "/fleet": FLEET.map((f) => ({
-    label: f.name,
-    href: `/fleet/${f.id}`,
-  })),
-  "/services": SERVICES.map((s) => ({
-    label: s.label,
-    href: `/services/${s.id}`,
-  })),
-}
+export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services }) {
+  const SUB_MENUS = {
+    "/fleet": fleet.map((f) => ({
+      label: f.name,
+      href: `/fleet/${f.id}`,
+    })),
+    "/services": services.map((s) => ({
+      label: s.label,
+      href: `/services/${s.id}`,
+    })),
+  }
 
-export default function MobileMenu({ isOpen, onClose }) {
   const [openSection, setOpenSection] = useState(null)
 
   const toggleSection = (href) => {
@@ -53,7 +52,7 @@ export default function MobileMenu({ isOpen, onClose }) {
           style={{ borderColor: "#1e4d7b" }}
         >
           <span className="text-white font-bold text-sm tracking-widest uppercase">
-            Menu
+            {nav.mobileMenuTitle}
           </span>
           <button
             onClick={onClose}
@@ -67,12 +66,12 @@ export default function MobileMenu({ isOpen, onClose }) {
         {/* Nav links */}
         <nav className="flex-1 overflow-y-auto py-4">
           <ul className="flex flex-col">
-            {NAV_LINKS.map((link) => {
+            {nav.links.map((link, li) => {
               const subLinks = SUB_MENUS[link.href]
               const isOpen_ = openSection === link.href
 
               return (
-                <li key={link.href}>
+                <li key={li}>
                   {/* Main link row */}
                   {subLinks ? (
                     // Has submenu — show toggle button
@@ -114,7 +113,7 @@ export default function MobileMenu({ isOpen, onClose }) {
                           className="flex items-center px-8 py-3 text-xs font-bold uppercase tracking-widest border-b transition-colors hover:text-white"
                           style={{ color: "#c9a84c", borderColor: "#1e4d7b" }}
                         >
-                          View All {link.label}
+                          {nav.mobileViewAllPrefix} {link.label}
                         </Link>
                       </li>
                       {subLinks.map((sub) => (
@@ -140,12 +139,12 @@ export default function MobileMenu({ isOpen, onClose }) {
           {/* CTA button */}
           <div className="px-6 pt-6 pb-4">
             <Link
-              href={NAV_CTA.href}
+              href={nav.cta.href}
               onClick={onClose}
               className="block w-full text-center py-3 px-6 rounded font-bold text-sm tracking-wider uppercase transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
             >
-              {NAV_CTA.label}
+              {nav.cta.label}
             </Link>
           </div>
         </nav>
@@ -157,10 +156,10 @@ export default function MobileMenu({ isOpen, onClose }) {
         >
           <p className="text-xs font-semibold tracking-widest uppercase mb-3"
             style={{ color: "#7a9bb5" }}>
-            Call Direct
+            {nav.mobileCallLabel}
           </p>
           <a
-            href={SITE.phoneHref}
+            href={site.phoneHref}
             className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
           >
             <span
@@ -169,7 +168,7 @@ export default function MobileMenu({ isOpen, onClose }) {
             >
               <FaPhone size={13} className="text-white" />
             </span>
-            <span className="font-bold text-lg tracking-wide">{SITE.phone}</span>
+            <span className="font-bold text-lg tracking-wide">{site.phone}</span>
           </a>
         </div>
       </div>

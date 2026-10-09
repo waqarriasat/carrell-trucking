@@ -2,7 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/common/Navbar";
 import Footer from "@/app/components/common/Footer";
-import { SITE } from "@/app/lib/constants";
+import SiteChrome from "@/app/components/common/SiteChrome";
+import { getContent } from "@/app/lib/server/content";
 import Convoy from "./components/common/Convoy";
 
 // ─────────────────────────────────────────────
@@ -13,8 +14,8 @@ import Convoy from "./components/common/Convoy";
 //    - Page content
 //    - Footer (server component)
 //
-//  Metadata uses SITE constants so it stays
-//  in sync with lib/constants.js automatically.
+//  Text, links and metadata come from the
+//  admin-managed content (lib/server/content.js).
 // ─────────────────────────────────────────────
 
 const inter = Inter({
@@ -23,37 +24,41 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata = {
-  title: {
-    default: "Ardmore Trailer, Inc. | Trailer & Container Rental Oklahoma",
-    template: "%s | Ardmore Trailer, Inc.",
-  },
-  description: "Southern Oklahoma's trusted trailer and container rental. Reefer, dry containers, generators, office units. Call 580-226-7811.",
-  keywords: ["trailer rental", "container rental", "reefer trailer", "Oklahoma", "Ardmore"],
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://ardmoretrailer.com",
-    siteName: "Ardmore Trailer, Inc.",
-  },
+export async function generateMetadata() {
+  const { seo, site } = await getContent();
+  return {
+    title: {
+      default: seo.title,
+      template: seo.titleTemplate,
+    },
+    description: seo.description,
+    keywords: seo.keywords,
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: seo.siteUrl,
+      siteName: site.name,
+    },
+  };
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const content = await getContent();
+  const { site, nav, footer, fleet, services } = content;
+  const fleetLinks = fleet.map((f) => ({ id: f.id, name: f.name }));
+  const serviceLinks = services.map((s) => ({ id: s.id, label: s.label }));
+
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        
-        {/* Children maps your main page sections dynamically */}
-        {children}
-
-        {/* Keeping animation layered cleanly over the footer baseline layout */}
-        
-        
-        <Footer />
-
-        <Convoy /> 
-        
+        <SiteChrome
+          navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} />}
+          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} />}
+          convoy={<Convoy />}
+        >
+          {/* Children maps your main page sections dynamically */}
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );

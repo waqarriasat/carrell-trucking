@@ -2,27 +2,24 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
-import { SITE, FLEET } from "@/app/lib/constants";
 
-const HERO_FLEET_PREVIEW = FLEET.slice(0, 6);
+export default function Hero({ hero, site, fleet }) {
+  const HERO_FLEET_PREVIEW = fleet.slice(0, hero.previewCount);
+  // Background slider images (managed in the admin panel)
+  const SLIDER_IMAGES = hero.slides.filter(Boolean);
+  const slideCount = SLIDER_IMAGES.length;
+  const slideMs = Math.max(1, Number(hero.slideSeconds) || 5) * 1000;
 
-// Live high-resolution paths for heavy-duty containers, reefers, and equipment transport trailers
-const SLIDER_IMAGES = [
-  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80", // Cargo Containers Yard
-  "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=2000&q=80", // Semi-Truck & Fleet Trailer on highway
-  "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=2000&q=80", // Logistics industrial hub
-];
-
-export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Automatically cycle images every 5 seconds
+  // Automatically cycle images
   useEffect(() => {
+    if (slideCount < 2) return;
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % SLIDER_IMAGES.length);
-    }, 5000);
+      setCurrentSlide((prev) => (prev + 1) % slideCount);
+    }, slideMs);
     return () => clearInterval(timer);
-  }, []);
+  }, [slideCount, slideMs]);
 
   return (
     <section
@@ -33,7 +30,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         {SLIDER_IMAGES.map((src, index) => (
           <div
-            key={src}
+            key={index}
             className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
               index === currentSlide ? "opacity-25 scale-100" : "opacity-0 scale-105"
             } transform motion-reduce:transition-none`}
@@ -94,7 +91,7 @@ export default function Hero() {
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-10 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
               <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: "#c9a84c" }}>
-                Ardmore, Oklahoma
+                {hero.eyebrow}
               </span>
             </div>
 
@@ -103,53 +100,52 @@ export default function Hero() {
               className="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-white mb-6"
               style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
             >
-              Heavy-Duty{" "}
+              {hero.titleStart}{" "}
               <span className="relative inline-block" style={{ color: "#2d8fdd" }}>
-                Trailers
+                {hero.titleAccent1}
                 <span
                   className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
                   style={{ backgroundColor: "#c9a84c" }}
                   aria-hidden="true"
                 />
               </span>
-              {" & "}
-              <span style={{ color: "#2d8fdd" }}>Containers</span>
+              {` ${hero.titleJoin} `}
+              <span style={{ color: "#2d8fdd" }}>{hero.titleAccent2}</span>
               <br />
-              <span className="text-white">for Every </span>
-              <span style={{ color: "#c9a84c" }}>Job Site.</span>
+              <span className="text-white">{`${hero.titleLine2} `}</span>
+              <span style={{ color: "#c9a84c" }}>{hero.titleAccent3}</span>
             </h1>
 
             {/* Context Subtext Description */}
             <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "#cbd5e1" }}>
-              Southern Oklahoma&apos;s rental source for dry containers, reefer trailers,
-              mobile offices, generators, and custom mud lab units.{" "}
+              {hero.text}{" "}
               <span className="text-white font-medium">
-                2-month minimum. Direct line to the owner.
+                {hero.textHighlight}
               </span>
             </p>
 
             {/* Primary Action Button Cluster */}
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
               <Link
-                href="/quote"
+                href={hero.primaryButton.href}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase transition-all duration-200 hover:brightness-110 active:scale-95"
                 style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
               >
-                Get a Free Quote
+                {hero.primaryButton.label}
                 <FaArrowRight size={13} />
               </Link>
               <Link
-                href="/fleet"
+                href={hero.secondaryButton.href}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase border-2 transition-all duration-200 hover:bg-white/10"
                 style={{ borderColor: "#2d8fdd", color: "#2d8fdd" }}
               >
-                Browse Fleet
+                {hero.secondaryButton.label}
                 <FaChevronRight size={12} />
               </Link>
             </div>
 
             {/* Direct Line Phone Trigger */}
-            <a href={SITE.phoneHref} className="inline-flex items-center gap-3 group">
+            <a href={site.phoneHref} className="inline-flex items-center gap-3 group">
               <span
                 className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors group-hover:border-white/50"
                 style={{ borderColor: "#1e4d7b" }}
@@ -158,10 +154,10 @@ export default function Hero() {
               </span>
               <span>
                 <span className="block text-xs font-semibold tracking-widest uppercase" style={{ color: "#7a9bb5" }}>
-                  Call Direct
+                  {hero.callLabel}
                 </span>
                 <span className="block text-white font-bold text-lg tracking-wide group-hover:text-white/80 transition-colors">
-                  {SITE.phone}
+                  {site.phone}
                 </span>
               </span>
             </a>
@@ -170,7 +166,7 @@ export default function Hero() {
           {/* Right: Fleet Preview Cards — Desktop Viewports Only */}
           <div className="hidden lg:block">
             <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5" style={{ color: "#7a9bb5" }}>
-              Available Equipment
+              {hero.previewLabel}
             </p>
 
             <div className="grid grid-cols-2 gap-3">
@@ -198,9 +194,6 @@ export default function Hero() {
                     <p className="text-white font-bold text-sm leading-tight mb-1">
                       {item.shortName}
                     </p>
-                    <p className="text-xs" style={{ color: "#7a9bb5" }}>
-                      {item.sizes.join(" · ")}
-                    </p>
                   </div>
 
                   <FaChevronRight
@@ -223,7 +216,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2 mt-4 text-sm font-medium transition-colors hover:text-white"
               style={{ color: "#7a9bb5" }}
             >
-              View all {FLEET.length} equipment types
+              {hero.viewAllText.replace("{count}", fleet.length)}
               <FaArrowRight size={12} style={{ color: "#c9a84c" }} />
             </Link>
           </div>

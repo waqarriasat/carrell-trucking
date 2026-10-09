@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaPhone, FaFileAlt } from "react-icons/fa";
 
-export default function FleetCTA() {
+export default function FleetCTA({ fleetPage }) {
   return (
     <section
       className="w-full py-14"
@@ -13,12 +13,12 @@ export default function FleetCTA() {
             className="text-2xl md:text-3xl font-black leading-tight mb-2"
             style={{ color: "#ffffff" }}
           >
-            Don't See What You Need?
+            {fleetPage.ctaTitle}
             <br />
-            <span style={{ color: "#c9a84c" }}>Let's Talk.</span>
+            <span style={{ color: "#c9a84c" }}>{fleetPage.ctaAccent}</span>
           </h2>
           <p className="text-sm" style={{ color: "#7a9bb5" }}>
-            Call us at 580-226-7811 or request a free quote and we'll find the right unit for your job.
+            {fleetPage.ctaText}
           </p>
         </div>
         {/* <div className="flex flex-col sm:flex-row gap-3 shrink-0">

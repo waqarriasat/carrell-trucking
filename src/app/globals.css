@@ -39,3 +39,8 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.18s ease-out;
 }
+
+/* Admin panel has no fixed site navbar above it */
+body:has(#admin-root) {
+  padding-top: 0;
+}
