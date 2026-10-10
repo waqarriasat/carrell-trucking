@@ -10,7 +10,7 @@ export default function WhyUs({ whyUs, site }) {
       style={{ backgroundColor: "#ffffff" }}
       aria-labelledby="why-heading"
     >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+      <div className="wrap">
 
         {/* ── Section Header ── */}
         <div className="mb-12">

@@ -33,7 +33,7 @@ export default function TrustBar({ trustBar, site, services }) {
 
       {/* ── Stat row ── */}
       <div
-        className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10"
+        className="wrap"
         style={{ borderBottom: "1px solid #1e4d7b" }}
       >
         <div className={`grid grid-cols-2 ${LG_COLS[TRUST_STATS.length] || "lg:grid-cols-4"}`}>
@@ -86,7 +86,7 @@ export default function TrustBar({ trustBar, site, services }) {
       </div>
 
       {/* ── Industries served row ── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-5">
+      <div className="wrap py-5">
         <div className="flex flex-wrap items-center justify-center lg:justify-between gap-3">
 
           {/* Label */}

@@ -1,19 +1,11 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 9)
+//  Before the one-row fleet banner (5 units).
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V9 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -113,7 +105,7 @@ export const DEFAULT_CONTENT = {
     fleetBanner: {
       enabled: "yes",
       label: "Our Fleet — owned by Ardmore Trailer, Inc.",
-      order: ["trailers", "reefer-diesel", "container-dry", "office", "generator"],
+      order: ["trailers", "reefer-diesel", "reefer-electric", "mud-lab", "reefer-container", "container-dry", "office", "generator", "portable-toilets"],
     },
 
     trustBar: {

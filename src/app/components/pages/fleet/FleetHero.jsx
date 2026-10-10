@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function FleetHero({ fleetPage }) {
   return (
     <section
-  style={{ backgroundColor: "#0f2d4a", padding: "20px 24px 40px" }}
+  style={{ backgroundColor: "#0f2d4a", padding: "20px var(--gutter) 40px" }}
 >
-      <div style={{ maxWidth: 1100, margin: "0 auto"}}>
+      <div style={{ width: "100%"}}>
 
         {/* Breadcrumb */}
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>

@@ -75,7 +75,7 @@ export default function YardSection({ yard, site }) {
 
   return (
     <section className="w-full py-16 md:py-24" style={{ backgroundColor: "#0f2d4a" }} aria-labelledby="yard-heading">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+      <div className="wrap">
 
         {/* ── Row 1: own yard ── */}
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">

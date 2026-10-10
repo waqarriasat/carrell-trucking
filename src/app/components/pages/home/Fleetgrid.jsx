@@ -358,7 +358,7 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
       style={{ backgroundColor: "#f0f6fb" }}
       aria-labelledby="fleet-heading"
     >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+      <div className="wrap">
 
         {/* Section header panel */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">

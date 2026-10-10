@@ -119,7 +119,7 @@ function FleetCard({ item, fleetPage, site }) {
 
 export default function FleetList({ fleetPage, fleet, site }) {
   return (
-    <section style={{ backgroundColor: C.light, padding: "48px 24px" }}>
+    <section style={{ backgroundColor: C.light, padding: "48px var(--gutter)" }}>
       <style>{`
         .fleet-card {
           display: grid;
@@ -146,7 +146,7 @@ export default function FleetList({ fleetPage, fleet, site }) {
           .fleet-card-left { padding: 20px 16px; }
         }
       `}</style>
-      <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 20 }}>
         {fleet.map(item => <FleetCard key={item.id} item={item} fleetPage={fleetPage} site={site} />)}
       </div>
     </section>

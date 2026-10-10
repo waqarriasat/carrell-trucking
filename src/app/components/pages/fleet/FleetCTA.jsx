@@ -7,7 +7,7 @@ export default function FleetCTA({ fleetPage }) {
       className="w-full py-14"
       style={{ backgroundColor: "#0f2d4a" }}
     >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="wrap flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
           <h2
             className="text-2xl md:text-3xl font-black leading-tight mb-2"

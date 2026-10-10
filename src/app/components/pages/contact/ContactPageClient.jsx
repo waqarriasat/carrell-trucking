@@ -53,8 +53,8 @@ export default function ContactPageClient({ page, site }) {
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
@@ -72,8 +72,8 @@ export default function ContactPageClient({ page, site }) {
       </div>
 
       {/* Contact Info Cards */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.light, padding: "48px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
             <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.infoEyebrow}</span>
@@ -105,8 +105,8 @@ export default function ContactPageClient({ page, site }) {
       </div>
 
       {/* Map + Form */}
-      <div style={{ background: "#fff", padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: "#fff", padding: "48px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div className="contact-grid">
 
             {/* Map */}
@@ -228,8 +228,8 @@ export default function ContactPageClient({ page, site }) {
       </div>
 
       {/* Team */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.light, padding: "48px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
             <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.teamEyebrow}</span>

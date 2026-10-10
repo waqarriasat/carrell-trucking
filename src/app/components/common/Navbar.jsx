@@ -143,7 +143,7 @@ export default function Navbar({ site, nav, fleet, services }) {
         style={{ borderColor: "#e3ecf4" }}
       >
         {/* Main row — white, real logo on the left, prominent phone on the right */}
-        <div className="flex items-center justify-between gap-4 px-4 md:px-8 lg:px-10 h-16 lg:h-[92px]">
+        <div className="flex items-center justify-between gap-4 wrap h-16 lg:h-[92px]">
 
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0 group" aria-label={`${site.name} — Home`}>

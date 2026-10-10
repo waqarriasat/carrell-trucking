@@ -46,8 +46,8 @@ export default async function ServicesPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
@@ -73,8 +73,8 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Services Grid ── */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.light, padding: "48px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div className="services-grid">
             {services.map((service) => {
               const Icon = getIcon(service.icon, "fa/FaStore")
@@ -183,8 +183,8 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Bottom CTA ── */}
-      <div style={{ background: C.dark, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+      <div style={{ background: C.dark, padding: "48px var(--gutter)" }}>
+        <div style={{ width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
           <div>
             <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
               {page.ctaTitle}{" "}

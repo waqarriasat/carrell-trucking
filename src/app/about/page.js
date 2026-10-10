@@ -101,8 +101,8 @@ export default async function AboutPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
+        <div style={{ width: "100%" }}>
 
           {/* Breadcrumb */}
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
@@ -140,8 +140,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Story Section ── */}
-      <div style={{ background: "#fff", padding: "56px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: "#fff", padding: "56px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div className="about-story-grid">
 
             {/* Image */}
@@ -195,8 +195,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Values ── */}
-      <div style={{ background: C.light, padding: "56px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.light, padding: "56px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
@@ -247,8 +247,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Team ── */}
-      <div style={{ background: "#fff", padding: "56px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: "#fff", padding: "56px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
@@ -296,8 +296,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Contact Strip ── */}
-      <div style={{ background: C.dark, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.dark, padding: "48px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div className="about-contact-strip">
             <div>
               <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>

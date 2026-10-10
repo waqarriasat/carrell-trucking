@@ -104,7 +104,7 @@ export default function Footer({ site, footer, fleet, services }) {
         className="border-b"
         style={{ borderColor: "#1e4d7b", backgroundColor: "#0f2d4a" }}
       >
-        <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="wrap py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p
               className="text-xs font-bold tracking-widest uppercase mb-1"
@@ -137,7 +137,7 @@ export default function Footer({ site, footer, fleet, services }) {
       </div>
 
       {/* ── 4-column grid ── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-14">
+      <div className="wrap py-14">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
 
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
@@ -201,7 +201,7 @@ export default function Footer({ site, footer, fleet, services }) {
         className="border-t"
         style={{ borderColor: "#1e4d7b" }}
       >
-        <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="wrap py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
 
           {/* Copyright */}
           <p className="text-xs text-center sm:text-left" style={{ color: "#7a9bb5" }}>

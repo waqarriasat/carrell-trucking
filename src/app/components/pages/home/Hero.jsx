@@ -74,6 +74,15 @@ export default function Hero({ hero, site, fleet, compact = false }) {
         aria-hidden="true"
       />
 
+      {/* Top fade: continues the fleet banner's navy so there is no seam */}
+      {compact ? (
+        <div
+          className="absolute top-0 inset-x-0 h-32 lg:h-40 pointer-events-none z-0"
+          style={{ background: "linear-gradient(to bottom, #0f2d4a, transparent)" }}
+          aria-hidden="true"
+        />
+      ) : null}
+
       {/* Bottom organic fade blend out */}
       <div
         className="absolute bottom-0 inset-x-0 h-32 pointer-events-none z-0"
@@ -82,7 +91,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
       />
 
       {/* ── Content Grid Layout ── */}
-      <div className={`relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 lg:px-10 ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
+      <div className={`relative z-10 wrap ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* Left: Headline & Call To Actions Panel */}

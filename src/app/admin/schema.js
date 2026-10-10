@@ -337,7 +337,7 @@ export const ADMIN_PAGES = [
       },
       {
         title: "Fleet banner",
-        description: "Band under the header showing the whole fleet. The first 4 units stand in the back row, the next 5 in the front row.",
+        description: "Band under the header showing your fleet in one row. Pick 4–6 units for the best look; they are shown left to right in this order.",
         path: "home.fleetBanner",
         fields: [
           { type: "select", key: "enabled", label: "Fleet banner", width: "sm", options: [{ value: "yes", label: "Show" }, { value: "no", label: "Hide" }] },

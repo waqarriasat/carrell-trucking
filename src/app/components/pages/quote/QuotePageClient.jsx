@@ -80,8 +80,8 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
@@ -99,8 +99,8 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
       </div>
 
       {/* Main */}
-      <div style={{ background: C.light, padding: "40px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.light, padding: "40px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div className="quote-grid">
 
             {/* Form */}

@@ -68,8 +68,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
   <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
   <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
@@ -109,8 +109,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       </div>
 
       {/* ── Main Content ── */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.light, padding: "48px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div className="detail-grid">
 
             {/* LEFT - Images */}
@@ -255,8 +255,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       </div>
 
       {/* ── Related Fleet ── */}
-      <div style={{ background: C.dark, padding: " 40px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ background: C.dark, padding: " 40px var(--gutter)" }}>
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
             <div style={{ width: 24, height: 2, background: C.gold }} />
             <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

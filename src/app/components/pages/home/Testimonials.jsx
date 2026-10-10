@@ -15,8 +15,8 @@ export default function Testimonials({ testimonials, site }) {
   const TESTIMONIALS = testimonials.items
 
   return (
-    <section style={{ background: C.dark, padding: "64px 24px" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+    <section style={{ background: C.dark, padding: "64px var(--gutter)" }}>
+      <div style={{ width: "100%" }}>
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 48 }}>

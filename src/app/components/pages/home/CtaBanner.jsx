@@ -15,7 +15,7 @@ export default function CtaBanner({ ctaBanner }) {
       style={{ backgroundColor: "#0f2d4a" }}
       aria-labelledby="cta-heading"
     >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+      <div className="wrap">
 
         {/* ── Stats Grid ── */}
         <div className={`grid grid-cols-2 ${LG_COLS[STATS.length] || "lg:grid-cols-4"} gap-4 mb-12`}>
