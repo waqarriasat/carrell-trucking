@@ -1,19 +1,12 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 11)
+//  Before the photo hero layout and the AI
+//  delivery slide.
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V11 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -102,12 +95,12 @@ export const DEFAULT_CONTENT = {
       previewLabel: "Available Equipment",
       previewCount: 8,
       viewAllText: "View all {count} equipment types",
-      // "photo" = photo beside the headline; "cards" = equipment cards (earlier design)
-      layout: "photo",
-      slideSeconds: 6,
+      slideSeconds: 5,
       slides: [
-        "/images/slides/delivery.webp",
         "/images/yard-aerial.jpg",
+        U("1586528116311-ad8dd3c8310d", 2000),
+        U("1601584115197-04ecc0da31d7", 2000),
+        U("1578575437130-527eed3abbec", 2000),
       ],
     },
 
