@@ -108,6 +108,7 @@ export const DEFAULT_CONTENT = {
       slides: [
         "/images/slides/delivery.webp",
         "/images/slides/reefer-diesel.webp",
+        "/images/slides/oilfield.webp",
         "/images/yard-aerial.jpg",
       ],
     },
