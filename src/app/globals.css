@@ -90,3 +90,30 @@ body:has(#admin-root) {
 @media (min-width: 3200px) { body { zoom: 1.6; } }
 @media (min-width: 3600px) { body { zoom: 1.8; } }
 @media (min-width: 4000px) { body { zoom: 2; } }
+
+/* ── Outline buttons on light backgrounds ──
+   Navy text and border; on hover the button fills navy and the text (and
+   any icon using currentColor) turns white, so it never disappears. */
+.btn-outline-navy {
+  color: #0f2d4a;
+  border: 2px solid #0f2d4a;
+  background: transparent;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-outline-navy:hover,
+.btn-outline-navy:focus-visible {
+  color: #ffffff;
+  background: #0f2d4a;
+}
+.pill-outline-navy {
+  color: #0f2d4a;
+  border: 1px solid #c9d8e6;
+  background: #ffffff;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.pill-outline-navy:hover,
+.pill-outline-navy:focus-visible {
+  color: #ffffff;
+  background: #0f2d4a;
+  border-color: #0f2d4a;
+}

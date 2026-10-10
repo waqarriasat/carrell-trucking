@@ -36,17 +36,25 @@ function SlideDots({ count, current, onPick, className = "" }) {
   );
 }
 
+// Each slide always shows the WHOLE photo (never cropped). If the frame is
+// a little wider or taller than the photo, the leftover space is filled
+// with a soft, blurred copy of the same photo instead of empty bars.
 function Slides({ images, current }) {
   return images.map((src, index) => (
     <div
       key={index}
-      className={`absolute inset-0 bg-cover transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${
+      className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${
         index === current ? "opacity-100" : "opacity-0"
       }`}
-      // Crop focus a little right of centre: the slide photos keep their
-      // subject and lettering there, so narrow panels don't cut the name.
-      style={{ backgroundImage: `url('${src}')`, backgroundPosition: "60% 50%" }}
-    />
+    >
+      <div
+        className="absolute -inset-6 bg-cover bg-center blur-xl scale-110 opacity-70"
+        style={{ backgroundImage: `url('${src}')` }}
+        aria-hidden="true"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" className="absolute inset-0 w-full h-full object-contain" draggable="false" loading={index === 0 ? "eager" : "lazy"} />
+    </div>
   ));
 }
 
@@ -58,7 +66,7 @@ const subscribeReducedMotion = (cb) => {
 };
 const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const HEADLINE_CLASS = "text-4xl sm:text-5xl lg:text-[2.4rem] xl:text-[2.75rem] 2xl:text-[3.25rem] font-black leading-[1.08] mb-6";
+const HEADLINE_CLASS = "text-4xl sm:text-5xl xl:text-[2.6rem] 2xl:text-[3.1rem] font-black leading-[1.08] mb-5";
 // Photo layout = light (white block); cards layout = dark (over photos).
 const GOLD_HEADING = "var(--gold-heading)";
 const HEADLINE_STYLE = { fontFamily: "'Georgia', 'Times New Roman', serif" };
@@ -105,9 +113,9 @@ function MainText({ hero, light }) {
 const isExternal = (href) => /^https?:\/\//i.test(href || "");
 
 function SecondaryButton({ button, light }) {
-  const cls = `inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap border-2 transition-all duration-200 ${light ? "hover:bg-[#0f2d4a] hover:text-white" : "hover:bg-white/10"}`;
+  const cls = `inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap ${light ? "btn-outline-navy" : "border-2 transition-all duration-200 hover:bg-white/10"}`;
   const style = light
-    ? { borderColor: NAVY, color: NAVY }
+    ? undefined
     : { borderColor: "rgba(255,255,255,0.85)", color: "#ffffff", backgroundColor: "rgba(10,32,56,0.35)" };
   const inner = (
     <>
@@ -209,8 +217,8 @@ export default function Hero({ hero, site, fleet, compact = false }) {
       <section className="page-section wrap" aria-roledescription="carousel" aria-label="Highlights" {...pauseProps}>
         {/* One white block: text on the left, the slide photo on the right
             (below the text on phones). Nothing ever sits on the photo. */}
-        <div className="panel overflow-hidden lg:grid lg:grid-cols-[46fr_54fr] xl:grid-cols-[44fr_56fr]">
-          <div className="flex items-center p-7 sm:p-10 lg:p-12 xl:p-14">
+        <div className="panel overflow-hidden xl:grid xl:grid-cols-[41fr_59fr] 2xl:grid-cols-[40fr_60fr]">
+          <div className="flex items-center p-7 sm:p-10 xl:p-11 2xl:p-14">
             <div className="w-full">
               {mainIndex === -1 ? (
                 <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
@@ -258,13 +266,13 @@ export default function Hero({ hero, site, fleet, compact = false }) {
           </div>
 
           {slideCount ? (
-            <div className="relative min-h-[240px] sm:min-h-[360px] lg:min-h-[520px] aspect-[3/2] lg:aspect-auto">
+            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[440px]">
               <div className="absolute inset-0" aria-hidden="true">
                 <Slides images={SLIDER_IMAGES} current={currentSlide} />
               </div>
               {/* Thin gold line where text and photo meet */}
-              <div className="absolute hidden lg:block inset-y-0 left-0 w-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
-              <div className="absolute lg:hidden inset-x-0 top-0 h-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+              <div className="absolute hidden xl:block inset-y-0 left-0 w-[3px] z-[1]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+              <div className="absolute xl:hidden inset-x-0 top-0 h-[3px] z-[1]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
               <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="absolute z-10 bottom-4 right-4 rounded-full px-2.5 py-2 bg-[#0a2038]/70" />
             </div>
           ) : null}

@@ -27,7 +27,7 @@ function ColHeading({ children }) {
   return (
     <h3
       className="text-xs font-bold tracking-[0.2em] uppercase mb-5 pb-3 border-b"
-      style={{ color: "#c9a84c", borderColor: "#1e4d7b" }}
+      style={{ color: "#86671e", borderColor: "#e1e8f0" }}
     >
       {children}
     </h3>
@@ -43,8 +43,8 @@ function FooterLink({ href, children }) {
     href.startsWith("http");
 
   const cls =
-    "group flex items-start gap-2 text-sm leading-snug mb-3 transition-colors hover:text-white";
-  const style = { color: "#a9c1d4" };
+    "group flex items-start gap-2 text-sm leading-snug mb-3 transition-colors text-[#4a6b85] hover:text-[#0f2d4a]";
+  const style = undefined;
 
   if (isExternal) {
     return (
@@ -98,15 +98,11 @@ export default function Footer({ site, footer, fleet, services }) {
   ];
 
   return (
-    <footer style={{ backgroundColor: "#0a2038" }}>
+    <footer className="wrap">
 
-      {/* ── CTA strip ── */}
-      <div
-        className="border-b"
-        // Steel blue band: separate from the page above and the footer below
-        style={{ borderColor: "#2a5a88", backgroundColor: "#163f66" }}
-      >
-        <div className="wrap py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* ── CTA strip: one navy highlight block ── */}
+      <div className="panel-navy">
+        <div className="px-6 sm:px-10 py-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p
               className="text-xs font-bold tracking-widest uppercase mb-1"
@@ -121,8 +117,7 @@ export default function Footer({ site, footer, fleet, services }) {
           <div className="flex items-center gap-3 shrink-0">
             <a
               href={site.phoneHref}
-              className="flex items-center gap-2 px-5 py-2.5 rounded font-bold text-sm tracking-wide border-2 transition-all hover:brightness-110"
-              style={{ borderColor: "#a9c1d4", color: "#a9c1d4" }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded font-bold text-sm tracking-wide border-2 transition-colors text-white border-white/80 hover:bg-white hover:text-[#0f2d4a]"
             >
               <FaPhone size={13} />
               {site.phone}
@@ -138,25 +133,25 @@ export default function Footer({ site, footer, fleet, services }) {
         </div>
       </div>
 
-      {/* ── 4-column grid ── */}
-      <div className="wrap py-14">
+      {/* ── 4-column grid: white block ── */}
+      <div className="panel mt-[var(--gap)] px-6 sm:px-10 py-10 lg:py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
 
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
           <div className="col-span-2 md:col-span-1">
             {/* Wordmark */}
             <Link href="/" className="inline-block mb-5 transition-opacity hover:opacity-90" aria-label="Home">
-              <TextLogo top={site.logoTop} bottom={site.logoBottom} size="lg" />
+              <TextLogo top={site.logoTop} bottom={site.logoBottom} size="lg" onLight />
             </Link>
 
-            <p className="text-sm leading-relaxed mb-5" style={{ color: "#a9c1d4" }}>
+            <p className="text-sm leading-relaxed mb-5" style={{ color: "#4a6b85" }}>
               {footer.blurb}
             </p>
 
             {/* Min rental badge */}
             <span
               className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded-full border"
-              style={{ borderColor: "#c9a84c", color: "#c9a84c" }}
+              style={{ borderColor: "#c9a84c", color: "#86671e", backgroundColor: "#c9a84c14" }}
             >
               <FaTruck size={11} />
               {site.minRental}
@@ -181,14 +176,11 @@ export default function Footer({ site, footer, fleet, services }) {
       </div>
 
       {/* ── Bottom bar ── */}
-      <div
-        className="border-t"
-        style={{ borderColor: "#1e4d7b" }}
-      >
-        <div className="wrap py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
 
           {/* Copyright */}
-          <p className="text-xs text-center sm:text-left" style={{ color: "#a9c1d4" }}>
+          <p className="text-xs text-center sm:text-left" style={{ color: "#4a6b85" }}>
             © {currentYear} {site.name}{`. ${footer.copyright}`}
           </p>
 
@@ -198,28 +190,25 @@ export default function Footer({ site, footer, fleet, services }) {
               href={site.mapsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#a9c1d4" }}
+              className="flex items-center gap-1.5 text-xs transition-colors text-[#4a6b85] hover:text-[#0f2d4a]"
             >
-              <FaLocationDot size={11} style={{ color: "#c9a84c" }} />
+              <FaLocationDot size={11} style={{ color: "#86671e" }} />
               {site.city}, {site.state} {site.zip}
             </a>
 
             <a
               href={site.phoneHref}
-              className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#a9c1d4" }}
+              className="flex items-center gap-1.5 text-xs transition-colors text-[#4a6b85] hover:text-[#0f2d4a]"
             >
-              <FaPhone size={11} style={{ color: "#c9a84c" }} />
+              <FaPhone size={11} style={{ color: "#86671e" }} />
               {site.phone}
             </a>
 
             <a
               href={site.emailHref}
-              className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#a9c1d4" }}
+              className="flex items-center gap-1.5 text-xs transition-colors text-[#4a6b85] hover:text-[#0f2d4a]"
             >
-              <FaEnvelope size={11} style={{ color: "#c9a84c" }} />
+              <FaEnvelope size={11} style={{ color: "#86671e" }} />
               {site.email}
             </a>
           </div>

@@ -111,8 +111,7 @@ export default function YardSection({ yard, site }) {
                   href={site.salesMapsHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded border-2 text-sm font-bold uppercase tracking-wider transition-colors hover:bg-[#0f2d4a] hover:text-white"
-                  style={{ color: "#0f2d4a", borderColor: "#0f2d4a" }}
+                  className="btn-outline-navy inline-flex items-center gap-2 px-5 py-3 rounded text-sm font-bold uppercase tracking-wider"
                 >
                   <FaLocationDot size={13} style={{ color: "#c9a84c" }} />
                   {yard.directionsLabel}

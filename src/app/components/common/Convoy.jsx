@@ -23,7 +23,7 @@ export default function Convoy({ fleet = [] }) {
   if (!units.length) return null;
 
   return (
-    <div className="convoy relative overflow-hidden" style={{ backgroundColor: "#0a2038", borderTop: "1px solid #2a5a88" }} aria-label="Our fleet">
+    <div className="convoy relative overflow-hidden" style={{ backgroundColor: "#e6edf5", borderTop: "1px solid #d6e2ee" }} aria-label="Our fleet">
       <style>{CSS}</style>
 
       <div className="convoy-track flex w-max items-end" style={{ "--convoy-t": `${units.length * 7}s` }}>
@@ -44,7 +44,7 @@ export default function Convoy({ fleet = [] }) {
                 loading="lazy"
                 draggable="false"
               />
-              <span className="mt-1.5 whitespace-nowrap text-[11px] font-bold tracking-wide text-white group-hover:text-[#c9a84c]">
+              <span className="mt-1.5 whitespace-nowrap text-[11px] font-bold tracking-wide text-[#0f2d4a] group-hover:text-[#86671e]">
                 {u.shortName || u.name}
               </span>
             </Link>
@@ -53,7 +53,7 @@ export default function Convoy({ fleet = [] }) {
       </div>
 
       {/* Road */}
-      <div className="relative h-4" style={{ backgroundColor: "#071a2e", borderTop: "2px solid #1e3a5f" }} aria-hidden="true">
+      <div className="relative h-4" style={{ backgroundColor: "#0f2d4a", borderTop: "2px solid #c9a84c" }} aria-hidden="true">
         <div
           className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2"
           style={{ backgroundImage: "repeating-linear-gradient(90deg, #c9a84c66 0, #c9a84c66 24px, transparent 24px, transparent 52px)" }}
