@@ -143,7 +143,7 @@ export default function Navbar({ site, nav, fleet, services }) {
         style={{ borderColor: "#e3ecf4" }}
       >
         {/* Main row — white, real logo on the left, prominent phone on the right */}
-        <div className="flex items-center justify-between gap-4 wrap h-16 lg:h-[92px]">
+        <div className="flex items-center justify-between gap-4 wrap h-16 lg:h-20">
 
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0 group" aria-label={`${site.name} — Home`}>
@@ -155,7 +155,7 @@ export default function Navbar({ site, nav, fleet, services }) {
                 height={440}
                 priority
                 unoptimized
-                className="h-11 lg:h-[64px] w-auto group-hover:opacity-90 transition-opacity"
+                className="h-11 lg:h-[62px] w-auto group-hover:opacity-90 transition-opacity"
               />
             ) : (
               <div className="flex flex-col leading-none">

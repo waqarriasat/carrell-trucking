@@ -5,9 +5,8 @@ import { isCutout } from "@/app/lib/content/images";
 //  FleetBanner (Server Component)
 //  Premier-style band under the header: a single,
 //  evenly spaced row of fleet units on the brand
-//  navy, spanning the full screen width. The
-//  bottom fades into the hero so the two read as
-//  one section.
+//  blue, spanning the full screen width, with a
+//  gold line separating it from the hero below.
 //  Phones: a swipeable row of the same units.
 //  Admin: Home → Fleet banner (units and order).
 // ─────────────────────────────────────────────
@@ -26,7 +25,6 @@ const WEIGHT = {
   "portable-toilets": 0.7,
 };
 const MAX_UNITS = 6;
-const NAVY = "#0f2d4a";
 
 export default function FleetBanner({ banner, fleet }) {
   if (!banner || banner.enabled === "no") return null;
@@ -38,11 +36,13 @@ export default function FleetBanner({ banner, fleet }) {
   return (
     <section
       aria-label={banner.label || "Our fleet"}
-      className="relative w-full overflow-hidden pt-16 lg:pt-[92px]"
-      style={{ background: `radial-gradient(ellipse 70% 90% at 50% 30%, #1e4d7b 0%, #163f66 40%, ${NAVY} 85%)` }}
+      className="relative w-full overflow-hidden border-b-[3px] border-[#c9a84c]"
+      // Its own lighter blue, separate from the darker hero below; the gold
+      // line marks the edge between the two sections.
+      style={{ background: "radial-gradient(ellipse 70% 120% at 50% 20%, #24588a 0%, #1b4a77 45%, #163f66 100%)" }}
     >
       {/* Desktop / tablet: one row across the full width */}
-      <div className="wrap hidden md:flex items-end justify-between gap-[2.5vw] pt-6 lg:pt-8 pb-10 lg:pb-14">
+      <div className="wrap hidden md:flex items-end justify-between gap-[2.5vw] pt-8 lg:pt-10 pb-6 lg:pb-8">
         {units.map((u) => (
           <Link
             key={u.id}
@@ -58,7 +58,7 @@ export default function FleetBanner({ banner, fleet }) {
       </div>
 
       {/* Phones: swipeable row */}
-      <div className="md:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory px-4 pt-6 pb-8 [scrollbar-width:none]">
+      <div className="md:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory px-4 pt-5 pb-5 [scrollbar-width:none]">
         {units.map((u) => (
           <Link key={u.id} href={`/fleet/${u.id}`} className="relative z-10 snap-center shrink-0 w-[72%]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -68,12 +68,6 @@ export default function FleetBanner({ banner, fleet }) {
         ))}
       </div>
 
-      {/* Soft fade into the hero's navy below — no hard edge */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-24 lg:h-32 pointer-events-none"
-        style={{ background: `linear-gradient(to bottom, rgba(15,45,74,0) 0%, rgba(15,45,74,.7) 55%, ${NAVY} 100%)` }}
-        aria-hidden="true"
-      />
     </section>
   );
 }

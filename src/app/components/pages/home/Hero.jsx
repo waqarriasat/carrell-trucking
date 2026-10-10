@@ -58,7 +58,7 @@ const subscribeReducedMotion = (cb) => {
 };
 const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const HEADLINE_CLASS = "text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-[3.2rem] 2xl:text-6xl font-black leading-[1.08] text-white mb-6";
+const HEADLINE_CLASS = "text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-[3.2rem] 2xl:text-[3.5rem] font-black leading-[1.08] text-white mb-6";
 const HEADLINE_STYLE = { fontFamily: "'Georgia', 'Times New Roman', serif" };
 const TEXT_CLASS = "text-base sm:text-lg leading-relaxed mb-8 max-w-lg";
 
@@ -205,7 +205,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
       <section className="relative overflow-hidden" style={{ backgroundColor: NAVY }} aria-roledescription="carousel" aria-label="Highlights" {...pauseProps}>
         {/* Desktop: photo panel on the right — shown at full strength, nothing on top */}
         {slideCount ? (
-          <div className="absolute inset-y-0 right-0 z-0 hidden lg:block w-[48%] xl:w-[52%] 2xl:w-[57%]">
+          <div className="absolute inset-y-0 right-0 z-0 hidden lg:block w-[48%] xl:w-[52%] 2xl:w-[54%]">
             <div className="absolute inset-0" aria-hidden="true">
               <Slides images={SLIDER_IMAGES} current={currentSlide} />
             </div>
@@ -218,7 +218,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
         <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="hidden lg:flex absolute z-20 bottom-6 right-[var(--gutter)] rounded-full px-2.5 py-2 bg-[#0a2038]/70" />
 
         <div className={`relative z-10 wrap ${compact ? "py-12 lg:py-20" : "py-20 lg:py-28"} lg:min-h-[560px] flex items-center`}>
-          <div className="w-full lg:w-[48%] xl:w-[45%] 2xl:w-[40%]">
+          <div className="w-full lg:w-[48%] xl:w-[45%] 2xl:w-[43%]">
             {mainIndex === -1 ? (
               <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
             ) : null}
