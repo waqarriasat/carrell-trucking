@@ -39,10 +39,12 @@ function Slides({ images, current }) {
   return images.map((src, index) => (
     <div
       key={index}
-      className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${
+      className={`absolute inset-0 bg-cover transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${
         index === current ? "opacity-100" : "opacity-0"
       }`}
-      style={{ backgroundImage: `url('${src}')` }}
+      // Crop focus a little right of centre: the slide photos keep their
+      // subject and lettering there, so narrow panels don't cut the name.
+      style={{ backgroundImage: `url('${src}')`, backgroundPosition: "60% 50%" }}
     />
   ));
 }

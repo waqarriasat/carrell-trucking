@@ -107,6 +107,7 @@ export const DEFAULT_CONTENT = {
       slideSeconds: 6,
       slides: [
         "/images/slides/delivery.webp",
+        "/images/slides/reefer-diesel.webp",
         "/images/yard-aerial.jpg",
       ],
     },
