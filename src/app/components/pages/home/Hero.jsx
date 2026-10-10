@@ -1,15 +1,16 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
 
 // ─────────────────────────────────────────────
 //  Hero (home page, under the fleet banner)
 //  Two layouts, chosen in Admin → Home → Hero → Layout:
-//   • "photo" (default) — headline on solid navy on the left, the
-//     slideshow photo clearly visible on the right. On phones the photo
-//     is its own band under the text. Nothing ever sits on the photo
-//     and no photo ever sits behind text.
+//   • "photo" (default) — text on solid navy on the left, the slide
+//     photo at full strength on the right (sharp edge, thin gold line).
+//     Each slide has its own text; the main headline stays as one slide.
+//     Pauses while hovered. On phones the photo is its own band under
+//     the text. Nothing ever sits on the photo or behind the text.
 //   • "cards" — the earlier layout: equipment cards on the right over
 //     a darkened slideshow. Kept so it can be switched back any time.
 // ─────────────────────────────────────────────
@@ -25,7 +26,7 @@ function SlideDots({ count, current, onPick, className = "" }) {
           key={i}
           type="button"
           onClick={() => onPick(i)}
-          aria-label={`Show photo ${i + 1} of ${count}`}
+          aria-label={`Show slide ${i + 1} of ${count}`}
           aria-current={i === current ? "true" : undefined}
           className="h-2.5 rounded-full transition-all duration-300 shadow"
           style={{ width: i === current ? 28 : 10, backgroundColor: i === current ? "#c9a84c" : "rgba(255,255,255,0.85)" }}
@@ -49,71 +50,77 @@ function Slides({ images, current }) {
   ));
 }
 
-export default function Hero({ hero, site, fleet, compact = false }) {
-  const photoLayout = hero.layout !== "cards";
-  const HERO_FLEET_PREVIEW = fleet.slice(0, hero.previewCount);
-  // Slideshow images (managed in the admin panel)
-  const SLIDER_IMAGES = hero.slides.filter(Boolean);
-  const slideCount = SLIDER_IMAGES.length;
-  const slideMs = Math.max(1, Number(hero.slideSeconds) || 5) * 1000;
+// Visitors who ask their device for less motion get no auto-advance.
+const subscribeReducedMotion = (cb) => {
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [restartKey, setRestartKey] = useState(0);
+const HEADLINE_CLASS = "text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-[3.2rem] 2xl:text-6xl font-black leading-[1.08] text-white mb-6";
+const HEADLINE_STYLE = { fontFamily: "'Georgia', 'Times New Roman', serif" };
+const TEXT_CLASS = "text-base sm:text-lg leading-relaxed mb-8 max-w-lg";
 
-  // Automatically cycle images (restarts the timer after a dot is clicked)
-  useEffect(() => {
-    if (slideCount < 2) return;
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slideCount);
-    }, slideMs);
-    return () => clearInterval(timer);
-  }, [slideCount, slideMs, restartKey]);
+function Eyebrow({ children }) {
+  return (
+    <div className="flex items-center gap-3 mb-6">
+      <span className="h-px w-10 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+      <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: "#c9a84c" }}>
+        {children}
+      </span>
+    </div>
+  );
+}
 
-  const pickSlide = (i) => {
-    setCurrentSlide(i);
-    setRestartKey((k) => k + 1);
-  };
+// The site's main headline (Admin → Home → Hero → Headline)
+function MainHeadline({ hero, as: Tag = "h1" }) {
+  return (
+    <Tag className={HEADLINE_CLASS} style={HEADLINE_STYLE}>
+      {hero.titleStart}{" "}
+      <span className="relative inline-block text-white">
+        {hero.titleAccent1}
+        <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+      </span>
+      {` ${hero.titleJoin} `}
+      <span className="text-white">{hero.titleAccent2}</span>
+      <br />
+      <span className="text-white">{`${hero.titleLine2} `}</span>
+      <span className="whitespace-nowrap" style={{ color: "#c9a84c" }}>{hero.titleAccent3}</span>
+    </Tag>
+  );
+}
 
-  const textBlock = (
-    <div>
-      {/* Eyebrow */}
-      <div className="flex items-center gap-3 mb-6">
-        <span className="h-px w-10 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
-        <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: "#c9a84c" }}>
-          {hero.eyebrow}
-        </span>
-      </div>
+function MainText({ hero }) {
+  return (
+    <p className={TEXT_CLASS} style={{ color: "#e2e8f0" }}>
+      {hero.text}{" "}
+      <span className="text-white font-medium">{hero.textHighlight}</span>
+    </p>
+  );
+}
 
-      {/* Main Headline Statement */}
-      <h1
-        className="text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-[3.2rem] 2xl:text-6xl font-black leading-[1.08] text-white mb-6"
-        style={{ fontFamily: "'Georgia', 'Times New Roman', serif", textShadow: "0 2px 12px rgba(0,0,0,0.45)" }}
-      >
-        {hero.titleStart}{" "}
-        <span className="relative inline-block text-white">
-          {hero.titleAccent1}
-          <span
-            className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
-            style={{ backgroundColor: "#c9a84c" }}
-            aria-hidden="true"
-          />
-        </span>
-        {` ${hero.titleJoin} `}
-        <span className="text-white">{hero.titleAccent2}</span>
-        <br />
-        <span className="text-white">{`${hero.titleLine2} `}</span>
-        <span className="whitespace-nowrap" style={{ color: "#c9a84c" }}>{hero.titleAccent3}</span>
-      </h1>
+const isExternal = (href) => /^https?:\/\//i.test(href || "");
 
-      {/* Context Subtext Description */}
-      <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "#e2e8f0", textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}>
-        {hero.text}{" "}
-        <span className="text-white font-medium">
-          {hero.textHighlight}
-        </span>
-      </p>
+function SecondaryButton({ button }) {
+  const cls = "inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap border-2 transition-all duration-200 hover:bg-white/10";
+  const style = { borderColor: "rgba(255,255,255,0.85)", color: "#ffffff", backgroundColor: "rgba(10,32,56,0.35)" };
+  const inner = (
+    <>
+      {button.label}
+      <FaChevronRight size={12} />
+    </>
+  );
+  return isExternal(button.href) ? (
+    <a href={button.href} target="_blank" rel="noopener noreferrer" className={cls} style={style}>{inner}</a>
+  ) : (
+    <Link href={button.href || "/fleet"} className={cls} style={style}>{inner}</Link>
+  );
+}
 
-      {/* Primary Action Button Cluster */}
+function Actions({ hero, site, secondary }) {
+  return (
+    <>
       <div className="flex flex-col sm:flex-row gap-3 mb-10">
         <Link
           href={hero.primaryButton.href}
@@ -123,17 +130,9 @@ export default function Hero({ hero, site, fleet, compact = false }) {
           {hero.primaryButton.label}
           <FaArrowRight size={13} />
         </Link>
-        <Link
-          href={hero.secondaryButton.href}
-          className="inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap border-2 transition-all duration-200 hover:bg-white/10"
-          style={{ borderColor: "rgba(255,255,255,0.85)", color: "#ffffff", backgroundColor: "rgba(10,32,56,0.35)" }}
-        >
-          {hero.secondaryButton.label}
-          <FaChevronRight size={12} />
-        </Link>
+        <SecondaryButton button={secondary} />
       </div>
 
-      {/* Direct Line Phone Trigger */}
       <a href={site.phoneHref} className="inline-flex items-center gap-3 group">
         <span
           className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors group-hover:border-white/50"
@@ -150,32 +149,118 @@ export default function Hero({ hero, site, fleet, compact = false }) {
           </span>
         </span>
       </a>
-    </div>
+    </>
   );
+}
+
+export default function Hero({ hero, site, fleet, compact = false }) {
+  const photoLayout = hero.layout !== "cards";
+  const HERO_FLEET_PREVIEW = fleet.slice(0, hero.previewCount);
+
+  // Photo layout: slides with their own text. Cards layout: background photos.
+  const photoSlides = (hero.photoSlides || []).filter((sl) => sl && sl.image);
+  const SLIDER_IMAGES = photoLayout && photoSlides.length
+    ? photoSlides.map((sl) => sl.image)
+    : (hero.slides || []).filter(Boolean);
+  const slideCount = SLIDER_IMAGES.length;
+  const slideMs = Math.max(2, Number(hero.slideSeconds) || 8) * 1000;
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [restartKey, setRestartKey] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false);
+
+  // Auto-advance; waits while the visitor hovers/reads, restarts after a dot click.
+  useEffect(() => {
+    if (slideCount < 2 || paused || reducedMotion) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slideCount);
+    }, slideMs);
+    return () => clearInterval(timer);
+  }, [slideCount, slideMs, restartKey, paused, reducedMotion]);
+
+  const pickSlide = (i) => {
+    setCurrentSlide(i);
+    setRestartKey((k) => k + 1);
+  };
+
+  const pauseProps = {
+    onMouseEnter: () => setPaused(true),
+    onMouseLeave: () => setPaused(false),
+    onFocus: () => setPaused(true),
+    onBlur: () => setPaused(false),
+  };
 
   // ── Photo layout ──
   if (photoLayout) {
+    // Slide text: a slide with an empty headline shows the main headline.
+    // The first such slide carries the page's <h1>; the others use <h2>.
+    const isMain = (sl) => !String(sl.title || "").trim();
+    const mainIndex = photoSlides.findIndex(isMain);
+    const textSlides = photoSlides.length ? photoSlides : [{ title: "" }];
+    const active = textSlides[Math.min(currentSlide, textSlides.length - 1)];
+    const secondary = !isMain(active) && active.button && active.button.label ? active.button : hero.secondaryButton;
+
     return (
-      <section className="relative overflow-hidden" style={{ backgroundColor: NAVY }}>
-        {/* Desktop: photo panel on the right, never under the text */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: NAVY }} aria-roledescription="carousel" aria-label="Highlights" {...pauseProps}>
+        {/* Desktop: photo panel on the right — shown at full strength, nothing on top */}
         {slideCount ? (
           <div className="absolute inset-y-0 right-0 z-0 hidden lg:block w-[48%] xl:w-[52%] 2xl:w-[57%]">
             <div className="absolute inset-0" aria-hidden="true">
               <Slides images={SLIDER_IMAGES} current={currentSlide} />
             </div>
-            {/* Soft blends into the navy: left edge, top (banner) and bottom */}
-            <div className="absolute inset-y-0 left-0 w-32 xl:w-44 pointer-events-none" style={{ background: `linear-gradient(to right, ${NAVY}, rgba(15,45,74,0))` }} aria-hidden="true" />
-            {compact ? (
-              <div className="absolute inset-x-0 top-0 h-20 pointer-events-none" style={{ background: `linear-gradient(to bottom, ${NAVY}, rgba(15,45,74,0))` }} aria-hidden="true" />
-            ) : null}
-            <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none" style={{ background: `linear-gradient(to top, ${NAVY}, rgba(15,45,74,0))` }} aria-hidden="true" />
-            <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="absolute bottom-6 right-[var(--gutter)]" />
+            {/* Clean edge with a thin gold line between text and photo */}
+            <div className="absolute inset-y-0 left-0 w-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
           </div>
         ) : null}
 
+        {/* Desktop slide dots — own layer above the text area so they stay clickable */}
+        <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="hidden lg:flex absolute z-20 bottom-6 right-[var(--gutter)] rounded-full px-2.5 py-2 bg-[#0a2038]/70" />
+
         <div className={`relative z-10 wrap ${compact ? "py-12 lg:py-20" : "py-20 lg:py-28"} lg:min-h-[560px] flex items-center`}>
           <div className="w-full lg:w-[48%] xl:w-[45%] 2xl:w-[40%]">
-            {textBlock}
+            {mainIndex === -1 ? (
+              <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
+            ) : null}
+
+            {/* All slide texts share one grid cell, so the height never jumps */}
+            <div className="grid" aria-live={paused ? "polite" : "off"}>
+              {textSlides.map((sl, i) => {
+                const on = i === currentSlide;
+                const main = isMain(sl);
+                const Heading = main && i === mainIndex ? "h1" : "h2";
+                return (
+                  <div
+                    key={i}
+                    className="[grid-area:1/1]"
+                    aria-hidden={on ? undefined : "true"}
+                    style={{
+                      opacity: on ? 1 : 0,
+                      visibility: on ? "visible" : "hidden",
+                      transition: on ? "opacity .7s ease" : "opacity .7s ease, visibility 0s linear .7s",
+                    }}
+                  >
+                    <Eyebrow>{main ? hero.eyebrow : sl.eyebrow || hero.eyebrow}</Eyebrow>
+                    {main ? (
+                      <>
+                        <MainHeadline hero={hero} as={Heading} />
+                        <MainText hero={hero} />
+                      </>
+                    ) : (
+                      <>
+                        <Heading className={HEADLINE_CLASS} style={HEADLINE_STYLE}>
+                          {sl.title}{" "}
+                          {sl.titleAccent ? <span className="whitespace-nowrap" style={{ color: "#c9a84c" }}>{sl.titleAccent}</span> : null}
+                        </Heading>
+                        <p className={TEXT_CLASS} style={{ color: "#e2e8f0" }}>{sl.text}</p>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <Actions hero={hero} site={site} secondary={secondary} />
 
             {/* Phones / tablets: the photo as its own clear band under the text */}
             {slideCount ? (
@@ -191,6 +276,16 @@ export default function Hero({ hero, site, fleet, compact = false }) {
       </section>
     );
   }
+
+  // Cards layout: the main headline and text, fixed
+  const textBlock = (
+    <div>
+      <Eyebrow>{hero.eyebrow}</Eyebrow>
+      <MainHeadline hero={hero} />
+      <MainText hero={hero} />
+      <Actions hero={hero} site={site} secondary={hero.secondaryButton} />
+    </div>
+  );
 
   // ── Equipment cards layout (earlier design) ──
   return (

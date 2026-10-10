@@ -104,7 +104,49 @@ export const DEFAULT_CONTENT = {
       viewAllText: "View all {count} equipment types",
       // "photo" = photo beside the headline; "cards" = equipment cards (earlier design)
       layout: "photo",
-      slideSeconds: 6,
+      slideSeconds: 8,
+      // Photo slideshow. Each slide has its own photo and text; a slide with
+      // an empty headline shows the main headline and description above.
+      photoSlides: [
+        {
+          image: "/images/slides/delivery.webp",
+          eyebrow: "", title: "", titleAccent: "", text: "",
+          button: { label: "", href: "" },
+        },
+        {
+          image: "/images/slides/reefer-diesel.webp",
+          eyebrow: "Refrigerated Trailer Rentals",
+          title: "Cold Storage That Comes",
+          titleAccent: "To You.",
+          text: "Diesel-powered refrigerated trailers for produce, catering, events and overflow inventory — no outside power needed. Rent, buy or rent to own across Southern Oklahoma & North Texas.",
+          button: { label: "Refrigerated Trailers", href: "/fleet/reefer-diesel" },
+        },
+        {
+          image: "/images/slides/oilfield.webp",
+          eyebrow: "Oilfield Equipment Rentals",
+          title: "Mud Labs, Generators &",
+          titleAccent: "Site Offices.",
+          text: "Oilfield mud lab trailers, industrial generators and mobile office units delivered to your drilling pad, set up and ready to work — direct from the owner, no middleman.",
+          button: { label: "Oil Field Mud Lab", href: "/fleet/mud-lab" },
+        },
+        {
+          image: "/images/slides/construction.webp",
+          eyebrow: "Construction Site Rentals",
+          title: "Everything Your Job Site",
+          titleAccent: "Needs.",
+          text: "Mobile office units, portable toilets and hand-wash stations delivered to your construction site. One call, one owner — rental, purchase or rent to own.",
+          button: { label: "Office Units", href: "/fleet/office" },
+        },
+        {
+          image: "/images/yard-aerial.jpg",
+          eyebrow: "Our Own Yard — Ardmore, Oklahoma",
+          title: "We Own Every Unit.",
+          titleAccent: "No Middleman.",
+          text: "Every trailer and container is ours, kept at our yard on Refinery Road in Ardmore, OK. Delivered to your location or stored at our yard.",
+          button: { label: "Get Directions", href: "{salesMapsLink}" },
+        },
+      ],
+      // Background photos for the "Equipment cards" layout
       slides: [
         "/images/slides/delivery.webp",
         "/images/slides/reefer-diesel.webp",
