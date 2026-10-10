@@ -1,19 +1,12 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 10)
+//  Before the less-blue theme and the visible
+//  hero slider (yard photo first).
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V10 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -104,7 +97,6 @@ export const DEFAULT_CONTENT = {
       viewAllText: "View all {count} equipment types",
       slideSeconds: 5,
       slides: [
-        "/images/yard-aerial.jpg",
         U("1586528116311-ad8dd3c8310d", 2000),
         U("1601584115197-04ecc0da31d7", 2000),
         U("1578575437130-527eed3abbec", 2000),
@@ -307,7 +299,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaBox",
       graphic: "container-dry",
       graphicLabel: "DRY STORAGE",
-      accent: "#0f2d4a",
+      accent: "#2d8fdd",
       sizes: ["20 ft", "40 ft"],
       description:
         "Weather-tight containers ideal for on-site storage, inventory overflow, and secure equipment housing. Available in two lengths to fit any footprint.",
@@ -329,7 +321,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaTruck",
       graphic: "trailers",
       graphicLabel: "Trailers",
-      accent: "#0f2d4a",
+      accent: "#2d8fdd",
       sizes: ["48 ft", "53 ft"],
       description:
         "Full-size dry van trailers for temporary storage or freight staging. Swing doors, side doors, and roll-up doors available on select units.",
@@ -351,7 +343,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaSnowflake",
       graphic: "reefer-diesel",
       graphicLabel: "REFRIGERATED",
-      accent: "#0f2d4a",
+      accent: "#2d8fdd",
       sizes: ["48 ft", "53 ft"],
       description:
         "Self-powered diesel refrigerated trailers — no external power needed. Perfect for remote job sites and large-scale temp storage.",
@@ -373,7 +365,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaBolt",
       graphic: "reefer-electric",
       graphicLabel: "E-POWER COLD",
-      accent: "#0f2d4a",
+      accent: "#2d8fdd",
       sizes: ["48 ft", "53 ft"],
       description:
         "Plug-in electric refrigerated trailers — quieter, cleaner, and lower operating cost when shore power is available. Ideal for urban or facility-adjacent use.",
@@ -395,7 +387,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaIndustry",
       graphic: "reefer-container",
       graphicLabel: "REFRIGERATED",
-      accent: "#0f2d4a",
+      accent: "#2d8fdd",
       sizes: ["20 ft", "40 ft"],
       description:
         "Refrigerated containers combining container security with active refrigeration. Lockable and built for long-term stationary use.",
@@ -417,7 +409,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaPlug",
       graphic: "generator",
       graphicLabel: "POWER GEN",
-      accent: "#0f2d4a",
+      accent: "#c9a84c",
       sizes: [],
       description:
         "Skid-mounted diesel generator sets for powering refrigerated units, job-site operations, or emergency backup.",
@@ -439,7 +431,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaBuilding",
       graphic: "office",
       graphicLabel: "HQ SITE OFFICE",
-      accent: "#0f2d4a",
+      accent: "#c9a84c",
       sizes: ["10 ft", "20 ft", "40 ft"],
       description:
         "Climate-controlled mobile offices with insulation, HVAC, electrical, and interior finishing — ready to set up and plug in on any job site.",
@@ -461,7 +453,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaToilet",
       graphic: "portable-toilets",
       graphicLabel: "SANITATION",
-      accent: "#0f2d4a",
+      accent: "#2d8fdd",
       sizes: ["Standard Toilet", "Hand Wash Station"],
       description:
         "Portable toilets and hand washing stations for job sites, oilfield crews, construction and events — delivered and placed where you need them.",
@@ -483,7 +475,7 @@ export const DEFAULT_CONTENT = {
       icon: "fa/FaFlask",
       graphic: "mud-lab",
       graphicLabel: "MUD LAB UNIT",
-      accent: "#0f2d4a",
+      accent: "#c9a84c",
       sizes: ["Custom"],
       description:
         "Fully custom-built mud lab trailers engineered for oilfield drilling fluid analysis. Outfitted to your spec — call for a custom quote.",
@@ -675,11 +667,11 @@ export const DEFAULT_CONTENT = {
     infoTitle: "Contact Information",
     infoCards: [
       { icon: "fa/FaPhone", label: "Headquarters", value: "{hqPhone}", sub: "Call us during business hours", href: "{hqPhoneLink}", color: "#c9a84c" },
-      { icon: "fa/FaPhone", label: "Sales", value: "{salesPhone}", sub: "{salesName}", href: "{salesPhoneLink}", color: "#1e4d7b" },
+      { icon: "fa/FaPhone", label: "Sales", value: "{salesPhone}", sub: "{salesName}", href: "{salesPhoneLink}", color: "#2d8fdd" },
       { icon: "fa/FaPhone", label: "{cellLabel}", value: "{cell}", sub: "Calls outside business hours", href: "{cellLink}", color: "#c9a84c" },
-      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", sub: "We'll respond as soon as possible", href: "{emailLink}", color: "#1e4d7b" },
+      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", sub: "We'll respond as soon as possible", href: "{emailLink}", color: "#2d8fdd" },
       { icon: "fa/FaMapMarkerAlt", label: "Headquarters", value: "{street}", sub: "{city}, {state} {zip}", href: "{mapsLink}", color: "#c9a84c" },
-      { icon: "fa/FaMapMarkerAlt", label: "Sales & Yard", value: "{salesStreet}", sub: "{salesCity}, {salesState} {salesZip}", href: "{salesMapsLink}", color: "#1e4d7b" },
+      { icon: "fa/FaMapMarkerAlt", label: "Sales & Yard", value: "{salesStreet}", sub: "{salesCity}, {salesState} {salesZip}", href: "{salesMapsLink}", color: "#2d8fdd" },
     ],
     mapEyebrow: "Find Us",
     mapTitle: "Visit Our Location",
@@ -761,11 +753,11 @@ export const DEFAULT_CONTENT = {
     callTitle: "Prefer to Call?",
     contacts: [
       { icon: "fa/FaPhone", label: "Headquarters", value: "{hqPhone}", href: "{hqPhoneLink}", color: "#c9a84c" },
-      { icon: "fa/FaPhone", label: "Sales — {salesName}", value: "{salesPhone}", href: "{salesPhoneLink}", color: "#1e4d7b" },
+      { icon: "fa/FaPhone", label: "Sales — {salesName}", value: "{salesPhone}", href: "{salesPhoneLink}", color: "#2d8fdd" },
       { icon: "fa/FaPhone", label: "{cellLabel}", value: "{cell}", href: "{cellLink}", color: "#c9a84c" },
-      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", href: "{emailLink}", color: "#1e4d7b" },
+      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", href: "{emailLink}", color: "#2d8fdd" },
       { icon: "fa/FaMapMarkerAlt", label: "Headquarters", value: "3801 Springdale Rd, Ardmore OK", href: "{mapsLink}", color: "#c9a84c" },
-      { icon: "fa/FaMapMarkerAlt", label: "Sales & Yard", value: "1612 Refinery Rd, Ardmore OK", href: "{salesMapsLink}", color: "#1e4d7b" },
+      { icon: "fa/FaMapMarkerAlt", label: "Sales & Yard", value: "1612 Refinery Rd, Ardmore OK", href: "{salesMapsLink}", color: "#2d8fdd" },
     ],
     noteBold: "Please note:",
     noteText: "All rentals subject to availability. Based in Southern Oklahoma — available across all states.",

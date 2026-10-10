@@ -49,14 +49,14 @@ function RealisticVehicleIcon({ id, brand, label }) {
             <span className="flex-1 bg-[#0f2d4a]/40 rounded-[1px]" />
             <span className="flex-1 bg-[#0f2d4a]/40 rounded-[1px]" />
           </div>
-          <div className="absolute inset-x-[5px] top-[13px] bottom-[2px] bg-[#2d8fdd] rounded-t-[3px] border border-[#155a9c]">
+          <div className="absolute inset-x-[5px] top-[13px] bottom-[2px] bg-[#1e3a5f] rounded-t-[3px] border border-[#0f2d4a]">
             <span className="absolute right-[3px] top-1/2 w-[2px] h-[6px] bg-[#e2e8f0] rounded-full" />
           </div>
         </div>
         {/* Hand wash station */}
         <div className="w-[30px] h-[34px] relative">
           <div className="absolute inset-x-0 top-0 h-[9px] bg-[#e2e8f0] border border-[#94a3b8] rounded-t-[4px]">
-            <span className="absolute left-1/2 -translate-x-1/2 top-[2px] w-[10px] h-[3px] bg-[#2d8fdd] rounded-b-full" />
+            <span className="absolute left-1/2 -translate-x-1/2 top-[2px] w-[10px] h-[3px] bg-[#1e3a5f] rounded-b-full" />
           </div>
           <div className="absolute inset-x-[2px] top-[9px] bottom-0 bg-[#f8fafc] border border-[#94a3b8] rounded-b-[2px] flex items-center justify-center">
             <span className="text-[5px] font-extrabold text-[#0f2d4a] tracking-widest uppercase">{label}</span>
@@ -199,7 +199,8 @@ function RealisticVehicleIcon({ id, brand, label }) {
 
 // ── Individual fleet card component ─────────────────────
 function FleetCard({ item, linkLabel, brand }) {
-  const accent = item.accent || "#2d8fdd";
+  // One colour for every card (navy text, gold arrow) so the cards match.
+  const accent = "#0f2d4a";
 
   return (
     <Link
@@ -222,8 +223,8 @@ function FleetCard({ item, linkLabel, brand }) {
             <span
               className="text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
               style={{
-                backgroundColor: "#c9a84c18",
-                color: "#c9a84c",
+                backgroundColor: "#c9a84c1f",
+                color: "#7d5f17",
                 border: "1px solid #c9a84c44",
               }}
             >
@@ -342,7 +343,7 @@ function FleetCard({ item, linkLabel, brand }) {
           <FaChevronRight
             size={11}
             className="transition-transform duration-200 group-hover:translate-x-1"
-            style={{ color: accent }}
+            style={{ color: "#c9a84c" }}
           />
         </div>
       </div>
@@ -371,7 +372,7 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
               />
               <span
                 className="text-xs font-bold tracking-[0.2em] uppercase"
-                style={{ color: "#c9a84c" }}
+                style={{ color: "#86671e" }}
               >
                 {fleetGrid.eyebrow}
               </span>
@@ -395,7 +396,7 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
           <Link
             href="/fleet"
             className="hidden md:inline-flex items-center gap-2 text-sm font-bold tracking-wide shrink-0 transition-colors hover:opacity-80"
-            style={{ color: "#2d8fdd" }}
+            style={{ color: "#0f2d4a" }}
           >
             {fleetGrid.linkLabel}
             <FaArrowRight size={13} style={{ color: "#c9a84c" }} />
@@ -424,7 +425,7 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
           <Link
             href="/fleet"
             className="inline-flex items-center gap-2 px-6 py-3 rounded font-bold text-sm tracking-wider uppercase transition-all hover:brightness-110 active:scale-95"
-            style={{ backgroundColor: "#2d8fdd", color: "#ffffff" }}
+            style={{ backgroundColor: "#0f2d4a", color: "#ffffff" }}
           >
             {fleetGrid.mobileButtonLabel}
             <FaArrowRight size={13} />

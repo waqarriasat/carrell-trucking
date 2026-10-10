@@ -76,7 +76,7 @@ export default function TrustBar({ trustBar, site, services }) {
               {/* Stat label */}
               <span
                 className="text-xs font-semibold tracking-wider uppercase leading-snug max-w-[220px]"
-                style={{ color: "#7a9bb5" }}
+                style={{ color: "#a9c1d4" }}
               >
                 {stat.label}
               </span>
@@ -92,7 +92,7 @@ export default function TrustBar({ trustBar, site, services }) {
           {/* Label */}
           <span
             className="text-xs font-bold tracking-[0.2em] uppercase shrink-0"
-            style={{ color: "#7a9bb5" }}
+            style={{ color: "#a9c1d4" }}
           >
             {trustBar.industriesLabel}
           </span>
@@ -106,7 +106,7 @@ export default function TrustBar({ trustBar, site, services }) {
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border transition-all duration-200 hover:border-opacity-100 hover:text-white group"
                 style={{
                   borderColor: "#1e4d7b",
-                  color: "#7a9bb5",
+                  color: "#a9c1d4",
                 }}
               >
                 {service.label}
@@ -122,8 +122,8 @@ export default function TrustBar({ trustBar, site, services }) {
           {/* Phone CTA — desktop only */}
           <a
             href={site.phoneHref}
-            className="hidden lg:inline-flex items-center gap-2 text-sm font-bold tracking-wide transition-colors hover:text-white shrink-0"
-            style={{ color: "#2d8fdd" }}
+            className="hidden lg:inline-flex items-center gap-2 text-sm font-bold tracking-wide transition-colors hover:text-[#c9a84c] shrink-0"
+            style={{ color: "#ffffff" }}
           >
             <FaPhone size={13} style={{ color: "#c9a84c" }} />
             {site.phone}

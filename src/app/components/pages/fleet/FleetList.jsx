@@ -9,16 +9,16 @@ import { imageProps, isCutout } from "@/app/lib/content/images"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
 }
 
 function FleetCard({ item, fleetPage, site }) {
-  const color = item.accent || C.blue
+  // Same navy for every unit so the list looks consistent.
+  const color = C.navy
   return (
     <div className="fleet-card">
       <div className="fleet-card-left">

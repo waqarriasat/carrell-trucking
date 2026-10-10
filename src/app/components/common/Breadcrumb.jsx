@@ -28,7 +28,7 @@ export default function Breadcrumb({ crumbs = [] }) {
             ) : (
               <Link
                 href={crumb.href}
-                style={{ color: "#7a9bb5", textDecoration: "none" }}
+                style={{ color: "#a9c1d4", textDecoration: "none" }}
               >
                 {crumb.label}
               </Link>

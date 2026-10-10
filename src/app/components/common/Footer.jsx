@@ -43,7 +43,7 @@ function FooterLink({ href, children }) {
 
   const cls =
     "group flex items-start gap-2 text-sm leading-snug mb-3 transition-colors hover:text-white";
-  const style = { color: "#7a9bb5" };
+  const style = { color: "#a9c1d4" };
 
   if (isExternal) {
     return (
@@ -120,7 +120,7 @@ export default function Footer({ site, footer, fleet, services }) {
             <a
               href={site.phoneHref}
               className="flex items-center gap-2 px-5 py-2.5 rounded font-bold text-sm tracking-wide border-2 transition-all hover:brightness-110"
-              style={{ borderColor: "#7a9bb5", color: "#7a9bb5" }}
+              style={{ borderColor: "#a9c1d4", color: "#a9c1d4" }}
             >
               <FaPhone size={13} />
               {site.phone}
@@ -165,7 +165,7 @@ export default function Footer({ site, footer, fleet, services }) {
               </>)}
             </Link>
 
-            <p className="text-sm leading-relaxed mb-5" style={{ color: "#7a9bb5" }}>
+            <p className="text-sm leading-relaxed mb-5" style={{ color: "#a9c1d4" }}>
               {footer.blurb}
             </p>
 
@@ -204,7 +204,7 @@ export default function Footer({ site, footer, fleet, services }) {
         <div className="wrap py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
 
           {/* Copyright */}
-          <p className="text-xs text-center sm:text-left" style={{ color: "#7a9bb5" }}>
+          <p className="text-xs text-center sm:text-left" style={{ color: "#a9c1d4" }}>
             © {currentYear} {site.name}{`. ${footer.copyright}`}
           </p>
 
@@ -215,7 +215,7 @@ export default function Footer({ site, footer, fleet, services }) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              style={{ color: "#a9c1d4" }}
             >
               <FaLocationDot size={11} style={{ color: "#c9a84c" }} />
               {site.city}, {site.state} {site.zip}
@@ -224,7 +224,7 @@ export default function Footer({ site, footer, fleet, services }) {
             <a
               href={site.phoneHref}
               className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              style={{ color: "#a9c1d4" }}
             >
               <FaPhone size={11} style={{ color: "#c9a84c" }} />
               {site.phone}
@@ -233,7 +233,7 @@ export default function Footer({ site, footer, fleet, services }) {
             <a
               href={site.emailHref}
               className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              style={{ color: "#a9c1d4" }}
             >
               <FaEnvelope size={11} style={{ color: "#c9a84c" }} />
               {site.email}

@@ -55,7 +55,7 @@ export default async function RootLayout({ children }) {
         <SiteChrome
           navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} />}
           footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} />}
-          convoy={<Convoy />}
+          convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
         >
           {/* Children maps your main page sections dynamically */}

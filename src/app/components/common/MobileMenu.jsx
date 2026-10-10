@@ -155,7 +155,7 @@ export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services
           style={{ borderColor: "#1e4d7b", backgroundColor: "#0a2038" }}
         >
           <p className="text-xs font-semibold tracking-widest uppercase mb-3"
-            style={{ color: "#7a9bb5" }}>
+            style={{ color: "#a9c1d4" }}>
             {nav.mobileCallLabel}
           </p>
           <a
@@ -164,9 +164,9 @@ export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services
           >
             <span
               className="flex items-center justify-center w-8 h-8 rounded-full shrink-0"
-              style={{ backgroundColor: "#2d8fdd" }}
+              style={{ backgroundColor: "#c9a84c" }}
             >
-              <FaPhone size={13} className="text-white" />
+              <FaPhone size={13} style={{ color: "#0f2d4a" }} />
             </span>
             <span className="font-bold text-lg tracking-wide">{site.phone}</span>
           </a>

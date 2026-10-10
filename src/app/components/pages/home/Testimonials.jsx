@@ -3,9 +3,8 @@ import { FaQuoteLeft, FaStar } from "react-icons/fa"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -145,8 +144,8 @@ export default function Testimonials({ testimonials, site }) {
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "11px 24px",
-                borderRadius: 8, border: `2px solid ${C.blue}`,
-                color: C.blue, textDecoration: "none"
+                borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)",
+                color: "#ffffff", textDecoration: "none"
               }}
             >
               {testimonials.ctaCallLabel}

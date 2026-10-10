@@ -9,9 +9,9 @@ import { submitQuote } from "@/app/actions/submitQuote"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -107,7 +107,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
             <div style={{ background: "#fff", borderRadius: 16, padding: "28px 24px", border: `1.5px solid ${C.border}` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <div style={{ width: 28, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                   {page.formEyebrow}
                 </span>
               </div>
@@ -272,9 +272,9 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                   {status === "loading" ? form.sendingLabel : form.submitLabel}
                 </button>
 
-                <p style={{ fontSize: 11, color: C.muted, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
+                <p style={{ fontSize: 11, color: C.text, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
                   {form.callText}{" "}
-                  <a href={site.phoneHref} style={{ color: C.gold, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
+                  <a href={site.phoneHref} style={{ color: C.goldText, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
                 </p>
               </form>
             </div>
@@ -308,7 +308,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                         <contact.icon size={14} style={{ color: contact.color }} />
                       </div>
                       <div>
-                        <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.muted }}>{contact.label}</div>
+                        <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.text }}>{contact.label}</div>
                         <div style={{ fontSize: 13, fontWeight: 800, color: C.dark }}>{contact.value}</div>
                       </div>
                     </a>

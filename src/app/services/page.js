@@ -7,9 +7,9 @@ import { getIcon } from "@/app/lib/content/icons"
 const C = {
   dark: "#0f2d4a",
   navy: "#1e4d7b",
-  blue: "#2d8fdd",
   gold: "#c9a84c",
-  muted: "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted: "#a9c1d4",
   light: "#f0f6fb",
   border: "#d6e8f5",
   text: "#4a6b85",
@@ -125,7 +125,7 @@ export default async function ServicesPage() {
 
                     {/* Features */}
                     <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold, marginBottom: 10 }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText, marginBottom: 10 }}>
                         {page.applicationsLabel}
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -140,7 +140,7 @@ export default async function ServicesPage() {
 
                     {/* Related Fleet */}
                     <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold, marginBottom: 10 }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText, marginBottom: 10 }}>
                         {page.recommendedLabel}
                       </div>
                       <div className="service-fleet-grid">
@@ -205,7 +205,7 @@ export default async function ServicesPage() {
             <a href={site.phoneHref} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               fontSize: 13, fontWeight: 700, padding: "12px 22px",
-              borderRadius: 8, border: `2px solid ${C.blue}`, color: C.blue, textDecoration: "none"
+              borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
             }}>
               <FaPhone size={13} /> {site.phone}
             </a>

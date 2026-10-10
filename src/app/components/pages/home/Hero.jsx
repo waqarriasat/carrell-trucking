@@ -26,13 +26,13 @@ export default function Hero({ hero, site, fleet, compact = false }) {
       className={`relative flex items-center overflow-hidden ${compact ? "" : "min-h-[92vh]"}`}
       style={{ backgroundColor: "#0f2d4a" }}
     >
-      {/* ── BACKGROUND IMAGE SLIDER ── */}
+      {/* ── BACKGROUND IMAGE SLIDER ── (clearly visible photos) */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         {SLIDER_IMAGES.map((src, index) => (
           <div
             key={index}
             className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? "opacity-25 scale-100" : "opacity-0 scale-105"
+              index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
             } transform motion-reduce:transition-none`}
             style={{
               backgroundImage: `url('${src}')`,
@@ -41,36 +41,20 @@ export default function Hero({ hero, site, fleet, compact = false }) {
         ))}
       </div>
 
-      {/* Dark overlay matrix tint layer to guarantee typography readability */}
-      <div 
-        className="absolute inset-0 z-0 mix-blend-multiply opacity-80"
-        style={{ backgroundColor: "#0f2d4a" }}
+      {/* Readability layer: solid navy behind the text (left), fading out
+          to the right so the photo shows. Phones (one column, text over the
+          whole photo) get an even, darker layer so text always stays clear. */}
+      <div
+        className="absolute inset-0 z-0 lg:hidden"
+        style={{ backgroundColor: "rgba(10, 32, 56, 0.9)" }}
         aria-hidden="true"
       />
-
-      {/* Dot-grid structural texture */}
       <div
-        className="absolute inset-0 opacity-[0.05] z-0"
+        className="absolute inset-0 z-0 hidden lg:block"
         style={{
-          backgroundImage: "radial-gradient(circle, #7a9bb5 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
+          background:
+            "linear-gradient(90deg, #0a2038 0%, #0a2038 34%, rgba(10,32,56,0.9) 46%, rgba(10,32,56,0.5) 64%, rgba(10,32,56,0.35) 100%)",
         }}
-        aria-hidden="true"
-      />
-
-      {/* Diagonal accent graphic line */}
-      <div
-        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] z-0"
-        style={{
-          background: "linear-gradient(135deg, transparent 40%, #c9a84c 40%, #c9a84c 42%, transparent 42%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Blue radial spotlight beam */}
-      <div
-        className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none z-0"
-        style={{ background: "radial-gradient(circle, #2d8fdd 0%, transparent 70%)" }}
         aria-hidden="true"
       />
 
@@ -107,10 +91,10 @@ export default function Hero({ hero, site, fleet, compact = false }) {
             {/* Main Headline Statement */}
             <h1
               className="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-white mb-6"
-              style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
+              style={{ fontFamily: "'Georgia', 'Times New Roman', serif", textShadow: "0 2px 12px rgba(0,0,0,0.45)" }}
             >
               {hero.titleStart}{" "}
-              <span className="relative inline-block" style={{ color: "#2d8fdd" }}>
+              <span className="relative inline-block text-white">
                 {hero.titleAccent1}
                 <span
                   className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
@@ -119,14 +103,14 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                 />
               </span>
               {` ${hero.titleJoin} `}
-              <span style={{ color: "#2d8fdd" }}>{hero.titleAccent2}</span>
+              <span className="text-white">{hero.titleAccent2}</span>
               <br />
               <span className="text-white">{`${hero.titleLine2} `}</span>
               <span style={{ color: "#c9a84c" }}>{hero.titleAccent3}</span>
             </h1>
 
             {/* Context Subtext Description */}
-            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "#cbd5e1" }}>
+            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "#e2e8f0", textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}>
               {hero.text}{" "}
               <span className="text-white font-medium">
                 {hero.textHighlight}
@@ -146,7 +130,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
               <Link
                 href={hero.secondaryButton.href}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase border-2 transition-all duration-200 hover:bg-white/10"
-                style={{ borderColor: "#2d8fdd", color: "#2d8fdd" }}
+                style={{ borderColor: "rgba(255,255,255,0.85)", color: "#ffffff", backgroundColor: "rgba(10,32,56,0.35)" }}
               >
                 {hero.secondaryButton.label}
                 <FaChevronRight size={12} />
@@ -157,12 +141,12 @@ export default function Hero({ hero, site, fleet, compact = false }) {
             <a href={site.phoneHref} className="inline-flex items-center gap-3 group">
               <span
                 className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors group-hover:border-white/50"
-                style={{ borderColor: "#1e4d7b" }}
+                style={{ borderColor: "#c9a84c88", backgroundColor: "rgba(10,32,56,0.5)" }}
               >
                 <FaPhone size={14} style={{ color: "#c9a84c" }} />
               </span>
               <span>
-                <span className="block text-xs font-semibold tracking-widest uppercase" style={{ color: "#7a9bb5" }}>
+                <span className="block text-xs font-semibold tracking-widest uppercase" style={{ color: "#c9a84c" }}>
                   {hero.callLabel}
                 </span>
                 <span className="block text-white font-bold text-lg tracking-wide group-hover:text-white/80 transition-colors">
@@ -174,7 +158,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
 
           {/* Right: Fleet Preview Cards — Desktop Viewports Only */}
           <div className="hidden lg:block">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5" style={{ color: "#7a9bb5" }}>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5 inline-block px-2.5 py-1 rounded" style={{ color: "#ffffff", backgroundColor: "rgba(10,32,56,0.8)" }}>
               {hero.previewLabel}
             </p>
 
@@ -185,9 +169,9 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                   href={`/fleet/${item.id}`}
                   className="group relative flex flex-col justify-between p-4 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                   style={{
-                    backgroundColor: i % 2 === 0 ? "rgba(10, 32, 56, 0.85)" : "rgba(17, 40, 64, 0.85)",
-                    borderColor: "#1e4d7b",
-                    backdropFilter: "blur(4px)",
+                    backgroundColor: "rgba(10, 32, 56, 0.92)",
+                    borderColor: "rgba(201, 168, 76, 0.35)",
+                    backdropFilter: "blur(6px)",
                   }}
                 >
                   {item.badge && (
@@ -199,24 +183,23 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                     </span>
                   )}
 
-                  <div>
-                    <p className="text-white font-bold text-sm leading-tight mb-1">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <p className="text-white font-bold text-sm leading-tight">
                       {item.shortName}
                     </p>
+                    {item.cornerBadge ? (
+                      <span
+                        className="text-[9px] font-black tracking-widest uppercase px-1.5 py-0.5 rounded"
+                        style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
+                      >
+                        {item.cornerBadge}
+                      </span>
+                    ) : null}
                   </div>
-
-                  {item.cornerBadge ? (
-                    <span
-                      className="absolute bottom-2 right-2.5 text-[8px] font-black tracking-widest uppercase px-1.5 py-0.5 rounded"
-                      style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
-                    >
-                      {item.cornerBadge}
-                    </span>
-                  ) : null}
 
                   <FaChevronRight
                     size={10}
-                    className="absolute top-4 right-4 opacity-0 group-hover:opacity-60 transition-opacity"
+                    className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
                     style={{ color: "#c9a84c" }}
                   />
 
@@ -231,8 +214,8 @@ export default function Hero({ hero, site, fleet, compact = false }) {
 
             <Link
               href="/fleet"
-              className="inline-flex items-center gap-2 mt-4 text-sm font-medium transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              className="inline-flex items-center gap-2 mt-4 text-sm font-semibold px-2.5 py-1 rounded transition-colors hover:text-[#c9a84c]"
+              style={{ color: "#ffffff", backgroundColor: "rgba(10,32,56,0.8)" }}
             >
               {hero.viewAllText.replace("{count}", fleet.length)}
               <FaArrowRight size={12} style={{ color: "#c9a84c" }} />

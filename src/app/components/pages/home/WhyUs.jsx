@@ -22,7 +22,7 @@ export default function WhyUs({ whyUs, site }) {
             />
             <span
               className="text-xs font-bold tracking-[0.2em] uppercase"
-              style={{ color: "#c9a84c" }}
+              style={{ color: "#86671e" }}
             >
               {whyUs.eyebrow}
             </span>
@@ -127,7 +127,7 @@ export default function WhyUs({ whyUs, site }) {
                 </div>
                 <div
                   className="text-[10px] font-semibold uppercase tracking-widest mb-3"
-                  style={{ color: "#7a9bb5" }}
+                  style={{ color: "#a9c1d4" }}
                 >
                   {item.statLabel}
                 </div>
@@ -171,7 +171,7 @@ export default function WhyUs({ whyUs, site }) {
         >
           <p
             className="text-sm font-medium text-center md:text-left"
-            style={{ color: "#7a9bb5" }}
+            style={{ color: "#a9c1d4" }}
           >
             {whyUs.stripBefore}{" "}
             <span style={{ color: "#c9a84c", fontWeight: 700 }}>

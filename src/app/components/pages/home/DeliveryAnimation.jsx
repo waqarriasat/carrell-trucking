@@ -74,16 +74,16 @@ export default function DeliveryAnimation({ brand = "ARDMORE", caption }) {
       >
         <defs>
           <linearGradient id="dlv-sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#12355a" />
-            <stop offset="1" stopColor="#1e4d7b" />
+            <stop offset="0" stopColor="#0f2d4a" />
+            <stop offset="1" stopColor="#173d63" />
           </linearGradient>
           <linearGradient id="dlv-box" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#d9b75c" />
-            <stop offset="1" stopColor="#b8923a" />
+            <stop offset="0" stopColor="#ffffff" />
+            <stop offset="1" stopColor="#dde5ee" />
           </linearGradient>
           <pattern id="dlv-rib" width="10" height="70" patternUnits="userSpaceOnUse">
             <rect width="10" height="70" fill="url(#dlv-box)" />
-            <rect x="0" width="3" height="70" fill="#000" opacity=".09" />
+            <rect x="0" width="3" height="70" fill="#0f2d4a" opacity=".08" />
           </pattern>
         </defs>
 
@@ -102,12 +102,12 @@ export default function DeliveryAnimation({ brand = "ARDMORE", caption }) {
         <g className="scene">
           {/* Container (separate from the truck so it can stay on the ground) */}
           <g className="cargo">
-            <rect x="176" y="130" width="230" height="70" rx="2" fill="url(#dlv-rib)" stroke="#8a6b25" strokeWidth="2" />
-            <rect x="176" y="130" width="230" height="7" fill="#8a6b25" opacity=".35" />
+            <rect x="176" y="130" width="230" height="70" rx="2" fill="url(#dlv-rib)" stroke="#94a3b8" strokeWidth="2" />
+            <rect x="176" y="130" width="230" height="7" fill="#94a3b8" opacity=".45" />
             <rect x="380" y="137" width="24" height="61" fill="#0a2038" />
-            <rect className="door" x="380" y="137" width="24" height="61" fill="#c9a84c" stroke="#8a6b25" strokeWidth="1.5" />
-            <text x="276" y="172" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="20" fill="#0f2d4a">{brand}</text>
-            <text x="276" y="186" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="8" letterSpacing="2" fill="#0f2d4a">TRAILER, INC.</text>
+            <rect className="door" x="380" y="137" width="24" height="61" fill="#eef2f6" stroke="#94a3b8" strokeWidth="1.5" />
+            <text x="276" y="172" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="20" fill="#18186C">{brand}</text>
+            <text x="276" y="186" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="8" letterSpacing="2" fill="#a8842c">TRAILER, INC.</text>
           </g>
 
           {/* Tilt-bed (rollback) truck */}
@@ -118,10 +118,10 @@ export default function DeliveryAnimation({ brand = "ARDMORE", caption }) {
               <rect x="166" y="200" width="252" height="3" fill="#94a3b8" />
             </g>
             {/* cab */}
-            <path d="M424 150 h48 q20 0 26 22 l14 30 v20 h-88 z" fill="#2d8fdd" stroke="#1a5fa6" strokeWidth="2" />
-            <path d="M440 160 h30 q12 0 16 14 l6 14 h-52 z" fill="#bfe0fb" opacity=".9" />
+            <path d="M424 150 h48 q20 0 26 22 l14 30 v20 h-88 z" fill="#f1f5f9" stroke="#94a3b8" strokeWidth="2" />
+            <path d="M440 160 h30 q12 0 16 14 l6 14 h-52 z" fill="#1e3a5f" opacity=".9" />
             <rect x="500" y="206" width="16" height="8" rx="2" fill="#fbbf24" />
-            <rect x="424" y="196" width="88" height="5" fill="#1a5fa6" />
+            <rect x="424" y="196" width="88" height="5" fill="#c9a84c" />
             {WHEELS.map((cx) => (
               <g key={cx} className="wheel">
                 <circle cx={cx} cy="234" r="15" fill="#111827" />

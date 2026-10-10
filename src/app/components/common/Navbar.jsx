@@ -188,7 +188,7 @@ export default function Navbar({ site, nav, fleet, services }) {
                   <Link
                     href={link.href}
                     onClick={() => dropdown && setActiveDropdown(isOpen ? null : link.href)}
-                    className="relative flex items-center gap-1 px-3 xl:px-4 py-2 text-[15px] font-semibold tracking-wide transition-colors rounded hover:text-[#2d8fdd]"
+                    className="relative flex items-center gap-1 px-3 xl:px-4 py-2 text-[15px] font-semibold tracking-wide transition-colors rounded hover:text-[#a8842c]"
                     style={{ color: "#0f2d4a" }}
                   >
                     {link.label}
@@ -281,10 +281,10 @@ export default function Navbar({ site, nav, fleet, services }) {
                 <FaPhone size={15} style={{ color: "#c9a84c" }} />
               </span>
               <span className="leading-tight">
-                <span className="hidden xl:block text-[10px] font-extrabold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>
+                <span className="hidden xl:block text-[10px] font-extrabold tracking-[0.2em] uppercase" style={{ color: "#86671e" }}>
                   {nav.mobileCallLabel}
                 </span>
-                <span className="block text-xl font-extrabold tracking-wide group-hover:text-[#2d8fdd] transition-colors" style={{ color: "#0f2d4a" }}>
+                <span className="block text-xl font-extrabold tracking-wide group-hover:text-[#a8842c] transition-colors" style={{ color: "#0f2d4a" }}>
                   {site.phone}
                 </span>
               </span>

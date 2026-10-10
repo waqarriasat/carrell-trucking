@@ -111,8 +111,8 @@ export default function YardSection({ yard, site }) {
                   href={site.salesMapsHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-white"
-                  style={{ color: "#2d8fdd" }}
+                  className="inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-[#c9a84c]"
+                  style={{ color: "#ffffff" }}
                 >
                   <FaLocationDot size={13} style={{ color: "#c9a84c" }} />
                   {yard.directionsLabel}
@@ -133,7 +133,7 @@ export default function YardSection({ yard, site }) {
                   {...imageProps(yard.image)}
                 />
               </div>
-              <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs" style={{ color: "#7a9bb5" }}>
+              <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs" style={{ color: "#a9c1d4" }}>
                 <span className="inline-flex items-center gap-1.5">
                   <FaLocationDot size={11} style={{ color: "#c9a84c" }} />
                   {yard.imageCaption}
@@ -151,7 +151,7 @@ export default function YardSection({ yard, site }) {
               <DeliveryMedia url={yard.videoUrl} caption={yard.videoCaption} brand={site.logoTop} />
             </div>
             {yard.videoCaption ? (
-              <figcaption className="mt-3 text-xs" style={{ color: "#7a9bb5" }}>{yard.videoCaption}</figcaption>
+              <figcaption className="mt-3 text-xs" style={{ color: "#a9c1d4" }}>{yard.videoCaption}</figcaption>
             ) : null}
           </figure>
 

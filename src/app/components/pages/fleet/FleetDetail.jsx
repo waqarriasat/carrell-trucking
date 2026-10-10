@@ -10,9 +10,9 @@ import { imageProps, isCutout } from "@/app/lib/content/images"
 const C = {
   dark: "#0f2d4a",
   navy: "#1e4d7b",
-  blue: "#2d8fdd",
   gold: "#c9a84c",
-  muted: "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted: "#a9c1d4",
   light: "#f0f6fb",
   border: "#d6e8f5",
   text: "#4a6b85",
@@ -172,7 +172,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                     {fleetDetail.overviewLabel}
                   </span>
                 </div>
@@ -185,7 +185,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                     {fleetDetail.featuresLabel}
                   </span>
                 </div>
@@ -210,7 +210,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                 <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                     <div style={{ width: 24, height: 2, background: C.gold }} />
-                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                       {fleetDetail.useCasesLabel}
                     </span>
                   </div>

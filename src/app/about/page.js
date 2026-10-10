@@ -7,9 +7,9 @@ import { getIcon } from "@/app/lib/content/icons"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -158,7 +158,7 @@ export default async function AboutPage() {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                 <div style={{ width: 32, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                   {page.storyEyebrow}
                 </span>
               </div>
@@ -183,7 +183,7 @@ export default async function AboutPage() {
                       background: C.gold + "20", border: `1px solid ${C.gold}55`,
                       display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
                     }}>
-                      <span style={{ fontSize: 10, color: C.gold, fontWeight: 900 }}>✓</span>
+                      <span style={{ fontSize: 10, color: C.goldText, fontWeight: 900 }}>✓</span>
                     </div>
                     <span style={{ fontSize: 13, color: C.text }}>{item}</span>
                   </div>
@@ -200,7 +200,7 @@ export default async function AboutPage() {
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.valuesEyebrow}
             </span>
           </div>
@@ -234,12 +234,6 @@ export default async function AboutPage() {
                 <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7, margin: 0 }}>
                   {v.text}
                 </p>
-                <div style={{
-                  position: "absolute", bottom: 10, right: 14,
-                  fontSize: 32, fontWeight: 900, color: C.border, lineHeight: 1
-                }}>
-                  0{i + 1}
-                </div>
               </div>
             ))}
           </div>
@@ -252,7 +246,7 @@ export default async function AboutPage() {
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.teamEyebrow}
             </span>
           </div>
@@ -286,7 +280,7 @@ export default async function AboutPage() {
                 <h3 style={{ fontSize: 17, fontWeight: 800, color: C.dark, margin: "0 0 4px" }}>
                   {member.name}
                 </h3>
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold }}>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText }}>
                   {member.role}
                 </span>
               </div>
@@ -319,7 +313,7 @@ export default async function AboutPage() {
               <a href={site.emailHref} style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "12px 22px",
-                borderRadius: 8, border: `2px solid ${C.blue}`, color: C.blue, textDecoration: "none"
+                borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
               }}>
                 <FaEnvelope size={13} /> {page.ctaEmailLabel}
               </a>

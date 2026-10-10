@@ -20,6 +20,7 @@ import { LEGACY_CONTENT_V6 } from "./legacy-v6"
 import { LEGACY_CONTENT_V7 } from "./legacy-v7"
 import { LEGACY_CONTENT_V8 } from "./legacy-v8"
 import { LEGACY_CONTENT_V9 } from "./legacy-v9"
+import { LEGACY_CONTENT_V10 } from "./legacy-v10"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -31,7 +32,9 @@ import { LEGACY_CONTENT_V9 } from "./legacy-v9"
 //    sales location, rental/purchase/rent-to-own, availability in all states.
 // 9: 3D fleet images, real logo, white header and fleet banner.
 // 10: fleet banner becomes one well-spaced row of 5 units.
-export const CONTENT_VERSION = 10
+// 11: less bright blue (navy/gold theme) and a visible hero slider that
+//     starts with the yard aerial photo.
+export const CONTENT_VERSION = 11
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -43,7 +46,8 @@ const STEPS = [
   { upTo: 7, from: LEGACY_CONTENT_V6, to: LEGACY_CONTENT_V7 },
   { upTo: 8, from: LEGACY_CONTENT_V7, to: LEGACY_CONTENT_V8 },
   { upTo: 9, from: LEGACY_CONTENT_V8, to: LEGACY_CONTENT_V9 },
-  { upTo: 10, from: LEGACY_CONTENT_V9, to: DEFAULT_CONTENT },
+  { upTo: 10, from: LEGACY_CONTENT_V9, to: LEGACY_CONTENT_V10 },
+  { upTo: 11, from: LEGACY_CONTENT_V10, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)

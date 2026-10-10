@@ -10,8 +10,8 @@ export default function FleetHero({ fleetPage }) {
 
         {/* Breadcrumb */}
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
-  <Link href="/" style={{ color: "#7a9bb5", textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
-  <span style={{ color: "#7a9bb5" }}>›</span>
+  <Link href="/" style={{ color: "#a9c1d4", textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
+  <span style={{ color: "#a9c1d4" }}>›</span>
   <span style={{ color: "#c9a84c", fontWeight: 600 }}>{fleetPage.breadcrumbCurrent}</span>
 </div>
 
@@ -40,7 +40,7 @@ export default function FleetHero({ fleetPage }) {
 
         <p
           className="text-base max-w-2xl leading-relaxed"
-          style={{ color: "#7a9bb5" }}
+          style={{ color: "#a9c1d4" }}
         >
           {fleetPage.text}
         </p>
@@ -57,7 +57,7 @@ export default function FleetHero({ fleetPage }) {
               </span>
               <span
                 className="text-xs font-semibold uppercase tracking-widest"
-                style={{ color: "#7a9bb5" }}
+                style={{ color: "#a9c1d4" }}
               >
                 {s.label}
               </span>

@@ -9,9 +9,9 @@ import { submitContact } from "@/app/actions/submitContact"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -76,7 +76,7 @@ export default function ContactPageClient({ page, site }) {
         <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.infoEyebrow}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.infoEyebrow}</span>
           </div>
           <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: C.dark, margin: "0 0 24px" }}>
             {page.infoTitle}
@@ -93,7 +93,7 @@ export default function ContactPageClient({ page, site }) {
                     <info.icon size={16} style={{ color: info.color }} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.muted, marginBottom: 3 }}>{info.label}</div>
+                    <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.text, marginBottom: 3 }}>{info.label}</div>
                     <div style={{ fontSize: 14, fontWeight: 800, color: C.dark, marginBottom: 2 }}>{info.value}</div>
                     <div style={{ fontSize: 12, color: C.text }}>{info.sub}</div>
                   </div>
@@ -113,7 +113,7 @@ export default function ContactPageClient({ page, site }) {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                 <div style={{ width: 32, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.mapEyebrow}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.mapEyebrow}</span>
               </div>
               <h2 style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 900, color: C.dark, margin: "0 0 16px" }}>
                 {page.mapTitle}
@@ -150,7 +150,7 @@ export default function ContactPageClient({ page, site }) {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                 <div style={{ width: 32, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.formEyebrow}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.formEyebrow}</span>
               </div>
               <h2 style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 900, color: C.dark, margin: "0 0 16px" }}>
                 {page.formTitle}
@@ -216,9 +216,9 @@ export default function ContactPageClient({ page, site }) {
                     {status === "loading" ? form.sendingLabel : form.submitLabel}
                   </button>
 
-                  <p style={{ fontSize: 11, color: C.muted, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
+                  <p style={{ fontSize: 11, color: C.text, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
                     {form.callText}{" "}
-                    <a href={site.phoneHref} style={{ color: C.gold, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
+                    <a href={site.phoneHref} style={{ color: C.goldText, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
                   </p>
                 </form>
               </div>
@@ -232,7 +232,7 @@ export default function ContactPageClient({ page, site }) {
         <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.teamEyebrow}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.teamEyebrow}</span>
           </div>
           <h2 style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 900, color: C.dark, margin: "0 0 20px" }}>
             {page.teamTitle}
@@ -245,7 +245,7 @@ export default function ContactPageClient({ page, site }) {
                   <FaUser size={16} style={{ color: C.gold }} />
                 </div>
                 <h3 style={{ fontSize: 14, fontWeight: 800, color: C.dark, margin: "0 0 2px" }}>{member.name}</h3>
-                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold }}>{member.role}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText }}>{member.role}</span>
                 <p style={{ fontSize: 12, color: C.text, margin: "6px 0 0", lineHeight: 1.5 }}>{member.note}</p>
               </div>
             ))}

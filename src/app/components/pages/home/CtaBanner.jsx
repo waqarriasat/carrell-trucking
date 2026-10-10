@@ -39,7 +39,7 @@ export default function CtaBanner({ ctaBanner }) {
               </span>
               <span
                 className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest block"
-                style={{ color: "#7a9bb5" }}
+                style={{ color: "#a9c1d4" }}
               >
                 {s.label}
               </span>
@@ -125,11 +125,11 @@ export default function CtaBanner({ ctaBanner }) {
                   <div
                     className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 border"
                     style={{
-                      backgroundColor: "rgba(45, 143, 221, 0.08)",
-                      borderColor: "rgba(45, 143, 221, 0.25)",
+                      backgroundColor: "rgba(201, 168, 76, 0.1)",
+                      borderColor: "rgba(201, 168, 76, 0.35)",
                     }}
                   >
-                    <item.icon size={15} style={{ color: "#2d8fdd" }} />
+                    <item.icon size={15} style={{ color: "#c9a84c" }} />
                   </div>
 
                   <div>
@@ -141,7 +141,7 @@ export default function CtaBanner({ ctaBanner }) {
                         {item.title}
                       </h3>
                     </div>
-                    <p className="text-xs leading-relaxed" style={{ color: "#7a9bb5" }}>
+                    <p className="text-xs leading-relaxed" style={{ color: "#a9c1d4" }}>
                       {item.desc}
                     </p>
                   </div>

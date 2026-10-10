@@ -30,7 +30,6 @@ const statList = (key, label = "Stats") => ({
 
 const BRAND_COLORS = [
   { value: "#c9a84c", label: "Gold" },
-  { value: "#2d8fdd", label: "Blue" },
   { value: "#1e4d7b", label: "Navy" },
   { value: "#0f2d4a", label: "Dark navy" },
 ]
@@ -218,10 +217,10 @@ export const ADMIN_PAGES = [
             preview: "heroTitle",
             help: "The headline is split into parts so each keeps its colour.",
             fields: [
-              t("titleStart", "White words", { width: "sm", help: "Optional – leave empty to start with the blue word." }),
-              t("titleAccent1", "Blue underlined word", { width: "sm" }),
+              t("titleStart", "White words", { width: "sm", help: "Optional – leave empty to start with the underlined word." }),
+              t("titleAccent1", "Gold-underlined word", { width: "sm" }),
               t("titleJoin", "Joining word", { width: "xs" }),
-              t("titleAccent2", "Blue word", { width: "sm" }),
+              t("titleAccent2", "Second word", { width: "sm" }),
               t("titleLine2", "Second line (white)", { width: "sm" }),
               t("titleAccent3", "Gold ending", { width: "sm" }),
             ],
@@ -431,7 +430,7 @@ export const ADMIN_PAGES = [
               graphic: "container-dry",
               graphicLabel: "",
               cornerBadge: "",
-              accent: "#2d8fdd",
+              accent: "#0f2d4a",
               sizes: [],
               description: "",
               features: [],
@@ -449,7 +448,6 @@ export const ADMIN_PAGES = [
               { type: "slug", key: "id", label: "Page address", from: "name", prefix: "/fleet/" },
               t("badge", "Category badge", { help: "Small gold label, e.g. “Storage Container Rentals”." }),
               t("cornerBadge", "Corner badge", { width: "sm", help: "Optional tag in the bottom-right corner of the picture, e.g. “Ground Level”. Leave empty for none." }),
-              { type: "select", key: "accent", label: "Accent colour", options: BRAND_COLORS, width: "sm" },
               { type: "subheading", label: "Photos" },
               img("image", "Main photo", { help: "Landscape photo, about 900 × 600px." }),
               { type: "images", key: "gallery", label: "Gallery photos (detail page thumbnails)" },
