@@ -4,9 +4,8 @@ import { isCutout } from "@/app/lib/content/images";
 // ─────────────────────────────────────────────
 //  FleetBanner (Server Component)
 //  Premier-style band under the header: a single,
-//  evenly spaced row of fleet units on the brand
-//  blue, spanning the full screen width, with a
-//  gold line separating it from the hero below.
+//  evenly spaced row of fleet units in a light
+//  block, with light page space around it.
 //  Phones: a swipeable row of the same units.
 //  Admin: Home → Fleet banner (units and order).
 // ─────────────────────────────────────────────
@@ -34,15 +33,14 @@ export default function FleetBanner({ banner, fleet }) {
   if (!units.length) return null;
 
   return (
-    <section
-      aria-label={banner.label || "Our fleet"}
-      className="relative w-full overflow-hidden border-b-[3px] border-[#c9a84c]"
-      // Its own lighter blue, separate from the darker hero below; the gold
-      // line marks the edge between the two sections.
-      style={{ background: "radial-gradient(ellipse 70% 120% at 50% 20%, #24588a 0%, #1b4a77 45%, #163f66 100%)" }}
-    >
+    <section aria-label={banner.label || "Our fleet"} className="page-section wrap">
+      {/* A light block: the white units stand out with their soft shadows */}
+      <div
+        className="panel overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #f7f9fc 0%, #e6edf5 100%)" }}
+      >
       {/* Desktop / tablet: one row across the full width */}
-      <div className="wrap hidden md:flex items-end justify-between gap-[2.5vw] pt-8 lg:pt-10 pb-6 lg:pb-8">
+      <div className="hidden md:flex items-end justify-between gap-[2.5vw] px-[3%] pt-8 lg:pt-10 pb-6 lg:pb-8">
         {units.map((u) => (
           <Link
             key={u.id}
@@ -58,16 +56,16 @@ export default function FleetBanner({ banner, fleet }) {
       </div>
 
       {/* Phones: swipeable row */}
-      <div className="md:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory px-4 pt-5 pb-5 [scrollbar-width:none]">
+      <div className="md:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory px-4 pt-5 pb-4 [scrollbar-width:none]">
         {units.map((u) => (
           <Link key={u.id} href={`/fleet/${u.id}`} className="relative z-10 snap-center shrink-0 w-[72%]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={u.image} alt={u.name} className="block w-full h-32 object-contain" loading="lazy" draggable="false" />
-            <span className="block mt-1 text-center text-xs font-bold text-white/80">{u.shortName || u.name}</span>
+            <span className="block mt-1 text-center text-xs font-bold" style={{ color: "#0f2d4a" }}>{u.shortName || u.name}</span>
           </Link>
         ))}
       </div>
-
+      </div>
     </section>
   );
 }

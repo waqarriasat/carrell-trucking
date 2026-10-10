@@ -101,8 +101,8 @@ export default async function AboutPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
 
           {/* Breadcrumb */}
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
@@ -110,18 +110,18 @@ export default async function AboutPage() {
           {/* Eyebrow */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
 
-          <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "#fff", margin: "0 0 16px", lineHeight: 1.15 }}>
+          <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: C.dark, margin: "0 0 16px", lineHeight: 1.15 }}>
             {page.titleStart}{" "}
-            <span style={{ color: C.gold }}>{page.titleAccent}</span>{" "}
+            <span style={{ color: C.goldText }}>{page.titleAccent}</span>{" "}
             {page.titleEnd}
           </h1>
 
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: "0 0 32px" }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: "0 0 32px" }}>
             {page.text}
           </p>
 
@@ -129,8 +129,8 @@ export default async function AboutPage() {
           <div className="about-stats">
             {STATS.map((s, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 26, fontWeight: 900, color: C.gold }}>{s.value}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.muted }}>
+                <span style={{ fontSize: 26, fontWeight: 900, color: C.goldText }}>{s.value}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.text }}>
                   {s.label}
                 </span>
               </div>
@@ -140,8 +140,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Story Section ── */}
-      <div style={{ background: "#fff", padding: "56px var(--gutter)" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <div className="about-story-grid">
 
             {/* Image */}
@@ -195,7 +195,7 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Values ── */}
-      <div style={{ background: C.light, padding: "56px var(--gutter)" }}>
+      <div className="page-section wrap">
         <div style={{ width: "100%" }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
@@ -241,8 +241,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Team ── */}
-      <div style={{ background: "#fff", padding: "56px var(--gutter)" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
@@ -290,8 +290,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Contact Strip ── */}
-      <div style={{ background: C.dark, padding: "48px var(--gutter)" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <div className="about-contact-strip">
             <div>
               <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>

@@ -16,22 +16,21 @@ export default async function NotFound() {
   const { notFound: page, site } = await getContent()
 
   return (
-    <div style={{
-      background: C.dark,
-      minHeight: "100vh",
+    <div className="page-section wrap" style={{
+      minHeight: "70vh",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       padding: "24px",
       fontFamily: "system-ui, sans-serif",
     }}>
-      <div style={{ maxWidth: 560, width: "100%", textAlign: "center" }}>
+      <div className="panel" style={{ maxWidth: 640, width: "100%", textAlign: "center", padding: "clamp(28px, 4vw, 48px)" }}>
 
         {/* 404 number */}
         <div style={{
           fontSize: "clamp(80px, 20vw, 140px)",
           fontWeight: 900,
-          color: C.gold,
+          color: C.dark,
           lineHeight: 1,
           marginBottom: 8,
           userSelect: "none",
@@ -55,13 +54,13 @@ export default async function NotFound() {
         {/* Heading */}
         <h1 style={{
           fontSize: "clamp(22px, 5vw, 30px)",
-          fontWeight: 900, color: "#fff",
+          fontWeight: 900, color: C.dark,
           margin: "0 0 12px", lineHeight: 1.2
         }}>
           {page.title}
         </h1>
 
-        <p style={{ fontSize: 14, color: C.muted, lineHeight: 1.8, margin: "0 0 32px" }}>
+        <p style={{ fontSize: 15, color: C.text, lineHeight: 1.8, margin: "0 0 32px" }}>
           {page.text}
         </p>
 
@@ -78,7 +77,7 @@ export default async function NotFound() {
           <Link href="/fleet" style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             fontSize: 13, fontWeight: 700, padding: "12px 24px",
-            borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff",
+            borderRadius: 8, border: `2px solid ${C.dark}`, color: C.dark,
             textDecoration: "none"
           }}>
             <FaTruck size={14} /> {page.fleetLabel}
@@ -86,7 +85,7 @@ export default async function NotFound() {
           <a href={site.phoneHref} style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             fontSize: 13, fontWeight: 700, padding: "12px 24px",
-            borderRadius: 8, border: `2px solid ${C.muted}`, color: C.muted,
+            borderRadius: 8, border: `2px solid ${C.border}`, color: C.text,
             textDecoration: "none"
           }}>
             <FaPhone size={14} /> {page.callLabel}
@@ -95,19 +94,19 @@ export default async function NotFound() {
 
         {/* Quick links */}
         <div style={{
-          background: "rgba(255,255,255,0.04)",
-          border: `1px solid ${C.navy}`,
+          background: C.light,
+          border: `1px solid ${C.border}`,
           borderRadius: 14, padding: "20px 24px"
         }}>
-          <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold, marginBottom: 14 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#86671e", marginBottom: 14 }}>
             {page.quickLinksLabel}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
             {page.quickLinks.map((link, i) => (
               <Link key={i} href={link.href} style={{
                 fontSize: 12, fontWeight: 600, padding: "6px 14px",
-                borderRadius: 20, border: `1px solid ${C.navy}`,
-                color: C.muted, textDecoration: "none",
+                borderRadius: 20, border: `1px solid ${C.border}`, background: "#fff",
+                color: C.dark, textDecoration: "none",
               }}>
                 {link.label}
               </Link>

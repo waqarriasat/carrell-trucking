@@ -19,16 +19,16 @@ export default function Breadcrumb({ crumbs = [] }) {
         return (
           <span key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
             {i > 0 && (
-              <span style={{ color: "rgba(255,255,255,0.6)", fontSize: 10 }}>›</span>
+              <span style={{ color: "#8aa3b8", fontSize: 10 }}>›</span>
             )}
             {isLast || !crumb.href ? (
-              <span style={{ color: "#c9a84c", fontWeight: 600 }}>
+              <span style={{ color: "#86671e", fontWeight: 700 }}>
                 {crumb.label}
               </span>
             ) : (
               <Link
                 href={crumb.href}
-                style={{ color: "#a9c1d4", textDecoration: "none" }}
+                style={{ color: "#4a6b85", textDecoration: "none" }}
               >
                 {crumb.label}
               </Link>

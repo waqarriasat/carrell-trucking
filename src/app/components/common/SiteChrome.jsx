@@ -12,6 +12,8 @@ export default function SiteChrome({ navbar, footer, convoy, whatsapp, children 
     <>
       {navbar}
       {children}
+      {/* Light space between the last block and the dark footer */}
+      <div className="page-end" aria-hidden="true" />
       {footer}
       {convoy}
       {whatsapp}

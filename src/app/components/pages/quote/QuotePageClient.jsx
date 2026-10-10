@@ -80,26 +80,26 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
-          <h1 style={{ fontSize: "clamp(24px, 4vw, 34px)", fontWeight: 900, color: "#fff", margin: "0 0 10px", lineHeight: 1.15 }}>
-            {`${page.titleStart} `}<span style={{ color: C.gold }}>{page.titleAccent}</span>
+          <h1 style={{ fontSize: "clamp(24px, 4vw, 34px)", fontWeight: 900, color: C.dark, margin: "0 0 10px", lineHeight: 1.15 }}>
+            {`${page.titleStart} `}<span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
-          <p style={{ fontSize: 13, color: C.muted, maxWidth: 480, lineHeight: 1.7, margin: 0 }}>
+          <p style={{ fontSize: 13, color: C.text, maxWidth: 480, lineHeight: 1.7, margin: 0 }}>
             {page.text}
           </p>
         </div>
       </div>
 
       {/* Main */}
-      <div style={{ background: C.light, padding: "40px var(--gutter)" }}>
+      <div className="page-section wrap">
         <div style={{ width: "100%" }}>
           <div className="quote-grid">
 

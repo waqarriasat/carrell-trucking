@@ -119,7 +119,7 @@ function FleetCard({ item, fleetPage, site }) {
 
 export default function FleetList({ fleetPage, fleet, site }) {
   return (
-    <section style={{ backgroundColor: C.light, padding: "48px var(--gutter)" }}>
+    <section className="page-section wrap">
       <style>{`
         .fleet-card {
           display: grid;

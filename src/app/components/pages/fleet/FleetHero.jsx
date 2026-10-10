@@ -3,16 +3,14 @@ import Link from "next/link";
 
 export default function FleetHero({ fleetPage }) {
   return (
-    <section
-  style={{ backgroundColor: "#0f2d4a", padding: "20px var(--gutter) 40px" }}
->
-      <div style={{ width: "100%"}}>
+    <section className="page-section wrap">
+      <div className="panel" style={{ width: "100%", padding: "clamp(22px, 3vw, 40px)" }}>
 
         {/* Breadcrumb */}
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
-  <Link href="/" style={{ color: "#a9c1d4", textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
-  <span style={{ color: "#a9c1d4" }}>›</span>
-  <span style={{ color: "#c9a84c", fontWeight: 600 }}>{fleetPage.breadcrumbCurrent}</span>
+  <Link href="/" style={{ color: "#4a6b85", textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
+  <span style={{ color: "#8aa3b8" }}>›</span>
+  <span style={{ color: "#86671e", fontWeight: 700 }}>{fleetPage.breadcrumbCurrent}</span>
 </div>
 
         {/* Eyebrow */}
@@ -24,7 +22,7 @@ export default function FleetHero({ fleetPage }) {
           />
           <span
             className="text-xs font-bold tracking-[0.2em] uppercase"
-            style={{ color: "#c9a84c" }}
+            style={{ color: "#86671e" }}
           >
             {fleetPage.eyebrow}
           </span>
@@ -33,14 +31,14 @@ export default function FleetHero({ fleetPage }) {
         {/* Title */}
         <h1
           className="text-4xl md:text-5xl font-black leading-tight mb-4"
-          style={{ color: "#ffffff" }}
+          style={{ color: "#0f2d4a" }}
         >
           {fleetPage.title}
         </h1>
 
         <p
           className="text-base max-w-2xl leading-relaxed"
-          style={{ color: "#a9c1d4" }}
+          style={{ color: "#4a6b85" }}
         >
           {fleetPage.text}
         </p>
@@ -51,13 +49,13 @@ export default function FleetHero({ fleetPage }) {
             <div key={i} className="flex items-center gap-3">
               <span
                 className="text-2xl font-black"
-                style={{ color: "#c9a84c" }}
+                style={{ color: "#0f2d4a" }}
               >
                 {s.value}
               </span>
               <span
                 className="text-xs font-semibold uppercase tracking-widest"
-                style={{ color: "#a9c1d4" }}
+                style={{ color: "#86671e" }}
               >
                 {s.label}
               </span>

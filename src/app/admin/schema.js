@@ -67,9 +67,9 @@ export const ADMIN_PAGES = [
         path: "site",
         fields: [
           t("name", "Company name", { help: "Shown in the footer copyright, page titles and emails. Placeholder: {company}" }),
-          img("logoImage", "Logo image", { help: "Company logo shown in the header and footer (SVG or PNG on a transparent background). Leave empty to show the text logo below." }),
-          t("logoTop", "Logo — top line", { width: "sm", help: "Text logo (only used when there is no logo image), e.g. ARDMORE." }),
-          t("logoBottom", "Logo — bottom line", { width: "sm", help: "Small gold line under the logo." }),
+          t("logoTop", "Logo — top line", { width: "sm", help: "Text logo in the dark header and footer, shown in white, e.g. ARDMORE." }),
+          t("logoBottom", "Logo — bottom line", { width: "sm", help: "Small gold line under it, e.g. Trailer, Inc." }),
+          img("logoImage", "Logo image (file kept for later use)", { help: "The dark header and footer use the text logo above. This image is kept for printed material or a future light header." }),
           t("minRental", "Footer badge", { help: "Gold badge in the footer." }),
         ],
       },
@@ -271,7 +271,7 @@ export const ADMIN_PAGES = [
         ],
       },
       {
-        title: "Trust bar (stats under the banner)",
+        title: "Stats (cards under the hero)",
         path: "home.trustBar",
         fields: [
           statList("stats"),
@@ -324,7 +324,7 @@ export const ADMIN_PAGES = [
                 size: "icon",
                 help: "Use a transparent PNG — its shape is displayed in gold.",
               }),
-              t("stat", "Big number", { width: "xs" }),
+              t("stat", "Big number (optional)", { width: "xs", help: "Leave empty to show no number on the card." }),
               t("statLabel", "Number label", { width: "sm" }),
               t("title", "Title"),
               ta("text", "Text", { rows: 2 }),
@@ -404,7 +404,6 @@ export const ADMIN_PAGES = [
         title: "Call-to-action banner",
         path: "home.ctaBanner",
         fields: [
-          statList("stats"),
           t("eyebrow", "Small gold text", { width: "sm" }),
           t("titleStart", "Headline — white part"),
           t("titleAccent", "Headline — gold part"),

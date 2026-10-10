@@ -2,58 +2,13 @@ import Link from "next/link";
 import { FaFileLines } from "react-icons/fa6";
 import { getIcon } from "@/app/lib/content/icons";
 
-// Tailwind needs literal class names, so map the item count to a column class.
-const LG_COLS = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3", 4: "lg:grid-cols-4" };
-
 export default function CtaBanner({ ctaBanner }) {
-  // Unique, non-duplicative metrics focusing on operational excellence
-  const STATS = ctaBanner.stats;
-
   return (
-    <section
-      className="w-full py-16 md:py-20 overflow-hidden"
-      // Light background: separate from the navy Testimonials above and the
-      // footer below; the dark box below reads as a card.
-      style={{ backgroundColor: "#f0f6fb" }}
-      aria-labelledby="cta-heading"
-    >
-      <div className="wrap">
-
-        {/* ── Stats Grid ── */}
-        <div className={`grid grid-cols-2 ${LG_COLS[STATS.length] || "lg:grid-cols-4"} gap-4 mb-12`}>
-          {STATS.map((s, i) => (
-            <div
-              key={i}
-              className={`flex flex-col items-center text-center rounded-xl py-6 px-4 transition-all ${
-                // Odd count on mobile: let the last stat use the full row
-                STATS.length % 2 === 1 && i === STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
-              }`}
-              style={{
-                backgroundColor: "#ffffff",
-                border: "1px solid #d6e8f5",
-              }}
-            >
-              <span
-                className="text-2xl sm:text-3xl font-black leading-none mb-1.5 block"
-                style={{ color: "#0f2d4a" }}
-              >
-                {s.value}
-              </span>
-              <span
-                className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest block"
-                style={{ color: "#86671e" }}
-              >
-                {s.label}
-              </span>
-            </div>
-          ))}
-        </div>
+    <section className="page-section wrap" aria-labelledby="cta-heading">
+      <div>
 
         {/* ── Main CTA Box ── */}
-        <div
-          className="rounded-2xl overflow-hidden"
-          style={{ border: "1px solid #1e4d7b" }}
-        >
+        <div className="panel-navy overflow-hidden">
           {/* Gold top accent */}
           <div className="h-1 w-full" style={{ backgroundColor: "#c9a84c" }} />
 

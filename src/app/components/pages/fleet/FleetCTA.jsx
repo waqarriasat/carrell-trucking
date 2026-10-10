@@ -3,11 +3,8 @@ import { FaPhone, FaFileAlt } from "react-icons/fa";
 
 export default function FleetCTA({ fleetPage }) {
   return (
-    <section
-      className="w-full py-14"
-      style={{ backgroundColor: "#0f2d4a" }}
-    >
-      <div className="wrap flex flex-col md:flex-row items-center justify-between gap-8">
+    <section className="page-section wrap">
+      <div className="panel-navy px-6 sm:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
           <h2
             className="text-2xl md:text-3xl font-black leading-tight mb-2"

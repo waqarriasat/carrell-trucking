@@ -5,12 +5,8 @@ export default function WhyUs({ whyUs, site }) {
   const WHY_ITEMS = whyUs.items;
 
   return (
-    <section
-      className="w-full py-16 md:py-20"
-      style={{ backgroundColor: "#ffffff" }}
-      aria-labelledby="why-heading"
-    >
-      <div className="wrap">
+    <section className="page-section wrap" aria-labelledby="why-heading">
+      <div>
 
         {/* ── Section Header ── */}
         <div className="mb-12">
@@ -42,7 +38,7 @@ export default function WhyUs({ whyUs, site }) {
         {/* ── Satisfaction + ISO badges row (hidden when left empty in the admin) ── */}
         {(whyUs.badgeTitle || whyUs.badgeText || whyUs.badge1.image || whyUs.badge2.image) && (
         <div className="flex flex-wrap items-center gap-6 mb-12 p-6 rounded-xl"
-          style={{ backgroundColor: "#f0f6fb", border: "1.5px solid #d6e8f5" }}>
+          style={{ backgroundColor: "#ffffff", border: "1px solid #e1e8f0" }}>
           {whyUs.badge1.image && <div className="relative w-20 h-20 shrink-0">
             <Image
               src={whyUs.badge1.image}
@@ -81,11 +77,7 @@ export default function WhyUs({ whyUs, site }) {
           {WHY_ITEMS.map((item, index) => (
             <div
               key={index}
-              className="relative flex flex-col rounded-xl overflow-hidden shadow-md"
-              style={{
-                backgroundColor: "#0f2d4a",
-                border: "1px solid #1e4d7b",
-              }}
+              className="panel relative flex flex-col overflow-hidden"
             >
               {/* Gold top border line */}
               <span
@@ -100,6 +92,7 @@ export default function WhyUs({ whyUs, site }) {
                 <div
                   className="flex items-center justify-center w-16 h-16 rounded-xl mb-4 mt-2 relative p-3.5"
                   style={{ backgroundColor: "#0f2d4a" }}
+                  aria-hidden="true"
                 >
                   {/* FIXED: Uses CSS masks to forcefully render your PNG shapes in pure prominent gold (#c9a84c) */}
                   <div 
@@ -118,32 +111,30 @@ export default function WhyUs({ whyUs, site }) {
                   />
                 </div>
 
-                {/* Stat Display */}
-                <div
-                  className="text-xl font-black leading-none mb-1"
-                  style={{ color: "#c9a84c" }}
-                >
-                  {item.stat}
-                </div>
-                <div
-                  className="text-[10px] font-semibold uppercase tracking-widest mb-3"
-                  style={{ color: "#a9c1d4" }}
-                >
-                  {item.statLabel}
-                </div>
+                {/* Optional stat (only shown when filled in the admin) */}
+                {item.stat ? (
+                  <>
+                    <div className="text-xl font-black leading-none mb-1" style={{ color: "#0f2d4a" }}>
+                      {item.stat}
+                    </div>
+                    <div className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: "#86671e" }}>
+                      {item.statLabel}
+                    </div>
+                  </>
+                ) : null}
 
                 {/* Card Title */}
                 <h3
-                  className="text-sm font-bold mb-2 tracking-wide"
-                  style={{ color: "#ffffff" }}
+                  className="text-base font-bold mb-2 tracking-wide"
+                  style={{ color: "#0f2d4a" }}
                 >
                   {item.title}
                 </h3>
 
                 {/* Body Text Description */}
                 <p
-                  className="text-xs leading-relaxed flex-1"
-                  style={{ color: "#cbd5e1" }}
+                  className="text-sm leading-relaxed flex-1"
+                  style={{ color: "#4a6b85" }}
                 >
                   {item.text}
                 </p>
@@ -163,15 +154,11 @@ export default function WhyUs({ whyUs, site }) {
 
         {/* ── Bottom trust strip ── */}
         <div
-          className="mt-10 rounded-xl px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4"
-          style={{
-            backgroundColor: "#0f2d4a",
-            border: "1px solid #1e4d7b",
-          }}
+          className="panel-navy mt-8 px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <p
             className="text-sm font-medium text-center md:text-left"
-            style={{ color: "#a9c1d4" }}
+            style={{ color: "#e2e8f0" }}
           >
             {whyUs.stripBefore}{" "}
             <span style={{ color: "#c9a84c", fontWeight: 700 }}>

@@ -46,26 +46,26 @@ export default async function ServicesPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
-          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: "#fff", margin: "0 0 12px", lineHeight: 1.1 }}>
-            {`${page.titleStart} `}<span style={{ color: C.gold }}>{page.titleAccent}</span>
+          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: C.dark, margin: "0 0 12px", lineHeight: 1.1 }}>
+            {`${page.titleStart} `}<span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
             {page.text}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 32 }}>
             {page.stats.map(({ value: v, label: l }, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 24, fontWeight: 900, color: C.gold }}>{v}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.muted }}>{l}</span>
+                <span style={{ fontSize: 24, fontWeight: 900, color: C.goldText }}>{v}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.text }}>{l}</span>
               </div>
             ))}
           </div>
@@ -73,7 +73,7 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Services Grid ── */}
-      <div style={{ background: C.light, padding: "48px var(--gutter)" }}>
+      <div className="page-section wrap">
         <div style={{ width: "100%" }}>
           <div className="services-grid">
             {services.map((service) => {
@@ -183,8 +183,8 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Bottom CTA ── */}
-      <div style={{ background: C.dark, padding: "48px var(--gutter)" }}>
-        <div style={{ width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+      <div className="page-section wrap">
+        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
           <div>
             <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
               {page.ctaTitle}{" "}

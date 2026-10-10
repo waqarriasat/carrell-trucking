@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TextLogo from "./TextLogo";
 import {
   FaPhone,
   FaEnvelope,
@@ -144,26 +145,8 @@ export default function Footer({ site, footer, fleet, services }) {
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
           <div className="col-span-2 md:col-span-1">
             {/* Wordmark */}
-            <Link href="/" className="inline-block mb-4 group" aria-label="Home">
-              {site.logoImage ? (
-                <span className="inline-block rounded-lg bg-white px-4 py-2.5 shadow-sm group-hover:opacity-95 transition-opacity">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={site.logoImage} alt={site.name} className="block h-16 w-auto" />
-                </span>
-              ) : (<>
-              <span
-                className="block font-black text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
-                style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
-              >
-                {site.logoTop}
-              </span>
-              <span
-                className="block text-xs font-bold tracking-[0.22em] uppercase"
-                style={{ color: "#c9a84c" }}
-              >
-                {site.logoBottom}
-              </span>
-              </>)}
+            <Link href="/" className="inline-block mb-5 transition-opacity hover:opacity-90" aria-label="Home">
+              <TextLogo top={site.logoTop} bottom={site.logoBottom} size="lg" />
             </Link>
 
             <p className="text-sm leading-relaxed mb-5" style={{ color: "#a9c1d4" }}>

@@ -68,14 +68,14 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
-  <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
-  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
-  <Link href="/fleet" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>{fleetPage.breadcrumbCurrent}</Link>
-  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
-  <span style={{ color: "#c9a84c", fontWeight: 600 }}>{item.name}</span>
+  <Link href="/" style={{ color: C.text, textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
+  <span style={{ color: "#8aa3b8" }}>›</span>
+  <Link href="/fleet" style={{ color: C.text, textDecoration: "none" }}>{fleetPage.breadcrumbCurrent}</Link>
+  <span style={{ color: "#8aa3b8" }}>›</span>
+  <span style={{ color: C.goldText, fontWeight: 700 }}>{item.name}</span>
 </div>
 
  {item.badge && (
@@ -83,17 +83,17 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               display: "inline-block", fontSize: 10, fontWeight: 700,
               textTransform: "uppercase", letterSpacing: 2,
               padding: "4px 12px", borderRadius: 20, marginBottom: 12,
-              background: C.gold + "20", color: C.gold, border: `1px solid ${C.gold}44`
+              background: C.gold + "20", color: C.goldText, border: `1px solid ${C.gold}44`
             }}>
               {item.badge}
             </span>
           )}
 
-          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: "#fff", margin: "0 0 12px", lineHeight: 1.1 }}>
+          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: C.dark, margin: "0 0 12px", lineHeight: 1.1 }}>
             {item.name}
           </h1>
 
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
             {item.description}
           </p>
 
@@ -101,7 +101,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
             {item.sizes.map((s, i) => (
               <span key={i} style={{
                 fontSize: 12, fontWeight: 700, padding: "6px 16px",
-                borderRadius: 20, border: `2px solid ${C.gold}`, color: C.gold
+                borderRadius: 20, border: `2px solid ${C.gold}`, color: C.goldText
               }}>{s}</span>
             ))}
           </div>
@@ -109,7 +109,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       </div>
 
       {/* ── Main Content ── */}
-      <div style={{ background: C.light, padding: "48px var(--gutter)" }}>
+      <div className="page-section wrap">
         <div style={{ width: "100%" }}>
           <div className="detail-grid">
 
@@ -255,8 +255,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       </div>
 
       {/* ── Related Fleet ── */}
-      <div style={{ background: C.dark, padding: " 40px var(--gutter)" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
             <div style={{ width: 24, height: 2, background: C.gold }} />
             <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

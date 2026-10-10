@@ -63,29 +63,29 @@ export default async function ServiceDetailPage({ params }) {
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "20px var(--gutter) 40px" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <Breadcrumb crumbs={[{ label: servicesPage.breadcrumbHome, href: "/" }, { label: servicesPage.breadcrumbCurrent, href: "/services" }, { label: service.label }]} />
 
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
 
-          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: "#fff", margin: "0 0 12px", lineHeight: 1.1 }}>
-            {service.label} <span style={{ color: C.gold }}>{page.titleAccent}</span>
+          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: C.dark, margin: "0 0 12px", lineHeight: 1.1 }}>
+            {service.label} <span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
 
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: 0 }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: 0 }}>
             {service.description}
           </p>
         </div>
       </div>
 
       {/* Main Content */}
-      <div style={{ background: C.light, padding: "48px var(--gutter)" }}>
+      <div className="page-section wrap">
         <div style={{ width: "100%" }}>
           <div className="service-detail-grid">
 
@@ -192,8 +192,8 @@ export default async function ServiceDetailPage({ params }) {
       </div>
 
       {/* Other Services */}
-      <div style={{ background: C.dark, padding: "40px var(--gutter)" }}>
-        <div style={{ width: "100%" }}>
+      <div className="page-section wrap">
+        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
             <div style={{ width: 24, height: 2, background: C.gold }} />
             <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

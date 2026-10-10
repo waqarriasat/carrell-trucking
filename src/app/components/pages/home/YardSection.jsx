@@ -45,12 +45,12 @@ function CheckList({ items }) {
   return (
     <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
       {items.map((p, i) => (
-        <li key={i} className="flex items-start gap-2.5 text-sm font-semibold text-white">
+        <li key={i} className="flex items-start gap-2.5 text-[15px] font-semibold" style={{ color: "#0f2d4a" }}>
           <span
             className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
-            style={{ backgroundColor: "#c9a84c22", border: "1px solid #c9a84c66" }}
+            style={{ backgroundColor: "#c9a84c26", border: "1px solid #c9a84c" }}
           >
-            <FaCheck size={9} style={{ color: "#c9a84c" }} />
+            <FaCheck size={9} style={{ color: "#86671e" }} />
           </span>
           {p}
         </li>
@@ -63,7 +63,7 @@ function Eyebrow({ children }) {
   return (
     <div className="flex items-center gap-3 mb-3">
       <span className="h-px w-8 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
-      <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>
+      <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: "#86671e" }}>
         {children}
       </span>
     </div>
@@ -74,22 +74,22 @@ export default function YardSection({ yard, site }) {
   if (!yard) return null;
 
   return (
-    <section className="w-full py-16 md:py-24" style={{ backgroundColor: "#0f2d4a" }} aria-labelledby="yard-heading">
-      <div className="wrap">
+    <section className="page-section wrap" aria-labelledby="yard-heading">
+      <div>
 
         {/* ── Row 1: own yard ── */}
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div className="panel p-6 sm:p-8 lg:p-12 grid lg:grid-cols-[5fr_7fr] gap-8 lg:gap-12 items-center">
           <div>
             <Eyebrow>{yard.eyebrow}</Eyebrow>
             <h2
               id="yard-heading"
-              className="text-3xl md:text-4xl font-black leading-tight text-white"
-              style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
+              className="text-3xl md:text-4xl xl:text-[2.6rem] font-black leading-tight"
+              style={{ fontFamily: "'Georgia', 'Times New Roman', serif", color: "#0f2d4a" }}
             >
               {yard.titleStart}{" "}
-              <span style={{ color: "#c9a84c" }}>{yard.titleAccent}</span>
+              <span style={{ color: "var(--gold-heading)" }}>{yard.titleAccent}</span>
             </h2>
-            <p className="mt-4 text-base leading-relaxed" style={{ color: "#9fb8cc" }}>
+            <p className="mt-4 text-base lg:text-lg leading-relaxed" style={{ color: "#4a6b85" }}>
               {yard.text}
             </p>
             <div className="mt-6">
@@ -111,8 +111,8 @@ export default function YardSection({ yard, site }) {
                   href={site.salesMapsHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-[#c9a84c]"
-                  style={{ color: "#ffffff" }}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded border-2 text-sm font-bold uppercase tracking-wider transition-colors hover:bg-[#0f2d4a] hover:text-white"
+                  style={{ color: "#0f2d4a", borderColor: "#0f2d4a" }}
                 >
                   <FaLocationDot size={13} style={{ color: "#c9a84c" }} />
                   {yard.directionsLabel}
@@ -123,7 +123,7 @@ export default function YardSection({ yard, site }) {
 
           {yard.image ? (
             <figure className="m-0">
-              <div className="relative w-full overflow-hidden rounded-xl border shadow-2xl" style={{ borderColor: "#1e4d7b", aspectRatio: "1307 / 761" }}>
+              <div className="relative w-full overflow-hidden rounded-xl border" style={{ borderColor: "#e1e8f0", aspectRatio: "1307 / 761" }}>
                 <Image
                   src={yard.image}
                   alt={yard.imageAlt || ""}
@@ -133,37 +133,37 @@ export default function YardSection({ yard, site }) {
                   {...imageProps(yard.image)}
                 />
               </div>
-              <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs" style={{ color: "#a9c1d4" }}>
+              <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs" style={{ color: "#4a6b85" }}>
                 <span className="inline-flex items-center gap-1.5">
                   <FaLocationDot size={11} style={{ color: "#c9a84c" }} />
                   {yard.imageCaption}
                 </span>
-                {yard.imageCredit ? <span className="opacity-80">{yard.imageCredit}</span> : null}
+                {yard.imageCredit ? <span>{yard.imageCredit}</span> : null}
               </figcaption>
             </figure>
           ) : null}
         </div>
 
         {/* ── Row 2: ground-level delivery ── */}
-        <div className="mt-16 md:mt-20 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div className="panel mt-[var(--gap)] p-6 sm:p-8 lg:p-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <figure className="m-0 order-2 lg:order-1">
-            <div className="overflow-hidden rounded-xl border shadow-2xl" style={{ borderColor: "#1e4d7b", backgroundColor: "#0a2038" }}>
+            <div className="overflow-hidden rounded-xl" style={{ backgroundColor: "#0a2038" }}>
               <DeliveryMedia url={yard.videoUrl} caption={yard.videoCaption} brand={site.logoTop} />
             </div>
             {yard.videoCaption ? (
-              <figcaption className="mt-3 text-xs" style={{ color: "#a9c1d4" }}>{yard.videoCaption}</figcaption>
+              <figcaption className="mt-3 text-xs" style={{ color: "#4a6b85" }}>{yard.videoCaption}</figcaption>
             ) : null}
           </figure>
 
           <div className="order-1 lg:order-2">
             <Eyebrow>{yard.videoEyebrow}</Eyebrow>
             <h3
-              className="text-2xl md:text-3xl font-black leading-tight text-white"
-              style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
+              className="text-2xl md:text-3xl xl:text-[2.3rem] font-black leading-tight"
+              style={{ fontFamily: "'Georgia', 'Times New Roman', serif", color: "#0f2d4a" }}
             >
               {yard.videoTitle}
             </h3>
-            <p className="mt-4 text-base leading-relaxed" style={{ color: "#9fb8cc" }}>
+            <p className="mt-4 text-base lg:text-lg leading-relaxed" style={{ color: "#4a6b85" }}>
               {yard.videoText}
             </p>
             <div className="mt-6">

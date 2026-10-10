@@ -1,19 +1,12 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 12)
+//  Before the light theme round (new stats,
+//  no yard slide, no numbers on Why Us cards).
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V12 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
@@ -137,6 +130,14 @@ export const DEFAULT_CONTENT = {
           text: "Mobile office units, portable toilets and hand-wash stations delivered to your construction site. One call, one owner — rental, purchase or rent to own.",
           button: { label: "Office Units", href: "/fleet/office" },
         },
+        {
+          image: "/images/yard-aerial.jpg",
+          eyebrow: "Our Own Yard — Ardmore, Oklahoma",
+          title: "We Own Every Unit.",
+          titleAccent: "No Middleman.",
+          text: "Every trailer and container is ours, kept at our yard on Refinery Road in Ardmore, OK. Delivered to your location or stored at our yard.",
+          button: { label: "Get Directions", href: "{salesMapsLink}" },
+        },
       ],
       // Background photos for the "Equipment cards" layout
       slides: [
@@ -156,10 +157,9 @@ export const DEFAULT_CONTENT = {
 
     trustBar: {
       stats: [
-        { value: "20+", label: "Years in Business" },
-        { value: "9", label: "Equipment Types" },
-        { value: "Direct", label: "From the Owner — No Middleman" },
-        { value: "All States", label: "Based in Oklahoma & North Texas" },
+        { value: "9", label: "Equipment Categories" },
+        { value: "All States", label: "Available Nationwide" },
+        { value: "OK & North TX", label: "Southern Oklahoma & North Texas Proud" },
       ],
       industriesLabel: "Industries Served:",
     },
@@ -186,57 +186,57 @@ export const DEFAULT_CONTENT = {
           icon: "/images/quality.png",
           title: "Quality Equipment",
           text: "Every unit in our fleet is maintained to the highest standard — ready to work the moment it arrives on your site.",
-          stat: "",
-          statLabel: "",
+          stat: "100%",
+          statLabel: "Maintained Fleet",
         },
         {
           icon: "/images/safe-service.png",
           title: "Safe & Reliable Service",
           text: "We prioritize safety on every delivery and rental. Our equipment meets all industry standards for your peace of mind.",
-          stat: "",
-          statLabel: "",
+          stat: "100%",
+          statLabel: "Safe Service",
         },
         {
           icon: "/images/support.png",
           title: "24/7 Support",
           text: "Our team is always reachable. Whether it's a question or an urgent issue — we're just a call away anytime.",
-          stat: "",
-          statLabel: "",
+          stat: "24/7",
+          statLabel: "Available",
         },
         {
           icon: "/images/customer-satisfaction.png",
           title: "Customer Satisfaction",
           text: "We go the extra mile to make sure every customer is happy — from first call to final pickup.",
-          stat: "",
-          statLabel: "",
+          stat: "100%",
+          statLabel: "Satisfaction",
         },
         {
           icon: "/images/cost-efficient.png",
           title: "Cost Efficient",
           text: "Competitive rates with no surprises. Get the best value for your rental budget across all equipment types.",
-          stat: "",
-          statLabel: "",
+          stat: "Best",
+          statLabel: "Value",
         },
         {
           icon: "/images/hidden-charges.png",
           title: "No Hidden Charges",
           text: "Transparent pricing from day one. What you see is what you pay — no unexpected fees or fine print.",
-          stat: "",
-          statLabel: "",
+          stat: "0",
+          statLabel: "Hidden Fees",
         },
         {
           icon: "/images/experienced-staff.png",
           title: "Experienced Staff",
           text: "Our team knows the trailer and container business inside out. Talk directly to a real person — no call centers.",
-          stat: "",
-          statLabel: "",
+          stat: "20+",
+          statLabel: "Years Experience",
         },
         {
           icon: "/images/free-quote.png",
           title: "Free Quote",
           text: "Get a fast, no-obligation quote for any equipment type. We'll help you find the right unit for your needs.",
-          stat: "",
-          statLabel: "",
+          stat: "FREE",
+          statLabel: "No Obligation",
         },
       ],
       stripBefore: "Based in Southern Oklahoma, available in all states —",

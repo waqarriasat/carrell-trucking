@@ -58,15 +58,17 @@ const subscribeReducedMotion = (cb) => {
 };
 const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const HEADLINE_CLASS = "text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-[3.2rem] 2xl:text-[3.5rem] font-black leading-[1.08] text-white mb-6";
+const HEADLINE_CLASS = "text-4xl sm:text-5xl lg:text-[2.4rem] xl:text-[2.75rem] 2xl:text-[3.25rem] font-black leading-[1.08] mb-6";
+// Photo layout = light (white block); cards layout = dark (over photos).
+const GOLD_HEADING = "var(--gold-heading)";
 const HEADLINE_STYLE = { fontFamily: "'Georgia', 'Times New Roman', serif" };
 const TEXT_CLASS = "text-base sm:text-lg leading-relaxed mb-8 max-w-lg";
 
-function Eyebrow({ children }) {
+function Eyebrow({ children, light }) {
   return (
     <div className="flex items-center gap-3 mb-6">
       <span className="h-px w-10 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
-      <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: "#c9a84c" }}>
+      <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: light ? "#86671e" : "#c9a84c" }}>
         {children}
       </span>
     </div>
@@ -74,37 +76,39 @@ function Eyebrow({ children }) {
 }
 
 // The site's main headline (Admin → Home → Hero → Headline)
-function MainHeadline({ hero, as: Tag = "h1" }) {
+function MainHeadline({ hero, as: Tag = "h1", light }) {
   return (
-    <Tag className={HEADLINE_CLASS} style={HEADLINE_STYLE}>
+    <Tag className={HEADLINE_CLASS} style={{ ...HEADLINE_STYLE, color: light ? NAVY : "#ffffff" }}>
       {hero.titleStart}{" "}
-      <span className="relative inline-block text-white">
+      <span className="relative inline-block">
         {hero.titleAccent1}
         <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
       </span>
       {` ${hero.titleJoin} `}
-      <span className="text-white">{hero.titleAccent2}</span>
+      <span>{hero.titleAccent2}</span>
       <br />
-      <span className="text-white">{`${hero.titleLine2} `}</span>
-      <span className="whitespace-nowrap" style={{ color: "#c9a84c" }}>{hero.titleAccent3}</span>
+      <span>{`${hero.titleLine2} `}</span>
+      <span className="whitespace-nowrap" style={{ color: light ? GOLD_HEADING : "#c9a84c" }}>{hero.titleAccent3}</span>
     </Tag>
   );
 }
 
-function MainText({ hero }) {
+function MainText({ hero, light }) {
   return (
-    <p className={TEXT_CLASS} style={{ color: "#e2e8f0" }}>
+    <p className={TEXT_CLASS} style={{ color: light ? "#4a6b85" : "#e2e8f0" }}>
       {hero.text}{" "}
-      <span className="text-white font-medium">{hero.textHighlight}</span>
+      <span className="font-medium" style={{ color: light ? NAVY : "#ffffff" }}>{hero.textHighlight}</span>
     </p>
   );
 }
 
 const isExternal = (href) => /^https?:\/\//i.test(href || "");
 
-function SecondaryButton({ button }) {
-  const cls = "inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap border-2 transition-all duration-200 hover:bg-white/10";
-  const style = { borderColor: "rgba(255,255,255,0.85)", color: "#ffffff", backgroundColor: "rgba(10,32,56,0.35)" };
+function SecondaryButton({ button, light }) {
+  const cls = `inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap border-2 transition-all duration-200 ${light ? "hover:bg-[#0f2d4a] hover:text-white" : "hover:bg-white/10"}`;
+  const style = light
+    ? { borderColor: NAVY, color: NAVY }
+    : { borderColor: "rgba(255,255,255,0.85)", color: "#ffffff", backgroundColor: "rgba(10,32,56,0.35)" };
   const inner = (
     <>
       {button.label}
@@ -118,7 +122,7 @@ function SecondaryButton({ button }) {
   );
 }
 
-function Actions({ hero, site, secondary }) {
+function Actions({ hero, site, secondary, light }) {
   return (
     <>
       <div className="flex flex-col sm:flex-row gap-3 mb-10">
@@ -130,21 +134,21 @@ function Actions({ hero, site, secondary }) {
           {hero.primaryButton.label}
           <FaArrowRight size={13} />
         </Link>
-        <SecondaryButton button={secondary} />
+        <SecondaryButton button={secondary} light={light} />
       </div>
 
       <a href={site.phoneHref} className="inline-flex items-center gap-3 group">
         <span
-          className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors group-hover:border-white/50"
-          style={{ borderColor: "#c9a84c88", backgroundColor: "rgba(10,32,56,0.5)" }}
+          className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors"
+          style={light ? { borderColor: "#c9a84c", backgroundColor: "#c9a84c1f" } : { borderColor: "#c9a84c88", backgroundColor: "rgba(10,32,56,0.5)" }}
         >
-          <FaPhone size={14} style={{ color: "#c9a84c" }} />
+          <FaPhone size={14} style={{ color: light ? "#86671e" : "#c9a84c" }} />
         </span>
         <span>
-          <span className="block text-xs font-semibold tracking-widest uppercase" style={{ color: "#c9a84c" }}>
+          <span className="block text-xs font-semibold tracking-widest uppercase" style={{ color: light ? "#86671e" : "#c9a84c" }}>
             {hero.callLabel}
           </span>
-          <span className="block text-white font-bold text-lg tracking-wide group-hover:text-white/80 transition-colors">
+          <span className="block font-bold text-lg tracking-wide transition-colors group-hover:opacity-80" style={{ color: light ? NAVY : "#ffffff" }}>
             {site.phone}
           </span>
         </span>
@@ -202,76 +206,68 @@ export default function Hero({ hero, site, fleet, compact = false }) {
     const secondary = !isMain(active) && active.button && active.button.label ? active.button : hero.secondaryButton;
 
     return (
-      <section className="relative overflow-hidden" style={{ backgroundColor: NAVY }} aria-roledescription="carousel" aria-label="Highlights" {...pauseProps}>
-        {/* Desktop: photo panel on the right — shown at full strength, nothing on top */}
-        {slideCount ? (
-          <div className="absolute inset-y-0 right-0 z-0 hidden lg:block w-[48%] xl:w-[52%] 2xl:w-[54%]">
-            <div className="absolute inset-0" aria-hidden="true">
-              <Slides images={SLIDER_IMAGES} current={currentSlide} />
-            </div>
-            {/* Clean edge with a thin gold line between text and photo */}
-            <div className="absolute inset-y-0 left-0 w-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
-          </div>
-        ) : null}
+      <section className="page-section wrap" aria-roledescription="carousel" aria-label="Highlights" {...pauseProps}>
+        {/* One white block: text on the left, the slide photo on the right
+            (below the text on phones). Nothing ever sits on the photo. */}
+        <div className="panel overflow-hidden lg:grid lg:grid-cols-[46fr_54fr] xl:grid-cols-[44fr_56fr]">
+          <div className="flex items-center p-7 sm:p-10 lg:p-12 xl:p-14">
+            <div className="w-full">
+              {mainIndex === -1 ? (
+                <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
+              ) : null}
 
-        {/* Desktop slide dots — own layer above the text area so they stay clickable */}
-        <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="hidden lg:flex absolute z-20 bottom-6 right-[var(--gutter)] rounded-full px-2.5 py-2 bg-[#0a2038]/70" />
-
-        <div className={`relative z-10 wrap ${compact ? "py-12 lg:py-20" : "py-20 lg:py-28"} lg:min-h-[560px] flex items-center`}>
-          <div className="w-full lg:w-[48%] xl:w-[45%] 2xl:w-[43%]">
-            {mainIndex === -1 ? (
-              <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
-            ) : null}
-
-            {/* All slide texts share one grid cell, so the height never jumps */}
-            <div className="grid" aria-live={paused ? "polite" : "off"}>
-              {textSlides.map((sl, i) => {
-                const on = i === currentSlide;
-                const main = isMain(sl);
-                const Heading = main && i === mainIndex ? "h1" : "h2";
-                return (
-                  <div
-                    key={i}
-                    className="[grid-area:1/1]"
-                    aria-hidden={on ? undefined : "true"}
-                    style={{
-                      opacity: on ? 1 : 0,
-                      visibility: on ? "visible" : "hidden",
-                      transition: on ? "opacity .7s ease" : "opacity .7s ease, visibility 0s linear .7s",
-                    }}
-                  >
-                    <Eyebrow>{main ? hero.eyebrow : sl.eyebrow || hero.eyebrow}</Eyebrow>
-                    {main ? (
-                      <>
-                        <MainHeadline hero={hero} as={Heading} />
-                        <MainText hero={hero} />
-                      </>
-                    ) : (
-                      <>
-                        <Heading className={HEADLINE_CLASS} style={HEADLINE_STYLE}>
-                          {sl.title}{" "}
-                          {sl.titleAccent ? <span className="whitespace-nowrap" style={{ color: "#c9a84c" }}>{sl.titleAccent}</span> : null}
-                        </Heading>
-                        <p className={TEXT_CLASS} style={{ color: "#e2e8f0" }}>{sl.text}</p>
-                      </>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            <Actions hero={hero} site={site} secondary={secondary} />
-
-            {/* Phones / tablets: the photo as its own clear band under the text */}
-            {slideCount ? (
-              <div className="lg:hidden mt-10" style={{ marginInline: "calc(var(--gutter) * -1)" }}>
-                <div className="relative w-full aspect-[3/2] overflow-hidden" aria-hidden="true">
-                  <Slides images={SLIDER_IMAGES} current={currentSlide} />
-                </div>
-                <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="justify-center mt-4" />
+              {/* All slide texts share one grid cell, so the height never jumps */}
+              <div className="grid" aria-live={paused ? "polite" : "off"}>
+                {textSlides.map((sl, i) => {
+                  const on = i === currentSlide;
+                  const main = isMain(sl);
+                  const Heading = main && i === mainIndex ? "h1" : "h2";
+                  return (
+                    <div
+                      key={i}
+                      className="[grid-area:1/1]"
+                      aria-hidden={on ? undefined : "true"}
+                      style={{
+                        opacity: on ? 1 : 0,
+                        visibility: on ? "visible" : "hidden",
+                        transition: on ? "opacity .7s ease" : "opacity .7s ease, visibility 0s linear .7s",
+                      }}
+                    >
+                      <Eyebrow light>{main ? hero.eyebrow : sl.eyebrow || hero.eyebrow}</Eyebrow>
+                      {main ? (
+                        <>
+                          <MainHeadline hero={hero} as={Heading} light />
+                          <MainText hero={hero} light />
+                        </>
+                      ) : (
+                        <>
+                          <Heading className={HEADLINE_CLASS} style={{ ...HEADLINE_STYLE, color: NAVY }}>
+                            {sl.title}{" "}
+                            {sl.titleAccent ? <span className="whitespace-nowrap" style={{ color: GOLD_HEADING }}>{sl.titleAccent}</span> : null}
+                          </Heading>
+                          <p className={TEXT_CLASS} style={{ color: "#4a6b85" }}>{sl.text}</p>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            ) : null}
+
+              <Actions hero={hero} site={site} secondary={secondary} light />
+            </div>
           </div>
+
+          {slideCount ? (
+            <div className="relative min-h-[240px] sm:min-h-[360px] lg:min-h-[520px] aspect-[3/2] lg:aspect-auto">
+              <div className="absolute inset-0" aria-hidden="true">
+                <Slides images={SLIDER_IMAGES} current={currentSlide} />
+              </div>
+              {/* Thin gold line where text and photo meet */}
+              <div className="absolute hidden lg:block inset-y-0 left-0 w-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+              <div className="absolute lg:hidden inset-x-0 top-0 h-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+              <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="absolute z-10 bottom-4 right-4 rounded-full px-2.5 py-2 bg-[#0a2038]/70" />
+            </div>
+          ) : null}
         </div>
       </section>
     );
@@ -289,8 +285,9 @@ export default function Hero({ hero, site, fleet, compact = false }) {
 
   // ── Equipment cards layout (earlier design) ──
   return (
+    <div className="page-section wrap">
     <section
-      className={`relative flex items-center overflow-hidden ${compact ? "" : "min-h-[92vh]"}`}
+      className={`relative flex items-center overflow-hidden rounded-2xl ${compact ? "" : "min-h-[80vh]"}`}
       style={{ backgroundColor: NAVY }}
     >
       {/* ── BACKGROUND IMAGE SLIDER ── (clearly visible photos) */}
@@ -342,7 +339,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
       />
 
       {/* ── Content Grid Layout ── */}
-      <div className={`relative z-10 wrap ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
+      <div className={`relative z-10 w-full px-7 sm:px-10 lg:px-12 ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {textBlock}
@@ -416,5 +413,6 @@ export default function Hero({ hero, site, fleet, compact = false }) {
         </div>
       </div>
     </section>
+    </div>
   );
 }

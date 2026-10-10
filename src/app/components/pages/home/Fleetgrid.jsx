@@ -309,7 +309,7 @@ function FleetCard({ item, linkLabel, brand }) {
 
         {/* Description */}
         <p
-          className="text-sm leading-relaxed mb-4 sm:min-h-[5.7rem]"
+          className="text-sm leading-relaxed mb-4 sm:min-h-[5.7rem] 2xl:min-h-[3.8rem]"
           style={{ color: "#4a6b85" }}
         >
           {item.description}
@@ -354,12 +354,8 @@ function FleetCard({ item, linkLabel, brand }) {
 // ── Main Layout Component ────────────────────────────
 export default function FleetGrid({ fleetGrid, fleet, brand }) {
   return (
-    <section
-      className="w-full py-16 md:py-20"
-      style={{ backgroundColor: "#f0f6fb" }}
-      aria-labelledby="fleet-heading"
-    >
-      <div className="wrap">
+    <section className="page-section wrap" aria-labelledby="fleet-heading">
+      <div>
 
         {/* Section header panel */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
