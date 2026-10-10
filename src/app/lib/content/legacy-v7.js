@@ -1,34 +1,20 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 7)
+//  The wording before the October 2026 round:
+//  Refrigerated names, Ground Level badge, portable
+//  toilets, sales location, availability in all states.
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V7 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
     logoTop: "ARDMORE",
     logoBottom: "Trailer, Inc.",
     phone: "580-226-7811",
-    phoneExt: "2",
     cell: "580-221-3494",
-    cellLabel: "After Hours (Rick)",
-    salesName: "Will Carrell",
-    salesPhone: "580-504-0138",
-    salesStreet: "1612 Refinery Road",
-    salesCity: "Ardmore",
-    salesState: "OK",
-    salesZip: "73401",
     email: "rick@carrelltrucking.com",
     street: "3801 Springdale Road",
     city: "Ardmore",
@@ -47,8 +33,8 @@ export const DEFAULT_CONTENT = {
     title: "Ardmore Trailer, Inc. | Trailer & Container Rental in Oklahoma & North Texas",
     titleTemplate: "%s | Ardmore Trailer, Inc.",
     description:
-      "Trailer and container rental, sales and rent-to-own from Ardmore, Oklahoma. Refrigerated trailers and containers, dry storage containers, generators, office units and portable toilets — delivered to your location. Call {phone}.",
-    keywords: ["trailer rental", "container rental", "refrigerated trailer rental", "reefer trailer", "ground level storage container", "portable toilet rental", "Oklahoma", "North Texas", "Ardmore"],
+      "Southern Oklahoma's trusted trailer and container rental. Reefer, dry containers, generators, office units. Call {phone}.",
+    keywords: ["trailer rental", "container rental", "reefer trailer", "Oklahoma", "North Texas", "Ardmore"],
     siteUrl: "https://ardmoretrailer.com",
   },
 
@@ -75,7 +61,7 @@ export const DEFAULT_CONTENT = {
     ctaTitle: "Get your equipment on-site fast.",
     ctaButton: { label: "Get a Quote", href: "/quote" },
     blurb:
-      "Southern Oklahoma & North Texas' source for dry and refrigerated containers, trailers, generators, portable toilets and custom specialty units — rental, sales and rent-to-own.",
+      "Southern Oklahoma & North Texas' rental source for dry containers, reefers, trailers, generators, and custom specialty units.",
     fleetHeading: "Fleet",
     industriesHeading: "Industries",
     contactHeading: "Contact",
@@ -94,12 +80,12 @@ export const DEFAULT_CONTENT = {
       titleLine2: "for Every",
       titleAccent3: "Job Site.",
       text: "Trailer and ground level access containers for any job: warehouse, storage, moving & inventory overflow, construction.",
-      textHighlight: "Delivered to your location or store at our yard — direct from the owner, no middleman.",
+      textHighlight: "Direct line to the owner.",
       primaryButton: { label: "Get a Free Quote", href: "/quote" },
       secondaryButton: { label: "Browse Fleet", href: "/fleet" },
       callLabel: "Call Direct",
       previewLabel: "Available Equipment",
-      previewCount: 8,
+      previewCount: 6,
       viewAllText: "View all {count} equipment types",
       slideSeconds: 5,
       slides: [
@@ -111,8 +97,8 @@ export const DEFAULT_CONTENT = {
 
     trustBar: {
       stats: [
-        { value: "9", label: "Equipment Categories" },
-        { value: "All States", label: "Available Nationwide" },
+        { value: "8+", label: "Equipment Categories" },
+        { value: "580", label: "Ardmore Area Code — Call Direct" },
         { value: "OK & North TX", label: "Southern Oklahoma & North Texas Proud" },
       ],
       industriesLabel: "Industries Served:",
@@ -121,7 +107,7 @@ export const DEFAULT_CONTENT = {
     fleetGrid: {
       eyebrow: "What We Rent",
       title: "Our Full Fleet",
-      text: "Nine equipment categories — dry, refrigerated, powered, sanitation and custom specialty — delivered to your location or stored at our yard.",
+      text: "Eight equipment categories — dry, refrigerated, powered, and custom specialty — delivered right to your site.",
       linkLabel: "See full fleet page",
       mobileButtonLabel: "View Full Fleet",
       cardLinkLabel: "View Details",
@@ -181,7 +167,7 @@ export const DEFAULT_CONTENT = {
         {
           icon: "/images/experienced-staff.png",
           title: "Experienced Staff",
-          text: "Our team knows the trailer and container business inside out. Talk directly to a real person — no call centers.",
+          text: "Our team knows the trailer and container business inside out. Talk directly to Rick and the team — no call centers.",
           stat: "20+",
           statLabel: "Years Experience",
         },
@@ -193,9 +179,9 @@ export const DEFAULT_CONTENT = {
           statLabel: "No Obligation",
         },
       ],
-      stripBefore: "Based in Southern Oklahoma, available in all states —",
-      stripHighlight: "delivered to your location",
-      stripAfter: "or stored at our yard.",
+      stripBefore: "Serving Southern Oklahoma & North Texas with",
+      stripHighlight: "on-site delivery",
+      stripAfter: "and a direct line to the owner.",
       stripButtonLabel: "Call {phone}",
     },
 
@@ -205,7 +191,7 @@ export const DEFAULT_CONTENT = {
       text: "Don't just take our word for it — here's what our customers say about renting with Ardmore Trailer.",
       items: [
         {
-          quote: "Ardmore Trailer had a 40-foot refrigerated container on our site within 48 hours. Rick was straightforward about pricing — no surprises.",
+          quote: "Ardmore Trailer had a 40-foot reefer container on our site within 48 hours. Rick was straightforward about pricing — no surprises.",
           author: "J. Harmon",
           company: "Harmon Produce, Ardmore OK",
         },
@@ -224,32 +210,6 @@ export const DEFAULT_CONTENT = {
       ctaText: "Call {phone} or get a free quote today.",
       ctaPrimaryButton: { label: "Get a Free Quote", href: "/quote" },
       ctaCallLabel: "Call {phone}",
-    },
-
-    yard: {
-      eyebrow: "Our Yard. Our Fleet.",
-      titleStart: "We Own Every Unit",
-      titleAccent: "We Rent & Sell.",
-      text: "Every trailer and container comes from our own yard on Refinery Road in Ardmore — not leased, not brokered. You deal directly with the owner, from your first call to pickup.",
-      points: [
-        "Direct owner — no broker or middleman",
-        "Delivered to your location",
-        "Or store it at our yard",
-        "Rental, purchase or rent-to-own",
-      ],
-      image: "/images/yard-aerial.jpg",
-      imageAlt: "Aerial view of the Ardmore Trailer yard on Refinery Road, Ardmore, Oklahoma",
-      imageCaption: "Our yard — {salesAddress}",
-      imageCredit: "Imagery © Google",
-      buttonLabel: "Get a Free Quote",
-      buttonHref: "/quote",
-      directionsLabel: "Get Directions",
-      videoEyebrow: "Ground-Level Delivery",
-      videoTitle: "No Forklift Needed",
-      videoText: "Our tilt-bed trucks set containers right on the ground at your site — no forklift, ramp or loading dock required. Walk straight in from day one.",
-      videoPoints: ["Placed exactly where you need it", "Walk-in access at ground level", "Picked up the same way"],
-      videoUrl: "",
-      videoCaption: "How ground-level delivery works",
     },
 
     ctaBanner: {
@@ -292,18 +252,17 @@ export const DEFAULT_CONTENT = {
   fleet: [
     {
       id: "container-dry",
-      name: "Dry Storage Container",
-      shortName: "Dry Storage Container",
+      name: "Container Dry",
+      shortName: "Container Dry",
       badge: "Storage Container Rentals",
-      cornerBadge: "Ground Level",
       icon: "fa/FaBox",
       graphic: "container-dry",
-      graphicLabel: "DRY STORAGE",
+      graphicLabel: "CONTAINER DRY",
       accent: "#2d8fdd",
       sizes: ["20 ft", "40 ft"],
       description:
         "Weather-tight containers ideal for on-site storage, inventory overflow, and secure equipment housing. Available in two lengths to fit any footprint.",
-      features: ["Ground-level access — no ramp or dock needed", "Wind & watertight seal"],
+      features: ["Wind & watertight seal"],
       useCases: ["Construction sites", "Retail overflow", "Document storage", "Equipment staging"],
       listSizes: ["20 ft", "40 ft"],
       listDescription:
@@ -317,7 +276,6 @@ export const DEFAULT_CONTENT = {
       name: "Trailers",
       shortName: "Trailers",
       badge: "Trailer Rentals",
-      cornerBadge: "",
       icon: "fa/FaTruck",
       graphic: "trailers",
       graphicLabel: "Trailers",
@@ -336,17 +294,16 @@ export const DEFAULT_CONTENT = {
     },
     {
       id: "reefer-diesel",
-      name: "Refrigerated Diesel Trailer",
-      shortName: "Refrigerated Diesel Trailer",
-      badge: "Diesel Refrigerated Rentals",
-      cornerBadge: "",
+      name: "Reefer Diesel Trailer",
+      shortName: "Reefer Diesel Trailer",
+      badge: "Diesel Reefer Rentals",
       icon: "fa/FaSnowflake",
       graphic: "reefer-diesel",
-      graphicLabel: "REFRIGERATED",
+      graphicLabel: "REEFER DIESEL",
       accent: "#2d8fdd",
       sizes: ["48 ft", "53 ft"],
       description:
-        "Self-powered diesel refrigerated trailers — no external power needed. Perfect for remote job sites and large-scale temp storage.",
+        "Self-powered diesel reefer trailers — no external power needed. Perfect for remote job sites and large-scale temp storage.",
       features: ["Self-contained diesel unit", "±2°F precision temperature", "Remote monitoring capable", "Automatic defrost cycle"],
       useCases: ["Remote worksites", "Outdoor events", "Pharmaceutical storage", "Produce staging"],
       listSizes: ["48 ft", "53 ft"],
@@ -358,17 +315,16 @@ export const DEFAULT_CONTENT = {
     },
     {
       id: "reefer-electric",
-      name: "Refrigerated Electric Trailers",
-      shortName: "Refrigerated Electric Trailers",
-      badge: "Electric Refrigerated Rentals",
-      cornerBadge: "",
+      name: "Reefer Electric Trailers",
+      shortName: "Reefer Electric Trailers",
+      badge: "Electric Reefer Rentals",
       icon: "fa/FaBolt",
       graphic: "reefer-electric",
-      graphicLabel: "E-POWER COLD",
+      graphicLabel: "E-POWER REEFER",
       accent: "#2d8fdd",
       sizes: ["48 ft", "53 ft"],
       description:
-        "Plug-in electric refrigerated trailers — quieter, cleaner, and lower operating cost when shore power is available. Ideal for urban or facility-adjacent use.",
+        "Plug-in electric reefer trailers — quieter, cleaner, and lower operating cost when shore power is available. Ideal for urban or facility-adjacent use.",
       features: ["Shore-power plug-in (460V/3ph)", "Stainless interior lining"],
       useCases: ["Warehouses", "Food service", "Retail back-of-house", "Hospital overflow"],
       listSizes: ["48 ft", "53 ft"],
@@ -380,18 +336,17 @@ export const DEFAULT_CONTENT = {
     },
     {
       id: "reefer-container",
-      name: "Refrigerated Container",
-      shortName: "Refrigerated Container",
+      name: "Reefer Container",
+      shortName: "Reefer Container",
       badge: "Refrigerated Container Rentals",
-      cornerBadge: "Ground Level",
       icon: "fa/FaIndustry",
       graphic: "reefer-container",
-      graphicLabel: "REFRIGERATED",
+      graphicLabel: "REEFER CONTAINER",
       accent: "#2d8fdd",
       sizes: ["20 ft", "40 ft"],
       description:
         "Refrigerated containers combining container security with active refrigeration. Lockable and built for long-term stationary use.",
-      features: ["Ground-level access — no ramp or dock needed", "Temperature range −20°F to +70°F", "Tamper-evident locking system"],
+      features: ["Temperature range −20°F to +70°F", "Tamper-evident locking system"],
       useCases: ["Cold chain storage", "Vaccine/pharma", "Frozen food distribution", "Export prep"],
       listSizes: ["20 ft", "40 ft"],
       listDescription:
@@ -405,16 +360,15 @@ export const DEFAULT_CONTENT = {
       name: "Generator Units",
       shortName: "Generator Units",
       badge: "Industrial Generator Rentals",
-      cornerBadge: "",
       icon: "fa/FaPlug",
       graphic: "generator",
       graphicLabel: "POWER GEN",
       accent: "#c9a84c",
       sizes: [],
       description:
-        "Skid-mounted diesel generator sets for powering refrigerated units, job-site operations, or emergency backup.",
+        "Skid-mounted diesel generator sets for powering reefer units, job-site operations, or emergency backup.",
       features: ["Tier 4 Final diesel engine", "Automatic transfer switch ready", "Weatherproof enclosure", "Single & three-phase output"],
-      useCases: ["Refrigerated unit power", "Construction power", "Event backup", "Emergency response"],
+      useCases: ["Reefer power supply", "Construction power", "Event backup", "Emergency response"],
       listSizes: [],
       listDescription:
         "Reliable power generation units for remote and industrial sites. Keep your operations running no matter the location.",
@@ -427,7 +381,6 @@ export const DEFAULT_CONTENT = {
       name: "Office Units",
       shortName: "Office Units",
       badge: "Mobile Office Rentals",
-      cornerBadge: "",
       icon: "fa/FaBuilding",
       graphic: "office",
       graphicLabel: "HQ SITE OFFICE",
@@ -445,33 +398,10 @@ export const DEFAULT_CONTENT = {
       gallery: [U("1621905251189-08b45d6a269e", 400), U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400)],
     },
     {
-      id: "portable-toilets",
-      name: "Portable Toilets & Hand Wash Stations",
-      shortName: "Portable Toilets & Hand Wash",
-      badge: "Portable Sanitation Rentals",
-      cornerBadge: "",
-      icon: "fa/FaToilet",
-      graphic: "portable-toilets",
-      graphicLabel: "SANITATION",
-      accent: "#2d8fdd",
-      sizes: ["Standard Toilet", "Hand Wash Station"],
-      description:
-        "Portable toilets and hand washing stations for job sites, oilfield crews, construction and events — delivered and placed where you need them.",
-      features: ["Standard portable toilet units", "Freestanding hand wash stations", "Delivered and placed on your site"],
-      useCases: ["Construction sites", "Oilfield crews", "Outdoor events", "Remote work sites"],
-      listSizes: ["Standard Toilet", "Hand Wash Station"],
-      listDescription:
-        "Portable toilets and hand wash stations for crews, job sites and events. Delivered to your location.",
-      listFeatures: ["Portable toilets", "Hand wash stations", "Job-site ready", "Event ready", "Delivered to your site", "Short or long term"],
-      image: "/images/fleet/portable-toilets.png",
-      gallery: [],
-    },
-    {
       id: "mud-lab",
       name: "Oil Field Mud Lab",
       shortName: "Oil Field Mud Lab",
       badge: "Custom Mud Lab Units",
-      cornerBadge: "",
       icon: "fa/FaFlask",
       graphic: "mud-lab",
       graphicLabel: "MUD LAB UNIT",
@@ -496,11 +426,11 @@ export const DEFAULT_CONTENT = {
     breadcrumbCurrent: "Fleet",
     eyebrow: "What We Rent",
     title: "Our Full Fleet",
-    text: "Nine equipment categories — dry, refrigerated, powered, sanitation and specialty — delivered to your location or stored at our yard. Based in Southern Oklahoma, available across all states.",
+    text: "Eight equipment categories — dry, refrigerated, powered, and specialty — delivered right to your site. Serving Southern Oklahoma and North Texas.",
     stats: [
-      { value: "9", label: "Equipment Types" },
+      { value: "8", label: "Equipment Types" },
       { value: "4", label: "Industries Served" },
-      { value: "All States", label: "Availability" },
+      { value: "OK & North TX", label: "Service Area" },
     ],
     quoteButtonLabel: "Get a Quote",
     callButtonLabel: "Call Now",
@@ -546,7 +476,7 @@ export const DEFAULT_CONTENT = {
       description: "On-site offices, tool storage, and staging for contractors across Southern Oklahoma.",
       image: U("1504307651254-35680f356dfd", 800),
       features: ["On-site tool storage", "Equipment staging", "Site offices", "Material storage", "Crew facilities"],
-      fleet: ["container-dry", "trailers", "office", "generator", "portable-toilets"],
+      fleet: ["container-dry", "trailers", "office", "generator"],
     },
     {
       id: "industrial",
@@ -555,7 +485,7 @@ export const DEFAULT_CONTENT = {
       description: "Oilfield, manufacturing, and energy sector solutions — custom specs welcome.",
       image: U("1581091226825-a6a2a5aee158", 800),
       features: ["Oilfield operations", "Manufacturing support", "Energy sector", "Custom mud labs", "Remote site power"],
-      fleet: ["reefer-diesel", "generator", "mud-lab", "office", "portable-toilets"],
+      fleet: ["reefer-diesel", "generator", "mud-lab", "office"],
     },
   ],
 
@@ -563,24 +493,24 @@ export const DEFAULT_CONTENT = {
   servicesPage: {
     metaTitle: "Services | Ardmore Trailer, Inc.",
     metaDescription:
-      "Trailer and container rental, sales and rent-to-own for commercial, residential, construction, and industrial needs — based in Southern Oklahoma, available across all states.",
+      "Trailer and container rental services for commercial, residential, construction, and industrial needs in Southern Oklahoma and North Texas.",
     breadcrumbHome: "Home",
     breadcrumbCurrent: "Services",
     eyebrow: "What We Do",
     titleStart: "Industries",
     titleAccent: "We Serve",
-    text: "From oilfield operations to home renovations — Ardmore Trailer, Inc. provides the right equipment for every job — from our yard in Southern Oklahoma to job sites across all states.",
+    text: "From oilfield operations to home renovations — Ardmore Trailer, Inc. provides the right equipment for every job across Southern Oklahoma and North Texas.",
     stats: [
       { value: "4", label: "Industries" },
-      { value: "9", label: "Equipment Types" },
-      { value: "All States", label: "Availability" },
+      { value: "8+", label: "Equipment Types" },
+      { value: "OK & North TX", label: "Service Area" },
     ],
     applicationsLabel: "Common Applications",
     recommendedLabel: "Recommended Equipment",
     cardButtonLabel: "Get a Quote for {service}",
     ctaTitle: "Not Sure What You Need?",
     ctaAccent: "Let's Talk.",
-    ctaText: "Call us at {phone} — our team will find the right solution for your job.",
+    ctaText: "Call us at {phone} — Rick and the team will find the right solution for your job.",
     ctaPrimaryButton: { label: "Get a Free Quote", href: "/quote" },
   },
 
@@ -592,7 +522,7 @@ export const DEFAULT_CONTENT = {
     applicationsLabel: "Common Applications",
     recommendedLabel: "Recommended Equipment",
     whyLabel: "Why Ardmore Trailer",
-    whyItems: ["Local Oklahoma company", "Flexible rental terms", "Direct contact with a real person", "No hidden fees", "On-site delivery"],
+    whyItems: ["Local Oklahoma company", "Flexible rental terms", "Direct contact with Rick", "No hidden fees", "On-site delivery"],
     quoteButtonLabel: "Get a Free Quote",
     callButtonLabel: "Call {phone}",
     otherLabel: "Other Services",
@@ -608,11 +538,11 @@ export const DEFAULT_CONTENT = {
     titleStart: "Oklahoma's Trusted",
     titleAccent: "Trailer & Container",
     titleEnd: "Rental Company",
-    text: "Ardmore Trailer, Inc. owns every trailer and container it rents and sells, kept at our own yard in Ardmore, Oklahoma. We deliver the right equipment to your site — across Southern Oklahoma, North Texas and all states.",
+    text: "Ardmore Trailer, Inc. has been serving Southern Oklahoma and North Texas with professional trailer and container rentals. We deliver the right equipment to your site — on time, every time.",
     stats: [
-      { value: "9", label: "Equipment Types" },
+      { value: "8+", label: "Equipment Types" },
       { value: "4", label: "Industries Served" },
-      { value: "All States", label: "Availability" },
+      { value: "OK & North TX", label: "Service Area" },
       { value: "24/7", label: "Support Available" },
     ],
     storyImage: U("1601584115197-04ecc0da31d7", 700),
@@ -620,13 +550,13 @@ export const DEFAULT_CONTENT = {
     storyEyebrow: "Our Story",
     storyTitle: "Built on Trust, Delivered with Pride",
     storyParagraph1:
-      "Ardmore Trailer, Inc. was founded with one simple goal — provide reliable, high-quality trailer and container rentals to businesses and individuals across Southern Oklahoma and North Texas. From our own yard in Ardmore, we deliver to customers across all states — no brokers, no middlemen.",
+      "Ardmore Trailer, Inc. was founded with one simple goal — provide reliable, high-quality trailer and container rentals to businesses and individuals across Southern Oklahoma and North Texas. From our base in Ardmore, we serve customers throughout the region.",
     storyParagraph2:
       "Whether you need a dry container for on-site storage, a refrigerated trailer for temperature-sensitive cargo, a generator for a remote site, or a purpose-built mud lab — we have the equipment and experience to get the job done right.",
     storyChecklist: [
       "Flexible rental terms",
-      "Available across all states",
-      "9 equipment types available",
+      "Serving Southern Oklahoma & North Texas",
+      "8 equipment types available",
       "Direct contact — no call centers",
     ],
     valuesEyebrow: "What We Stand For",
@@ -637,13 +567,12 @@ export const DEFAULT_CONTENT = {
       { icon: "fa6/FaTruck", title: "On-Time Delivery", text: "We show up when we say we will — every time, no excuses." },
       { icon: "fa6/FaAward", title: "Industry Experience", text: "Years of experience serving the toughest job sites in Oklahoma and North Texas." },
       { icon: "fa6/FaClock", title: "Flexible Terms", text: "Flexible rental terms to match your project timeline." },
-      { icon: "fa6/FaUsers", title: "Local Team", text: "Talk directly to a real person — no call centers, ever." },
+      { icon: "fa6/FaUsers", title: "Local Team", text: "Talk directly to Rick and the team — no call centers, ever." },
     ],
     teamEyebrow: "Our People",
     teamTitle: "Meet the Team",
     team: [
       { name: "Rick Carrell", role: "President", photo: "" },
-      { name: "Will Carrell", role: "Sales", photo: "" },
       { name: "Wendy", role: "Billing", photo: "" },
       { name: "Royce Brad", role: "Office", photo: "" },
     ],
@@ -666,12 +595,10 @@ export const DEFAULT_CONTENT = {
     infoEyebrow: "Reach Us",
     infoTitle: "Contact Information",
     infoCards: [
-      { icon: "fa/FaPhone", label: "Headquarters", value: "{hqPhone}", sub: "Call us during business hours", href: "{hqPhoneLink}", color: "#c9a84c" },
-      { icon: "fa/FaPhone", label: "Sales", value: "{salesPhone}", sub: "{salesName}", href: "{salesPhoneLink}", color: "#2d8fdd" },
-      { icon: "fa/FaPhone", label: "{cellLabel}", value: "{cell}", sub: "Calls outside business hours", href: "{cellLink}", color: "#c9a84c" },
-      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", sub: "We'll respond as soon as possible", href: "{emailLink}", color: "#2d8fdd" },
-      { icon: "fa/FaMapMarkerAlt", label: "Headquarters", value: "{street}", sub: "{city}, {state} {zip}", href: "{mapsLink}", color: "#c9a84c" },
-      { icon: "fa/FaMapMarkerAlt", label: "Sales & Yard", value: "{salesStreet}", sub: "{salesCity}, {salesState} {salesZip}", href: "{salesMapsLink}", color: "#2d8fdd" },
+      { icon: "fa/FaPhone", label: "Main Phone", value: "{phone}", sub: "Call us during business hours", href: "{phoneLink}", color: "#c9a84c" },
+      { icon: "fa/FaPhone", label: "Cell", value: "{cell}", sub: "Rick Carrell — President", href: "{cellLink}", color: "#2d8fdd" },
+      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", sub: "We'll respond as soon as possible", href: "{emailLink}", color: "#c9a84c" },
+      { icon: "fa/FaMapMarkerAlt", label: "Address", value: "{street}", sub: "{city}, {state} {zip}", href: "{mapsLink}", color: "#2d8fdd" },
     ],
     mapEyebrow: "Find Us",
     mapTitle: "Visit Our Location",
@@ -699,7 +626,6 @@ export const DEFAULT_CONTENT = {
     teamTitle: "Reach the Right Person",
     team: [
       { name: "Rick Carrell", role: "President", note: "General inquiries & rentals" },
-      { name: "Will Carrell", role: "Sales", note: "Sales, purchase & rent-to-own" },
       { name: "Wendy", role: "Billing", note: "Billing & payment questions" },
       { name: "Royce Brad", role: "Office Manager", note: "Office & admin questions" },
     ],
@@ -724,8 +650,6 @@ export const DEFAULT_CONTENT = {
       emailPlaceholder: "your@email.com",
       companyLabel: "Company Name",
       companyPlaceholder: "Your company (optional)",
-      interestLabel: "I'm Interested In *",
-      interests: ["Rental", "Purchase", "Rent to Own"],
       equipmentLabel: "Equipment Needed *",
       serviceLabel: "Service Type",
       durationLabel: "Estimated Rental Duration",
@@ -747,20 +671,18 @@ export const DEFAULT_CONTENT = {
       "Fast response from our team",
       "No hidden fees or charges",
       "Flexible rental terms",
-      "Available across all states",
-      "Talk directly to a real person — no call centers",
+      "Serving Southern Oklahoma & North Texas",
+      "Talk directly to Rick — no call centers",
     ],
     callTitle: "Prefer to Call?",
     contacts: [
-      { icon: "fa/FaPhone", label: "Headquarters", value: "{hqPhone}", href: "{hqPhoneLink}", color: "#c9a84c" },
-      { icon: "fa/FaPhone", label: "Sales — {salesName}", value: "{salesPhone}", href: "{salesPhoneLink}", color: "#2d8fdd" },
-      { icon: "fa/FaPhone", label: "{cellLabel}", value: "{cell}", href: "{cellLink}", color: "#c9a84c" },
-      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", href: "{emailLink}", color: "#2d8fdd" },
-      { icon: "fa/FaMapMarkerAlt", label: "Headquarters", value: "3801 Springdale Rd, Ardmore OK", href: "{mapsLink}", color: "#c9a84c" },
-      { icon: "fa/FaMapMarkerAlt", label: "Sales & Yard", value: "1612 Refinery Rd, Ardmore OK", href: "{salesMapsLink}", color: "#2d8fdd" },
+      { icon: "fa/FaPhone", label: "Main", value: "{phone}", href: "{phoneLink}", color: "#c9a84c" },
+      { icon: "fa/FaPhone", label: "Cell", value: "{cell}", href: "{cellLink}", color: "#2d8fdd" },
+      { icon: "fa/FaEnvelope", label: "Email", value: "{email}", href: "{emailLink}", color: "#c9a84c" },
+      { icon: "fa/FaMapMarkerAlt", label: "Address", value: "3801 Springdale Rd, Ardmore OK", href: "{mapsLink}", color: "#2d8fdd" },
     ],
     noteBold: "Please note:",
-    noteText: "All rentals subject to availability. Based in Southern Oklahoma — available across all states.",
+    noteText: "All rentals subject to availability. Serving Southern Oklahoma and North Texas.",
   },
 
   // ── 404 page ───────────────────────────────

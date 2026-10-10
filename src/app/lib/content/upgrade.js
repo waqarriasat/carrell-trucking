@@ -17,6 +17,7 @@ import { LEGACY_CONTENT_V3 } from "./legacy-v3"
 import { LEGACY_CONTENT_V4 } from "./legacy-v4"
 import { LEGACY_CONTENT_V5 } from "./legacy-v5"
 import { LEGACY_CONTENT_V6 } from "./legacy-v6"
+import { LEGACY_CONTENT_V7 } from "./legacy-v7"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -24,7 +25,9 @@ import { LEGACY_CONTENT_V6 } from "./legacy-v6"
 // 5: client changes carried over to the fleet list page and stats.
 // 6: client removals (2-month minimum, Heavy-Duty, kW) applied on every page.
 // 7: quote & contact forms go to Rick's email.
-export const CONTENT_VERSION = 7
+// 8: Refrigerated names, Ground Level badge, portable toilets, yard section,
+//    sales location, rental/purchase/rent-to-own, availability in all states.
+export const CONTENT_VERSION = 8
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -33,10 +36,12 @@ const STEPS = [
   { upTo: 4, from: LEGACY_CONTENT_V3, to: LEGACY_CONTENT_V4 },
   { upTo: 5, from: LEGACY_CONTENT_V4, to: LEGACY_CONTENT_V5 },
   { upTo: 6, from: LEGACY_CONTENT_V5, to: LEGACY_CONTENT_V6 },
-  { upTo: 7, from: LEGACY_CONTENT_V6, to: DEFAULT_CONTENT },
+  { upTo: 7, from: LEGACY_CONTENT_V6, to: LEGACY_CONTENT_V7 },
+  { upTo: 8, from: LEGACY_CONTENT_V7, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
+const isIdList = (v) => Array.isArray(v) && v.length > 0 && v.every((x) => isPlainObject(x) && typeof x.id === "string")
 
 function deepEqual(a, b) {
   if (a === b) return true
@@ -57,6 +62,24 @@ function upgrade(saved, oldDef, newDef) {
   if (isPlainObject(saved) && isPlainObject(oldDef) && isPlainObject(newDef)) {
     const out = {}
     for (const k of Object.keys(saved)) out[k] = upgrade(saved[k], oldDef[k], newDef[k])
+    // Fields that are new in this version (not in the old defaults) are added.
+    for (const k of Object.keys(newDef)) {
+      if (!(k in out) && !(k in oldDef)) out[k] = structuredClone(newDef[k])
+    }
+    return out
+  }
+  // Lists of items with an id (equipment, services) → match items by id,
+  // so an edited list still gets upgraded items and newly added items.
+  if (isIdList(saved) && isIdList(oldDef) && isIdList(newDef)) {
+    const byId = (list) => new Map(list.map((x) => [x.id, x]))
+    const oldById = byId(oldDef), newById = byId(newDef), savedIds = new Set(saved.map((x) => x.id))
+    const out = saved.map((item) => upgrade(item, oldById.get(item.id), newById.get(item.id)))
+    newDef.forEach((item, i) => {
+      if (savedIds.has(item.id) || oldById.has(item.id)) return
+      // Insert a new item after the item it follows in the new defaults.
+      const prev = i > 0 ? out.findIndex((x) => x.id === newDef[i - 1].id) : -1
+      out.splice(prev + 1, 0, structuredClone(item))
+    })
     return out
   }
   // Lists with the same items (e.g. equipment, services) → upgrade item by item.

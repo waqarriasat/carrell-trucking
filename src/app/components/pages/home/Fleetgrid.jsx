@@ -36,6 +36,34 @@ function RealisticVehicleIcon({ id, brand, label }) {
     </div>
   );
 
+  // 0. PORTABLE TOILET + HAND WASH STATION
+  if (id === "portable-toilets") {
+    return (
+      <div className="w-[140px] h-[50px] flex items-end justify-center gap-2 relative overflow-visible">
+        {/* Portable toilet */}
+        <div className="w-[32px] h-[46px] bg-[#1e6fbf] border-2 border-[#155a9c] rounded-t-[10px] rounded-b-[2px] relative shadow-md">
+          <div className="absolute -top-[3px] left-1/2 -translate-x-1/2 w-[22px] h-[4px] bg-[#e2e8f0] rounded-t-sm" />
+          <div className="absolute top-[7px] left-1/2 -translate-x-1/2 w-[16px] h-[3px] flex gap-[2px]">
+            <span className="flex-1 bg-[#0f2d4a]/40 rounded-[1px]" />
+            <span className="flex-1 bg-[#0f2d4a]/40 rounded-[1px]" />
+          </div>
+          <div className="absolute inset-x-[5px] top-[13px] bottom-[2px] bg-[#2d8fdd] rounded-t-[3px] border border-[#155a9c]">
+            <span className="absolute right-[3px] top-1/2 w-[2px] h-[6px] bg-[#e2e8f0] rounded-full" />
+          </div>
+        </div>
+        {/* Hand wash station */}
+        <div className="w-[30px] h-[34px] relative">
+          <div className="absolute inset-x-0 top-0 h-[9px] bg-[#e2e8f0] border border-[#94a3b8] rounded-t-[4px]">
+            <span className="absolute left-1/2 -translate-x-1/2 top-[2px] w-[10px] h-[3px] bg-[#2d8fdd] rounded-b-full" />
+          </div>
+          <div className="absolute inset-x-[2px] top-[9px] bottom-0 bg-[#f8fafc] border border-[#94a3b8] rounded-b-[2px] flex items-center justify-center">
+            <span className="text-[5px] font-extrabold text-[#0f2d4a] tracking-widest uppercase">{label}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // 1. GENERATOR SETS
   if (id === "generator") {
     return (
@@ -175,7 +203,7 @@ function FleetCard({ item, linkLabel, brand }) {
     <Link
       href={`/fleet/${item.id}`}
       id={item.id}
-      className="group relative flex flex-col rounded-xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col w-full rounded-xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
       style={{
         backgroundColor: "#ffffff",
         borderColor: "#d6e8f5",
@@ -217,6 +245,16 @@ function FleetCard({ item, linkLabel, brand }) {
         <div className="mt-2 transform transition-transform duration-300 group-hover:scale-105">
           <RealisticVehicleIcon id={item.graphic} brand={brand} label={item.graphicLabel} />
         </div>
+
+        {/* Corner badge, e.g. "Ground Level" */}
+        {item.cornerBadge ? (
+          <span
+            className="absolute bottom-2.5 right-3 text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded shadow-sm"
+            style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
+          >
+            {item.cornerBadge}
+          </span>
+        ) : null}
       </div>
 
       {/* Gold accent strip line */}
@@ -349,10 +387,20 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
           </Link>
         </div>
 
-        {/* Card responsive grid system wrapper */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {fleet.map((item) => (
-            <FleetCard key={item.id} item={item} linkLabel={fleetGrid.cardLinkLabel} brand={brand} />
+        {/* Card grid: 4 per row, or 3 per row when that fills the rows evenly (e.g. 9 items).
+            With an odd count on tablets, the last card is centred instead of left alone. */}
+        <div className={`grid grid-cols-1 sm:grid-cols-2 ${fleet.length % 4 !== 0 && fleet.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-5`}>
+          {fleet.map((item, i) => (
+            <div
+              key={item.id}
+              className={`flex ${
+                fleet.length % 2 === 1 && i === fleet.length - 1
+                  ? "sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-10px)] lg:col-span-1 lg:w-auto lg:justify-self-stretch"
+                  : ""
+              }`}
+            >
+              <FleetCard item={item} linkLabel={fleetGrid.cardLinkLabel} brand={brand} />
+            </div>
           ))}
         </div>
 

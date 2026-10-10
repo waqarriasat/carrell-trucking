@@ -128,6 +128,14 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                   priority
                   {...imageProps(allImages[activeImage])}
                 />}
+                {item.cornerBadge ? (
+                  <span style={{
+                    position: "absolute", right: 12, bottom: 12,
+                    fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: 1.5,
+                    padding: "4px 10px", borderRadius: 4,
+                    background: C.gold, color: C.dark, boxShadow: "0 2px 6px rgba(0,0,0,0.25)"
+                  }}>{item.cornerBadge}</span>
+                ) : null}
               </div>
 
 

@@ -196,6 +196,15 @@ export default function Hero({ hero, site, fleet }) {
                     </p>
                   </div>
 
+                  {item.cornerBadge ? (
+                    <span
+                      className="absolute bottom-2 right-2.5 text-[8px] font-black tracking-widest uppercase px-1.5 py-0.5 rounded"
+                      style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
+                    >
+                      {item.cornerBadge}
+                    </span>
+                  ) : null}
+
                   <FaChevronRight
                     size={10}
                     className="absolute top-4 right-4 opacity-0 group-hover:opacity-60 transition-opacity"

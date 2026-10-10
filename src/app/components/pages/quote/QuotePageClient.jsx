@@ -59,6 +59,19 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
           grid-template-columns: 1fr 1fr;
           gap: 10px;
         }
+        /* odd number of equipment types: last one spans the row */
+        .quote-fleet-grid > label:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        .quote-interest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .quote-interest {
+          position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
+          padding: 11px 10px; border-radius: 8px; cursor: pointer; text-align: center;
+          border: 1.5px solid ${C.border}; background: ${C.light};
+          font-size: 13px; font-weight: 700; color: ${C.text};
+          transition: border-color .15s, background .15s, color .15s;
+        }
+        .quote-interest input { accent-color: ${C.gold}; margin: 0; }
+        .quote-interest:has(input:checked) { border-color: ${C.gold}; background: #c9a84c1f; color: ${C.dark}; }
+        .quote-interest:focus-within { outline: 2px solid ${C.gold}; outline-offset: 2px; }
         @media (max-width: 768px) {
           .quote-grid { grid-template-columns: 1fr; gap: 24px; }
           .quote-form-grid { grid-template-columns: 1fr; }
@@ -160,6 +173,21 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                     />
                   </div>
                 </div>
+
+                {/* Rental / Purchase / Rent to Own */}
+                {form.interests?.length ? (
+                  <div style={{ marginTop: 20 }}>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 10 }}>{form.interestLabel}</label>
+                    <div className="quote-interest-grid">
+                      {form.interests.map((option, i) => (
+                        <label key={i} className="quote-interest">
+                          <input type="radio" name="interest" value={option} defaultChecked={i === 0} />
+                          <span>{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
 
                 {/* Equipment */}
                 <div style={{ marginTop: 20 }}>

@@ -44,7 +44,7 @@ export default function ContactPageClient({ page, site }) {
       <style>{`
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         .contact-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .contact-team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .contact-team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr; gap: 24px; }
           .contact-info-grid { grid-template-columns: 1fr; }

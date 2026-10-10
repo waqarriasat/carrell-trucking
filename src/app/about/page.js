@@ -45,7 +45,8 @@ export default async function AboutPage() {
         }
         .about-team-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          /* one row for 3 or 4 people */
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           gap: 16px;
         }
         .about-stats {

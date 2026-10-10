@@ -86,11 +86,13 @@ export default function Footer({ site, footer, fleet, services }) {
     {
       heading: footer.contactHeading,
       links: [
-        { label: site.phone, href: site.phoneHref },
+        { label: `HQ: ${site.hqPhone || site.phone}`, href: site.hqPhoneHref || site.phoneHref },
+        site.salesPhone && { label: `Sales: ${site.salesPhone}${site.salesName ? ` (${site.salesName})` : ""}`, href: site.salesPhoneHref },
         { label: site.email, href: site.emailHref },
-        { label: site.address, href: site.mapsHref },
+        { label: `HQ: ${site.address}`, href: site.mapsHref },
+        site.salesAddress && { label: `Sales & Yard: ${site.salesAddress}`, href: site.salesMapsHref },
         { label: footer.contactQuoteLabel, href: "/quote" },
-      ],
+      ].filter(Boolean),
     },
   ];
 

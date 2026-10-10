@@ -76,8 +76,9 @@ function row(label, valueHtml, last) {
  * @param {object} o.customer  { name, phone, email, company }
  * @param {Array}  o.fields    [{ label, value, list?, block? }] — the request details
  * @param {string} [o.siteUrl] link back to the website
+ * @param {string} [o.tag]     short label for the subject, e.g. "Rental"
  */
-export function buildLeadEmail({ kind, site, customer, fields, siteUrl }) {
+export function buildLeadEmail({ kind, site, customer, fields, siteUrl, tag }) {
   const name = clean(customer.name) || "Website visitor"
   const phone = clean(customer.phone)
   const email = clean(customer.email)
@@ -85,7 +86,8 @@ export function buildLeadEmail({ kind, site, customer, fields, siteUrl }) {
   const when = formatWhen(new Date())
   const firstItem = fields.find((f) => f.list && f.value?.length)?.value?.[0]
 
-  const subject = `New ${kind.toLowerCase()} from ${name}${company ? ` (${company})` : ""}${firstItem ? ` — ${firstItem}` : ""}`
+  const what = [clean(tag), firstItem].filter(Boolean).join(": ")
+  const subject = `New ${kind.toLowerCase()} from ${name}${company ? ` (${company})` : ""}${what ? ` — ${what}` : ""}`
 
   // ── Quick actions ──
   const wa = whatsappDigits(phone)
