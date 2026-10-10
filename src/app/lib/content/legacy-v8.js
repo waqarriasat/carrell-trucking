@@ -1,23 +1,15 @@
 // ─────────────────────────────────────────────
-//  DEFAULT SITE CONTENT
-//  Every piece of text / image shown on the
-//  public site lives here. The admin panel
-//  (/admin) edits a saved copy of this object;
-//  these values are only used until the first
-//  save, or for fields that were never saved.
-//
-//  Placeholders like {phone} are replaced with
-//  the values from "site" at render time — see
-//  lib/content/resolve.js for the full list.
+//  LEGACY DEFAULT CONTENT (content version 8)
+//  Before the 3D fleet images, real logo and
+//  fleet banner.
+//  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
-export const DEFAULT_CONTENT = {
+export const LEGACY_CONTENT_V8 = {
   // ── Business details (used everywhere) ─────
   site: {
     name: "Ardmore Trailer, Inc.",
-    logoImage: "/images/logo-ardmore.svg",
     logoTop: "ARDMORE",
     logoBottom: "Trailer, Inc.",
     phone: "580-226-7811",
@@ -108,12 +100,6 @@ export const DEFAULT_CONTENT = {
         U("1601584115197-04ecc0da31d7", 2000),
         U("1578575437130-527eed3abbec", 2000),
       ],
-    },
-
-    fleetBanner: {
-      enabled: "yes",
-      label: "Our Fleet — owned by Ardmore Trailer, Inc.",
-      order: ["trailers", "reefer-diesel", "reefer-electric", "mud-lab", "reefer-container", "container-dry", "office", "generator", "portable-toilets"],
     },
 
     trustBar: {
@@ -316,8 +302,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Secure, weather-tight dry containers for on-site storage. Perfect for construction sites, retail overflow, and industrial storage.",
       listFeatures: ["Weatherproof", "Ground level access", "Multiple sizes", "Pest resistant"],
-      image: "/images/fleet/container-dry.webp",
-      gallery: [],
+      image: U("1586528116311-ad8dd3c8310d", 900),
+      gallery: [U("1578575437130-527eed3abbec", 400), U("1601584115197-04ecc0da31d7", 400), U("1590534247854-e97d5e3feef6", 400)],
     },
     {
       id: "trailers",
@@ -338,8 +324,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Standard enclosed trailers for all general freight requirements. Ideal for temporary storage and on-site logistics.",
       listFeatures: ["Dry freight", "Roll-up doors", "Side doors", "Swing doors", "E-track rails", "Logistics ready"],
-      image: "/images/fleet/trailers.webp",
-      gallery: [],
+      image: U("1601584115197-04ecc0da31d7", 900),
+      gallery: [U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400), U("1621905251189-08b45d6a269e", 400)],
     },
     {
       id: "reefer-diesel",
@@ -360,8 +346,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Diesel-powered refrigerated trailers for temperature-sensitive cargo. Self-contained — no external power needed.",
       listFeatures: ["Diesel powered", "Multi-temp zones", "24/7 monitoring", "Self-contained", "Wide temp range", "No external power needed"],
-      image: "/images/fleet/reefer-diesel.webp",
-      gallery: [],
+      image: U("1590534247854-e97d5e3feef6", 900),
+      gallery: [U("1601584115197-04ecc0da31d7", 400), U("1578575437130-527eed3abbec", 400), U("1586528116311-ad8dd3c8310d", 400)],
     },
     {
       id: "reefer-electric",
@@ -382,8 +368,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Electric refrigerated units — quiet, efficient, and eco-friendly. Ideal for locations with reliable power access.",
       listFeatures: ["Electric powered", "Shore-power plug-in", "Energy efficient", "Stainless interior", "Eco friendly", "Indoor suitable"],
-      image: "/images/fleet/reefer-electric.webp",
-      gallery: [],
+      image: U("1542435503-956c469947f6", 900),
+      gallery: [U("1590534247854-e97d5e3feef6", 400), U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400)],
     },
     {
       id: "reefer-container",
@@ -404,8 +390,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Refrigerated containers for stationary cold storage on your site. Plug in and keep product at the right temperature.",
       listFeatures: ["Plug-in electric", "Ground level", "Secure storage", "Temp monitoring", "Weatherproof", "Remote ready"],
-      image: "/images/fleet/reefer-container.webp",
-      gallery: [],
+      image: U("1578575437130-527eed3abbec", 900),
+      gallery: [U("1542435503-956c469947f6", 400), U("1590534247854-e97d5e3feef6", 400), U("1601584115197-04ecc0da31d7", 400)],
     },
     {
       id: "generator",
@@ -426,8 +412,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Reliable power generation units for remote and industrial sites. Keep your operations running no matter the location.",
       listFeatures: ["Diesel powered", "Remote monitoring", "Auto transfer", "Weatherproof", "Load ready", "Fuel efficient"],
-      image: "/images/fleet/generator.webp",
-      gallery: [],
+      image: U("1621905251189-08b45d6a269e", 900),
+      gallery: [U("1586528116311-ad8dd3c8310d", 400), U("1601584115197-04ecc0da31d7", 400), U("1578575437130-527eed3abbec", 400)],
     },
     {
       id: "office",
@@ -448,8 +434,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Comfortable, ready-to-use portable office spaces for job sites. Climate controlled and fully equipped for daily work.",
       listFeatures: ["Climate controlled", "Electrical outlets", "Windows", "Lockable doors", "HVAC included", "Move-in ready"],
-      image: "/images/fleet/office.webp",
-      gallery: [],
+      image: U("1497366216548-37526070297c", 900),
+      gallery: [U("1621905251189-08b45d6a269e", 400), U("1586528116311-ad8dd3c8310d", 400), U("1578575437130-527eed3abbec", 400)],
     },
     {
       id: "portable-toilets",
@@ -470,7 +456,7 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Portable toilets and hand wash stations for crews, job sites and events. Delivered to your location.",
       listFeatures: ["Portable toilets", "Hand wash stations", "Job-site ready", "Event ready", "Delivered to your site", "Short or long term"],
-      image: "/images/fleet/portable-toilets.webp",
+      image: "/images/fleet/portable-toilets.png",
       gallery: [],
     },
     {
@@ -492,8 +478,8 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Specialized mud lab units for oilfield and drilling operations. Custom fit-out available to match your exact specs.",
       listFeatures: ["Oilfield spec", "Lab equipment ready", "Climate controlled", "Custom fit-out", "Industry standard", "Durable build"],
-      image: "/images/fleet/mud-lab.webp",
-      gallery: [],
+      image: U("1504328345606-18bbc8c9d7d1", 900),
+      gallery: [U("1621905251189-08b45d6a269e", 400), U("1586528116311-ad8dd3c8310d", 400), U("1601584115197-04ecc0da31d7", 400)],
     },
   ],
 

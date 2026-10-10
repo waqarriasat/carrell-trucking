@@ -4,7 +4,7 @@ import Image from "next/image"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import { FaFileInvoice } from "react-icons/fa6"
 import { getIcon } from "@/app/lib/content/icons"
-import { imageProps } from "@/app/lib/content/images"
+import { imageProps, isCutout } from "@/app/lib/content/images"
 
 const C = {
   dark:   "#0f2d4a",
@@ -78,20 +78,23 @@ function FleetCard({ item, fleetPage, site }) {
       </div>
 
       {/* Image — using Next.js Image */}
-      <div className="fleet-card-image">
+      <div className="fleet-card-image" style={isCutout(item.image) ? { background: "linear-gradient(180deg, #f7fafc 0%, #e8f1f9 100%)" } : undefined}>
         <Image
           src={item.image}
           alt={item.name}
           {...imageProps(item.image)}
           fill
-          sizes="280px"
-          className="object-cover"
+          sizes="320px"
+          className={isCutout(item.image) ? "object-contain" : "object-cover"}
+          style={isCutout(item.image) ? { padding: "44px 16px 36px" } : undefined}
           priority={false}
         />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(135deg, rgba(15,45,74,0.3) 0%, transparent 60%)"
-        }} />
+        {!isCutout(item.image) && (
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(135deg, rgba(15,45,74,0.3) 0%, transparent 60%)"
+          }} />
+        )}
         <span style={{
           position: "absolute", top: 12, left: 12,
           maxWidth: "calc(100% - 24px)", whiteSpace: "nowrap",

@@ -1,4 +1,5 @@
 import Hero from "@/app/components/pages/home/Hero";
+import FleetBanner from "@/app/components/pages/home/FleetBanner";
 import TrustBar from "./components/pages/home/Trustbar";
 import FleetGrid from "./components/pages/home/Fleetgrid";
 import WhyUs from "./components/pages/home/WhyUs";
@@ -13,7 +14,9 @@ export default async function HomePage() {
   return (
     <>
 
+      <FleetBanner banner={home.fleetBanner} fleet={fleet} />
       <Hero
+        compact={!!home.fleetBanner && home.fleetBanner.enabled !== "no"}
         hero={home.hero}
         site={site}
         fleet={fleet.map(({ id, badge, shortName, sizes, cornerBadge }) => ({ id, badge, shortName, sizes, cornerBadge }))}

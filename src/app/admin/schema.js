@@ -68,7 +68,8 @@ export const ADMIN_PAGES = [
         path: "site",
         fields: [
           t("name", "Company name", { help: "Shown in the footer copyright, page titles and emails. Placeholder: {company}" }),
-          t("logoTop", "Logo — top line", { width: "sm", help: "Large word in the header/footer logo (e.g. ARDMORE)." }),
+          img("logoImage", "Logo image", { help: "Company logo shown in the header and footer (SVG or PNG on a transparent background). Leave empty to show the text logo below." }),
+          t("logoTop", "Logo — top line", { width: "sm", help: "Text logo (only used when there is no logo image), e.g. ARDMORE." }),
           t("logoBottom", "Logo — bottom line", { width: "sm", help: "Small gold line under the logo." }),
           t("minRental", "Footer badge", { help: "Gold badge in the footer." }),
         ],
@@ -332,6 +333,16 @@ export const ADMIN_PAGES = [
           t("ctaText", "Bottom box — text"),
           btn("ctaPrimaryButton", "Bottom box — gold button"),
           t("ctaCallLabel", "Bottom box — call button", { width: "sm" }),
+        ],
+      },
+      {
+        title: "Fleet banner",
+        description: "Band under the header showing the whole fleet. The first 4 units stand in the back row, the next 5 in the front row.",
+        path: "home.fleetBanner",
+        fields: [
+          { type: "select", key: "enabled", label: "Fleet banner", width: "sm", options: [{ value: "yes", label: "Show" }, { value: "no", label: "Hide" }] },
+          { type: "fleetPicker", key: "order", label: "Units in the banner (in order)" },
+          t("label", "Description for screen readers / Google"),
         ],
       },
       {

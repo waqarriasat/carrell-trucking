@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { imageProps, isCutout } from "@/app/lib/content/images";
 import {
   FaArrowRight,
   FaChevronRight,
@@ -241,10 +243,23 @@ function FleetCard({ item, linkLabel, brand }) {
           )}
         </div>
 
-        {/* Scaled Render Layer */}
-        <div className="mt-2 transform transition-transform duration-300 group-hover:scale-105">
-          <RealisticVehicleIcon id={item.graphic} brand={brand} label={item.graphicLabel} />
-        </div>
+        {/* Product render (or the drawn illustration when there is no render) */}
+        {isCutout(item.image) ? (
+          <div className="relative mt-3 w-full h-[120px] transform transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
+              className="object-contain"
+              {...imageProps(item.image)}
+            />
+          </div>
+        ) : (
+          <div className="mt-2 transform transition-transform duration-300 group-hover:scale-105">
+            <RealisticVehicleIcon id={item.graphic} brand={brand} label={item.graphicLabel} />
+          </div>
+        )}
 
         {/* Corner badge, e.g. "Ground Level" */}
         {item.cornerBadge ? (

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
 
-export default function Hero({ hero, site, fleet }) {
+export default function Hero({ hero, site, fleet, compact = false }) {
   const HERO_FLEET_PREVIEW = fleet.slice(0, hero.previewCount);
   // Background slider images (managed in the admin panel)
   const SLIDER_IMAGES = hero.slides.filter(Boolean);
@@ -23,7 +23,7 @@ export default function Hero({ hero, site, fleet }) {
 
   return (
     <section
-      className="relative min-h-[92vh] flex items-center overflow-hidden"
+      className={`relative flex items-center overflow-hidden ${compact ? "" : "min-h-[92vh]"}`}
       style={{ backgroundColor: "#0f2d4a" }}
     >
       {/* ── BACKGROUND IMAGE SLIDER ── */}
@@ -82,7 +82,7 @@ export default function Hero({ hero, site, fleet }) {
       />
 
       {/* ── Content Grid Layout ── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-20 lg:py-28">
+      <div className={`relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 lg:px-10 ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* Left: Headline & Call To Actions Panel */}

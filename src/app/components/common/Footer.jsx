@@ -144,6 +144,12 @@ export default function Footer({ site, footer, fleet, services }) {
           <div className="col-span-2 md:col-span-1">
             {/* Wordmark */}
             <Link href="/" className="inline-block mb-4 group" aria-label="Home">
+              {site.logoImage ? (
+                <span className="inline-block rounded-lg bg-white px-4 py-2.5 shadow-sm group-hover:opacity-95 transition-opacity">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={site.logoImage} alt={site.name} className="block h-16 w-auto" />
+                </span>
+              ) : (<>
               <span
                 className="block font-black text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
                 style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
@@ -156,6 +162,7 @@ export default function Footer({ site, footer, fleet, services }) {
               >
                 {site.logoBottom}
               </span>
+              </>)}
             </Link>
 
             <p className="text-sm leading-relaxed mb-5" style={{ color: "#7a9bb5" }}>

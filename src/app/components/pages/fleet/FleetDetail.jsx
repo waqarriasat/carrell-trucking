@@ -5,7 +5,7 @@ import Link from "next/link"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaFileInvoice } from "react-icons/fa6"
-import { imageProps } from "@/app/lib/content/images"
+import { imageProps, isCutout } from "@/app/lib/content/images"
 
 const C = {
   dark: "#0f2d4a",
@@ -117,14 +117,18 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
 
               {/* Main large image */}
-              <div style={{ borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320 }}>
+              <div style={{
+                borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320,
+                background: isCutout(allImages[activeImage]) ? "linear-gradient(180deg, #ffffff 0%, #e8f1f9 100%)" : undefined,
+              }}>
                 {allImages[activeImage] && <Image
                   key={activeImage}
                   src={allImages[activeImage]}
                   alt={item.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover main-image"
+                  className={`${isCutout(allImages[activeImage]) ? "object-contain" : "object-cover"} main-image`}
+                  style={isCutout(allImages[activeImage]) ? { padding: 24 } : undefined}
                   priority
                   {...imageProps(allImages[activeImage])}
                 />}
@@ -139,8 +143,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               </div>
 
 
-              {/* Thumbnails */}
-              <div className="gallery-grid">
+              {/* Thumbnails (only when there is more than one picture) */}
+              {allImages.length > 1 && <div className="gallery-grid">
                 {allImages.map((img, i) => (
                   <div
                     key={i}
@@ -158,7 +162,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                     />
                   </div>
                 ))}
-              </div>
+              </div>}
             </div>
 
             {/* RIGHT - Details */}

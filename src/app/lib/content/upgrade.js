@@ -18,6 +18,7 @@ import { LEGACY_CONTENT_V4 } from "./legacy-v4"
 import { LEGACY_CONTENT_V5 } from "./legacy-v5"
 import { LEGACY_CONTENT_V6 } from "./legacy-v6"
 import { LEGACY_CONTENT_V7 } from "./legacy-v7"
+import { LEGACY_CONTENT_V8 } from "./legacy-v8"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -27,7 +28,8 @@ import { LEGACY_CONTENT_V7 } from "./legacy-v7"
 // 7: quote & contact forms go to Rick's email.
 // 8: Refrigerated names, Ground Level badge, portable toilets, yard section,
 //    sales location, rental/purchase/rent-to-own, availability in all states.
-export const CONTENT_VERSION = 8
+// 9: 3D fleet images, real logo, white header and fleet banner.
+export const CONTENT_VERSION = 9
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -37,7 +39,8 @@ const STEPS = [
   { upTo: 5, from: LEGACY_CONTENT_V4, to: LEGACY_CONTENT_V5 },
   { upTo: 6, from: LEGACY_CONTENT_V5, to: LEGACY_CONTENT_V6 },
   { upTo: 7, from: LEGACY_CONTENT_V6, to: LEGACY_CONTENT_V7 },
-  { upTo: 8, from: LEGACY_CONTENT_V7, to: DEFAULT_CONTENT },
+  { upTo: 8, from: LEGACY_CONTENT_V7, to: LEGACY_CONTENT_V8 },
+  { upTo: 9, from: LEGACY_CONTENT_V8, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
