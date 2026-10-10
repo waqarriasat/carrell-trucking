@@ -102,7 +102,8 @@ export default function Footer({ site, footer, fleet, services }) {
       {/* ── CTA strip ── */}
       <div
         className="border-b"
-        style={{ borderColor: "#1e4d7b", backgroundColor: "#0f2d4a" }}
+        // Steel blue band: separate from the page above and the footer below
+        style={{ borderColor: "#2a5a88", backgroundColor: "#163f66" }}
       >
         <div className="wrap py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>

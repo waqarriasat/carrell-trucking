@@ -12,7 +12,9 @@ export default function CtaBanner({ ctaBanner }) {
   return (
     <section
       className="w-full py-16 md:py-20 overflow-hidden"
-      style={{ backgroundColor: "#0f2d4a" }}
+      // Light background: separate from the navy Testimonials above and the
+      // footer below; the dark box below reads as a card.
+      style={{ backgroundColor: "#f0f6fb" }}
       aria-labelledby="cta-heading"
     >
       <div className="wrap">
@@ -27,19 +29,19 @@ export default function CtaBanner({ ctaBanner }) {
                 STATS.length % 2 === 1 && i === STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
               }`}
               style={{
-                backgroundColor: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                backgroundColor: "#ffffff",
+                border: "1px solid #d6e8f5",
               }}
             >
               <span
                 className="text-2xl sm:text-3xl font-black leading-none mb-1.5 block"
-                style={{ color: "#c9a84c" }}
+                style={{ color: "#0f2d4a" }}
               >
                 {s.value}
               </span>
               <span
                 className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest block"
-                style={{ color: "#a9c1d4" }}
+                style={{ color: "#86671e" }}
               >
                 {s.label}
               </span>

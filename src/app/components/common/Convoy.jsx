@@ -23,7 +23,7 @@ export default function Convoy({ fleet = [] }) {
   if (!units.length) return null;
 
   return (
-    <div className="convoy relative overflow-hidden" style={{ backgroundColor: "#0a2038" }} aria-label="Our fleet">
+    <div className="convoy relative overflow-hidden" style={{ backgroundColor: "#0a2038", borderTop: "1px solid #2a5a88" }} aria-label="Our fleet">
       <style>{CSS}</style>
 
       <div className="convoy-track flex w-max items-end" style={{ "--convoy-t": `${units.length * 7}s` }}>

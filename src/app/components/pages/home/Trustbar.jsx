@@ -21,20 +21,21 @@ export default function TrustBar({ trustBar, site, services }) {
   return (
     <section
       className="relative w-full"
-      style={{ backgroundColor: "#0f2d4a" }}
+      // Lighter steel blue: a separate band from the navy hero above
+      style={{ backgroundColor: "#163f66" }}
       aria-label="Trust indicators"
     >
       {/* ── Top divider rule ── */}
       <div
         className="h-px w-full"
-        style={{ backgroundColor: "#1e4d7b" }}
+        style={{ backgroundColor: "#2a5a88" }}
         aria-hidden="true"
       />
 
       {/* ── Stat row ── */}
       <div
         className="wrap"
-        style={{ borderBottom: "1px solid #1e4d7b" }}
+        style={{ borderBottom: "1px solid #2a5a88" }}
       >
         <div className={`grid grid-cols-2 ${LG_COLS[TRUST_STATS.length] || "lg:grid-cols-4"}`}>
           {TRUST_STATS.map((stat, i) => (
@@ -49,7 +50,7 @@ export default function TrustBar({ trustBar, site, services }) {
               {i < TRUST_STATS.length - 1 && (
                 <span
                   className="hidden lg:block absolute right-0 top-1/4 bottom-1/4 w-px"
-                  style={{ backgroundColor: "#1e4d7b" }}
+                  style={{ backgroundColor: "#2a5a88" }}
                   aria-hidden="true"
                 />
               )}
@@ -57,7 +58,7 @@ export default function TrustBar({ trustBar, site, services }) {
               {i % 2 === 0 && i < TRUST_STATS.length - 1 && (
                 <span
                   className="lg:hidden absolute right-0 top-1/4 bottom-1/4 w-px"
-                  style={{ backgroundColor: "#1e4d7b" }}
+                  style={{ backgroundColor: "#2a5a88" }}
                   aria-hidden="true"
                 />
               )}
@@ -105,7 +106,7 @@ export default function TrustBar({ trustBar, site, services }) {
                 href={`/fleet?industry=${service.id}`}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border transition-all duration-200 hover:border-opacity-100 hover:text-white group"
                 style={{
-                  borderColor: "#1e4d7b",
+                  borderColor: "rgba(255,255,255,0.3)",
                   color: "#a9c1d4",
                 }}
               >
@@ -132,14 +133,6 @@ export default function TrustBar({ trustBar, site, services }) {
         </div>
       </div>
 
-      {/* ── Bottom transition into light section ── */}
-      <div
-        className="h-8"
-        style={{
-          background: "linear-gradient(to bottom, #0f2d4a, #f0f6fb)",
-        }}
-        aria-hidden="true"
-      />
     </section>
   );
 }
