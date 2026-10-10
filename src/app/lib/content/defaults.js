@@ -109,6 +109,7 @@ export const DEFAULT_CONTENT = {
         "/images/slides/delivery.webp",
         "/images/slides/reefer-diesel.webp",
         "/images/slides/oilfield.webp",
+        "/images/slides/construction.webp",
         "/images/yard-aerial.jpg",
       ],
     },
