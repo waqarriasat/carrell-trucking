@@ -2,14 +2,15 @@ import Link from "next/link"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import { getContent } from "@/app/lib/server/content"
+import { pageMeta } from "@/app/lib/server/seo"
 import { getIcon } from "@/app/lib/content/icons"
 
 const C = {
   dark: "#0f2d4a",
   navy: "#1e4d7b",
-  blue: "#2d8fdd",
   gold: "#c9a84c",
-  muted: "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted: "#a9c1d4",
   light: "#f0f6fb",
   border: "#d6e8f5",
   text: "#4a6b85",
@@ -17,10 +18,7 @@ const C = {
 
 export async function generateMetadata() {
   const { servicesPage } = await getContent()
-  return {
-    title: servicesPage.metaTitle,
-    description: servicesPage.metaDescription,
-  }
+  return pageMeta({ title: servicesPage.metaTitle, description: servicesPage.metaDescription, path: "/services" })
 }
 
 export default async function ServicesPage() {
@@ -46,26 +44,26 @@ export default async function ServicesPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
-          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: "#fff", margin: "0 0 12px", lineHeight: 1.1 }}>
-            {`${page.titleStart} `}<span style={{ color: C.gold }}>{page.titleAccent}</span>
+          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: C.dark, margin: "0 0 12px", lineHeight: 1.1 }}>
+            {`${page.titleStart} `}<span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
             {page.text}
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 32 }}>
             {page.stats.map(({ value: v, label: l }, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 24, fontWeight: 900, color: C.gold }}>{v}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.muted }}>{l}</span>
+                <span style={{ fontSize: 24, fontWeight: 900, color: C.goldText }}>{v}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.text }}>{l}</span>
               </div>
             ))}
           </div>
@@ -73,8 +71,8 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Services Grid ── */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div className="services-grid">
             {services.map((service) => {
               const Icon = getIcon(service.icon, "fa/FaStore")
@@ -125,7 +123,7 @@ export default async function ServicesPage() {
 
                     {/* Features */}
                     <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold, marginBottom: 10 }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText, marginBottom: 10 }}>
                         {page.applicationsLabel}
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -140,7 +138,7 @@ export default async function ServicesPage() {
 
                     {/* Related Fleet */}
                     <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold, marginBottom: 10 }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText, marginBottom: 10 }}>
                         {page.recommendedLabel}
                       </div>
                       <div className="service-fleet-grid">
@@ -183,8 +181,8 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Bottom CTA ── */}
-      <div style={{ background: C.dark, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
           <div>
             <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
               {page.ctaTitle}{" "}
@@ -205,7 +203,7 @@ export default async function ServicesPage() {
             <a href={site.phoneHref} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               fontSize: 13, fontWeight: 700, padding: "12px 22px",
-              borderRadius: 8, border: `2px solid ${C.blue}`, color: C.blue, textDecoration: "none"
+              borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
             }}>
               <FaPhone size={13} /> {site.phone}
             </a>

@@ -9,9 +9,9 @@ import { submitContact } from "@/app/actions/submitContact"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -44,7 +44,7 @@ export default function ContactPageClient({ page, site }) {
       <style>{`
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
         .contact-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        .contact-team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .contact-team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
         @media (max-width: 768px) {
           .contact-grid { grid-template-columns: 1fr; gap: 24px; }
           .contact-info-grid { grid-template-columns: 1fr; }
@@ -53,30 +53,30 @@ export default function ContactPageClient({ page, site }) {
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
-          <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "#fff", margin: "0 0 12px", lineHeight: 1.15 }}>
-            {`${page.titleStart} `}<span style={{ color: C.gold }}>{page.titleAccent}</span>
+          <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: C.dark, margin: "0 0 12px", lineHeight: 1.15 }}>
+            {`${page.titleStart} `}<span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 520, lineHeight: 1.8, margin: 0 }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 520, lineHeight: 1.8, margin: 0 }}>
             {page.text}
           </p>
         </div>
       </div>
 
       {/* Contact Info Cards */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.infoEyebrow}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.infoEyebrow}</span>
           </div>
           <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: C.dark, margin: "0 0 24px" }}>
             {page.infoTitle}
@@ -93,7 +93,7 @@ export default function ContactPageClient({ page, site }) {
                     <info.icon size={16} style={{ color: info.color }} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.muted, marginBottom: 3 }}>{info.label}</div>
+                    <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.text, marginBottom: 3 }}>{info.label}</div>
                     <div style={{ fontSize: 14, fontWeight: 800, color: C.dark, marginBottom: 2 }}>{info.value}</div>
                     <div style={{ fontSize: 12, color: C.text }}>{info.sub}</div>
                   </div>
@@ -105,15 +105,15 @@ export default function ContactPageClient({ page, site }) {
       </div>
 
       {/* Map + Form */}
-      <div style={{ background: "#fff", padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div className="contact-grid">
 
             {/* Map */}
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                 <div style={{ width: 32, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.mapEyebrow}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.mapEyebrow}</span>
               </div>
               <h2 style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 900, color: C.dark, margin: "0 0 16px" }}>
                 {page.mapTitle}
@@ -150,7 +150,7 @@ export default function ContactPageClient({ page, site }) {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                 <div style={{ width: 32, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.formEyebrow}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.formEyebrow}</span>
               </div>
               <h2 style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 900, color: C.dark, margin: "0 0 16px" }}>
                 {page.formTitle}
@@ -216,9 +216,9 @@ export default function ContactPageClient({ page, site }) {
                     {status === "loading" ? form.sendingLabel : form.submitLabel}
                   </button>
 
-                  <p style={{ fontSize: 11, color: C.muted, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
+                  <p style={{ fontSize: 11, color: C.text, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
                     {form.callText}{" "}
-                    <a href={site.phoneHref} style={{ color: C.gold, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
+                    <a href={site.phoneHref} style={{ color: C.goldText, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
                   </p>
                 </form>
               </div>
@@ -228,11 +228,11 @@ export default function ContactPageClient({ page, site }) {
       </div>
 
       {/* Team */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.teamEyebrow}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>{page.teamEyebrow}</span>
           </div>
           <h2 style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 900, color: C.dark, margin: "0 0 20px" }}>
             {page.teamTitle}
@@ -245,7 +245,7 @@ export default function ContactPageClient({ page, site }) {
                   <FaUser size={16} style={{ color: C.gold }} />
                 </div>
                 <h3 style={{ fontSize: 14, fontWeight: 800, color: C.dark, margin: "0 0 2px" }}>{member.name}</h3>
-                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold }}>{member.role}</span>
+                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText }}>{member.role}</span>
                 <p style={{ fontSize: 12, color: C.text, margin: "6px 0 0", lineHeight: 1.5 }}>{member.note}</p>
               </div>
             ))}

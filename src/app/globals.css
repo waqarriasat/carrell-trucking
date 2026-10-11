@@ -1,15 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  /* Light page background behind every block (kept light even when the
+     visitor's device is in dark mode — the site has its own colours). */
+  --background: #f3f6f9;
   --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -43,4 +38,111 @@ body {
 /* Admin panel has no fixed site navbar above it */
 body:has(#admin-root) {
   padding-top: 0;
+}
+
+/* ── Full-width layout ──
+   Every section spans the whole screen; content keeps a
+   side gutter that grows with the screen size. */
+:root {
+  --gutter: clamp(20px, 4vw, 120px);
+}
+/* Content stretches across the screen with the same side margin in every
+   section (header, all sections, footer), so everything lines up. */
+.wrap {
+  width: 100%;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+/* Hero: text lines up with the column, the photo runs to the right edge */
+.wrap.bleed-right {
+  padding-right: 0;
+}
+
+/* ── Light theme building blocks ──
+   The page is light; content sits in blocks with light space between
+   them, so no two coloured areas ever touch. */
+:root {
+  /* vertical space between blocks */
+  --gap: clamp(28px, 4vw, 56px);
+  /* gold for large headings on white (readable as large text) */
+  --gold-heading: #a07c26;
+}
+/* Every section is a full-width band (edge to edge, like the header).
+   Bands alternate light / white automatically, with a hairline between
+   them, so the page reads as one smooth surface; only the content inside
+   keeps the side gutter. Navy bands are set explicitly (.band-navy). */
+.page-section {
+  padding-block: clamp(44px, 5.5vw, 88px);
+}
+.site-main > .page-section:nth-child(odd of .page-section) {
+  background: #f5f7fa;
+}
+.site-main > .page-section:nth-child(even of .page-section) {
+  background: #ffffff;
+}
+/* (needs !important: the alternation rule above is more specific) */
+.site-main > .page-section.band-navy {
+  background: #0f2d4a !important;
+}
+.page-section.band-flush {
+  padding-block: 0;
+}
+.band-navy {
+  background: #0f2d4a;
+}
+.panel {
+  background: #ffffff;
+  border: 1px solid #e1e8f0;
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(15, 45, 74, 0.04), 0 10px 28px rgba(15, 45, 74, 0.06);
+}
+.panel-navy {
+  background: #0f2d4a;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(15, 45, 74, 0.18);
+}
+
+/* ── Very large screens / zoomed out ──
+   Past ~2200px wide the whole page scales up in proportion (text,
+   images and spacing together), keeping the same balanced look as a
+   1920px screen instead of tiny text next to huge photos. Normal
+   laptops, desktops, tablets and phones are not affected. */
+@media (min-width: 2240px) { body { zoom: 1.15; } }
+@media (min-width: 2560px) { body { zoom: 1.3; } }
+@media (min-width: 2880px) { body { zoom: 1.45; } }
+@media (min-width: 3200px) { body { zoom: 1.6; } }
+@media (min-width: 3600px) { body { zoom: 1.8; } }
+@media (min-width: 4000px) { body { zoom: 2; } }
+
+/* ── Outline buttons on light backgrounds ──
+   Navy text and border; on hover the button fills navy and the text (and
+   any icon using currentColor) turns white, so it never disappears. */
+.btn-outline-navy {
+  color: #0f2d4a;
+  border: 2px solid #0f2d4a;
+  background: transparent;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-outline-navy:hover,
+.btn-outline-navy:focus-visible {
+  color: #ffffff;
+  background: #0f2d4a;
+}
+.pill-outline-navy {
+  color: #0f2d4a;
+  border: 1px solid #c9d8e6;
+  background: #ffffff;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.pill-outline-navy:hover,
+.pill-outline-navy:focus-visible {
+  color: #ffffff;
+  background: #0f2d4a;
+  border-color: #0f2d4a;
+}
+
+/* Hero slideshow: the active dot fills up while a slide is shown */
+@keyframes hero-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }

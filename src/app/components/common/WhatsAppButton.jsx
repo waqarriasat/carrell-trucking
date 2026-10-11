@@ -28,11 +28,11 @@ export default function WhatsAppButton({ site }) {
         marginBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      <span className="flex h-14 w-14 items-center justify-center">
-        <FaWhatsapp size={30} aria-hidden="true" />
+      <span className="flex h-12 w-12 items-center justify-center">
+        <FaWhatsapp size={26} aria-hidden="true" />
       </span>
       {/* Label slides out on hover (desktop) */}
-      <span className="hidden md:block max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-300 group-hover:max-w-[200px] group-hover:pr-5">
+      <span className="hidden md:block max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-300 group-hover:max-w-[200px] group-hover:pr-4">
         {label}
       </span>
     </a>

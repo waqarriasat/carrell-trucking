@@ -4,14 +4,16 @@ import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaFileInvoice } from "react-icons/fa6"
 import { notFound } from "next/navigation"
 import { getContent } from "@/app/lib/server/content"
+import { pageMeta, siteBaseUrl } from "@/app/lib/server/seo"
+import JsonLd, { breadcrumbJsonLd } from "@/app/components/common/JsonLd"
 import { fill } from "@/app/lib/content/resolve"
 
 const C = {
   dark: "#0f2d4a",
   navy: "#1e4d7b",
-  blue: "#2d8fdd",
   gold: "#c9a84c",
-  muted: "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted: "#a9c1d4",
   light: "#f0f6fb",
   border: "#d6e8f5",
   text: "#4a6b85",
@@ -27,15 +29,16 @@ export async function generateMetadata({ params }) {
   const { services, serviceDetail } = await getContent()
   const service = services.find((s) => s.id === id)
   if (!service) return { title: "Not Found" }
-  return {
+  return pageMeta({
     title: fill(serviceDetail.metaTitle, { service: service.label }),
     description: service.description,
-  }
+    path: `/services/${service.id}`,
+  })
 }
 
 export default async function ServiceDetailPage({ params }) {
   const { id } = await params
-  const { services, fleet, serviceDetail: page, servicesPage, site } = await getContent()
+  const { services, fleet, serviceDetail: page, servicesPage, site, seo } = await getContent()
   const service = services.find((s) => s.id === id)
   if (!service) notFound()
 
@@ -44,6 +47,13 @@ export default async function ServiceDetailPage({ params }) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(siteBaseUrl(seo), [
+          { name: servicesPage.breadcrumbHome || "Home", path: "/" },
+          { name: servicesPage.breadcrumbCurrent || "Services", path: "/services" },
+          { name: service.label, path: `/services/${service.id}` },
+        ])}
+      />
       <style>{`
         .service-detail-grid {
           display: grid;
@@ -63,30 +73,30 @@ export default async function ServiceDetailPage({ params }) {
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: servicesPage.breadcrumbHome, href: "/" }, { label: servicesPage.breadcrumbCurrent, href: "/services" }, { label: service.label }]} />
 
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
 
-          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: "#fff", margin: "0 0 12px", lineHeight: 1.1 }}>
-            {service.label} <span style={{ color: C.gold }}>{page.titleAccent}</span>
+          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: C.dark, margin: "0 0 12px", lineHeight: 1.1 }}>
+            {service.label} <span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
 
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: 0 }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: 0 }}>
             {service.description}
           </p>
         </div>
       </div>
 
       {/* Main Content */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div className="service-detail-grid">
 
             {/* Left - Image + Features */}
@@ -102,7 +112,7 @@ export default async function ServiceDetailPage({ params }) {
               <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                     {page.applicationsLabel}
                   </span>
                 </div>
@@ -129,7 +139,7 @@ export default async function ServiceDetailPage({ params }) {
               <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                     {page.recommendedLabel}
                   </span>
                 </div>
@@ -145,7 +155,7 @@ export default async function ServiceDetailPage({ params }) {
                       }}
                     >
                       <div style={{ fontSize: 13, fontWeight: 700, color: C.dark, marginBottom: 3 }}>{f.name}</div>
-                      <div style={{ fontSize: 11, color: C.muted }}>{f.sizes.join(" · ")}</div>
+                      <div style={{ fontSize: 11, color: C.text }}>{f.sizes.join(" · ")}</div>
                     </Link>
                   ))}
                 </div>
@@ -192,8 +202,8 @@ export default async function ServiceDetailPage({ params }) {
       </div>
 
       {/* Other Services */}
-      <div style={{ background: C.dark, padding: "40px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
             <div style={{ width: 24, height: 2, background: C.gold }} />
             <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

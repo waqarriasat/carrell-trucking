@@ -9,9 +9,9 @@ import { submitQuote } from "@/app/actions/submitQuote"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -59,6 +59,19 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
           grid-template-columns: 1fr 1fr;
           gap: 10px;
         }
+        /* odd number of equipment types: last one spans the row */
+        .quote-fleet-grid > label:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        .quote-interest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .quote-interest {
+          position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
+          padding: 11px 10px; border-radius: 8px; cursor: pointer; text-align: center;
+          border: 1.5px solid ${C.border}; background: ${C.light};
+          font-size: 13px; font-weight: 700; color: ${C.text};
+          transition: border-color .15s, background .15s, color .15s;
+        }
+        .quote-interest input { accent-color: ${C.gold}; margin: 0; }
+        .quote-interest:has(input:checked) { border-color: ${C.gold}; background: #c9a84c1f; color: ${C.dark}; }
+        .quote-interest:focus-within { outline: 2px solid ${C.gold}; outline-offset: 2px; }
         @media (max-width: 768px) {
           .quote-grid { grid-template-columns: 1fr; gap: 24px; }
           .quote-form-grid { grid-template-columns: 1fr; }
@@ -67,34 +80,34 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
       `}</style>
 
       {/* Hero */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
-          <h1 style={{ fontSize: "clamp(24px, 4vw, 34px)", fontWeight: 900, color: "#fff", margin: "0 0 10px", lineHeight: 1.15 }}>
-            {`${page.titleStart} `}<span style={{ color: C.gold }}>{page.titleAccent}</span>
+          <h1 style={{ fontSize: "clamp(24px, 4vw, 34px)", fontWeight: 900, color: C.dark, margin: "0 0 10px", lineHeight: 1.15 }}>
+            {`${page.titleStart} `}<span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
-          <p style={{ fontSize: 13, color: C.muted, maxWidth: 480, lineHeight: 1.7, margin: 0 }}>
+          <p style={{ fontSize: 13, color: C.text, maxWidth: 480, lineHeight: 1.7, margin: 0 }}>
             {page.text}
           </p>
         </div>
       </div>
 
       {/* Main */}
-      <div style={{ background: C.light, padding: "40px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div className="quote-grid">
 
             {/* Form */}
             <div style={{ background: "#fff", borderRadius: 16, padding: "28px 24px", border: `1.5px solid ${C.border}` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <div style={{ width: 28, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                   {page.formEyebrow}
                 </span>
               </div>
@@ -160,6 +173,21 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                     />
                   </div>
                 </div>
+
+                {/* Rental / Purchase / Rent to Own */}
+                {form.interests?.length ? (
+                  <div style={{ marginTop: 20 }}>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 10 }}>{form.interestLabel}</label>
+                    <div className="quote-interest-grid">
+                      {form.interests.map((option, i) => (
+                        <label key={i} className="quote-interest">
+                          <input type="radio" name="interest" value={option} defaultChecked={i === 0} />
+                          <span>{option}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
 
                 {/* Equipment */}
                 <div style={{ marginTop: 20 }}>
@@ -244,9 +272,9 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                   {status === "loading" ? form.sendingLabel : form.submitLabel}
                 </button>
 
-                <p style={{ fontSize: 11, color: C.muted, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
+                <p style={{ fontSize: 11, color: C.text, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
                   {form.callText}{" "}
-                  <a href={site.phoneHref} style={{ color: C.gold, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
+                  <a href={site.phoneHref} style={{ color: C.goldText, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
                 </p>
               </form>
             </div>
@@ -280,7 +308,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                         <contact.icon size={14} style={{ color: contact.color }} />
                       </div>
                       <div>
-                        <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.muted }}>{contact.label}</div>
+                        <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.text }}>{contact.label}</div>
                         <div style={{ fontSize: 13, fontWeight: 800, color: C.dark }}>{contact.value}</div>
                       </div>
                     </a>

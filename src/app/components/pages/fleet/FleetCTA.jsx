@@ -3,11 +3,8 @@ import { FaPhone, FaFileAlt } from "react-icons/fa";
 
 export default function FleetCTA({ fleetPage }) {
   return (
-    <section
-      className="w-full py-14"
-      style={{ backgroundColor: "#0f2d4a" }}
-    >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-8">
+    <section className="page-section wrap band-navy">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
           <h2
             className="text-2xl md:text-3xl font-black leading-tight mb-2"
@@ -17,7 +14,7 @@ export default function FleetCTA({ fleetPage }) {
             <br />
             <span style={{ color: "#c9a84c" }}>{fleetPage.ctaAccent}</span>
           </h2>
-          <p className="text-sm" style={{ color: "#7a9bb5" }}>
+          <p className="text-sm" style={{ color: "#a9c1d4" }}>
             {fleetPage.ctaText}
           </p>
         </div>
@@ -32,7 +29,7 @@ export default function FleetCTA({ fleetPage }) {
           <a
             href="tel:580-226-7811"
             className="flex items-center justify-center gap-2 text-sm font-bold px-7 py-3.5 rounded-lg transition-opacity hover:opacity-90"
-            style={{ border: "2px solid #2d8fdd", color: "#2d8fdd" }}
+            style={{ border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff" }}
           >
             <FaPhone size={14} /> 580-226-7811
           </a>

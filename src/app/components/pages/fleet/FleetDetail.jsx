@@ -5,20 +5,20 @@ import Link from "next/link"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaFileInvoice } from "react-icons/fa6"
-import { imageProps } from "@/app/lib/content/images"
+import { imageProps, isCutout } from "@/app/lib/content/images"
 
 const C = {
   dark: "#0f2d4a",
   navy: "#1e4d7b",
-  blue: "#2d8fdd",
   gold: "#c9a84c",
-  muted: "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted: "#a9c1d4",
   light: "#f0f6fb",
   border: "#d6e8f5",
   text: "#4a6b85",
 }
 
-export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site }) {
+export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site, usedIn = [] }) {
   const allImages = [item.image, ...(item.gallery || [])].filter(Boolean)
   const [activeImage, setActiveImage] = useState(0)
 
@@ -68,14 +68,14 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
-  <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
-  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
-  <Link href="/fleet" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>{fleetPage.breadcrumbCurrent}</Link>
-  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
-  <span style={{ color: "#c9a84c", fontWeight: 600 }}>{item.name}</span>
+  <Link href="/" style={{ color: C.text, textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
+  <span style={{ color: "#8aa3b8" }}>›</span>
+  <Link href="/fleet" style={{ color: C.text, textDecoration: "none" }}>{fleetPage.breadcrumbCurrent}</Link>
+  <span style={{ color: "#8aa3b8" }}>›</span>
+  <span style={{ color: C.goldText, fontWeight: 700 }}>{item.name}</span>
 </div>
 
  {item.badge && (
@@ -83,17 +83,17 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               display: "inline-block", fontSize: 10, fontWeight: 700,
               textTransform: "uppercase", letterSpacing: 2,
               padding: "4px 12px", borderRadius: 20, marginBottom: 12,
-              background: C.gold + "20", color: C.gold, border: `1px solid ${C.gold}44`
+              background: C.gold + "12", color: C.goldText, border: `1px solid ${C.gold}44`
             }}>
               {item.badge}
             </span>
           )}
 
-          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: "#fff", margin: "0 0 12px", lineHeight: 1.1 }}>
+          <h1 style={{ fontSize: "clamp(26px, 5vw, 40px)", fontWeight: 900, color: C.dark, margin: "0 0 12px", lineHeight: 1.1 }}>
             {item.name}
           </h1>
 
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
             {item.description}
           </p>
 
@@ -101,7 +101,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
             {item.sizes.map((s, i) => (
               <span key={i} style={{
                 fontSize: 12, fontWeight: 700, padding: "6px 16px",
-                borderRadius: 20, border: `2px solid ${C.gold}`, color: C.gold
+                borderRadius: 20, border: `2px solid ${C.gold}`, color: C.goldText
               }}>{s}</span>
             ))}
           </div>
@@ -109,30 +109,42 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       </div>
 
       {/* ── Main Content ── */}
-      <div style={{ background: C.light, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div className="detail-grid">
 
             {/* LEFT - Images */}
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
 
               {/* Main large image */}
-              <div style={{ borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320 }}>
+              <div style={{
+                borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320,
+                background: isCutout(allImages[activeImage]) ? "linear-gradient(180deg, #ffffff 0%, #e8f1f9 100%)" : undefined,
+              }}>
                 {allImages[activeImage] && <Image
                   key={activeImage}
                   src={allImages[activeImage]}
                   alt={item.name}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover main-image"
+                  className={`${isCutout(allImages[activeImage]) ? "object-contain" : "object-cover"} main-image`}
+                  style={isCutout(allImages[activeImage]) ? { padding: 24 } : undefined}
                   priority
                   {...imageProps(allImages[activeImage])}
                 />}
+                {item.cornerBadge ? (
+                  <span style={{
+                    position: "absolute", right: 12, bottom: 12,
+                    fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: 1.5,
+                    padding: "4px 10px", borderRadius: 4,
+                    background: C.gold, color: C.dark, boxShadow: "0 2px 6px rgba(0,0,0,0.25)"
+                  }}>{item.cornerBadge}</span>
+                ) : null}
               </div>
 
 
-              {/* Thumbnails */}
-              <div className="gallery-grid">
+              {/* Thumbnails (only when there is more than one picture) */}
+              {allImages.length > 1 && <div className="gallery-grid">
                 {allImages.map((img, i) => (
                   <div
                     key={i}
@@ -150,7 +162,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                     />
                   </div>
                 ))}
-              </div>
+              </div>}
             </div>
 
             {/* RIGHT - Details */}
@@ -160,7 +172,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                     {fleetDetail.overviewLabel}
                   </span>
                 </div>
@@ -173,7 +185,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
               <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                     {fleetDetail.featuresLabel}
                   </span>
                 </div>
@@ -198,7 +210,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                 <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                     <div style={{ width: 24, height: 2, background: C.gold }} />
-                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                       {fleetDetail.useCasesLabel}
                     </span>
                   </div>
@@ -209,6 +221,30 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                         borderRadius: 20, background: C.light,
                         border: `1px solid ${C.border}`, color: C.text
                       }}>{u}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Industries that use this unit — links to the matching service pages */}
+              {usedIn.length > 0 && (
+                <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+                    <div style={{ width: 24, height: 2, background: C.gold }} />
+                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
+                      Industries We Supply
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {usedIn.map((s) => (
+                      <Link
+                        key={s.id}
+                        href={`/services/${s.id}`}
+                        className="pill-outline-navy"
+                        style={{ fontSize: 12, fontWeight: 700, padding: "6px 14px", borderRadius: 20, textDecoration: "none" }}
+                      >
+                        {s.label} {item.shortName || item.name} rentals →
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -243,8 +279,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
       </div>
 
       {/* ── Related Fleet ── */}
-      <div style={{ background: C.dark, padding: " 40px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
             <div style={{ width: 24, height: 2, background: C.gold }} />
             <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

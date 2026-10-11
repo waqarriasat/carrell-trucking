@@ -2,14 +2,15 @@ import Link from "next/link"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaPhone, FaEnvelope, FaLocationDot, FaUsers } from "react-icons/fa6"
 import { getContent } from "@/app/lib/server/content"
+import { pageMeta } from "@/app/lib/server/seo"
 import { getIcon } from "@/app/lib/content/icons"
 
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  goldText: "#86671e", // gold for text on white/light backgrounds (readable)
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -17,10 +18,7 @@ const C = {
 
 export async function generateMetadata() {
   const { about } = await getContent()
-  return {
-    title: about.metaTitle,
-    description: about.metaDescription,
-  }
+  return pageMeta({ title: about.metaTitle, description: about.metaDescription, path: "/about" })
 }
 
 export default async function AboutPage() {
@@ -45,7 +43,8 @@ export default async function AboutPage() {
         }
         .about-team-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          /* one row for 3 or 4 people */
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           gap: 16px;
         }
         .about-stats {
@@ -100,8 +99,8 @@ export default async function AboutPage() {
       `}</style>
 
       {/* ── Hero ── */}
-      <div style={{ background: C.dark, padding: "20px 24px 40px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
 
           {/* Breadcrumb */}
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
@@ -109,18 +108,18 @@ export default async function AboutPage() {
           {/* Eyebrow */}
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.eyebrow}
             </span>
           </div>
 
-          <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "#fff", margin: "0 0 16px", lineHeight: 1.15 }}>
+          <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: C.dark, margin: "0 0 16px", lineHeight: 1.15 }}>
             {page.titleStart}{" "}
-            <span style={{ color: C.gold }}>{page.titleAccent}</span>{" "}
+            <span style={{ color: C.goldText }}>{page.titleAccent}</span>{" "}
             {page.titleEnd}
           </h1>
 
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 560, lineHeight: 1.8, margin: "0 0 32px" }}>
+          <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: "0 0 32px" }}>
             {page.text}
           </p>
 
@@ -128,8 +127,8 @@ export default async function AboutPage() {
           <div className="about-stats">
             {STATS.map((s, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 26, fontWeight: 900, color: C.gold }}>{s.value}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.muted }}>
+                <span style={{ fontSize: 26, fontWeight: 900, color: C.goldText }}>{s.value}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, color: C.text }}>
                   {s.label}
                 </span>
               </div>
@@ -139,8 +138,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Story Section ── */}
-      <div style={{ background: "#fff", padding: "56px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
           <div className="about-story-grid">
 
             {/* Image */}
@@ -157,7 +156,7 @@ export default async function AboutPage() {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                 <div style={{ width: 32, height: 2, background: C.gold }} />
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
                   {page.storyEyebrow}
                 </span>
               </div>
@@ -182,7 +181,7 @@ export default async function AboutPage() {
                       background: C.gold + "20", border: `1px solid ${C.gold}55`,
                       display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
                     }}>
-                      <span style={{ fontSize: 10, color: C.gold, fontWeight: 900 }}>✓</span>
+                      <span style={{ fontSize: 10, color: C.goldText, fontWeight: 900 }}>✓</span>
                     </div>
                     <span style={{ fontSize: 13, color: C.text }}>{item}</span>
                   </div>
@@ -194,12 +193,12 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Values ── */}
-      <div style={{ background: C.light, padding: "56px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.valuesEyebrow}
             </span>
           </div>
@@ -233,12 +232,6 @@ export default async function AboutPage() {
                 <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7, margin: 0 }}>
                   {v.text}
                 </p>
-                <div style={{
-                  position: "absolute", bottom: 10, right: 14,
-                  fontSize: 32, fontWeight: 900, color: C.border, lineHeight: 1
-                }}>
-                  0{i + 1}
-                </div>
               </div>
             ))}
           </div>
@@ -246,12 +239,12 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Team ── */}
-      <div style={{ background: "#fff", padding: "56px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap">
+        <div style={{ width: "100%" }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {page.teamEyebrow}
             </span>
           </div>
@@ -285,7 +278,7 @@ export default async function AboutPage() {
                 <h3 style={{ fontSize: 17, fontWeight: 800, color: C.dark, margin: "0 0 4px" }}>
                   {member.name}
                 </h3>
-                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.gold }}>
+                <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: C.goldText }}>
                   {member.role}
                 </span>
               </div>
@@ -295,8 +288,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Contact Strip ── */}
-      <div style={{ background: C.dark, padding: "48px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%" }}>
           <div className="about-contact-strip">
             <div>
               <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
@@ -318,7 +311,7 @@ export default async function AboutPage() {
               <a href={site.emailHref} style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "12px 22px",
-                borderRadius: 8, border: `2px solid ${C.blue}`, color: C.blue, textDecoration: "none"
+                borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
               }}>
                 <FaEnvelope size={13} /> {page.ctaEmailLabel}
               </a>

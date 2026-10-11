@@ -760,9 +760,9 @@ function HeroTitlePreview({ hero }) {
       </div>
       <div className="text-2xl font-black leading-tight text-white">
         {hero.titleStart}{" "}
-        <span className="text-[#2d8fdd] underline decoration-[#c9a84c] decoration-2 underline-offset-4">{hero.titleAccent1}</span>
+        <span className="text-white underline decoration-[#c9a84c] decoration-2 underline-offset-4">{hero.titleAccent1}</span>
         {` ${hero.titleJoin} `}
-        <span className="text-[#2d8fdd]">{hero.titleAccent2}</span>
+        <span className="text-white">{hero.titleAccent2}</span>
         <br />
         {`${hero.titleLine2} `}
         <span className="text-[#c9a84c]">{hero.titleAccent3}</span>

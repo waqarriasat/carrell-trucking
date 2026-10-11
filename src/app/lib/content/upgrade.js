@@ -17,6 +17,13 @@ import { LEGACY_CONTENT_V3 } from "./legacy-v3"
 import { LEGACY_CONTENT_V4 } from "./legacy-v4"
 import { LEGACY_CONTENT_V5 } from "./legacy-v5"
 import { LEGACY_CONTENT_V6 } from "./legacy-v6"
+import { LEGACY_CONTENT_V7 } from "./legacy-v7"
+import { LEGACY_CONTENT_V8 } from "./legacy-v8"
+import { LEGACY_CONTENT_V9 } from "./legacy-v9"
+import { LEGACY_CONTENT_V10 } from "./legacy-v10"
+import { LEGACY_CONTENT_V11 } from "./legacy-v11"
+import { LEGACY_CONTENT_V12 } from "./legacy-v12"
+import { LEGACY_CONTENT_V13 } from "./legacy-v13"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -24,7 +31,19 @@ import { LEGACY_CONTENT_V6 } from "./legacy-v6"
 // 5: client changes carried over to the fleet list page and stats.
 // 6: client removals (2-month minimum, Heavy-Duty, kW) applied on every page.
 // 7: quote & contact forms go to Rick's email.
-export const CONTENT_VERSION = 7
+// 8: Refrigerated names, Ground Level badge, portable toilets, yard section,
+//    sales location, rental/purchase/rent-to-own, availability in all states.
+// 9: 3D fleet images, real logo, white header and fleet banner.
+// 10: fleet banner becomes one well-spaced row of 5 units.
+// 11: less bright blue (navy/gold theme) and a visible hero slider that
+//     starts with the yard aerial photo.
+// 12: photo hero layout (photo beside the text, cards layout kept as an
+//     option) and the ground-level delivery photo as the first slide.
+// 13: light theme — stats (20+ / 9 / Direct / All States), no numbers on
+//     the Why Us cards, yard aerial out of the slider (own block).
+// 14: website address left empty until the domain is live (the site uses
+//     its current address for the sitemap, robots.txt and canonical links).
+export const CONTENT_VERSION = 14
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -33,10 +52,18 @@ const STEPS = [
   { upTo: 4, from: LEGACY_CONTENT_V3, to: LEGACY_CONTENT_V4 },
   { upTo: 5, from: LEGACY_CONTENT_V4, to: LEGACY_CONTENT_V5 },
   { upTo: 6, from: LEGACY_CONTENT_V5, to: LEGACY_CONTENT_V6 },
-  { upTo: 7, from: LEGACY_CONTENT_V6, to: DEFAULT_CONTENT },
+  { upTo: 7, from: LEGACY_CONTENT_V6, to: LEGACY_CONTENT_V7 },
+  { upTo: 8, from: LEGACY_CONTENT_V7, to: LEGACY_CONTENT_V8 },
+  { upTo: 9, from: LEGACY_CONTENT_V8, to: LEGACY_CONTENT_V9 },
+  { upTo: 10, from: LEGACY_CONTENT_V9, to: LEGACY_CONTENT_V10 },
+  { upTo: 11, from: LEGACY_CONTENT_V10, to: LEGACY_CONTENT_V11 },
+  { upTo: 12, from: LEGACY_CONTENT_V11, to: LEGACY_CONTENT_V12 },
+  { upTo: 13, from: LEGACY_CONTENT_V12, to: LEGACY_CONTENT_V13 },
+  { upTo: 14, from: LEGACY_CONTENT_V13, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
+const isIdList = (v) => Array.isArray(v) && v.length > 0 && v.every((x) => isPlainObject(x) && typeof x.id === "string")
 
 function deepEqual(a, b) {
   if (a === b) return true
@@ -57,6 +84,24 @@ function upgrade(saved, oldDef, newDef) {
   if (isPlainObject(saved) && isPlainObject(oldDef) && isPlainObject(newDef)) {
     const out = {}
     for (const k of Object.keys(saved)) out[k] = upgrade(saved[k], oldDef[k], newDef[k])
+    // Fields that are new in this version (not in the old defaults) are added.
+    for (const k of Object.keys(newDef)) {
+      if (!(k in out) && !(k in oldDef)) out[k] = structuredClone(newDef[k])
+    }
+    return out
+  }
+  // Lists of items with an id (equipment, services) → match items by id,
+  // so an edited list still gets upgraded items and newly added items.
+  if (isIdList(saved) && isIdList(oldDef) && isIdList(newDef)) {
+    const byId = (list) => new Map(list.map((x) => [x.id, x]))
+    const oldById = byId(oldDef), newById = byId(newDef), savedIds = new Set(saved.map((x) => x.id))
+    const out = saved.map((item) => upgrade(item, oldById.get(item.id), newById.get(item.id)))
+    newDef.forEach((item, i) => {
+      if (savedIds.has(item.id) || oldById.has(item.id)) return
+      // Insert a new item after the item it follows in the new defaults.
+      const prev = i > 0 ? out.findIndex((x) => x.id === newDef[i - 1].id) : -1
+      out.splice(prev + 1, 0, structuredClone(item))
+    })
     return out
   }
   // Lists with the same items (e.g. equipment, services) → upgrade item by item.

@@ -10,6 +10,7 @@ export async function submitQuote(formData) {
     phone:     formData.get("phone"),
     email:     formData.get("email"),
     company:   formData.get("company"),
+    interest:  formData.get("interest"),
     equipment: formData.getAll("equipment"),
     service:   formData.get("service"),
     duration:  formData.get("duration"),
@@ -28,7 +29,9 @@ export async function submitQuote(formData) {
       kind: "Quote request",
       site,
       customer: data,
+      tag: data.interest,
       fields: [
+        { label: "Interested in", value: data.interest },
         { label: "Equipment", value: data.equipment, list: true },
         { label: "Service type", value: data.service },
         { label: "Rental duration", value: data.duration },

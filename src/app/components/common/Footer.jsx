@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TextLogo from "./TextLogo";
 import {
   FaPhone,
   FaEnvelope,
@@ -26,7 +27,7 @@ function ColHeading({ children }) {
   return (
     <h3
       className="text-xs font-bold tracking-[0.2em] uppercase mb-5 pb-3 border-b"
-      style={{ color: "#c9a84c", borderColor: "#1e4d7b" }}
+      style={{ color: "#86671e", borderColor: "#e1e8f0" }}
     >
       {children}
     </h3>
@@ -42,8 +43,8 @@ function FooterLink({ href, children }) {
     href.startsWith("http");
 
   const cls =
-    "group flex items-start gap-2 text-sm leading-snug mb-3 transition-colors hover:text-white";
-  const style = { color: "#7a9bb5" };
+    "group flex items-start gap-2 text-sm leading-snug mb-3 transition-colors text-[#4a6b85] hover:text-[#0f2d4a]";
+  const style = undefined;
 
   if (isExternal) {
     return (
@@ -86,23 +87,22 @@ export default function Footer({ site, footer, fleet, services }) {
     {
       heading: footer.contactHeading,
       links: [
-        { label: site.phone, href: site.phoneHref },
+        { label: `HQ: ${site.hqPhone || site.phone}`, href: site.hqPhoneHref || site.phoneHref },
+        site.salesPhone && { label: `Sales: ${site.salesPhone}${site.salesName ? ` (${site.salesName})` : ""}`, href: site.salesPhoneHref },
         { label: site.email, href: site.emailHref },
-        { label: site.address, href: site.mapsHref },
+        { label: `HQ: ${site.address}`, href: site.mapsHref },
+        site.salesAddress && { label: `Sales & Yard: ${site.salesAddress}`, href: site.salesMapsHref },
         { label: footer.contactQuoteLabel, href: "/quote" },
-      ],
+      ].filter(Boolean),
     },
   ];
 
   return (
-    <footer style={{ backgroundColor: "#0a2038" }}>
+    <footer>
 
-      {/* ── CTA strip ── */}
-      <div
-        className="border-b"
-        style={{ borderColor: "#1e4d7b", backgroundColor: "#0f2d4a" }}
-      >
-        <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* ── CTA band: full-width navy ── */}
+      <div className="band-navy border-t" style={{ borderColor: "rgba(201,168,76,0.55)" }}>
+        <div className="wrap py-9 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p
               className="text-xs font-bold tracking-widest uppercase mb-1"
@@ -117,8 +117,7 @@ export default function Footer({ site, footer, fleet, services }) {
           <div className="flex items-center gap-3 shrink-0">
             <a
               href={site.phoneHref}
-              className="flex items-center gap-2 px-5 py-2.5 rounded font-bold text-sm tracking-wide border-2 transition-all hover:brightness-110"
-              style={{ borderColor: "#7a9bb5", color: "#7a9bb5" }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded font-bold text-sm tracking-wide border-2 transition-colors text-white border-white/80 hover:bg-white hover:text-[#0f2d4a]"
             >
               <FaPhone size={13} />
               {site.phone}
@@ -134,36 +133,26 @@ export default function Footer({ site, footer, fleet, services }) {
         </div>
       </div>
 
-      {/* ── 4-column grid ── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-14">
+      {/* ── 4-column grid: full-width white band ── */}
+      <div className="bg-white">
+      <div className="wrap py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
 
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
           <div className="col-span-2 md:col-span-1">
             {/* Wordmark */}
-            <Link href="/" className="inline-block mb-4 group" aria-label="Home">
-              <span
-                className="block font-black text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
-                style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
-              >
-                {site.logoTop}
-              </span>
-              <span
-                className="block text-xs font-bold tracking-[0.22em] uppercase"
-                style={{ color: "#c9a84c" }}
-              >
-                {site.logoBottom}
-              </span>
+            <Link href="/" className="inline-block mb-5 transition-opacity hover:opacity-90" aria-label="Home">
+              <TextLogo top={site.logoTop} bottom={site.logoBottom} size="lg" onLight />
             </Link>
 
-            <p className="text-sm leading-relaxed mb-5" style={{ color: "#7a9bb5" }}>
+            <p className="text-sm leading-relaxed mb-5" style={{ color: "#4a6b85" }}>
               {footer.blurb}
             </p>
 
             {/* Min rental badge */}
             <span
               className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded-full border"
-              style={{ borderColor: "#c9a84c", color: "#c9a84c" }}
+              style={{ borderColor: "#c9a84c", color: "#86671e", backgroundColor: "#c9a84c14" }}
             >
               <FaTruck size={11} />
               {site.minRental}
@@ -187,15 +176,14 @@ export default function Footer({ site, footer, fleet, services }) {
         </div>
       </div>
 
+      </div>
+
       {/* ── Bottom bar ── */}
-      <div
-        className="border-t"
-        style={{ borderColor: "#1e4d7b" }}
-      >
-        <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="border-t" style={{ backgroundColor: "#f3f6f9", borderColor: "#e3e9f0" }}>
+        <div className="wrap py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
 
           {/* Copyright */}
-          <p className="text-xs text-center sm:text-left" style={{ color: "#7a9bb5" }}>
+          <p className="text-xs text-center sm:text-left" style={{ color: "#4a6b85" }}>
             © {currentYear} {site.name}{`. ${footer.copyright}`}
           </p>
 
@@ -205,28 +193,25 @@ export default function Footer({ site, footer, fleet, services }) {
               href={site.mapsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              className="flex items-center gap-1.5 text-xs transition-colors text-[#4a6b85] hover:text-[#0f2d4a]"
             >
-              <FaLocationDot size={11} style={{ color: "#c9a84c" }} />
+              <FaLocationDot size={11} style={{ color: "#86671e" }} />
               {site.city}, {site.state} {site.zip}
             </a>
 
             <a
               href={site.phoneHref}
-              className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              className="flex items-center gap-1.5 text-xs transition-colors text-[#4a6b85] hover:text-[#0f2d4a]"
             >
-              <FaPhone size={11} style={{ color: "#c9a84c" }} />
+              <FaPhone size={11} style={{ color: "#86671e" }} />
               {site.phone}
             </a>
 
             <a
               href={site.emailHref}
-              className="flex items-center gap-1.5 text-xs transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              className="flex items-center gap-1.5 text-xs transition-colors text-[#4a6b85] hover:text-[#0f2d4a]"
             >
-              <FaEnvelope size={11} style={{ color: "#c9a84c" }} />
+              <FaEnvelope size={11} style={{ color: "#86671e" }} />
               {site.email}
             </a>
           </div>

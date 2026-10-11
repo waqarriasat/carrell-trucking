@@ -4,6 +4,7 @@ import Navbar from "@/app/components/common/Navbar";
 import Footer from "@/app/components/common/Footer";
 import SiteChrome from "@/app/components/common/SiteChrome";
 import { getContent } from "@/app/lib/server/content";
+import { siteBaseUrl } from "@/app/lib/server/seo";
 import Convoy from "./components/common/Convoy";
 import WhatsAppButton from "@/app/components/common/WhatsAppButton";
 
@@ -28,6 +29,7 @@ const inter = Inter({
 export async function generateMetadata() {
   const { seo, site } = await getContent();
   return {
+    metadataBase: new URL(siteBaseUrl(seo)),
     title: {
       default: seo.title,
       template: seo.titleTemplate,
@@ -37,7 +39,7 @@ export async function generateMetadata() {
     openGraph: {
       type: "website",
       locale: "en_US",
-      url: seo.siteUrl,
+      url: "/",
       siteName: site.name,
     },
   };
@@ -45,17 +47,61 @@ export async function generateMetadata() {
 
 export default async function RootLayout({ children }) {
   const content = await getContent();
-  const { site, nav, footer, fleet, services } = content;
+  const { site, nav, footer, fleet, services, seo } = content;
+  const base = siteBaseUrl(seo);
+  const digits = (p) => String(p || "").replace(/[^\d+]/g, "");
+  // Business details for search engines (Google business / Maps results)
+  const businessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${base}/#business`,
+    name: site.name,
+    url: base,
+    description: seo.description,
+    telephone: digits(site.phone),
+    email: site.email || undefined,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.street,
+      addressLocality: site.city,
+      addressRegion: site.state,
+      postalCode: site.zip,
+      addressCountry: "US",
+    },
+    location: site.salesStreet
+      ? {
+          "@type": "Place",
+          name: "Sales & Yard",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: site.salesStreet,
+            addressLocality: site.salesCity,
+            addressRegion: site.salesState,
+            postalCode: site.salesZip,
+            addressCountry: "US",
+          },
+        }
+      : undefined,
+    areaServed: ["Southern Oklahoma", "North Texas", "United States"],
+    makesOffer: fleet.map((f) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: `${f.name} rental`, url: `${base}/fleet/${f.id}` },
+    })),
+  };
   const fleetLinks = fleet.map((f) => ({ id: f.id, name: f.name }));
   const serviceLinks = services.map((s) => ({ id: s.id, label: s.label }));
 
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c") }}
+        />
         <SiteChrome
           navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} />}
           footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} />}
-          convoy={<Convoy />}
+          convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
         >
           {/* Children maps your main page sections dynamically */}

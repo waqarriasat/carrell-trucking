@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaBars, FaPhone, FaChevronDown } from "react-icons/fa6";
+import TextLogo from "./TextLogo";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar({ site, nav, fleet, services }) {
@@ -136,45 +136,22 @@ export default function Navbar({ site, nav, fleet, services }) {
 `}</style>
 
       <header
-  className={[
-    "fixed top-0 inset-x-0 z-30 transition-all duration-300",
-    scrolled ? "shadow-lg" : "",
-  ].join(" ")}
-  style={{ backgroundColor: "#0f2d4a" }}
->
-        {/* Top micro-bar */}
-        <div
-          className="hidden lg:flex items-center justify-end px-6 py-1.5 text-xs font-medium gap-2 border-b"
-          style={{ backgroundColor: "#0a2038", borderColor: "#1e4d7b", color: "#7a9bb5" }}
-        >
-          <FaPhone size={11} style={{ color: "#c9a84c" }} />
-          <a href={site.phoneHref} className="hover:text-white transition-colors tracking-wide">
-            {site.phone}
-          </a>
-          <span className="mx-2 opacity-30">|</span>
-          <span>{site.city}, {site.state}</span>
-        </div>
+        className={[
+          "fixed top-0 inset-x-0 z-30 transition-all duration-300 border-b",
+          scrolled ? "shadow-lg" : "shadow-sm",
+        ].join(" ")}
+        style={{ backgroundColor: "#0f2d4a", borderColor: "#c9a84c" }}
+      >
+        {/* Main row — dark navy: text logo on the left, prominent phone on the right */}
+        <div className="flex items-center justify-between gap-4 wrap h-16 lg:h-20">
 
-        {/* Main nav row */}
-        <div className="flex items-center justify-between px-5 md:px-8 lg:px-10 h-16">
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group" aria-label={`${site.name} — Home`}>
-            <div className="flex flex-col leading-none">
-              <span
-                className="font-black text-lg md:text-xl tracking-tight text-white group-hover:opacity-90 transition-opacity"
-                style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
-              >
-                {site.logoTop}
-              </span>
-              <span className="text-xs font-bold tracking-[0.22em] uppercase" style={{ color: "#c9a84c" }}>
-                {site.logoBottom}
-              </span>
-            </div>
+          {/* Text logo (white + gold on the dark header) */}
+          <Link href="/" className="flex items-center shrink-0 transition-opacity hover:opacity-90" aria-label={`${site.name} — Home`}>
+            <TextLogo top={site.logoTop} bottom={site.logoBottom} />
           </Link>
 
           {/* Desktop nav links */}
-          <nav className="hidden lg:flex items-center gap-1" aria-label="Primary navigation">
+          <nav className="hidden lg:flex items-center gap-1 ml-auto" aria-label="Primary navigation">
             {nav.links.map((link, li) => {
               const dropdown = DROPDOWNS[link.href]
               const isOpen = activeDropdown === link.href
@@ -189,7 +166,7 @@ export default function Navbar({ site, nav, fleet, services }) {
                   <Link
                     href={link.href}
                     onClick={() => dropdown && setActiveDropdown(isOpen ? null : link.href)}
-                    className="relative flex items-center gap-1 px-4 py-2 text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors rounded"
+                    className="relative flex items-center gap-1 px-3 xl:px-4 py-2 text-[15px] font-semibold tracking-wide transition-colors rounded text-white hover:text-[#c9a84c]"
                   >
                     {link.label}
                     {dropdown && (
@@ -272,27 +249,42 @@ export default function Navbar({ site, nav, fleet, services }) {
                 </div>
               )
             })}
+          </nav>
 
-            <span className="mx-2 h-5 w-px opacity-20" style={{ backgroundColor: "#7a9bb5" }} aria-hidden="true" />
-
+          {/* Desktop: prominent phone + quote button */}
+          <div className="hidden lg:flex items-center gap-5 shrink-0 pl-5 border-l" style={{ borderColor: "rgba(255,255,255,0.18)" }}>
+            <a href={site.phoneHref} className="flex items-center gap-2.5 group" aria-label={`Call ${site.phone}`}>
+              <span className="flex items-center justify-center w-10 h-10 rounded-full" style={{ backgroundColor: "rgba(201,168,76,0.18)" }}>
+                <FaPhone size={15} style={{ color: "#c9a84c" }} />
+              </span>
+              <span className="leading-tight">
+                <span className="hidden xl:block text-[10px] font-extrabold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>
+                  {nav.mobileCallLabel}
+                </span>
+                <span className="block text-xl font-extrabold tracking-wide text-white group-hover:text-[#c9a84c] transition-colors">
+                  {site.phone}
+                </span>
+              </span>
+            </a>
             <Link
               href={nav.cta.href}
-              className="px-5 py-2 rounded text-sm font-bold tracking-wider uppercase border-2 transition-all duration-200 hover:brightness-110 active:scale-95"
-              style={{ borderColor: "#c9a84c", color: "#c9a84c" }}
+              className="px-5 py-3 rounded text-sm font-extrabold tracking-wider uppercase transition-all duration-200 hover:brightness-110 active:scale-95"
+              style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
             >
               {nav.cta.label}
             </Link>
-          </nav>
+          </div>
 
           {/* Mobile */}
-          <div className="flex items-center gap-3 lg:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <a
               href={site.phoneHref}
               aria-label={`Call ${site.phone}`}
-              className="flex items-center justify-center w-9 h-9 rounded-full transition-colors hover:bg-white/10"
-              style={{ color: "#c9a84c" }}
+              className="flex items-center gap-2 h-9 px-2.5 rounded-full transition-colors"
+              style={{ backgroundColor: "rgba(201,168,76,0.18)", color: "#ffffff" }}
             >
-              <FaPhone size={16} />
+              <FaPhone size={14} style={{ color: "#c9a84c" }} />
+              <span className="text-sm font-extrabold">{site.phone}</span>
             </a>
             <button
               onClick={() => setMenuOpen(true)}
@@ -300,7 +292,7 @@ export default function Navbar({ site, nav, fleet, services }) {
               aria-expanded={menuOpen}
               className="flex items-center justify-center w-9 h-9 rounded-md transition-colors hover:bg-white/10"
             >
-              <FaBars size={20} className="text-white" />
+              <FaBars size={20} style={{ color: "#ffffff" }} />
             </button>
           </div>
         </div>

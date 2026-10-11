@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { imageProps, isCutout } from "@/app/lib/content/images";
 import {
   FaArrowRight,
   FaChevronRight,
@@ -35,6 +37,34 @@ function RealisticVehicleIcon({ id, brand, label }) {
       </span>
     </div>
   );
+
+  // 0. PORTABLE TOILET + HAND WASH STATION
+  if (id === "portable-toilets") {
+    return (
+      <div className="w-[140px] h-[50px] flex items-end justify-center gap-2 relative overflow-visible">
+        {/* Portable toilet */}
+        <div className="w-[32px] h-[46px] bg-[#1e6fbf] border-2 border-[#155a9c] rounded-t-[10px] rounded-b-[2px] relative shadow-md">
+          <div className="absolute -top-[3px] left-1/2 -translate-x-1/2 w-[22px] h-[4px] bg-[#e2e8f0] rounded-t-sm" />
+          <div className="absolute top-[7px] left-1/2 -translate-x-1/2 w-[16px] h-[3px] flex gap-[2px]">
+            <span className="flex-1 bg-[#0f2d4a]/40 rounded-[1px]" />
+            <span className="flex-1 bg-[#0f2d4a]/40 rounded-[1px]" />
+          </div>
+          <div className="absolute inset-x-[5px] top-[13px] bottom-[2px] bg-[#1e3a5f] rounded-t-[3px] border border-[#0f2d4a]">
+            <span className="absolute right-[3px] top-1/2 w-[2px] h-[6px] bg-[#e2e8f0] rounded-full" />
+          </div>
+        </div>
+        {/* Hand wash station */}
+        <div className="w-[30px] h-[34px] relative">
+          <div className="absolute inset-x-0 top-0 h-[9px] bg-[#e2e8f0] border border-[#94a3b8] rounded-t-[4px]">
+            <span className="absolute left-1/2 -translate-x-1/2 top-[2px] w-[10px] h-[3px] bg-[#1e3a5f] rounded-b-full" />
+          </div>
+          <div className="absolute inset-x-[2px] top-[9px] bottom-0 bg-[#f8fafc] border border-[#94a3b8] rounded-b-[2px] flex items-center justify-center">
+            <span className="text-[5px] font-extrabold text-[#0f2d4a] tracking-widest uppercase">{label}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // 1. GENERATOR SETS
   if (id === "generator") {
@@ -169,13 +199,14 @@ function RealisticVehicleIcon({ id, brand, label }) {
 
 // ── Individual fleet card component ─────────────────────
 function FleetCard({ item, linkLabel, brand }) {
-  const accent = item.accent || "#2d8fdd";
+  // One colour for every card (navy text, gold arrow) so the cards match.
+  const accent = "#0f2d4a";
 
   return (
     <Link
       href={`/fleet/${item.id}`}
       id={item.id}
-      className="group relative flex flex-col rounded-xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col w-full rounded-xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
       style={{
         backgroundColor: "#ffffff",
         borderColor: "#d6e8f5",
@@ -192,8 +223,8 @@ function FleetCard({ item, linkLabel, brand }) {
             <span
               className="text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
               style={{
-                backgroundColor: "#c9a84c18",
-                color: "#c9a84c",
+                backgroundColor: "#c9a84c1f",
+                color: "#7d5f17",
                 border: "1px solid #c9a84c44",
               }}
             >
@@ -213,10 +244,33 @@ function FleetCard({ item, linkLabel, brand }) {
           )}
         </div>
 
-        {/* Scaled Render Layer */}
-        <div className="mt-2 transform transition-transform duration-300 group-hover:scale-105">
-          <RealisticVehicleIcon id={item.graphic} brand={brand} label={item.graphicLabel} />
-        </div>
+        {/* Product render (or the drawn illustration when there is no render) */}
+        {isCutout(item.image) ? (
+          <div className="relative mt-3 w-full h-[120px] transform transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
+              className="object-contain"
+              {...imageProps(item.image)}
+            />
+          </div>
+        ) : (
+          <div className="mt-2 transform transition-transform duration-300 group-hover:scale-105">
+            <RealisticVehicleIcon id={item.graphic} brand={brand} label={item.graphicLabel} />
+          </div>
+        )}
+
+        {/* Corner badge, e.g. "Ground Level" */}
+        {item.cornerBadge ? (
+          <span
+            className="absolute bottom-2.5 right-3 text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded shadow-sm"
+            style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
+          >
+            {item.cornerBadge}
+          </span>
+        ) : null}
       </div>
 
       {/* Gold accent strip line */}
@@ -255,7 +309,7 @@ function FleetCard({ item, linkLabel, brand }) {
 
         {/* Description */}
         <p
-          className="text-sm leading-relaxed mb-4 sm:min-h-[5.7rem]"
+          className="text-sm leading-relaxed mb-4 sm:min-h-[5.7rem] 2xl:min-h-[3.8rem]"
           style={{ color: "#4a6b85" }}
         >
           {item.description}
@@ -289,7 +343,7 @@ function FleetCard({ item, linkLabel, brand }) {
           <FaChevronRight
             size={11}
             className="transition-transform duration-200 group-hover:translate-x-1"
-            style={{ color: accent }}
+            style={{ color: "#c9a84c" }}
           />
         </div>
       </div>
@@ -300,12 +354,8 @@ function FleetCard({ item, linkLabel, brand }) {
 // ── Main Layout Component ────────────────────────────
 export default function FleetGrid({ fleetGrid, fleet, brand }) {
   return (
-    <section
-      className="w-full py-16 md:py-20"
-      style={{ backgroundColor: "#f0f6fb" }}
-      aria-labelledby="fleet-heading"
-    >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+    <section className="page-section wrap" aria-labelledby="fleet-heading">
+      <div>
 
         {/* Section header panel */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
@@ -318,7 +368,7 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
               />
               <span
                 className="text-xs font-bold tracking-[0.2em] uppercase"
-                style={{ color: "#c9a84c" }}
+                style={{ color: "#86671e" }}
               >
                 {fleetGrid.eyebrow}
               </span>
@@ -342,17 +392,27 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
           <Link
             href="/fleet"
             className="hidden md:inline-flex items-center gap-2 text-sm font-bold tracking-wide shrink-0 transition-colors hover:opacity-80"
-            style={{ color: "#2d8fdd" }}
+            style={{ color: "#0f2d4a" }}
           >
             {fleetGrid.linkLabel}
             <FaArrowRight size={13} style={{ color: "#c9a84c" }} />
           </Link>
         </div>
 
-        {/* Card responsive grid system wrapper */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {fleet.map((item) => (
-            <FleetCard key={item.id} item={item} linkLabel={fleetGrid.cardLinkLabel} brand={brand} />
+        {/* Card grid: 4 per row, or 3 per row when that fills the rows evenly (e.g. 9 items).
+            With an odd count on tablets, the last card is centred instead of left alone. */}
+        <div className={`grid grid-cols-1 sm:grid-cols-2 ${fleet.length % 4 !== 0 && fleet.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-5`}>
+          {fleet.map((item, i) => (
+            <div
+              key={item.id}
+              className={`flex ${
+                fleet.length % 2 === 1 && i === fleet.length - 1
+                  ? "sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-10px)] lg:col-span-1 lg:w-auto lg:justify-self-stretch"
+                  : ""
+              }`}
+            >
+              <FleetCard item={item} linkLabel={fleetGrid.cardLinkLabel} brand={brand} />
+            </div>
           ))}
         </div>
 
@@ -361,7 +421,7 @@ export default function FleetGrid({ fleetGrid, fleet, brand }) {
           <Link
             href="/fleet"
             className="inline-flex items-center gap-2 px-6 py-3 rounded font-bold text-sm tracking-wider uppercase transition-all hover:brightness-110 active:scale-95"
-            style={{ backgroundColor: "#2d8fdd", color: "#ffffff" }}
+            style={{ backgroundColor: "#0f2d4a", color: "#ffffff" }}
           >
             {fleetGrid.mobileButtonLabel}
             <FaArrowRight size={13} />

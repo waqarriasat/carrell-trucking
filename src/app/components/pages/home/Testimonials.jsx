@@ -3,9 +3,9 @@ import { FaQuoteLeft, FaStar } from "react-icons/fa"
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  muted:  "#a9c1d4",
+  goldText: "#86671e", // gold for small text on white
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
@@ -15,22 +15,22 @@ export default function Testimonials({ testimonials, site }) {
   const TESTIMONIALS = testimonials.items
 
   return (
-    <section style={{ background: C.dark, padding: "64px 24px" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+    <section className="page-section wrap">
+      <div style={{ width: "100%" }}>
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
-            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
               {testimonials.eyebrow}
             </span>
             <div style={{ width: 32, height: 2, background: C.gold }} />
           </div>
-          <h2 style={{ fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 900, color: "#fff", margin: "0 0 12px" }}>
+          <h2 style={{ fontSize: "clamp(24px, 4vw, 34px)", fontWeight: 900, color: C.dark, margin: "0 0 12px" }}>
             {testimonials.title}
           </h2>
-          <p style={{ fontSize: 14, color: C.muted, maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>
+          <p style={{ fontSize: 15, color: C.text, maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>
             {testimonials.text}
           </p>
         </div>
@@ -53,10 +53,8 @@ export default function Testimonials({ testimonials, site }) {
           {TESTIMONIALS.map((t, i) => (
             <div
               key={i}
+              className="panel"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: `1.5px solid ${C.navy}`,
-                borderRadius: 16,
                 padding: "28px 24px",
                 position: "relative",
                 overflow: "hidden",
@@ -76,11 +74,11 @@ export default function Testimonials({ testimonials, site }) {
               </div>
 
               {/* Quote icon */}
-              <FaQuoteLeft size={24} style={{ color: C.navy, marginBottom: 12 }} />
+              <FaQuoteLeft size={24} style={{ color: "#c9d8e6", marginBottom: 12 }} aria-hidden="true" />
 
               {/* Quote text */}
               <p style={{
-                fontSize: 14, color: "#cbd5e1",
+                fontSize: 15, color: "#33475b",
                 lineHeight: 1.8, marginBottom: 24,
                 fontStyle: "italic"
               }}>
@@ -90,11 +88,11 @@ export default function Testimonials({ testimonials, site }) {
               {/* Author */}
               <div style={{
                 display: "flex", alignItems: "center", gap: 12,
-                borderTop: `1px solid ${C.navy}`, paddingTop: 16
+                borderTop: `1px solid ${C.border}`, paddingTop: 16
               }}>
                 <div style={{
                   width: 40, height: 40, borderRadius: "50%",
-                  background: C.navy,
+                  background: C.dark,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   flexShrink: 0
                 }}>
@@ -103,10 +101,10 @@ export default function Testimonials({ testimonials, site }) {
                   </span>
                 </div>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: "#fff" }}>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: C.dark }}>
                     {t.author}
                   </div>
-                  <div style={{ fontSize: 11, color: C.muted }}>
+                  <div style={{ fontSize: 12, color: C.text }}>
                     {t.company}
                   </div>
                 </div>
@@ -118,14 +116,12 @@ export default function Testimonials({ testimonials, site }) {
         {/* Bottom CTA */}
         <div style={{
           marginTop: 48, textAlign: "center",
-          padding: "32px 24px", borderRadius: 16,
-          background: "rgba(255,255,255,0.03)",
-          border: `1px solid ${C.navy}`
+          paddingTop: 40, borderTop: `1px solid ${C.border}`,
         }}>
-          <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+          <p style={{ fontSize: 20, fontWeight: 800, color: C.dark, marginBottom: 6 }}>
             {testimonials.ctaTitle}
           </p>
-          <p style={{ fontSize: 13, color: C.muted, marginBottom: 20 }}>
+          <p style={{ fontSize: 14, color: C.text, marginBottom: 20 }}>
             {testimonials.ctaText}
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
@@ -142,11 +138,11 @@ export default function Testimonials({ testimonials, site }) {
             </a>
             <a
               href={site.phoneHref}
+              className="btn-outline-navy"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "11px 24px",
-                borderRadius: 8, border: `2px solid ${C.blue}`,
-                color: C.blue, textDecoration: "none"
+                borderRadius: 8, textDecoration: "none"
               }}
             >
               {testimonials.ctaCallLabel}

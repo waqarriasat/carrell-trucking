@@ -4,21 +4,21 @@ import Image from "next/image"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import { FaFileInvoice } from "react-icons/fa6"
 import { getIcon } from "@/app/lib/content/icons"
-import { imageProps } from "@/app/lib/content/images"
+import { imageProps, isCutout } from "@/app/lib/content/images"
 
 const C = {
   dark:   "#0f2d4a",
   navy:   "#1e4d7b",
-  blue:   "#2d8fdd",
   gold:   "#c9a84c",
-  muted:  "#7a9bb5",
+  muted:  "#a9c1d4",
   light:  "#f0f6fb",
   border: "#d6e8f5",
   text:   "#4a6b85",
 }
 
 function FleetCard({ item, fleetPage, site }) {
-  const color = item.accent || C.blue
+  // Same navy for every unit so the list looks consistent.
+  const color = C.navy
   return (
     <div className="fleet-card">
       <div className="fleet-card-left">
@@ -78,20 +78,23 @@ function FleetCard({ item, fleetPage, site }) {
       </div>
 
       {/* Image — using Next.js Image */}
-      <div className="fleet-card-image">
+      <div className="fleet-card-image" style={isCutout(item.image) ? { background: "linear-gradient(180deg, #f7fafc 0%, #e8f1f9 100%)" } : undefined}>
         <Image
           src={item.image}
           alt={item.name}
           {...imageProps(item.image)}
           fill
-          sizes="280px"
-          className="object-cover"
+          sizes="320px"
+          className={isCutout(item.image) ? "object-contain" : "object-cover"}
+          style={isCutout(item.image) ? { padding: "44px 16px 36px" } : undefined}
           priority={false}
         />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(135deg, rgba(15,45,74,0.3) 0%, transparent 60%)"
-        }} />
+        {!isCutout(item.image) && (
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(135deg, rgba(15,45,74,0.3) 0%, transparent 60%)"
+          }} />
+        )}
         <span style={{
           position: "absolute", top: 12, left: 12,
           maxWidth: "calc(100% - 24px)", whiteSpace: "nowrap",
@@ -101,6 +104,14 @@ function FleetCard({ item, fleetPage, site }) {
           padding: "4px 10px", borderRadius: 20,
           background: C.gold, color: C.dark
         }}>{item.badge}</span>
+        {item.cornerBadge ? (
+          <span style={{
+            position: "absolute", right: 12, bottom: 12,
+            fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: 1.5,
+            padding: "4px 10px", borderRadius: 4,
+            background: C.gold, color: C.dark, boxShadow: "0 2px 6px rgba(0,0,0,0.25)"
+          }}>{item.cornerBadge}</span>
+        ) : null}
       </div>
     </div>
   )
@@ -108,7 +119,7 @@ function FleetCard({ item, fleetPage, site }) {
 
 export default function FleetList({ fleetPage, fleet, site }) {
   return (
-    <section style={{ backgroundColor: C.light, padding: "48px 24px" }}>
+    <section className="page-section wrap">
       <style>{`
         .fleet-card {
           display: grid;
@@ -135,7 +146,7 @@ export default function FleetList({ fleetPage, fleet, site }) {
           .fleet-card-left { padding: 20px 16px; }
         }
       `}</style>
-      <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 20 }}>
         {fleet.map(item => <FleetCard key={item.id} item={item} fleetPage={fleetPage} site={site} />)}
       </div>
     </section>

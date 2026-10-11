@@ -2,73 +2,19 @@ import Link from "next/link";
 import { FaFileLines } from "react-icons/fa6";
 import { getIcon } from "@/app/lib/content/icons";
 
-// Tailwind needs literal class names, so map the item count to a column class.
-const LG_COLS = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3", 4: "lg:grid-cols-4" };
-
 export default function CtaBanner({ ctaBanner }) {
-  // Unique, non-duplicative metrics focusing on operational excellence
-  const STATS = ctaBanner.stats;
-
   return (
-    <section
-      className="w-full py-16 md:py-20 overflow-hidden"
-      style={{ backgroundColor: "#0f2d4a" }}
-      aria-labelledby="cta-heading"
-    >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
-
-        {/* ── Stats Grid ── */}
-        <div className={`grid grid-cols-2 ${LG_COLS[STATS.length] || "lg:grid-cols-4"} gap-4 mb-12`}>
-          {STATS.map((s, i) => (
-            <div
-              key={i}
-              className={`flex flex-col items-center text-center rounded-xl py-6 px-4 transition-all ${
-                // Odd count on mobile: let the last stat use the full row
-                STATS.length % 2 === 1 && i === STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
-              }`}
-              style={{
-                backgroundColor: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <span
-                className="text-2xl sm:text-3xl font-black leading-none mb-1.5 block"
-                style={{ color: "#c9a84c" }}
-              >
-                {s.value}
-              </span>
-              <span
-                className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest block"
-                style={{ color: "#7a9bb5" }}
-              >
-                {s.label}
-              </span>
-            </div>
-          ))}
-        </div>
+    <section className="page-section wrap band-navy" aria-labelledby="cta-heading">
+      <div>
 
         {/* ── Main CTA Box ── */}
-        <div
-          className="rounded-2xl overflow-hidden"
-          style={{ border: "1px solid #1e4d7b" }}
-        >
-          {/* Gold top accent */}
-          <div className="h-1 w-full" style={{ backgroundColor: "#c9a84c" }} />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
 
             {/* Left — Value Proposition */}
             <div
-              className="p-8 md:p-12 flex flex-col justify-center relative"
-              style={{ backgroundColor: "#1e4d7b" }}
+              className="lg:pr-12 flex flex-col justify-center relative"
             >
-              <div
-                className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                style={{
-                  backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-                  backgroundSize: "20px 20px",
-                }}
-              />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
@@ -108,8 +54,8 @@ export default function CtaBanner({ ctaBanner }) {
 
             {/* Right — 3-Step Process */}
             <div
-              className="p-8 md:p-12 flex flex-col justify-center gap-8 relative"
-              style={{ backgroundColor: "#0a2038" }}
+              className="lg:pl-12 lg:border-l pt-10 lg:pt-0 border-t lg:border-t-0 flex flex-col justify-center gap-8 relative"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
               <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/50 mb-2">
                 {ctaBanner.processLabel}
@@ -125,11 +71,11 @@ export default function CtaBanner({ ctaBanner }) {
                   <div
                     className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 border"
                     style={{
-                      backgroundColor: "rgba(45, 143, 221, 0.08)",
-                      borderColor: "rgba(45, 143, 221, 0.25)",
+                      backgroundColor: "rgba(201, 168, 76, 0.1)",
+                      borderColor: "rgba(201, 168, 76, 0.35)",
                     }}
                   >
-                    <item.icon size={15} style={{ color: "#2d8fdd" }} />
+                    <item.icon size={15} style={{ color: "#c9a84c" }} />
                   </div>
 
                   <div>
@@ -141,7 +87,7 @@ export default function CtaBanner({ ctaBanner }) {
                         {item.title}
                       </h3>
                     </div>
-                    <p className="text-xs leading-relaxed" style={{ color: "#7a9bb5" }}>
+                    <p className="text-xs leading-relaxed" style={{ color: "#a9c1d4" }}>
                       {item.desc}
                     </p>
                   </div>

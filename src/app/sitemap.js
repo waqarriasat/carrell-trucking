@@ -1,8 +1,9 @@
 import { getContent } from "@/app/lib/server/content"
+import { siteBaseUrl } from "@/app/lib/server/seo"
 
 export default async function sitemap() {
   const { fleet, services, seo } = await getContent()
-  const baseUrl = seo.siteUrl.replace(/\/$/, "")
+  const baseUrl = siteBaseUrl(seo)
 
   const fleetPages = fleet.map((f) => ({
     url: `${baseUrl}/fleet/${f.id}`,

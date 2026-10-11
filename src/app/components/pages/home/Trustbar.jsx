@@ -2,144 +2,78 @@ import { FaPhone, FaChevronRight } from "react-icons/fa6";
 import Link from "next/link";
 
 // ─────────────────────────────────────────────
-//  TrustBar
-//  Full-width strip that sits directly below
-//  the Hero. Two rows:
-//
-//  Row 1 — stat counters (admin: Home → Trust bar)
-//  Row 2 — industry pills (from services)
-//
+//  TrustBar (light theme)
+//  Directly below the hero:
+//   • stat cards — white cards, navy numbers
+//     (admin: Home → Trust bar)
+//   • industries row — one white block with
+//     links to the fleet filtered by industry
 //  No state, no hooks — pure server component.
 // ─────────────────────────────────────────────
 
 // Tailwind needs literal class names, so map the item count to a column class.
 const LG_COLS = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3", 4: "lg:grid-cols-4" };
+const NAVY = "#0f2d4a";
 
 export default function TrustBar({ trustBar, site, services }) {
   const TRUST_STATS = trustBar.stats;
 
   return (
-    <section
-      className="relative w-full"
-      style={{ backgroundColor: "#0f2d4a" }}
-      aria-label="Trust indicators"
-    >
-      {/* ── Top divider rule ── */}
-      <div
-        className="h-px w-full"
-        style={{ backgroundColor: "#1e4d7b" }}
-        aria-hidden="true"
-      />
-
-      {/* ── Stat row ── */}
-      <div
-        className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10"
-        style={{ borderBottom: "1px solid #1e4d7b" }}
-      >
-        <div className={`grid grid-cols-2 ${LG_COLS[TRUST_STATS.length] || "lg:grid-cols-4"}`}>
-          {TRUST_STATS.map((stat, i) => (
-            <div
-              key={i}
-              className={`relative flex flex-col items-center justify-start text-center py-8 px-4 ${
-                // Odd count on mobile: let the last stat use the full row
-                TRUST_STATS.length % 2 === 1 && i === TRUST_STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
-              }`}
+    <section className="page-section wrap" aria-label="Trust indicators">
+      {/* ── Stat cards ── */}
+      <div className={`grid grid-cols-2 ${LG_COLS[TRUST_STATS.length] || "lg:grid-cols-4"} gap-3 sm:gap-4`}>
+        {TRUST_STATS.map((stat, i) => (
+          <div
+            key={i}
+            className={`panel relative overflow-hidden flex flex-col items-center justify-center text-center py-6 sm:py-7 px-4 ${
+              // Odd count on mobile: let the last stat use the full row
+              TRUST_STATS.length % 2 === 1 && i === TRUST_STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
+            }`}
+          >
+            <span className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+            <span
+              className="block text-3xl md:text-4xl font-black tracking-tight leading-tight whitespace-nowrap mb-1.5"
+              style={{ color: NAVY, fontFamily: "'Georgia', 'Times New Roman', serif" }}
             >
-              {/* Vertical divider between items (not after last) */}
-              {i < TRUST_STATS.length - 1 && (
-                <span
-                  className="hidden lg:block absolute right-0 top-1/4 bottom-1/4 w-px"
-                  style={{ backgroundColor: "#1e4d7b" }}
-                  aria-hidden="true"
-                />
-              )}
-              {/* Mobile: divider on right for first col items */}
-              {i % 2 === 0 && i < TRUST_STATS.length - 1 && (
-                <span
-                  className="lg:hidden absolute right-0 top-1/4 bottom-1/4 w-px"
-                  style={{ backgroundColor: "#1e4d7b" }}
-                  aria-hidden="true"
-                />
-              )}
-
-              {/* Stat value */}
-              <span
-                className="block text-3xl md:text-4xl font-black tracking-tight leading-tight whitespace-nowrap mb-1"
-                style={{
-                  color: "#c9a84c",
-                  fontFamily: "'Georgia', 'Times New Roman', serif",
-                }}
-              >
-                {stat.value}
-              </span>
-
-              {/* Stat label */}
-              <span
-                className="text-xs font-semibold tracking-wider uppercase leading-snug max-w-[220px]"
-                style={{ color: "#7a9bb5" }}
-              >
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
+              {stat.value}
+            </span>
+            <span className="text-xs font-semibold tracking-wider uppercase leading-snug max-w-[230px]" style={{ color: "#4a6b85" }}>
+              {stat.label}
+            </span>
+          </div>
+        ))}
       </div>
 
-      {/* ── Industries served row ── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-5">
+      {/* ── Industries served ── */}
+      <div className="panel mt-3 sm:mt-4 px-5 sm:px-7 py-4">
         <div className="flex flex-wrap items-center justify-center lg:justify-between gap-3">
-
-          {/* Label */}
-          <span
-            className="text-xs font-bold tracking-[0.2em] uppercase shrink-0"
-            style={{ color: "#7a9bb5" }}
-          >
+          <span className="text-xs font-bold tracking-[0.2em] uppercase shrink-0" style={{ color: "#86671e" }}>
             {trustBar.industriesLabel}
           </span>
 
-          {/* Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2">
             {services.map((service) => (
               <Link
                 key={service.id}
                 href={`/fleet?industry=${service.id}`}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border transition-all duration-200 hover:border-opacity-100 hover:text-white group"
-                style={{
-                  borderColor: "#1e4d7b",
-                  color: "#7a9bb5",
-                }}
+                className="pill-outline-navy inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase group"
               >
                 {service.label}
-                <FaChevronRight
-                  size={8}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: "#c9a84c" }}
-                />
+                <FaChevronRight size={8} className="opacity-60 group-hover:opacity-100 transition-opacity" style={{ color: "#c9a84c" }} />
               </Link>
             ))}
           </div>
 
-          {/* Phone CTA — desktop only */}
           <a
             href={site.phoneHref}
-            className="hidden lg:inline-flex items-center gap-2 text-sm font-bold tracking-wide transition-colors hover:text-white shrink-0"
-            style={{ color: "#2d8fdd" }}
+            className="hidden lg:inline-flex items-center gap-2 text-sm font-bold tracking-wide transition-colors hover:text-[#86671e] shrink-0"
+            style={{ color: NAVY }}
           >
-            <FaPhone size={13} style={{ color: "#c9a84c" }} />
+            <FaPhone size={13} style={{ color: "#86671e" }} />
             {site.phone}
           </a>
-
         </div>
       </div>
-
-      {/* ── Bottom transition into light section ── */}
-      <div
-        className="h-8"
-        style={{
-          background: "linear-gradient(to bottom, #0f2d4a, #f0f6fb)",
-        }}
-        aria-hidden="true"
-      />
     </section>
   );
 }

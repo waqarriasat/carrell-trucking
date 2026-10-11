@@ -1,38 +1,379 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
+import { FaPhone, FaChevronRight, FaChevronLeft, FaArrowRight } from "react-icons/fa6";
 
-export default function Hero({ hero, site, fleet }) {
+// ─────────────────────────────────────────────
+//  Hero (home page, under the fleet banner)
+//  Two layouts, chosen in Admin → Home → Hero → Layout:
+//   • "photo" (default) — text on solid navy on the left, the slide
+//     photo at full strength on the right (sharp edge, thin gold line).
+//     Each slide has its own text; the main headline stays as one slide.
+//     Changes every few seconds (progress shown in the active dot);
+//     pauses only while the cursor or keyboard focus is on the text.
+//     Arrows on desktop, swipe on phones. On phones the photo is its own band under
+//     the text. Nothing ever sits on the photo or behind the text.
+//   • "cards" — the earlier layout: equipment cards on the right over
+//     a darkened slideshow. Kept so it can be switched back any time.
+// ─────────────────────────────────────────────
+
+const NAVY = "#0f2d4a";
+
+// Slide dots + "2 / 4" counter. The active dot fills up while the slide
+// is shown (so visitors see it is a slideshow and when it will change);
+// the fill freezes while paused and continues afterwards.
+function SlideDots({ count, current, onPick, className = "", progressMs = 0, paused = false, runKey = 0, onDone }) {
+  if (count < 2) return null;
+  return (
+    <div className={`flex items-center gap-2 ${className}`}>
+      {Array.from({ length: count }, (_, i) => {
+        const on = i === current;
+        return (
+          <button
+            key={i}
+            type="button"
+            onClick={() => onPick(i)}
+            aria-label={`Show slide ${i + 1} of ${count}`}
+            aria-current={on ? "true" : undefined}
+            className="relative h-2.5 rounded-full overflow-hidden transition-all duration-300 shadow"
+            style={{ width: on ? 34 : 10, backgroundColor: on && progressMs ? "rgba(255,255,255,0.45)" : on ? "#c9a84c" : "rgba(255,255,255,0.85)" }}
+          >
+            {on && progressMs ? (
+              <span
+                key={`${current}-${runKey}`}
+                className="absolute inset-0 origin-left rounded-full"
+                style={{
+                  backgroundColor: "#c9a84c",
+                  animation: `hero-progress ${progressMs}ms linear forwards`,
+                  animationPlayState: paused ? "paused" : "running",
+                }}
+                onAnimationEnd={onDone}
+                aria-hidden="true"
+              />
+            ) : null}
+          </button>
+        );
+      })}
+      <span className="ml-1 text-[11px] font-bold tabular-nums text-white" aria-hidden="true">
+        {current + 1} / {count}
+      </span>
+    </div>
+  );
+}
+
+// Each slide always shows the WHOLE photo (never cropped). If the frame is
+// a little wider or taller than the photo, the leftover space is filled
+// with a soft, blurred copy of the same photo instead of empty bars.
+function Slides({ images, current }) {
+  return images.map((src, index) => (
+    <div
+      key={index}
+      className={`absolute inset-0 overflow-hidden transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${
+        index === current ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <div
+        className="absolute -inset-6 bg-cover bg-center blur-xl scale-110 opacity-70"
+        style={{ backgroundImage: `url('${src}')` }}
+        aria-hidden="true"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" className="absolute inset-0 w-full h-full object-contain" draggable="false" loading={index === 0 ? "eager" : "lazy"} />
+    </div>
+  ));
+}
+
+// Visitors who ask their device for less motion get no auto-advance.
+const subscribeReducedMotion = (cb) => {
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const getReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const HEADLINE_CLASS = "text-4xl sm:text-5xl xl:text-[2.6rem] 2xl:text-[3.1rem] font-black leading-[1.08] mb-5";
+// Photo layout = light (white block); cards layout = dark (over photos).
+const GOLD_HEADING = "var(--gold-heading)";
+const HEADLINE_STYLE = { fontFamily: "'Georgia', 'Times New Roman', serif" };
+const TEXT_CLASS = "text-base sm:text-lg leading-relaxed mb-8 max-w-lg";
+
+function Eyebrow({ children, light }) {
+  return (
+    <div className="flex items-center gap-3 mb-6">
+      <span className="h-px w-10 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+      <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: light ? "#86671e" : "#c9a84c" }}>
+        {children}
+      </span>
+    </div>
+  );
+}
+
+// The site's main headline (Admin → Home → Hero → Headline)
+function MainHeadline({ hero, as: Tag = "h1", light }) {
+  return (
+    <Tag className={HEADLINE_CLASS} style={{ ...HEADLINE_STYLE, color: light ? NAVY : "#ffffff" }}>
+      {hero.titleStart}{" "}
+      <span className="relative inline-block">
+        {hero.titleAccent1}
+        <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+      </span>
+      {` ${hero.titleJoin} `}
+      <span>{hero.titleAccent2}</span>
+      <br />
+      <span>{`${hero.titleLine2} `}</span>
+      <span className="whitespace-nowrap" style={{ color: light ? GOLD_HEADING : "#c9a84c" }}>{hero.titleAccent3}</span>
+    </Tag>
+  );
+}
+
+function MainText({ hero, light }) {
+  return (
+    <p className={TEXT_CLASS} style={{ color: light ? "#4a6b85" : "#e2e8f0" }}>
+      {hero.text}{" "}
+      <span className="font-medium" style={{ color: light ? NAVY : "#ffffff" }}>{hero.textHighlight}</span>
+    </p>
+  );
+}
+
+const isExternal = (href) => /^https?:\/\//i.test(href || "");
+
+function SecondaryButton({ button, light }) {
+  const cls = `inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap ${light ? "btn-outline-navy" : "border-2 transition-all duration-200 hover:bg-white/10"}`;
+  const style = light
+    ? undefined
+    : { borderColor: "rgba(255,255,255,0.85)", color: "#ffffff", backgroundColor: "rgba(10,32,56,0.35)" };
+  const inner = (
+    <>
+      {button.label}
+      <FaChevronRight size={12} />
+    </>
+  );
+  return isExternal(button.href) ? (
+    <a href={button.href} target="_blank" rel="noopener noreferrer" className={cls} style={style}>{inner}</a>
+  ) : (
+    <Link href={button.href || "/fleet"} className={cls} style={style}>{inner}</Link>
+  );
+}
+
+function Actions({ hero, site, secondary, light }) {
+  return (
+    <>
+      <div className="flex flex-col sm:flex-row gap-3 mb-10">
+        <Link
+          href={hero.primaryButton.href}
+          className="inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-95"
+          style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
+        >
+          {hero.primaryButton.label}
+          <FaArrowRight size={13} />
+        </Link>
+        <SecondaryButton button={secondary} light={light} />
+      </div>
+
+      <a href={site.phoneHref} className="inline-flex items-center gap-3 group">
+        <span
+          className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors"
+          style={light ? { borderColor: "#c9a84c", backgroundColor: "#c9a84c1f" } : { borderColor: "#c9a84c88", backgroundColor: "rgba(10,32,56,0.5)" }}
+        >
+          <FaPhone size={14} style={{ color: light ? "#86671e" : "#c9a84c" }} />
+        </span>
+        <span>
+          <span className="block text-xs font-semibold tracking-widest uppercase" style={{ color: light ? "#86671e" : "#c9a84c" }}>
+            {hero.callLabel}
+          </span>
+          <span className="block font-bold text-lg tracking-wide transition-colors group-hover:opacity-80" style={{ color: light ? NAVY : "#ffffff" }}>
+            {site.phone}
+          </span>
+        </span>
+      </a>
+    </>
+  );
+}
+
+export default function Hero({ hero, site, fleet, compact = false }) {
+  const photoLayout = hero.layout !== "cards";
   const HERO_FLEET_PREVIEW = fleet.slice(0, hero.previewCount);
-  // Background slider images (managed in the admin panel)
-  const SLIDER_IMAGES = hero.slides.filter(Boolean);
+
+  // Photo layout: slides with their own text. Cards layout: background photos.
+  const photoSlides = (hero.photoSlides || []).filter((sl) => sl && sl.image);
+  const SLIDER_IMAGES = photoLayout && photoSlides.length
+    ? photoSlides.map((sl) => sl.image)
+    : (hero.slides || []).filter(Boolean);
   const slideCount = SLIDER_IMAGES.length;
-  const slideMs = Math.max(1, Number(hero.slideSeconds) || 5) * 1000;
+  const slideMs = Math.max(2, Number(hero.slideSeconds) || 8) * 1000;
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [restartKey, setRestartKey] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false);
 
-  // Automatically cycle images
+  // Cards layout: timer. (The photo layout advances when the progress
+  // fill in the active dot completes, so a pause resumes where it left off.)
   useEffect(() => {
-    if (slideCount < 2) return;
+    if (photoLayout || slideCount < 2 || paused || reducedMotion) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slideCount);
     }, slideMs);
     return () => clearInterval(timer);
-  }, [slideCount, slideMs]);
+  }, [photoLayout, slideCount, slideMs, restartKey, paused, reducedMotion]);
 
+  const pickSlide = (i) => {
+    setCurrentSlide(((i % slideCount) + slideCount) % slideCount);
+    setRestartKey((k) => k + 1);
+  };
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slideCount);
+
+  // Swipe on the photo (phones / tablets)
+  const [touchX, setTouchX] = useState(null);
+  const swipeProps = {
+    onTouchStart: (e) => setTouchX(e.touches[0].clientX),
+    onTouchEnd: (e) => {
+      if (touchX == null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      setTouchX(null);
+      if (Math.abs(dx) > 40) pickSlide(currentSlide + (dx < 0 ? 1 : -1));
+    },
+  };
+
+  const pauseProps = {
+    onMouseEnter: () => setPaused(true),
+    onMouseLeave: () => setPaused(false),
+    onFocus: () => setPaused(true),
+    onBlur: () => setPaused(false),
+  };
+
+  // ── Photo layout ──
+  if (photoLayout) {
+    // Slide text: a slide with an empty headline shows the main headline.
+    // The first such slide carries the page's <h1>; the others use <h2>.
+    const isMain = (sl) => !String(sl.title || "").trim();
+    const mainIndex = photoSlides.findIndex(isMain);
+    const textSlides = photoSlides.length ? photoSlides : [{ title: "" }];
+    const active = textSlides[Math.min(currentSlide, textSlides.length - 1)];
+    const secondary = !isMain(active) && active.button && active.button.label ? active.button : hero.secondaryButton;
+
+    return (
+      <section className="page-section band-flush wrap bleed-right" aria-roledescription="carousel" aria-label="Highlights">
+        {/* One white block: text on the left, the slide photo on the right
+            (below the text on phones). Nothing ever sits on the photo. */}
+        <div className="overflow-hidden xl:grid xl:grid-cols-[42fr_58fr] 2xl:grid-cols-[41fr_59fr]">
+          {/* Text side: the slideshow pauses only while the visitor is here */}
+          <div className="flex items-center pr-[var(--gutter)] py-11 sm:py-14 xl:pr-12 2xl:pr-16" {...pauseProps}>
+            <div className="w-full">
+              {mainIndex === -1 ? (
+                <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
+              ) : null}
+
+              {/* All slide texts share one grid cell, so the height never jumps */}
+              <div className="grid" aria-live={paused ? "polite" : "off"}>
+                {textSlides.map((sl, i) => {
+                  const on = i === currentSlide;
+                  const main = isMain(sl);
+                  const Heading = main && i === mainIndex ? "h1" : "h2";
+                  return (
+                    <div
+                      key={i}
+                      className="[grid-area:1/1]"
+                      aria-hidden={on ? undefined : "true"}
+                      style={{
+                        opacity: on ? 1 : 0,
+                        visibility: on ? "visible" : "hidden",
+                        transition: on ? "opacity .7s ease" : "opacity .7s ease, visibility 0s linear .7s",
+                      }}
+                    >
+                      <Eyebrow light>{main ? hero.eyebrow : sl.eyebrow || hero.eyebrow}</Eyebrow>
+                      {main ? (
+                        <>
+                          <MainHeadline hero={hero} as={Heading} light />
+                          <MainText hero={hero} light />
+                        </>
+                      ) : (
+                        <>
+                          <Heading className={HEADLINE_CLASS} style={{ ...HEADLINE_STYLE, color: NAVY }}>
+                            {sl.title}{" "}
+                            {sl.titleAccent ? <span className="whitespace-nowrap" style={{ color: GOLD_HEADING }}>{sl.titleAccent}</span> : null}
+                          </Heading>
+                          <p className={TEXT_CLASS} style={{ color: "#4a6b85" }}>{sl.text}</p>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <Actions hero={hero} site={site} secondary={secondary} light />
+            </div>
+          </div>
+
+          {slideCount ? (
+            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[480px] max-xl:-ml-[var(--gutter)]" {...swipeProps}>
+              <div className="absolute inset-0" aria-hidden="true">
+                <Slides images={SLIDER_IMAGES} current={currentSlide} />
+              </div>
+              {/* Thin gold line where text and photo meet */}
+              <div className="absolute hidden xl:block inset-y-0 left-0 w-[3px] z-[1]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+              <div className="absolute xl:hidden inset-x-0 top-0 h-[3px] z-[1]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
+              {slideCount > 1 ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => pickSlide(currentSlide - 1)}
+                    aria-label="Previous slide"
+                    className="hidden md:flex absolute z-10 left-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-[#0a2038]/70 text-white transition-colors hover:bg-[#c9a84c] hover:text-[#0f2d4a]"
+                  >
+                    <FaChevronLeft size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => pickSlide(currentSlide + 1)}
+                    aria-label="Next slide"
+                    className="hidden md:flex absolute z-10 right-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-[#0a2038]/70 text-white transition-colors hover:bg-[#c9a84c] hover:text-[#0f2d4a]"
+                  >
+                    <FaChevronRight size={14} />
+                  </button>
+                </>
+              ) : null}
+              <SlideDots
+                count={slideCount}
+                current={currentSlide}
+                onPick={pickSlide}
+                progressMs={reducedMotion ? 0 : slideMs}
+                paused={paused}
+                runKey={restartKey}
+                onDone={nextSlide}
+                className="absolute z-10 bottom-4 right-4 rounded-full px-3 py-2 bg-[#0a2038]/75"
+              />
+            </div>
+          ) : null}
+        </div>
+      </section>
+    );
+  }
+
+  // Cards layout: the main headline and text, fixed
+  const textBlock = (
+    <div>
+      <Eyebrow>{hero.eyebrow}</Eyebrow>
+      <MainHeadline hero={hero} />
+      <MainText hero={hero} />
+      <Actions hero={hero} site={site} secondary={hero.secondaryButton} />
+    </div>
+  );
+
+  // ── Equipment cards layout (earlier design) ──
   return (
+    <div className="page-section band-flush">
     <section
-      className="relative min-h-[92vh] flex items-center overflow-hidden"
-      style={{ backgroundColor: "#0f2d4a" }}
+      className={`relative flex items-center overflow-hidden ${compact ? "" : "min-h-[80vh]"}`}
+      style={{ backgroundColor: NAVY }}
     >
-      {/* ── BACKGROUND IMAGE SLIDER ── */}
+      {/* ── BACKGROUND IMAGE SLIDER ── (clearly visible photos) */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
         {SLIDER_IMAGES.map((src, index) => (
           <div
             key={index}
             className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? "opacity-25 scale-100" : "opacity-0 scale-105"
+              index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
             } transform motion-reduce:transition-none`}
             style={{
               backgroundImage: `url('${src}')`,
@@ -41,38 +382,31 @@ export default function Hero({ hero, site, fleet }) {
         ))}
       </div>
 
-      {/* Dark overlay matrix tint layer to guarantee typography readability */}
-      <div 
-        className="absolute inset-0 z-0 mix-blend-multiply opacity-80"
-        style={{ backgroundColor: "#0f2d4a" }}
+      {/* Readability layer: solid navy behind the text (left), fading out
+          to the right so the photo shows. Phones (one column, text over the
+          whole photo) get an even, darker layer so text always stays clear. */}
+      <div
+        className="absolute inset-0 z-0 lg:hidden"
+        style={{ backgroundColor: "rgba(10, 32, 56, 0.9)" }}
         aria-hidden="true"
       />
-
-      {/* Dot-grid structural texture */}
       <div
-        className="absolute inset-0 opacity-[0.05] z-0"
+        className="absolute inset-0 z-0 hidden lg:block"
         style={{
-          backgroundImage: "radial-gradient(circle, #7a9bb5 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
+          background:
+            "linear-gradient(90deg, #0a2038 0%, #0a2038 34%, rgba(10,32,56,0.9) 46%, rgba(10,32,56,0.5) 64%, rgba(10,32,56,0.35) 100%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Diagonal accent graphic line */}
-      <div
-        className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] z-0"
-        style={{
-          background: "linear-gradient(135deg, transparent 40%, #c9a84c 40%, #c9a84c 42%, transparent 42%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Blue radial spotlight beam */}
-      <div
-        className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none z-0"
-        style={{ background: "radial-gradient(circle, #2d8fdd 0%, transparent 70%)" }}
-        aria-hidden="true"
-      />
+      {/* Top fade: continues the fleet banner's navy so there is no seam */}
+      {compact ? (
+        <div
+          className="absolute top-0 inset-x-0 h-32 lg:h-40 pointer-events-none z-0"
+          style={{ background: "linear-gradient(to bottom, #0f2d4a, transparent)" }}
+          aria-hidden="true"
+        />
+      ) : null}
 
       {/* Bottom organic fade blend out */}
       <div
@@ -82,90 +416,14 @@ export default function Hero({ hero, site, fleet }) {
       />
 
       {/* ── Content Grid Layout ── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 lg:px-10 py-20 lg:py-28">
+      <div className={`relative z-10 w-full wrap ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-          {/* Left: Headline & Call To Actions Panel */}
-          <div>
-            {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-6">
-              <span className="h-px w-10 shrink-0" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
-              <span className="text-xs font-bold tracking-[0.25em] uppercase" style={{ color: "#c9a84c" }}>
-                {hero.eyebrow}
-              </span>
-            </div>
-
-            {/* Main Headline Statement */}
-            <h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.05] text-white mb-6"
-              style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
-            >
-              {hero.titleStart}{" "}
-              <span className="relative inline-block" style={{ color: "#2d8fdd" }}>
-                {hero.titleAccent1}
-                <span
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
-                  style={{ backgroundColor: "#c9a84c" }}
-                  aria-hidden="true"
-                />
-              </span>
-              {` ${hero.titleJoin} `}
-              <span style={{ color: "#2d8fdd" }}>{hero.titleAccent2}</span>
-              <br />
-              <span className="text-white">{`${hero.titleLine2} `}</span>
-              <span style={{ color: "#c9a84c" }}>{hero.titleAccent3}</span>
-            </h1>
-
-            {/* Context Subtext Description */}
-            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "#cbd5e1" }}>
-              {hero.text}{" "}
-              <span className="text-white font-medium">
-                {hero.textHighlight}
-              </span>
-            </p>
-
-            {/* Primary Action Button Cluster */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <Link
-                href={hero.primaryButton.href}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase transition-all duration-200 hover:brightness-110 active:scale-95"
-                style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
-              >
-                {hero.primaryButton.label}
-                <FaArrowRight size={13} />
-              </Link>
-              <Link
-                href={hero.secondaryButton.href}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase border-2 transition-all duration-200 hover:bg-white/10"
-                style={{ borderColor: "#2d8fdd", color: "#2d8fdd" }}
-              >
-                {hero.secondaryButton.label}
-                <FaChevronRight size={12} />
-              </Link>
-            </div>
-
-            {/* Direct Line Phone Trigger */}
-            <a href={site.phoneHref} className="inline-flex items-center gap-3 group">
-              <span
-                className="flex items-center justify-center w-9 h-9 rounded-full border transition-colors group-hover:border-white/50"
-                style={{ borderColor: "#1e4d7b" }}
-              >
-                <FaPhone size={14} style={{ color: "#c9a84c" }} />
-              </span>
-              <span>
-                <span className="block text-xs font-semibold tracking-widest uppercase" style={{ color: "#7a9bb5" }}>
-                  {hero.callLabel}
-                </span>
-                <span className="block text-white font-bold text-lg tracking-wide group-hover:text-white/80 transition-colors">
-                  {site.phone}
-                </span>
-              </span>
-            </a>
-          </div>
+          {textBlock}
 
           {/* Right: Fleet Preview Cards — Desktop Viewports Only */}
           <div className="hidden lg:block">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5" style={{ color: "#7a9bb5" }}>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-5 inline-block px-2.5 py-1 rounded" style={{ color: "#ffffff", backgroundColor: "rgba(10,32,56,0.8)" }}>
               {hero.previewLabel}
             </p>
 
@@ -176,9 +434,9 @@ export default function Hero({ hero, site, fleet }) {
                   href={`/fleet/${item.id}`}
                   className="group relative flex flex-col justify-between p-4 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                   style={{
-                    backgroundColor: i % 2 === 0 ? "rgba(10, 32, 56, 0.85)" : "rgba(17, 40, 64, 0.85)",
-                    borderColor: "#1e4d7b",
-                    backdropFilter: "blur(4px)",
+                    backgroundColor: "rgba(10, 32, 56, 0.92)",
+                    borderColor: "rgba(201, 168, 76, 0.35)",
+                    backdropFilter: "blur(6px)",
                   }}
                 >
                   {item.badge && (
@@ -190,15 +448,23 @@ export default function Hero({ hero, site, fleet }) {
                     </span>
                   )}
 
-                  <div>
-                    <p className="text-white font-bold text-sm leading-tight mb-1">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <p className="text-white font-bold text-sm leading-tight">
                       {item.shortName}
                     </p>
+                    {item.cornerBadge ? (
+                      <span
+                        className="text-[9px] font-black tracking-widest uppercase px-1.5 py-0.5 rounded"
+                        style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
+                      >
+                        {item.cornerBadge}
+                      </span>
+                    ) : null}
                   </div>
 
                   <FaChevronRight
                     size={10}
-                    className="absolute top-4 right-4 opacity-0 group-hover:opacity-60 transition-opacity"
+                    className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
                     style={{ color: "#c9a84c" }}
                   />
 
@@ -213,8 +479,8 @@ export default function Hero({ hero, site, fleet }) {
 
             <Link
               href="/fleet"
-              className="inline-flex items-center gap-2 mt-4 text-sm font-medium transition-colors hover:text-white"
-              style={{ color: "#7a9bb5" }}
+              className="inline-flex items-center gap-2 mt-4 text-sm font-semibold px-2.5 py-1 rounded transition-colors hover:text-[#c9a84c]"
+              style={{ color: "#ffffff", backgroundColor: "rgba(10,32,56,0.8)" }}
             >
               {hero.viewAllText.replace("{count}", fleet.length)}
               <FaArrowRight size={12} style={{ color: "#c9a84c" }} />
@@ -224,5 +490,6 @@ export default function Hero({ hero, site, fleet }) {
         </div>
       </div>
     </section>
+    </div>
   );
 }
