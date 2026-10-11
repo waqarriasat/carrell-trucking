@@ -117,3 +117,9 @@ body:has(#admin-root) {
   background: #0f2d4a;
   border-color: #0f2d4a;
 }
+
+/* Hero slideshow: the active dot fills up while a slide is shown */
+@keyframes hero-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

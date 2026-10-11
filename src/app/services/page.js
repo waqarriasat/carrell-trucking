@@ -2,6 +2,7 @@ import Link from "next/link"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import { getContent } from "@/app/lib/server/content"
+import { pageMeta } from "@/app/lib/server/seo"
 import { getIcon } from "@/app/lib/content/icons"
 
 const C = {
@@ -17,10 +18,7 @@ const C = {
 
 export async function generateMetadata() {
   const { servicesPage } = await getContent()
-  return {
-    title: servicesPage.metaTitle,
-    description: servicesPage.metaDescription,
-  }
+  return pageMeta({ title: servicesPage.metaTitle, description: servicesPage.metaDescription, path: "/services" })
 }
 
 export default async function ServicesPage() {

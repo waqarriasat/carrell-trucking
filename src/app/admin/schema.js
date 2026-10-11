@@ -135,7 +135,7 @@ export const ADMIN_PAGES = [
           t("titleTemplate", "Title pattern for other pages", { help: "%s is replaced with the page name." }),
           ta("description", "Site description", { rows: 3 }),
           strings("keywords", "Keywords", { itemName: "keyword" }),
-          t("siteUrl", "Website address", { help: "Full address, e.g. https://ardmoretrailer.com (used in the sitemap)." }),
+          t("siteUrl", "Website address", { help: "Fill in once the domain is live, e.g. https://www.yourdomain.com — used for the sitemap, robots.txt and the links Google treats as official. Leave empty until then: the site uses its current address automatically." }),
         ],
       },
     ],

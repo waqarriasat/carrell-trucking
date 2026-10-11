@@ -8,6 +8,9 @@ import Testimonials from "./components/pages/home/Testimonials";
 import YardSection from "./components/pages/home/YardSection";
 import { getContent } from "@/app/lib/server/content";
 
+// Home: the site-wide title and description, plus its canonical address
+export const metadata = { alternates: { canonical: "/" } };
+
 export default async function HomePage() {
   const { home, site, fleet, services } = await getContent();
 

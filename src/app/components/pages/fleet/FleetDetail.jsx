@@ -18,7 +18,7 @@ const C = {
   text: "#4a6b85",
 }
 
-export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site }) {
+export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site, usedIn = [] }) {
   const allImages = [item.image, ...(item.gallery || [])].filter(Boolean)
   const [activeImage, setActiveImage] = useState(0)
 
@@ -221,6 +221,30 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site 
                         borderRadius: 20, background: C.light,
                         border: `1px solid ${C.border}`, color: C.text
                       }}>{u}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Industries that use this unit — links to the matching service pages */}
+              {usedIn.length > 0 && (
+                <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+                    <div style={{ width: 24, height: 2, background: C.gold }} />
+                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
+                      Industries We Supply
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {usedIn.map((s) => (
+                      <Link
+                        key={s.id}
+                        href={`/services/${s.id}`}
+                        className="pill-outline-navy"
+                        style={{ fontSize: 12, fontWeight: 700, padding: "6px 14px", borderRadius: 20, textDecoration: "none" }}
+                      >
+                        {s.label} {item.shortName || item.name} rentals →
+                      </Link>
                     ))}
                   </div>
                 </div>

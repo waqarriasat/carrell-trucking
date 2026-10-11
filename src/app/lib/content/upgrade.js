@@ -23,6 +23,7 @@ import { LEGACY_CONTENT_V9 } from "./legacy-v9"
 import { LEGACY_CONTENT_V10 } from "./legacy-v10"
 import { LEGACY_CONTENT_V11 } from "./legacy-v11"
 import { LEGACY_CONTENT_V12 } from "./legacy-v12"
+import { LEGACY_CONTENT_V13 } from "./legacy-v13"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -40,7 +41,9 @@ import { LEGACY_CONTENT_V12 } from "./legacy-v12"
 //     option) and the ground-level delivery photo as the first slide.
 // 13: light theme — stats (20+ / 9 / Direct / All States), no numbers on
 //     the Why Us cards, yard aerial out of the slider (own block).
-export const CONTENT_VERSION = 13
+// 14: website address left empty until the domain is live (the site uses
+//     its current address for the sitemap, robots.txt and canonical links).
+export const CONTENT_VERSION = 14
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -55,7 +58,8 @@ const STEPS = [
   { upTo: 10, from: LEGACY_CONTENT_V9, to: LEGACY_CONTENT_V10 },
   { upTo: 11, from: LEGACY_CONTENT_V10, to: LEGACY_CONTENT_V11 },
   { upTo: 12, from: LEGACY_CONTENT_V11, to: LEGACY_CONTENT_V12 },
-  { upTo: 13, from: LEGACY_CONTENT_V12, to: DEFAULT_CONTENT },
+  { upTo: 13, from: LEGACY_CONTENT_V12, to: LEGACY_CONTENT_V13 },
+  { upTo: 14, from: LEGACY_CONTENT_V13, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)

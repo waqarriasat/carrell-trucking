@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
+import { FaPhone, FaChevronRight, FaChevronLeft, FaArrowRight } from "react-icons/fa6";
 
 // ─────────────────────────────────────────────
 //  Hero (home page, under the fleet banner)
@@ -9,7 +9,9 @@ import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
 //   • "photo" (default) — text on solid navy on the left, the slide
 //     photo at full strength on the right (sharp edge, thin gold line).
 //     Each slide has its own text; the main headline stays as one slide.
-//     Pauses while hovered. On phones the photo is its own band under
+//     Changes every few seconds (progress shown in the active dot);
+//     pauses only while the cursor or keyboard focus is on the text.
+//     Arrows on desktop, swipe on phones. On phones the photo is its own band under
 //     the text. Nothing ever sits on the photo or behind the text.
 //   • "cards" — the earlier layout: equipment cards on the right over
 //     a darkened slideshow. Kept so it can be switched back any time.
@@ -17,21 +19,44 @@ import { FaPhone, FaChevronRight, FaArrowRight } from "react-icons/fa6";
 
 const NAVY = "#0f2d4a";
 
-function SlideDots({ count, current, onPick, className = "" }) {
+// Slide dots + "2 / 4" counter. The active dot fills up while the slide
+// is shown (so visitors see it is a slideshow and when it will change);
+// the fill freezes while paused and continues afterwards.
+function SlideDots({ count, current, onPick, className = "", progressMs = 0, paused = false, runKey = 0, onDone }) {
   if (count < 2) return null;
   return (
-    <div className={`flex gap-2 ${className}`}>
-      {Array.from({ length: count }, (_, i) => (
-        <button
-          key={i}
-          type="button"
-          onClick={() => onPick(i)}
-          aria-label={`Show slide ${i + 1} of ${count}`}
-          aria-current={i === current ? "true" : undefined}
-          className="h-2.5 rounded-full transition-all duration-300 shadow"
-          style={{ width: i === current ? 28 : 10, backgroundColor: i === current ? "#c9a84c" : "rgba(255,255,255,0.85)" }}
-        />
-      ))}
+    <div className={`flex items-center gap-2 ${className}`}>
+      {Array.from({ length: count }, (_, i) => {
+        const on = i === current;
+        return (
+          <button
+            key={i}
+            type="button"
+            onClick={() => onPick(i)}
+            aria-label={`Show slide ${i + 1} of ${count}`}
+            aria-current={on ? "true" : undefined}
+            className="relative h-2.5 rounded-full overflow-hidden transition-all duration-300 shadow"
+            style={{ width: on ? 34 : 10, backgroundColor: on && progressMs ? "rgba(255,255,255,0.45)" : on ? "#c9a84c" : "rgba(255,255,255,0.85)" }}
+          >
+            {on && progressMs ? (
+              <span
+                key={`${current}-${runKey}`}
+                className="absolute inset-0 origin-left rounded-full"
+                style={{
+                  backgroundColor: "#c9a84c",
+                  animation: `hero-progress ${progressMs}ms linear forwards`,
+                  animationPlayState: paused ? "paused" : "running",
+                }}
+                onAnimationEnd={onDone}
+                aria-hidden="true"
+              />
+            ) : null}
+          </button>
+        );
+      })}
+      <span className="ml-1 text-[11px] font-bold tabular-nums text-white" aria-hidden="true">
+        {current + 1} / {count}
+      </span>
     </div>
   );
 }
@@ -182,18 +207,32 @@ export default function Hero({ hero, site, fleet, compact = false }) {
   const [paused, setPaused] = useState(false);
   const reducedMotion = useSyncExternalStore(subscribeReducedMotion, getReducedMotion, () => false);
 
-  // Auto-advance; waits while the visitor hovers/reads, restarts after a dot click.
+  // Cards layout: timer. (The photo layout advances when the progress
+  // fill in the active dot completes, so a pause resumes where it left off.)
   useEffect(() => {
-    if (slideCount < 2 || paused || reducedMotion) return;
+    if (photoLayout || slideCount < 2 || paused || reducedMotion) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slideCount);
     }, slideMs);
     return () => clearInterval(timer);
-  }, [slideCount, slideMs, restartKey, paused, reducedMotion]);
+  }, [photoLayout, slideCount, slideMs, restartKey, paused, reducedMotion]);
 
   const pickSlide = (i) => {
-    setCurrentSlide(i);
+    setCurrentSlide(((i % slideCount) + slideCount) % slideCount);
     setRestartKey((k) => k + 1);
+  };
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slideCount);
+
+  // Swipe on the photo (phones / tablets)
+  const [touchX, setTouchX] = useState(null);
+  const swipeProps = {
+    onTouchStart: (e) => setTouchX(e.touches[0].clientX),
+    onTouchEnd: (e) => {
+      if (touchX == null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      setTouchX(null);
+      if (Math.abs(dx) > 40) pickSlide(currentSlide + (dx < 0 ? 1 : -1));
+    },
   };
 
   const pauseProps = {
@@ -214,11 +253,12 @@ export default function Hero({ hero, site, fleet, compact = false }) {
     const secondary = !isMain(active) && active.button && active.button.label ? active.button : hero.secondaryButton;
 
     return (
-      <section className="page-section wrap" aria-roledescription="carousel" aria-label="Highlights" {...pauseProps}>
+      <section className="page-section wrap" aria-roledescription="carousel" aria-label="Highlights">
         {/* One white block: text on the left, the slide photo on the right
             (below the text on phones). Nothing ever sits on the photo. */}
         <div className="panel overflow-hidden xl:grid xl:grid-cols-[41fr_59fr] 2xl:grid-cols-[40fr_60fr]">
-          <div className="flex items-center p-7 sm:p-10 xl:p-11 2xl:p-14">
+          {/* Text side: the slideshow pauses only while the visitor is here */}
+          <div className="flex items-center p-7 sm:p-10 xl:p-11 2xl:p-14" {...pauseProps}>
             <div className="w-full">
               {mainIndex === -1 ? (
                 <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
@@ -266,14 +306,43 @@ export default function Hero({ hero, site, fleet, compact = false }) {
           </div>
 
           {slideCount ? (
-            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[440px]">
+            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[440px]" {...swipeProps}>
               <div className="absolute inset-0" aria-hidden="true">
                 <Slides images={SLIDER_IMAGES} current={currentSlide} />
               </div>
               {/* Thin gold line where text and photo meet */}
               <div className="absolute hidden xl:block inset-y-0 left-0 w-[3px] z-[1]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
               <div className="absolute xl:hidden inset-x-0 top-0 h-[3px] z-[1]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
-              <SlideDots count={slideCount} current={currentSlide} onPick={pickSlide} className="absolute z-10 bottom-4 right-4 rounded-full px-2.5 py-2 bg-[#0a2038]/70" />
+              {slideCount > 1 ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => pickSlide(currentSlide - 1)}
+                    aria-label="Previous slide"
+                    className="hidden md:flex absolute z-10 left-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-[#0a2038]/70 text-white transition-colors hover:bg-[#c9a84c] hover:text-[#0f2d4a]"
+                  >
+                    <FaChevronLeft size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => pickSlide(currentSlide + 1)}
+                    aria-label="Next slide"
+                    className="hidden md:flex absolute z-10 right-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-[#0a2038]/70 text-white transition-colors hover:bg-[#c9a84c] hover:text-[#0f2d4a]"
+                  >
+                    <FaChevronRight size={14} />
+                  </button>
+                </>
+              ) : null}
+              <SlideDots
+                count={slideCount}
+                current={currentSlide}
+                onPick={pickSlide}
+                progressMs={reducedMotion ? 0 : slideMs}
+                paused={paused}
+                runKey={restartKey}
+                onDone={nextSlide}
+                className="absolute z-10 bottom-4 right-4 rounded-full px-3 py-2 bg-[#0a2038]/75"
+              />
             </div>
           ) : null}
         </div>

@@ -4,6 +4,8 @@ import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { FaFileInvoice } from "react-icons/fa6"
 import { notFound } from "next/navigation"
 import { getContent } from "@/app/lib/server/content"
+import { pageMeta, siteBaseUrl } from "@/app/lib/server/seo"
+import JsonLd, { breadcrumbJsonLd } from "@/app/components/common/JsonLd"
 import { fill } from "@/app/lib/content/resolve"
 
 const C = {
@@ -27,15 +29,16 @@ export async function generateMetadata({ params }) {
   const { services, serviceDetail } = await getContent()
   const service = services.find((s) => s.id === id)
   if (!service) return { title: "Not Found" }
-  return {
+  return pageMeta({
     title: fill(serviceDetail.metaTitle, { service: service.label }),
     description: service.description,
-  }
+    path: `/services/${service.id}`,
+  })
 }
 
 export default async function ServiceDetailPage({ params }) {
   const { id } = await params
-  const { services, fleet, serviceDetail: page, servicesPage, site } = await getContent()
+  const { services, fleet, serviceDetail: page, servicesPage, site, seo } = await getContent()
   const service = services.find((s) => s.id === id)
   if (!service) notFound()
 
@@ -44,6 +47,13 @@ export default async function ServiceDetailPage({ params }) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(siteBaseUrl(seo), [
+          { name: servicesPage.breadcrumbHome || "Home", path: "/" },
+          { name: servicesPage.breadcrumbCurrent || "Services", path: "/services" },
+          { name: service.label, path: `/services/${service.id}` },
+        ])}
+      />
       <style>{`
         .service-detail-grid {
           display: grid;

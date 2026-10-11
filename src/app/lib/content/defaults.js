@@ -50,7 +50,8 @@ export const DEFAULT_CONTENT = {
     description:
       "Trailer and container rental, sales and rent-to-own from Ardmore, Oklahoma. Refrigerated trailers and containers, dry storage containers, generators, office units and portable toilets — delivered to your location. Call {phone}.",
     keywords: ["trailer rental", "container rental", "refrigerated trailer rental", "reefer trailer", "ground level storage container", "portable toilet rental", "Oklahoma", "North Texas", "Ardmore"],
-    siteUrl: "https://ardmoretrailer.com",
+    // Empty until the domain is live: the site then uses its current address.
+    siteUrl: "",
   },
 
   // ── Header navigation ──────────────────────
@@ -632,7 +633,7 @@ export const DEFAULT_CONTENT = {
 
   // ── Service detail pages (/services/[id]) ──
   serviceDetail: {
-    metaTitle: "{service} | Ardmore Trailer, Inc.",
+    metaTitle: "{service} Trailer & Container Rentals | Ardmore Trailer, Inc.",
     eyebrow: "Our Services",
     titleAccent: "Solutions",
     applicationsLabel: "Common Applications",
