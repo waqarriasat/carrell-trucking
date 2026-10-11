@@ -98,11 +98,11 @@ export default function Footer({ site, footer, fleet, services }) {
   ];
 
   return (
-    <footer className="wrap">
+    <footer>
 
-      {/* ── CTA strip: one navy highlight block ── */}
-      <div className="panel-navy">
-        <div className="px-6 sm:px-10 py-7 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* ── CTA band: full-width navy ── */}
+      <div className="band-navy border-t" style={{ borderColor: "rgba(201,168,76,0.55)" }}>
+        <div className="wrap py-9 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p
               className="text-xs font-bold tracking-widest uppercase mb-1"
@@ -133,8 +133,9 @@ export default function Footer({ site, footer, fleet, services }) {
         </div>
       </div>
 
-      {/* ── 4-column grid: white block ── */}
-      <div className="panel mt-[var(--gap)] px-6 sm:px-10 py-10 lg:py-12">
+      {/* ── 4-column grid: full-width white band ── */}
+      <div className="bg-white">
+      <div className="wrap py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
 
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
@@ -175,9 +176,11 @@ export default function Footer({ site, footer, fleet, services }) {
         </div>
       </div>
 
+      </div>
+
       {/* ── Bottom bar ── */}
-      <div>
-        <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="border-t" style={{ backgroundColor: "#f3f6f9", borderColor: "#e3e9f0" }}>
+        <div className="wrap py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
 
           {/* Copyright */}
           <p className="text-xs text-center sm:text-left" style={{ color: "#4a6b85" }}>

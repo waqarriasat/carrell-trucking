@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function FleetHero({ fleetPage }) {
   return (
     <section className="page-section wrap">
-      <div className="panel" style={{ width: "100%", padding: "clamp(22px, 3vw, 40px)" }}>
+      <div style={{ width: "100%" }}>
 
         {/* Breadcrumb */}
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>

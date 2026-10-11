@@ -74,7 +74,7 @@ export default async function ServiceDetailPage({ params }) {
 
       {/* Hero */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: servicesPage.breadcrumbHome, href: "/" }, { label: servicesPage.breadcrumbCurrent, href: "/services" }, { label: service.label }]} />
 
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
@@ -202,8 +202,8 @@ export default async function ServiceDetailPage({ params }) {
       </div>
 
       {/* Other Services */}
-      <div className="page-section wrap">
-        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
             <div style={{ width: 24, height: 2, background: C.gold }} />
             <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

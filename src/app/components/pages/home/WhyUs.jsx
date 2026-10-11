@@ -154,14 +154,15 @@ export default function WhyUs({ whyUs, site }) {
 
         {/* ── Bottom trust strip ── */}
         <div
-          className="panel-navy mt-8 px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4"
+          className="mt-12 pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4"
+          style={{ borderColor: "#e3e9f0" }}
         >
           <p
-            className="text-sm font-medium text-center md:text-left"
-            style={{ color: "#e2e8f0" }}
+            className="text-base font-medium text-center md:text-left"
+            style={{ color: "#33475b" }}
           >
             {whyUs.stripBefore}{" "}
-            <span style={{ color: "#c9a84c", fontWeight: 700 }}>
+            <span style={{ color: "#86671e", fontWeight: 700 }}>
               {whyUs.stripHighlight}
             </span>{" "}
             {whyUs.stripAfter}

@@ -253,12 +253,12 @@ export default function Hero({ hero, site, fleet, compact = false }) {
     const secondary = !isMain(active) && active.button && active.button.label ? active.button : hero.secondaryButton;
 
     return (
-      <section className="page-section wrap" aria-roledescription="carousel" aria-label="Highlights">
+      <section className="page-section band-flush wrap bleed-right" aria-roledescription="carousel" aria-label="Highlights">
         {/* One white block: text on the left, the slide photo on the right
             (below the text on phones). Nothing ever sits on the photo. */}
-        <div className="panel overflow-hidden xl:grid xl:grid-cols-[41fr_59fr] 2xl:grid-cols-[40fr_60fr]">
+        <div className="overflow-hidden xl:grid xl:grid-cols-[42fr_58fr] 2xl:grid-cols-[41fr_59fr]">
           {/* Text side: the slideshow pauses only while the visitor is here */}
-          <div className="flex items-center p-7 sm:p-10 xl:p-11 2xl:p-14" {...pauseProps}>
+          <div className="flex items-center pr-[var(--gutter)] py-11 sm:py-14 xl:pr-12 2xl:pr-16" {...pauseProps}>
             <div className="w-full">
               {mainIndex === -1 ? (
                 <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
@@ -306,7 +306,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
           </div>
 
           {slideCount ? (
-            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[440px]" {...swipeProps}>
+            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[480px] max-xl:-ml-[var(--gutter)]" {...swipeProps}>
               <div className="absolute inset-0" aria-hidden="true">
                 <Slides images={SLIDER_IMAGES} current={currentSlide} />
               </div>
@@ -362,9 +362,9 @@ export default function Hero({ hero, site, fleet, compact = false }) {
 
   // ── Equipment cards layout (earlier design) ──
   return (
-    <div className="page-section wrap">
+    <div className="page-section band-flush">
     <section
-      className={`relative flex items-center overflow-hidden rounded-2xl ${compact ? "" : "min-h-[80vh]"}`}
+      className={`relative flex items-center overflow-hidden ${compact ? "" : "min-h-[80vh]"}`}
       style={{ backgroundColor: NAVY }}
     >
       {/* ── BACKGROUND IMAGE SLIDER ── (clearly visible photos) */}
@@ -416,7 +416,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
       />
 
       {/* ── Content Grid Layout ── */}
-      <div className={`relative z-10 w-full px-7 sm:px-10 lg:px-12 ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
+      <div className={`relative z-10 w-full wrap ${compact ? "py-12 lg:py-16" : "py-20 lg:py-28"}`}>
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {textBlock}

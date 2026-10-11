@@ -114,14 +114,14 @@ export default function Testimonials({ testimonials, site }) {
         </div>
 
         {/* Bottom CTA */}
-        <div className="panel-navy" style={{
-          marginTop: "var(--gap)", textAlign: "center",
-          padding: "32px 24px",
+        <div style={{
+          marginTop: 48, textAlign: "center",
+          paddingTop: 40, borderTop: `1px solid ${C.border}`,
         }}>
-          <p style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 6 }}>
+          <p style={{ fontSize: 20, fontWeight: 800, color: C.dark, marginBottom: 6 }}>
             {testimonials.ctaTitle}
           </p>
-          <p style={{ fontSize: 13, color: C.muted, marginBottom: 20 }}>
+          <p style={{ fontSize: 14, color: C.text, marginBottom: 20 }}>
             {testimonials.ctaText}
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
@@ -138,11 +138,11 @@ export default function Testimonials({ testimonials, site }) {
             </a>
             <a
               href={site.phoneHref}
+              className="btn-outline-navy"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "11px 24px",
-                borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)",
-                color: "#ffffff", textDecoration: "none"
+                borderRadius: 8, textDecoration: "none"
               }}
             >
               {testimonials.ctaCallLabel}

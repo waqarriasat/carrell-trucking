@@ -69,7 +69,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
 
       {/* ── Hero ── */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, marginBottom: 16 }}>
   <Link href="/" style={{ color: C.text, textDecoration: "none" }}>{fleetPage.breadcrumbHome}</Link>
   <span style={{ color: "#8aa3b8" }}>›</span>
@@ -83,7 +83,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
               display: "inline-block", fontSize: 10, fontWeight: 700,
               textTransform: "uppercase", letterSpacing: 2,
               padding: "4px 12px", borderRadius: 20, marginBottom: 12,
-              background: C.gold + "20", color: C.goldText, border: `1px solid ${C.gold}44`
+              background: C.gold + "12", color: C.goldText, border: `1px solid ${C.gold}44`
             }}>
               {item.badge}
             </span>
@@ -279,8 +279,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
       </div>
 
       {/* ── Related Fleet ── */}
-      <div className="page-section wrap">
-        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
             <div style={{ width: 24, height: 2, background: C.gold }} />
             <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>

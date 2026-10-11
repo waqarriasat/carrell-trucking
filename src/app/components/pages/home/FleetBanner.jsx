@@ -34,13 +34,10 @@ export default function FleetBanner({ banner, fleet }) {
 
   return (
     <section aria-label={banner.label || "Our fleet"} className="page-section wrap">
-      {/* A light block: the white units stand out with their soft shadows */}
-      <div
-        className="panel overflow-hidden"
-        style={{ background: "linear-gradient(180deg, #f7f9fc 0%, #e6edf5 100%)" }}
-      >
+      {/* Light band: the white units stand out with their own shadows */}
+      <div>
       {/* Desktop / tablet: one row across the full width */}
-      <div className="hidden md:flex items-end justify-between gap-[2.5vw] px-[3%] pt-8 lg:pt-10 pb-6 lg:pb-8">
+      <div className="hidden md:flex items-end justify-between gap-[2.5vw]">
         {units.map((u) => (
           <Link
             key={u.id}
@@ -56,7 +53,7 @@ export default function FleetBanner({ banner, fleet }) {
       </div>
 
       {/* Phones: swipeable row */}
-      <div className="md:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory px-4 pt-5 pb-4 [scrollbar-width:none]">
+      <div className="md:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory [scrollbar-width:none]">
         {units.map((u) => (
           <Link key={u.id} href={`/fleet/${u.id}`} className="relative z-10 snap-center shrink-0 w-[72%]">
             {/* eslint-disable-next-line @next/next/no-img-element */}

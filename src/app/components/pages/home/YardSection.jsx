@@ -78,7 +78,7 @@ export default function YardSection({ yard, site }) {
       <div>
 
         {/* ── Row 1: own yard ── */}
-        <div className="panel p-6 sm:p-8 lg:p-12 grid lg:grid-cols-[5fr_7fr] gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-[5fr_7fr] gap-8 lg:gap-14 items-center">
           <div>
             <Eyebrow>{yard.eyebrow}</Eyebrow>
             <h2
@@ -144,7 +144,7 @@ export default function YardSection({ yard, site }) {
         </div>
 
         {/* ── Row 2: ground-level delivery ── */}
-        <div className="panel mt-[var(--gap)] p-6 sm:p-8 lg:p-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="mt-14 lg:mt-20 pt-14 lg:pt-20 border-t grid lg:grid-cols-2 gap-8 lg:gap-14 items-center" style={{ borderColor: "#e3e9f0" }}>
           <figure className="m-0 order-2 lg:order-1">
             <div className="overflow-hidden rounded-xl" style={{ backgroundColor: "#0a2038" }}>
               <DeliveryMedia url={yard.videoUrl} caption={yard.videoCaption} brand={site.logoTop} />

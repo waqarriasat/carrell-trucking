@@ -45,7 +45,7 @@ export default async function ServicesPage() {
 
       {/* ── Hero ── */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />
@@ -181,8 +181,8 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Bottom CTA ── */}
-      <div className="page-section wrap">
-        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
           <div>
             <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
               {page.ctaTitle}{" "}

@@ -81,7 +81,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
       {/* Hero */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
             <div style={{ width: 28, height: 2, background: C.gold }} />

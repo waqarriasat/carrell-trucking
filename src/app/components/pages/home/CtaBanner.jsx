@@ -4,28 +4,17 @@ import { getIcon } from "@/app/lib/content/icons";
 
 export default function CtaBanner({ ctaBanner }) {
   return (
-    <section className="page-section wrap" aria-labelledby="cta-heading">
+    <section className="page-section wrap band-navy" aria-labelledby="cta-heading">
       <div>
 
         {/* ── Main CTA Box ── */}
-        <div className="panel-navy overflow-hidden">
-          {/* Gold top accent */}
-          <div className="h-1 w-full" style={{ backgroundColor: "#c9a84c" }} />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
 
             {/* Left — Value Proposition */}
             <div
-              className="p-8 md:p-12 flex flex-col justify-center relative"
-              style={{ backgroundColor: "#1e4d7b" }}
+              className="lg:pr-12 flex flex-col justify-center relative"
             >
-              <div
-                className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                style={{
-                  backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-                  backgroundSize: "20px 20px",
-                }}
-              />
 
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
@@ -65,8 +54,8 @@ export default function CtaBanner({ ctaBanner }) {
 
             {/* Right — 3-Step Process */}
             <div
-              className="p-8 md:p-12 flex flex-col justify-center gap-8 relative"
-              style={{ backgroundColor: "#0a2038" }}
+              className="lg:pl-12 lg:border-l pt-10 lg:pt-0 border-t lg:border-t-0 flex flex-col justify-center gap-8 relative"
+              style={{ borderColor: "rgba(255,255,255,0.15)" }}
             >
               <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/50 mb-2">
                 {ctaBanner.processLabel}

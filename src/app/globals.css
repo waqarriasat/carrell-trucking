@@ -46,10 +46,16 @@ body:has(#admin-root) {
 :root {
   --gutter: clamp(20px, 4vw, 120px);
 }
+/* Content stretches across the screen with the same side margin in every
+   section (header, all sections, footer), so everything lines up. */
 .wrap {
   width: 100%;
   padding-left: var(--gutter);
   padding-right: var(--gutter);
+}
+/* Hero: text lines up with the column, the photo runs to the right edge */
+.wrap.bleed-right {
+  padding-right: 0;
 }
 
 /* ── Light theme building blocks ──
@@ -61,11 +67,28 @@ body:has(#admin-root) {
   /* gold for large headings on white (readable as large text) */
   --gold-heading: #a07c26;
 }
+/* Every section is a full-width band (edge to edge, like the header).
+   Bands alternate light / white automatically, with a hairline between
+   them, so the page reads as one smooth surface; only the content inside
+   keeps the side gutter. Navy bands are set explicitly (.band-navy). */
 .page-section {
-  padding-top: var(--gap);
+  padding-block: clamp(44px, 5.5vw, 88px);
 }
-.page-end {
-  padding-bottom: var(--gap);
+.site-main > .page-section:nth-child(odd of .page-section) {
+  background: #f5f7fa;
+}
+.site-main > .page-section:nth-child(even of .page-section) {
+  background: #ffffff;
+}
+/* (needs !important: the alternation rule above is more specific) */
+.site-main > .page-section.band-navy {
+  background: #0f2d4a !important;
+}
+.page-section.band-flush {
+  padding-block: 0;
+}
+.band-navy {
+  background: #0f2d4a;
 }
 .panel {
   background: #ffffff;

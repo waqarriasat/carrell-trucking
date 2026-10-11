@@ -54,7 +54,7 @@ export default function ContactPageClient({ page, site }) {
 
       {/* Hero */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
@@ -106,7 +106,7 @@ export default function ContactPageClient({ page, site }) {
 
       {/* Map + Form */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <div className="contact-grid">
 
             {/* Map */}

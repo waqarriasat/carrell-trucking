@@ -100,7 +100,7 @@ export default async function AboutPage() {
 
       {/* ── Hero ── */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
 
           {/* Breadcrumb */}
           <Breadcrumb crumbs={[{ label: page.breadcrumbHome, href: "/" }, { label: page.breadcrumbCurrent }]} />
@@ -139,7 +139,7 @@ export default async function AboutPage() {
 
       {/* ── Story Section ── */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
           <div className="about-story-grid">
 
             {/* Image */}
@@ -240,7 +240,7 @@ export default async function AboutPage() {
 
       {/* ── Team ── */}
       <div className="page-section wrap">
-        <div className="panel" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+        <div style={{ width: "100%" }}>
 
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
             <div style={{ width: 32, height: 2, background: C.gold }} />
@@ -288,8 +288,8 @@ export default async function AboutPage() {
       </div>
 
       {/* ── Contact Strip ── */}
-      <div className="page-section wrap">
-        <div className="panel-navy" style={{ padding: "clamp(22px, 3vw, 40px)", width: "100%" }}>
+      <div className="page-section wrap band-navy">
+        <div style={{ width: "100%" }}>
           <div className="about-contact-strip">
             <div>
               <h2 style={{ fontSize: "clamp(20px, 4vw, 28px)", fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>
