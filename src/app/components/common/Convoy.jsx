@@ -4,7 +4,7 @@ import { isCutout } from "@/app/lib/content/images";
 // ─────────────────────────────────────────────
 //  Convoy (Server Component)
 //  Strip below the footer: the real 3D fleet
-//  renders roll slowly along a road, each with
+//  renders roll slowly across, each with
 //  its current name (from Admin → Fleet).
 //  The list is drawn twice so the loop is
 //  seamless. Pauses on hover; stands still for
@@ -26,7 +26,7 @@ export default function Convoy({ fleet = [] }) {
     <div className="convoy relative overflow-hidden" style={{ backgroundColor: "#e6edf5", borderTop: "1px solid #d6e2ee" }} aria-label="Our fleet">
       <style>{CSS}</style>
 
-      <div className="convoy-track flex w-max items-end" style={{ "--convoy-t": `${units.length * 7}s` }}>
+      <div className="convoy-track flex w-max items-end pb-2" style={{ "--convoy-t": `${units.length * 7}s` }}>
         {[0, 1].map((copy) =>
           units.map((u) => (
             <Link
@@ -52,13 +52,6 @@ export default function Convoy({ fleet = [] }) {
         )}
       </div>
 
-      {/* Road */}
-      <div className="relative h-4" style={{ backgroundColor: "#0f2d4a", borderTop: "2px solid #c9a84c" }} aria-hidden="true">
-        <div
-          className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2"
-          style={{ backgroundImage: "repeating-linear-gradient(90deg, #c9a84c66 0, #c9a84c66 24px, transparent 24px, transparent 52px)" }}
-        />
-      </div>
     </div>
   );
 }
