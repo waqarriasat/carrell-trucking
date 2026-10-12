@@ -13,8 +13,6 @@
 
 import { BLOG_DEFAULTS, FAQ_DEFAULTS } from "./blog-defaults"
 
-const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
-
 export const DEFAULT_CONTENT = {
   // ── Business details (used everywhere) ─────
   site: {
@@ -582,7 +580,8 @@ export const DEFAULT_CONTENT = {
       label: "Commercial",
       icon: "fa/FaStore",
       description: "Retail overflow, seasonal inventory, temporary warehousing for businesses of all sizes.",
-      image: U("1486406146926-c627a92ad1ab", 800),
+      image: "/images/services/commercial.webp",
+      imageAlt: "White Ardmore Trailer storage container at a business loading dock, filled with pallets of seasonal stock",
       features: ["Retail Overflow Storage", "Seasonal Inventory", "Temporary Warehousing", "Event Storage", "Business Relocation"],
       fleet: ["container-dry", "trailers", "reefer-electric", "office"],
     },
@@ -591,7 +590,8 @@ export const DEFAULT_CONTENT = {
       label: "Residential",
       icon: "fa/FaHome",
       description: "Moving, renovation, and personal storage with flexible rental terms.",
-      image: U("1570129477492-45c003edd2be", 800),
+      image: "/images/services/residential.webp",
+      imageAlt: "White Ardmore Trailer storage container on a home driveway holding furniture and moving boxes",
       features: ["Home Renovation Storage", "Moving Assistance", "Personal Storage", "Garage Overflow", "Estate Management"],
       fleet: ["container-dry", "trailers", "office"],
     },
@@ -600,7 +600,8 @@ export const DEFAULT_CONTENT = {
       label: "Construction",
       icon: "fa/FaHardHat",
       description: "On-site offices, tool storage, and staging for contractors across Southern Oklahoma.",
-      image: U("1504307651254-35680f356dfd", 800),
+      image: "/images/services/construction.webp",
+      imageAlt: "Ardmore Trailer mobile office and tool storage container on a construction site",
       features: ["On-Site Tool Storage", "Equipment Staging", "Site Offices", "Material Storage", "Crew Facilities"],
       fleet: ["container-dry", "trailers", "office", "generator", "portable-toilets"],
     },
@@ -609,7 +610,8 @@ export const DEFAULT_CONTENT = {
       label: "Industrial",
       icon: "fa/FaIndustry",
       description: "Oilfield, manufacturing, and energy sector solutions — custom specs welcome.",
-      image: U("1581091226825-a6a2a5aee158", 800),
+      image: "/images/services/industrial.webp",
+      imageAlt: "Ardmore Trailer mud lab, generator and refrigerated trailer at an Oklahoma oilfield site",
       features: ["Oilfield Operations", "Manufacturing Support", "Energy Sector", "Custom Mud Labs", "Remote Site Power"],
       fleet: ["reefer-diesel", "generator", "mud-lab", "office", "portable-toilets"],
     },

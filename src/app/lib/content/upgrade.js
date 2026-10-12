@@ -28,6 +28,7 @@ import { LEGACY_CONTENT_V14 } from "./legacy-v14"
 import { LEGACY_CONTENT_V15 } from "./legacy-v15"
 import { LEGACY_CONTENT_V16 } from "./legacy-v16"
 import { LEGACY_CONTENT_V17 } from "./legacy-v17"
+import { LEGACY_CONTENT_V18 } from "./legacy-v18"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -51,7 +52,8 @@ import { LEGACY_CONTENT_V17 } from "./legacy-v17"
 // 16: contact details grouped by location (Headquarters / Sales & Yard).
 // 17: short labels (features, use cases, checklists, card lines) in Title Case.
 // 18: own yard photo for the About "Our Story" section.
-export const CONTENT_VERSION = 18
+// 19: own photos (and descriptions) for the four service pages.
+export const CONTENT_VERSION = 19
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -71,7 +73,8 @@ const STEPS = [
   { upTo: 15, from: LEGACY_CONTENT_V14, to: LEGACY_CONTENT_V15 },
   { upTo: 16, from: LEGACY_CONTENT_V15, to: LEGACY_CONTENT_V16 },
   { upTo: 17, from: LEGACY_CONTENT_V16, to: LEGACY_CONTENT_V17 },
-  { upTo: 18, from: LEGACY_CONTENT_V17, to: DEFAULT_CONTENT },
+  { upTo: 18, from: LEGACY_CONTENT_V17, to: LEGACY_CONTENT_V18 },
+  { upTo: 19, from: LEGACY_CONTENT_V18, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
