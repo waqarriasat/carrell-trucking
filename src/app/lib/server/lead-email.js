@@ -171,3 +171,92 @@ export function buildLeadEmail({ kind, site, customer, fields, siteUrl, tag }) {
 
   return { subject, html, text, replyTo: isEmail(email) ? `"${name.replace(/"/g, "")}" <${email}>` : undefined }
 }
+
+/**
+ * Confirmation the customer receives after sending a form: a thank-you,
+ * a copy of what they sent and how to reach the team.
+ * @param {object} o
+ * @param {string} o.kind      "Quote request" | "Contact message"
+ * @param {object} o.site      resolved site content
+ * @param {object} o.customer  { name, phone, email, company }
+ * @param {Array}  o.fields    same details as the lead email
+ * @param {string} o.intro     admin text (Business → Form submissions)
+ * @param {Array}  [o.hours]   business hours lines
+ */
+export function buildConfirmationEmail({ kind, site, customer, fields, intro, hours = [] }) {
+  const name = clean(customer.name)
+  const first = name.split(/\s+/)[0] || ""
+  const subject = `We received your ${kind.toLowerCase()} — ${site.name}`
+  const phone = clean(site.phone)
+
+  // [label, plain value] — escaped for the HTML version below.
+  const sent = [
+    ["Name", name],
+    ["Company", clean(customer.company)],
+    ["Phone", clean(customer.phone)],
+    ...fields.map((f) => [f.label, f.list ? (f.value || []).join(", ") : clean(f.value)]),
+  ].filter(([, v]) => v)
+  const rows = sent.map(([l, v]) => [l, esc(v).replace(/\r?\n/g, "<br>")])
+
+  const p = (html, extra = "") =>
+    `<p style="margin:0 0 14px;font-family:${FONT};font-size:15px;line-height:1.6;color:${C.text};${extra}">${html}</p>`
+
+  const html = `<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(subject)}</title></head>
+<body style="margin:0;padding:0;background:${C.light}">
+  <div style="display:none;max-height:0;overflow:hidden">${esc(`Thank you${first ? `, ${first}` : ""} — we'll be in touch soon.`)}</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.light}">
+    <tr><td align="center" style="padding:24px 12px">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid ${C.border}">
+        <tr><td style="background:${C.navy};padding:22px 24px;border-bottom:3px solid ${C.gold}">
+          <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:bold;color:#ffffff;letter-spacing:.5px">${esc(site.logoTop || site.name)}</div>
+          <div style="font-family:${FONT};font-size:10px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:${C.gold}">${esc(site.logoBottom || "")}</div>
+        </td></tr>
+        <tr><td style="padding:26px 24px 6px">
+          <div style="font-family:${FONT};font-size:12px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:${C.gold}">${esc(kind)} received</div>
+          <div style="margin:6px 0 16px;font-family:${FONT};font-size:22px;font-weight:bold;color:${C.navy}">Thank you${first ? `, ${esc(first)}` : ""}!</div>
+          ${clean(intro).split(/\n\s*\n/).map((para) => p(esc(para.trim()).replace(/\r?\n/g, "<br>"))).join("")}
+          ${phone ? `<div style="margin:6px 0 4px">${button(`tel:${digits(phone)}`, `Call ${phone}`, C.gold, C.navy)}</div>` : ""}
+        </td></tr>
+        <tr><td style="padding:22px 24px 8px;font-family:${FONT};font-size:12px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:${C.gold}">What you sent us</td></tr>
+        <tr><td style="padding:0 24px">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid ${C.border};border-radius:8px;border-collapse:separate">
+            ${rows.map(([l, v], i) => row(l, v, i === rows.length - 1)).join("")}
+          </table>
+        </td></tr>
+        <tr><td style="padding:22px 24px 0">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.light};border:1px solid ${C.border};border-radius:8px">
+            <tr><td style="padding:16px 18px;font-family:${FONT};font-size:13px;line-height:1.7;color:${C.text}">
+              <strong style="color:${C.navy}">${esc(site.name)}</strong><br>
+              ${phone ? `Phone: <a href="tel:${esc(digits(phone))}" style="color:${C.navy2};text-decoration:none;font-weight:bold">${esc(phone)}</a><br>` : ""}
+              ${site.address ? `${esc(site.address)}<br>` : ""}
+              ${hours.filter(Boolean).map((h) => esc(h)).join("<br>")}
+            </td></tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:22px 24px 24px;font-family:${FONT};font-size:12px;line-height:1.6;color:${C.muted}">
+          This is an automatic confirmation of the form you sent on our website. Need to add something? Just reply to this email.
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>`
+
+  const text = [
+    `Thank you${first ? `, ${first}` : ""}!`,
+    "",
+    clean(intro),
+    "",
+    "WHAT YOU SENT US",
+    ...sent.map(([l, v]) => `${l}: ${v}`),
+    "",
+    site.name,
+    phone ? `Phone: ${phone}` : "",
+    site.address || "",
+    ...hours.filter(Boolean),
+    "",
+    "This is an automatic confirmation. Need to add something? Just reply to this email.",
+  ].join("\n").replace(/\n{3,}/g, "\n\n").trim()
+
+  return { subject, html, text }
+}

@@ -39,6 +39,9 @@ export const DEFAULT_CONTENT = {
     zip: "73401",
     minRental: "On-Site Delivery",
     formRecipient: "rick@carrelltrucking.com",
+    confirmEmail: "yes",
+    confirmIntro:
+      "Thank you for contacting us. We've received your request and a member of the {company} team will get back to you, usually within one business day.\n\nNeed an answer sooner? Give us a call — we're happy to help.",
     whatsapp: "+1 (580) 221-3494",
     whatsappMessage: "Hi Ardmore Trailer, I'd like to ask about renting equipment.",
     whatsappLabel: "Chat on WhatsApp",
@@ -87,6 +90,7 @@ export const DEFAULT_CONTENT = {
     resourcesHeading: "Resources",
     contactQuoteLabel: "Get a Quote",
     copyright: "All rights reserved.",
+    privacyLabel: "Privacy Policy",
   },
 
   // ── Home page ──────────────────────────────
@@ -666,8 +670,9 @@ export const DEFAULT_CONTENT = {
       { value: "All States", label: "Availability" },
       { value: "24/7", label: "Support Available" },
     ],
-    storyImage: U("1601584115197-04ecc0da31d7", 700),
-    storyImageAlt: "Ardmore Trailer fleet",
+    storyImage: "/images/about/story-yard.webp",
+    storyImageAlt: "Ardmore Trailer, Inc. equipment yard in Southern Oklahoma at sunset with storage trailers, refrigerated trailers, containers, an office trailer and a delivery truck",
+    storyVideo: "/videos/about-story.mp4",
     storyEyebrow: "Our Story",
     storyTitle: "Built on Trust, Delivered with Pride",
     storyParagraph1:
@@ -745,6 +750,9 @@ export const DEFAULT_CONTENT = {
       sendingLabel: "Sending...",
       successMessage: "Message sent! We'll get back to you shortly.",
       callText: "Or call us at",
+      responseNote: "We usually reply within one business day.",
+      privacyText: "We only use your details to reply to your request — never sold or shared.",
+      privacyLinkLabel: "Privacy Policy",
     },
     teamEyebrow: "Who to Contact",
     teamTitle: "Reach the Right Person",
@@ -790,6 +798,9 @@ export const DEFAULT_CONTENT = {
       sendingLabel: "Sending...",
       successMessage: "Quote request sent! We'll get back to you shortly.",
       callText: "Or call us at",
+      responseNote: "We usually reply within one business day.",
+      privacyText: "We only use your details to reply to your request — never sold or shared.",
+      privacyLinkLabel: "Privacy Policy",
     },
     whyEyebrow: "Why Choose Us",
     whyTitle: "What You Can Expect",
@@ -835,4 +846,17 @@ export const DEFAULT_CONTENT = {
   // ── Blog & FAQ (Admin → Blog & FAQ) ────────
   blog: BLOG_DEFAULTS,
   faq: FAQ_DEFAULTS,
+
+  // ── Privacy policy (Admin → Privacy Policy) ─
+  privacy: {
+    metaTitle: "Privacy Policy",
+    metaDescription: "How {company} collects, uses and protects the information you share through our website, phone and email.",
+    breadcrumbHome: "Home",
+    breadcrumbCurrent: "Privacy Policy",
+    eyebrow: "Your Privacy",
+    titleStart: "Privacy",
+    titleAccent: "Policy",
+    updated: "October 12, 2026",
+    body: "{company} respects your privacy. This page explains what information we collect through this website, how we use it and the choices you have.\n\n## Information We Collect\n\nWhen you fill in our **Contact** or **Get a Quote** form, we receive the details you type in:\n\n- Your name, phone number and email address\n- Your company name, if you give one\n- Your delivery location, the equipment you're interested in and your message or notes\n\nWe also receive the information you share when you call, text, email or message us on WhatsApp.\n\nWe do not ask for payment card details on this website.\n\n## How We Use Your Information\n\nWe use your details only to run our business with you:\n\n- To answer your questions and prepare quotes\n- To arrange rentals, sales, deliveries and pickups\n- To send you a confirmation that we received your request\n- To handle billing and keep the records the law requires\n\n## We Never Sell Your Information\n\nWe do not sell, rent or trade your personal information. We share it only with the services that help us run this website and our email (for example our website host and email provider), and only so they can do that work for us — or when the law requires it.\n\n## Cookies\n\nThis website does not use advertising cookies. The only cookie it sets is a sign-in cookie for our own staff's admin area. If we add website statistics in the future (such as Google Analytics), we will update this page.\n\n## How Long We Keep It\n\nWe keep enquiry details for as long as we need them to serve you and to meet our legal and accounting obligations, then we delete them.\n\n## Your Choices\n\nYou can ask us at any time to see, correct or delete the information we hold about you. Call us at {phone} or email [{email}](mailto:{email}).\n\n## Changes to This Policy\n\nIf we change this policy, we'll update this page and the date at the top.\n\n## Contact Us\n\nQuestions about this policy or your information? Contact **{company}**:\n\n- Address: {address}\n- Phone: {phone}\n- Email: [{email}](mailto:{email})",
+  },
 }

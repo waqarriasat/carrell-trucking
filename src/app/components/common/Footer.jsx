@@ -232,6 +232,12 @@ export default function Footer({ site, footer, fleet, services, resources }) {
           {/* Copyright */}
           <p className="text-xs text-center sm:text-left" style={{ color: "#4a6b85" }}>
             © {currentYear} {site.name}{`. ${footer.copyright}`}
+            {footer.privacyLabel && (
+              <>
+                {" · "}
+                <Link href="/privacy" className="underline-offset-2 hover:underline hover:text-[#0f2d4a]">{footer.privacyLabel}</Link>
+              </>
+            )}
           </p>
 
           {/* Address + contact row */}

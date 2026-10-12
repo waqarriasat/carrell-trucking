@@ -5,13 +5,14 @@ import {
   FaGauge, FaBuilding, FaTableColumns, FaHouse, FaTruck, FaList, FaBriefcase, FaCircleInfo,
   FaEnvelope, FaFileLines, FaTriangleExclamation, FaUserShield, FaArrowUpRightFromSquare,
   FaMagnifyingGlass, FaFloppyDisk, FaRotateLeft, FaCircleCheck, FaBars, FaXmark, FaKey,
-  FaRightFromBracket, FaWandMagicSparkles, FaClockRotateLeft,
+  FaRightFromBracket, FaWandMagicSparkles, FaClockRotateLeft, FaInbox,
 } from "react-icons/fa6"
 import { ADMIN_PAGES } from "../schema"
 import { DEFAULT_CONTENT } from "@/app/lib/content/defaults"
 import { PLACEHOLDERS } from "@/app/lib/content/resolve"
 import { saveContentAction, logoutAction, requestPasswordResetAction } from "@/app/actions/admin"
 import { EditorContext, Fields } from "./fields"
+import Leads from "./Leads"
 import { buildSearchIndex, formatDate, setAt, toPath, validateContent, getAt } from "./utils"
 
 const PAGE_ICONS = {
@@ -27,7 +28,7 @@ const PAGE_ICONS = {
   alert: FaTriangleExclamation,
 }
 
-export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice }) {
+export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice, initialLeads = [] }) {
   const [content, setContent] = useState(initialContent)
   const [savedJson, setSavedJson] = useState(() => JSON.stringify(initialContent))
   const [savedMeta, setSavedMeta] = useState(lastSaved)
@@ -37,6 +38,8 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
   const [errors, setErrors] = useState([])
   const [focus, setFocus] = useState(null)
   const [navOpen, setNavOpen] = useState(false)
+  const [leads, setLeads] = useState(initialLeads)
+  const newCount = leads.filter((l) => l.status === "new").length
   const mainRef = useRef(null)
 
   const dirty = useMemo(() => JSON.stringify(content) !== savedJson, [content, savedJson])
@@ -190,6 +193,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
 
           <nav className="flex-1 overflow-y-auto px-3 pb-4">
             <NavItem icon={FaGauge} label="Dashboard" active={pageId === "dashboard"} onClick={() => goTo("dashboard")} />
+            <NavItem icon={FaInbox} label="Leads" badge={newCount} active={pageId === "leads"} onClick={() => goTo("leads")} />
             <div className="mb-1 mt-4 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Website content</div>
             {ADMIN_PAGES.map((p) => (
               <NavItem key={p.id} icon={PAGE_ICONS[p.icon]} label={p.label} active={pageId === p.id} onClick={() => goTo(p.id)} />
@@ -219,7 +223,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
             </button>
             <div className="min-w-0 flex-1">
               <div className="truncate text-base font-bold text-slate-900">
-                {page?.label || (pageId === "account" ? "Account & Password" : "Dashboard")}
+                {page?.label || { account: "Account & Password", leads: "Leads" }[pageId] || "Dashboard"}
               </div>
               <div className="flex items-center gap-1.5 text-xs text-slate-500">
                 {dirty ? (
@@ -273,7 +277,8 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
                 </div>
               )}
 
-              {pageId === "dashboard" && <Dashboard content={content} savedMeta={savedMeta} onOpen={goTo} />}
+              {pageId === "dashboard" && <Dashboard content={content} savedMeta={savedMeta} newCount={newCount} onOpen={goTo} />}
+              {pageId === "leads" && <Leads leads={leads} setLeads={setLeads} />}
               {pageId === "account" && <Account adminEmail={adminEmail} />}
               {page && (
                 <>
@@ -317,7 +322,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
 
 // ── Pieces ────────────────────────────────────
 
-function NavItem({ icon: Icon, label, active, onClick }) {
+function NavItem({ icon: Icon, label, active, onClick, badge }) {
   return (
     <button
       onClick={onClick}
@@ -326,7 +331,12 @@ function NavItem({ icon: Icon, label, active, onClick }) {
       }`}
     >
       <Icon size={13} className={active ? "text-[#c9a84c]" : "text-slate-500"} />
-      {label}
+      <span className="flex-1">{label}</span>
+      {badge > 0 && (
+        <span className="rounded-full bg-[#c9a84c] px-2 py-0.5 text-[10px] font-bold text-[#0f2d4a]" aria-label={`${badge} new`}>
+          {badge}
+        </span>
+      )}
     </button>
   )
 }
@@ -415,7 +425,7 @@ function PlaceholderHelp() {
   )
 }
 
-function Dashboard({ content, savedMeta, onOpen }) {
+function Dashboard({ content, savedMeta, newCount, onOpen }) {
   const counts = {
     equipment: content.fleet.length,
     services: content.services.length,
@@ -433,6 +443,9 @@ function Dashboard({ content, savedMeta, onOpen }) {
           live website updates immediately. The design and layout stay exactly the same.
         </p>
         <div className="mt-5 flex flex-wrap gap-6 text-sm">
+          <button onClick={() => onOpen("leads")} className="text-left hover:opacity-80">
+            <Stat value={newCount} label="New messages" />
+          </button>
           <Stat value={counts.equipment} label="Equipment types" />
           <Stat value={counts.services} label="Services" />
           <Stat value={savedMeta ? formatDate(savedMeta) : "Never"} label="Last saved" />

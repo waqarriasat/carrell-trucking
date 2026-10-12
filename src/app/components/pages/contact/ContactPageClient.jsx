@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
 import { FaMapMarkerAlt, FaClock, FaUser, FaCheck } from "react-icons/fa"
 import { getIcon } from "@/app/lib/content/icons"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { submitContact } from "@/app/actions/submitContact"
+import { useLeadForm, SpamTrap, FieldError, FormNote } from "@/app/components/common/LeadFormParts"
 
 const C = {
   dark:   "#0f2d4a",
@@ -22,22 +22,7 @@ export default function ContactPageClient({ page, site }) {
   const TEAM_CONTACTS = page.team
   const form = page.form
 
-  const [status,   setStatus]   = useState(null)
-  const [errorMsg, setErrorMsg] = useState("")
-
-  async function handleSubmit(e) {
-    e.preventDefault()
-    setStatus("loading")
-    const formData = new FormData(e.target)
-    const result = await submitContact(formData)
-    if (result.success) {
-      setStatus("success")
-      e.target.reset()
-    } else {
-      setStatus("error")
-      setErrorMsg(result.error)
-    }
-  }
+  const { status, errorMsg, fieldErrors, onSubmit, onInput, fieldProps } = useLeadForm(submitContact)
 
   return (
     <>
@@ -156,11 +141,11 @@ export default function ContactPageClient({ page, site }) {
                 {page.formTitle}
               </h2>
 
-              <div style={{ background: C.light, borderRadius: 4, padding: "24px 20px", border: `1.5px solid ${C.border}` }}>
+              <div data-lead-form style={{ position: "relative", scrollMarginTop: 120, background: C.light, borderRadius: 4, padding: "24px 20px", border: `1.5px solid ${C.border}` }}>
 
                 {/* Success */}
                 {status === "success" && (
-                  <div style={{ background: "#f0fdf4", border: "1.5px solid #86efac", borderRadius: 4, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", gap: 10 }}>
+                  <div role="status" style={{ background: "#f0fdf4", border: "1.5px solid #86efac", borderRadius: 4, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", gap: 10 }}>
                     <FaCheck size={13} style={{ color: "#16a34a", flexShrink: 0 }} />
                     <p style={{ fontSize: 13, color: "#16a34a", fontWeight: 600, margin: 0 }}>
                       {form.successMessage}
@@ -170,42 +155,47 @@ export default function ContactPageClient({ page, site }) {
 
                 {/* Error */}
                 {status === "error" && (
-                  <div style={{ background: "#fef2f2", border: "1.5px solid #fca5a5", borderRadius: 4, padding: "12px 16px", marginBottom: 16 }}>
+                  <div role="alert" style={{ background: "#fef2f2", border: "1.5px solid #fca5a5", borderRadius: 4, padding: "12px 16px", marginBottom: 16 }}>
                     <p style={{ fontSize: 13, color: "#dc2626", fontWeight: 600, margin: 0 }}>{errorMsg}</p>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={onSubmit} onInput={onInput} noValidate>
+                  <SpamTrap />
                   {[
-                    { label: form.nameLabel,  name: "name",  type: "text",  placeholder: form.namePlaceholder,  required: true },
-                    { label: form.phoneLabel, name: "phone", type: "tel",   placeholder: form.phonePlaceholder, required: true },
-                    { label: form.emailLabel, name: "email", type: "email", placeholder: form.emailPlaceholder, required: false },
+                    { label: form.nameLabel,  name: "name",  type: "text",  placeholder: form.namePlaceholder,  required: true, autoComplete: "name" },
+                    { label: form.phoneLabel, name: "phone", type: "tel",   placeholder: form.phonePlaceholder, required: true, autoComplete: "tel" },
+                    { label: form.emailLabel, name: "email", type: "email", placeholder: form.emailPlaceholder, required: false, autoComplete: "email" },
                   ].map(field => (
                     <div key={field.name} style={{ marginBottom: 14 }}>
-                      <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>
+                      <label htmlFor={`contact-${field.name}`} style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>
                         {field.label}
                       </label>
                       <input
-                        name={field.name}
+                        id={`contact-${field.name}`}
                         type={field.type}
                         placeholder={field.placeholder}
                         required={field.required}
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", boxSizing: "border-box" }}
+                        autoComplete={field.autoComplete}
+                        {...fieldProps(field.name, { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", boxSizing: "border-box" })}
                       />
+                      <FieldError name={field.name} errors={fieldErrors} />
                     </div>
                   ))}
 
                   <div style={{ marginBottom: 18 }}>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>
+                    <label htmlFor="contact-message" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>
                       {form.messageLabel}
                     </label>
                     <textarea
-                      name="message"
+                      id="contact-message"
                       placeholder={form.messagePlaceholder}
                       rows={4}
                       required
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" }}
+                      maxLength={3000}
+                      {...fieldProps("message", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" })}
                     />
+                    <FieldError name="message" errors={fieldErrors} />
                   </div>
 
                   <button
@@ -216,10 +206,7 @@ export default function ContactPageClient({ page, site }) {
                     {status === "loading" ? form.sendingLabel : form.submitLabel}
                   </button>
 
-                  <p style={{ fontSize: 11, color: C.text, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
-                    {form.callText}{" "}
-                    <a href={site.phoneHref} style={{ color: C.goldText, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
-                  </p>
+                  <FormNote form={form} site={site} />
                 </form>
               </div>
             </div>
