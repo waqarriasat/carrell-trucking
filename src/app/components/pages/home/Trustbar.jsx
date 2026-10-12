@@ -19,7 +19,7 @@ export default function TrustBar({ trustBar, site, services }) {
   const TRUST_STATS = trustBar.stats;
 
   return (
-    <section className="page-section wrap" aria-label="Trust indicators">
+    <section className="page-section band-slim wrap" aria-label="Trust indicators">
       {/* ── Stat cards ── */}
       <div className={`grid grid-cols-2 ${LG_COLS[TRUST_STATS.length] || "lg:grid-cols-4"} gap-3 sm:gap-4`}>
         {TRUST_STATS.map((stat, i) => (

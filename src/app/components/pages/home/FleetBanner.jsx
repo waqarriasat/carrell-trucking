@@ -33,7 +33,7 @@ export default function FleetBanner({ banner, fleet }) {
   if (!units.length) return null;
 
   return (
-    <section aria-label={banner.label || "Our fleet"} className="page-section wrap">
+    <section aria-label={banner.label || "Our fleet"} className="page-section band-slim wrap">
       {/* Light band: the white units stand out with their own shadows */}
       <div>
       {/* Desktop / tablet: one row across the full width */}
