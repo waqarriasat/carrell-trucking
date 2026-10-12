@@ -154,3 +154,9 @@ body:has(#admin-root) {
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item[open] .faq-icon { transform: rotate(45deg); }
 .faq-item summary:hover h3 { text-decoration: underline; text-decoration-color: #c9a84c; text-underline-offset: 4px; }
+
+/* A page that already ends with its own navy call-to-action band doesn't
+   also get the footer's "Ready to rent?" band — no doubled blocks. */
+body:has(.site-main > .page-section.band-navy:last-child) .footer-cta {
+  display: none;
+}

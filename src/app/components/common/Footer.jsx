@@ -122,7 +122,7 @@ export default function Footer({ site, footer, fleet, services, resources }) {
     <footer>
 
       {/* ── CTA band: full-width navy ── */}
-      <div className="band-navy border-t" style={{ borderColor: "rgba(201,168,76,0.55)" }}>
+      <div className="footer-cta band-navy border-t" style={{ borderColor: "rgba(201,168,76,0.55)" }}>
         <div className="wrap py-9 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p
