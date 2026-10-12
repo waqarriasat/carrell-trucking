@@ -650,6 +650,9 @@ export const ADMIN_PAGES = [
         fields: [
           img("storyImage", "Photo", { help: "Landscape photo, about 1280 × 850px." }),
           t("storyImageAlt", "Photo description (for accessibility)"),
+          t("storyVideo", "Moving photo (video)", {
+            help: "A short silent .mp4 that plays in a loop over the photo. Leave empty to show only the photo.",
+          }),
           t("storyEyebrow", "Small gold text", { width: "sm" }),
           t("storyTitle", "Heading"),
           ta("storyParagraph1", "Paragraph 1", { rows: 4 }),

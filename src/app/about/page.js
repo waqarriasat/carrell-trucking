@@ -96,6 +96,9 @@ export default async function AboutPage() {
             height: 220px !important;
           }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .about-story-video { display: none; }
+        }
       `}</style>
 
       {/* ── Hero ── */}
@@ -143,13 +146,33 @@ export default async function AboutPage() {
           <div className="about-story-grid">
 
             {/* Image */}
-            <div style={{ borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
+            <div style={{ position: "relative", borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
               <img
                 src={page.storyImage}
                 alt={page.storyImageAlt}
                 className="about-story-image"
                 style={{ width: "100%", height: 360, objectFit: "cover", display: "block" }}
               />
+              {/* Silent loop over the photo; the photo shows while it loads and for reduced motion */}
+              {page.storyVideo && (
+                <video
+                  key={page.storyVideo}
+                  className="about-story-video"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  aria-hidden="true"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                >
+                  {/* A .webm next to the .mp4 (same name) is offered first, for browsers without H.264 */}
+                  {/\.mp4$/i.test(page.storyVideo) && page.storyVideo.startsWith("/videos/") && (
+                    <source src={page.storyVideo.replace(/\.mp4$/i, ".webm")} type="video/webm" />
+                  )}
+                  <source src={page.storyVideo} />
+                </video>
+              )}
             </div>
 
             {/* Text */}
