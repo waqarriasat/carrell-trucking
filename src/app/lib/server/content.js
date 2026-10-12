@@ -7,9 +7,37 @@ import { upgradeContent, CONTENT_VERSION } from "@/app/lib/content/upgrade"
 
 const CONTENT_FILE = "content.json"
 
+// Reads the saved document, retrying briefly if storage has a hiccup.
+async function readSaved() {
+  let lastErr
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try {
+      return await readJSON(CONTENT_FILE)
+    } catch (err) {
+      lastErr = err
+      await new Promise((r) => setTimeout(r, 400 * 2 ** attempt))
+    }
+  }
+  throw lastErr
+}
+
+// During `next build` every static page asks for the content. Read it once
+// per build instead of once per page (dozens of parallel storage requests
+// can fail the build). At runtime each request still reads fresh content.
+const isBuild = process.env.NEXT_PHASE === "phase-production-build"
+let buildSaved = null
+const loadSaved = () => {
+  if (!isBuild) return readSaved()
+  buildSaved ??= readSaved().catch((err) => {
+    buildSaved = null
+    throw err
+  })
+  return buildSaved
+}
+
 // Raw content (placeholders untouched) — what the admin editor works with.
 export const getRawContent = cache(async () => {
-  const saved = await readJSON(CONTENT_FILE)
+  const saved = await loadSaved()
   // Bring copies saved before a defaults update up to date (keeps admin edits).
   const content = upgradeContent(saved?.content ?? null, saved?.version ?? 1)
   return mergeWithDefaults(content, DEFAULT_CONTENT)
