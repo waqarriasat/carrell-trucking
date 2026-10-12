@@ -1,0 +1,31 @@
+# Security check on every pull request, on main and once a week.
+# Fails when a library the website ships with has a known CRITICAL
+# vulnerability (the same check runs before every Vercel build, so such
+# an update can't go live), then confirms the site still builds.
+name: Security check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 12 * * 1" # Mondays
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Known vulnerabilities (fails on critical)
+        run: npm run security
+      - name: Build
+        run: npx next build
