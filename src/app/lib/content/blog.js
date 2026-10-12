@@ -1,5 +1,9 @@
 // Helpers for the blog & FAQ content (safe on server and client).
 
+// Blog & FAQ can be switched off in Admin → Blog & FAQ (hidden everywhere).
+export const resourcesEnabled = (blog) => blog?.enabled === "yes";
+export const isResourcesHref = (href) => /^\/(blog|faq)(\/|#|$)/.test(String(href || ""));
+
 export const publishedPosts = (blog) =>
   (blog?.posts || [])
     .filter((p) => p && p.id && p.title && p.published !== "no")

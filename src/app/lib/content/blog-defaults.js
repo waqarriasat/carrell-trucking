@@ -17,6 +17,8 @@
 // ─────────────────────────────────────────────
 
 export const BLOG_DEFAULTS = {
+  // "no" hides Blog & FAQ everywhere (menus, footer, pages, sitemap, equipment pages).
+  enabled: "no",
   metaTitle: "Trailer & Container Rental Guides and Tips | Ardmore Trailer, Inc.",
   metaDescription:
     "Practical guides on storage container sizes, refrigerated trailer rental, job-site setup and renting vs. buying — from the owner of Ardmore Trailer, Inc. in Southern Oklahoma.",

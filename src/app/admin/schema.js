@@ -1033,6 +1033,14 @@ export const ADMIN_PAGES = [
         title: "Blog page",
         path: "blog",
         fields: [
+          {
+            type: "select",
+            key: "enabled",
+            label: "Show Blog & FAQ on the website",
+            width: "sm",
+            options: [{ value: "no", label: "Hidden" }, { value: "yes", label: "Shown" }],
+            help: "Hidden: no Resources menu, no footer links, the Blog and FAQ pages show “not found”, and they are left out of the sitemap and the equipment pages. Nothing is deleted — switch to Shown any time.",
+          },
           t("metaTitle", "Google title"),
           ta("metaDescription", "Google description", { rows: 2 }),
           t("eyebrow", "Small gold text", { width: "sm" }),

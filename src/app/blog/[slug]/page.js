@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { FaPhone, FaArrowRight } from "react-icons/fa6"
 import { getContent } from "@/app/lib/server/content"
 import { pageMeta, siteBaseUrl } from "@/app/lib/server/seo"
-import { publishedPosts, categoryOf, formatDate, readMinutes } from "@/app/lib/content/blog"
+import { publishedPosts, categoryOf, formatDate, readMinutes, resourcesEnabled } from "@/app/lib/content/blog"
 import { isCutout } from "@/app/lib/content/images"
 import JsonLd, { breadcrumbJsonLd } from "@/app/components/common/JsonLd"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
@@ -33,6 +33,7 @@ export async function generateMetadata({ params }) {
 export default async function ArticlePage({ params }) {
   const { slug } = await params
   const { blog, fleet, seo, site } = await getContent()
+  if (!resourcesEnabled(blog)) notFound()
   const posts = publishedPosts(blog)
   const post = posts.find((p) => p.id === slug)
   if (!post) notFound()

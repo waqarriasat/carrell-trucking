@@ -5,7 +5,7 @@ import Footer from "@/app/components/common/Footer";
 import SiteChrome from "@/app/components/common/SiteChrome";
 import { getContent } from "@/app/lib/server/content";
 import { siteBaseUrl } from "@/app/lib/server/seo";
-import { publishedPosts } from "@/app/lib/content/blog";
+import { publishedPosts, resourcesEnabled, isResourcesHref } from "@/app/lib/content/blog";
 import Convoy from "./components/common/Convoy";
 import WhatsAppButton from "@/app/components/common/WhatsAppButton";
 
@@ -55,9 +55,11 @@ export const viewport = {
 export default async function RootLayout({ children }) {
   const content = await getContent();
   const { site, nav, footer, fleet, services, seo, blog } = content;
-  // Header "Resources" menu + footer links (blog & FAQ)
+  // Header "Resources" menu + footer links (blog & FAQ) — hidden when switched off
+  const showResources = resourcesEnabled(blog);
+  const siteNav = showResources ? nav : { ...nav, links: (nav.links || []).filter((l) => !isResourcesHref(l.href)) };
   const posts = publishedPosts(blog);
-  const resources = {
+  const resources = showResources && {
     ...blog.menu,
     guides: (posts.filter((p) => p.featured === "yes").length ? posts.filter((p) => p.featured === "yes") : posts)
       .slice(0, 6)
@@ -115,7 +117,7 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c") }}
         />
         <SiteChrome
-          navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
+          navbar={<Navbar site={site} nav={siteNav} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
           footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} />}
           convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
