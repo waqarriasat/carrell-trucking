@@ -158,7 +158,7 @@ function SecondaryButton({ button, light }) {
 function Actions({ hero, site, secondary, light }) {
   return (
     <>
-      <div className="flex flex-col sm:flex-row gap-3 mb-10">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-10">
         <Link
           href={hero.primaryButton.href}
           className="inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-95"
@@ -174,7 +174,7 @@ function Actions({ hero, site, secondary, light }) {
             {secondary.map((b, i) => (
               <div
                 key={i}
-                className="[grid-area:1/1] grid"
+                className="[grid-area:1/1] flex"
                 aria-hidden={b.active ? undefined : "true"}
                 style={{ visibility: b.active ? "visible" : "hidden" }}
               >

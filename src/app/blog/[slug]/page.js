@@ -157,7 +157,7 @@ export default async function ArticlePage({ params }) {
                 </div>
                 <div className="p-5">
                   <p className="font-bold mb-1" style={{ color: "#0f2d4a" }}>{f.name}</p>
-                  <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#86671e" }}>View details →</p>
+                  <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "#86671e" }}>View Details →</p>
                 </div>
               </Link>
             ))}

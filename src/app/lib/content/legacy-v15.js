@@ -3,7 +3,7 @@
 //  Before contact details were grouped by location.
 //  Only used by lib/content/upgrade.js. Do not edit.
 // ─────────────────────────────────────────────
-import { BLOG_DEFAULTS, FAQ_DEFAULTS } from "./blog-defaults"
+import { BLOG_DEFAULTS, FAQ_DEFAULTS } from "./legacy-blog-v16"
 
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
