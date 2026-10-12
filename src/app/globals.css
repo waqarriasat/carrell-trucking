@@ -75,7 +75,11 @@ body:has(#admin-root) {
    them, so the page reads as one smooth surface; only the content inside
    keeps the side gutter. Navy bands are set explicitly (.band-navy). */
 .page-section {
-  padding-block: clamp(44px, 5.5vw, 88px);
+  padding-block: clamp(40px, 4.5vw, 64px);
+}
+/* Short strips (unit line-up, trust bar): less space so they don't float in empty bands */
+.page-section.band-slim {
+  padding-block: clamp(24px, 2.5vw, 40px);
 }
 .site-main > .page-section:nth-child(odd of .page-section) {
   background: #f5f7fa;
