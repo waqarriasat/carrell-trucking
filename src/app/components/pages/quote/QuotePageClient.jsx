@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { FaCheck } from "react-icons/fa"
 import { getIcon } from "@/app/lib/content/icons"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
@@ -25,6 +26,21 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
   const { status, errorMsg, fieldErrors, onSubmit, onInput, fieldProps } = useLeadForm(submitQuote)
 
+  // Links from the equipment pages (/quote?unit=…&interest=…) pre-select the unit and the
+  // choice. Done in the browser so this page stays static (fast and cached).
+  const formRef = useRef(null)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const tick = (name, value) => {
+      const v = String(value || "").trim().toLowerCase()
+      if (!v || !formRef.current) return
+      const input = [...formRef.current.querySelectorAll(`input[name="${name}"]`)].find((i) => i.value.toLowerCase() === v)
+      if (input) input.checked = true
+    }
+    tick("interest", params.get("interest"))
+    tick("equipment", params.get("unit"))
+  }, [])
+
   return (
     <>
       <style>{`
@@ -46,7 +62,10 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
         }
         /* odd number of equipment types: last one spans the row */
         .quote-fleet-grid > label:last-child:nth-child(odd) { grid-column: 1 / -1; }
-        .quote-interest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .quote-interest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        @media (max-width: 1100px) { .quote-interest-grid { grid-template-columns: 1fr 1fr; } }
+        .quote-mods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        @media (max-width: 1100px) { .quote-mods-grid { grid-template-columns: 1fr 1fr; } }
         .quote-interest {
           position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
           padding: 11px 10px; border-radius: 4px; cursor: pointer; text-align: center;
@@ -126,7 +145,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 </div>
               )}
 
-              <form onSubmit={onSubmit} onInput={onInput} noValidate>
+              <form ref={formRef} onSubmit={onSubmit} onInput={onInput} noValidate>
                 <SpamTrap />
                 {/* Name + Phone */}
                 <div className="quote-form-grid">
@@ -164,7 +183,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                   </div>
                 </div>
 
-                {/* Rental / Purchase / Rent to Own */}
+                {/* Rental / Purchase / Rent to Own / Modification */}
                 {form.interests?.length ? (
                   <div style={{ marginTop: 20 }}>
                     <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 10 }}>{form.interestLabel}</label>
@@ -197,6 +216,35 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                     ))}
                   </div>
                 </div>
+
+                {/* Modifications (optional — for any choice above) */}
+                {form.mods?.length ? (
+                  <fieldset style={{ marginTop: 20, border: 0, padding: 0, minWidth: 0 }}>
+                    <legend style={{ fontSize: 12, fontWeight: 700, color: C.dark, padding: 0, marginBottom: 4 }}>{form.modsLabel}</legend>
+                    {form.modsHelp ? (
+                      <p style={{ fontSize: 12, color: C.text, margin: "0 0 10px", lineHeight: 1.6 }}>{form.modsHelp}</p>
+                    ) : null}
+                    <div className="quote-mods-grid">
+                      {form.mods.map((option, i) => (
+                        <label key={i} style={{
+                          display: "flex", alignItems: "center", gap: 8,
+                          padding: "8px 12px", borderRadius: 4,
+                          border: `1.5px solid ${C.border}`,
+                          background: C.light, cursor: "pointer",
+                          fontSize: 12, fontWeight: 600, color: C.text
+                        }}>
+                          <input type="checkbox" name="mods" value={option} style={{ accentColor: C.gold }} />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                    <label htmlFor="quote-mods-details" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", margin: "14px 0 5px" }}>{form.modsDetailsLabel}</label>
+                    <textarea id="quote-mods-details" placeholder={form.modsDetailsPlaceholder} rows={3} maxLength={2000}
+                      {...fieldProps("modsDetails", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" })}
+                    />
+                    <FieldError name="modsDetails" errors={fieldErrors} />
+                  </fieldset>
+                ) : null}
 
                 {/* Service Type */}
                 <div style={{ marginTop: 20 }}>
