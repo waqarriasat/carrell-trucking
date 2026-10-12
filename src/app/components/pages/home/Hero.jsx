@@ -158,7 +158,7 @@ function SecondaryButton({ button, light }) {
 function Actions({ hero, site, secondary, light }) {
   return (
     <>
-      <div className="flex flex-col sm:flex-row gap-3 mb-10">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-10">
         <Link
           href={hero.primaryButton.href}
           className="inline-flex items-center justify-center gap-2 px-6 xl:px-7 py-3.5 rounded font-bold text-sm tracking-wider uppercase whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-95"
@@ -167,7 +167,24 @@ function Actions({ hero, site, secondary, light }) {
           {hero.primaryButton.label}
           <FaArrowRight size={13} />
         </Link>
-        <SecondaryButton button={secondary} light={light} />
+        {Array.isArray(secondary) ? (
+          // One button per slide in the same grid cell: the area always has
+          // the size of the widest one, so nothing shifts between slides.
+          <div className="grid">
+            {secondary.map((b, i) => (
+              <div
+                key={i}
+                className="[grid-area:1/1] flex"
+                aria-hidden={b.active ? undefined : "true"}
+                style={{ visibility: b.active ? "visible" : "hidden" }}
+              >
+                <SecondaryButton button={b} light={light} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <SecondaryButton button={secondary} light={light} />
+        )}
       </div>
 
       <a href={site.phoneHref} className="inline-flex items-center gap-3 group">
@@ -249,16 +266,17 @@ export default function Hero({ hero, site, fleet, compact = false }) {
     const isMain = (sl) => !String(sl.title || "").trim();
     const mainIndex = photoSlides.findIndex(isMain);
     const textSlides = photoSlides.length ? photoSlides : [{ title: "" }];
-    const active = textSlides[Math.min(currentSlide, textSlides.length - 1)];
-    const secondary = !isMain(active) && active.button && active.button.label ? active.button : hero.secondaryButton;
+    const buttonFor = (sl) => (!isMain(sl) && sl.button && sl.button.label ? sl.button : hero.secondaryButton);
+    const secondary = textSlides.map((sl, i) => ({ ...buttonFor(sl), active: i === Math.min(currentSlide, textSlides.length - 1) }));
+
 
     return (
-      <section className="page-section band-flush wrap bleed-right" aria-roledescription="carousel" aria-label="Highlights">
+      <section className="page-section band-flush wrap xl-bleed-right" aria-roledescription="carousel" aria-label="Highlights">
         {/* One white block: text on the left, the slide photo on the right
             (below the text on phones). Nothing ever sits on the photo. */}
-        <div className="overflow-hidden xl:grid xl:grid-cols-[42fr_58fr] 2xl:grid-cols-[41fr_59fr]">
+        <div className="overflow-hidden xl:grid xl:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] 2xl:grid-cols-[minmax(0,41fr)_minmax(0,59fr)]">
           {/* Text side: the slideshow pauses only while the visitor is here */}
-          <div className="flex items-center pr-[var(--gutter)] py-11 sm:py-14 xl:pr-12 2xl:pr-16" {...pauseProps}>
+          <div className="flex items-center py-10 sm:py-14 xl:pr-12 2xl:pr-16 min-w-0" {...pauseProps}>
             <div className="w-full">
               {mainIndex === -1 ? (
                 <h1 className="sr-only">{`${hero.titleStart} ${hero.titleAccent1} ${hero.titleJoin} ${hero.titleAccent2} ${hero.titleLine2} ${hero.titleAccent3}`.replace(/\s+/g, " ").trim()}</h1>
@@ -306,7 +324,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
           </div>
 
           {slideCount ? (
-            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[480px] max-xl:-ml-[var(--gutter)]" {...swipeProps}>
+            <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[480px] mb-10 xl:mb-0" {...swipeProps}>
               <div className="absolute inset-0" aria-hidden="true">
                 <Slides images={SLIDER_IMAGES} current={currentSlide} />
               </div>
@@ -341,7 +359,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                 paused={paused}
                 runKey={restartKey}
                 onDone={nextSlide}
-                className="absolute z-10 bottom-4 right-4 rounded-full px-3 py-2 bg-[#0a2038]/75"
+                className="absolute z-10 bottom-4 left-1/2 -translate-x-1/2 rounded-[3px] px-3 py-2 bg-[#0a2038]/75"
               />
             </div>
           ) : null}
@@ -432,7 +450,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                 <Link
                   key={item.id}
                   href={`/fleet/${item.id}`}
-                  className="group relative flex flex-col justify-between p-4 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+                  className="group relative flex flex-col justify-between p-4 rounded-[4px] border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                   style={{
                     backgroundColor: "rgba(10, 32, 56, 0.92)",
                     borderColor: "rgba(201, 168, 76, 0.35)",
@@ -441,7 +459,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                 >
                   {item.badge && (
                     <span
-                      className="inline-block text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full mb-3 self-start border"
+                      className="inline-block text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-[3px] mb-3 self-start border"
                       style={{ backgroundColor: "#c9a84c22", color: "#c9a84c", borderColor: "#c9a84c55" }}
                     >
                       {item.badge}

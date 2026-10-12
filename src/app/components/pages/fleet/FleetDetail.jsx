@@ -47,7 +47,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
         }
         .thumb {
           cursor: pointer;
-          border-radius: 8px;
+          border-radius: 4px;
           overflow: hidden;
           border: 2px solid transparent;
           transition: all 0.2s;
@@ -82,7 +82,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
             <span style={{
               display: "inline-block", fontSize: 10, fontWeight: 700,
               textTransform: "uppercase", letterSpacing: 2,
-              padding: "4px 12px", borderRadius: 20, marginBottom: 12,
+              padding: "4px 12px", borderRadius: 4, marginBottom: 12,
               background: C.gold + "12", color: C.goldText, border: `1px solid ${C.gold}44`
             }}>
               {item.badge}
@@ -101,7 +101,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
             {item.sizes.map((s, i) => (
               <span key={i} style={{
                 fontSize: 12, fontWeight: 700, padding: "6px 16px",
-                borderRadius: 20, border: `2px solid ${C.gold}`, color: C.goldText
+                borderRadius: 4, border: `2px solid ${C.gold}`, color: C.goldText
               }}>{s}</span>
             ))}
           </div>
@@ -118,7 +118,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
 
               {/* Main large image */}
               <div style={{
-                borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320,
+                borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}`, position: "relative", height: 320,
                 background: isCutout(allImages[activeImage]) ? "linear-gradient(180deg, #ffffff 0%, #e8f1f9 100%)" : undefined,
               }}>
                 {allImages[activeImage] && <Image
@@ -169,7 +169,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
 
               {/* Description */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+              <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
                   <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -182,7 +182,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
               </div>
 
               {/* Features */}
-              <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+              <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
                   <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -207,7 +207,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
 
               {/* Use Cases */}
               {item.useCases?.length > 0 && (
-                <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+                <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                     <div style={{ width: 24, height: 2, background: C.gold }} />
                     <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -218,7 +218,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                     {item.useCases.map((u, i) => (
                       <span key={i} style={{
                         fontSize: 11, fontWeight: 600, padding: "5px 12px",
-                        borderRadius: 20, background: C.light,
+                        borderRadius: 4, background: C.light,
                         border: `1px solid ${C.border}`, color: C.text
                       }}>{u}</span>
                     ))}
@@ -228,7 +228,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
 
               {/* Industries that use this unit — links to the matching service pages */}
               {usedIn.length > 0 && (
-                <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+                <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                     <div style={{ width: 24, height: 2, background: C.gold }} />
                     <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -241,7 +241,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                         key={s.id}
                         href={`/services/${s.id}`}
                         className="pill-outline-navy"
-                        style={{ fontSize: 12, fontWeight: 700, padding: "6px 14px", borderRadius: 20, textDecoration: "none" }}
+                        style={{ fontSize: 12, fontWeight: 700, padding: "6px 14px", borderRadius: 4, textDecoration: "none" }}
                       >
                         {s.label} {item.shortName || item.name} rentals →
                       </Link>
@@ -257,7 +257,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                     fontSize: 13, fontWeight: 800, padding: "13px",
-                    borderRadius: 8, background: C.gold, color: C.dark, textDecoration: "none"
+                    borderRadius: 4, background: C.gold, color: C.dark, textDecoration: "none"
                   }}
                 >
                   <FaFileInvoice size={14} /> {fleetDetail.quoteButtonLabel}
@@ -267,7 +267,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                     fontSize: 13, fontWeight: 800, padding: "13px",
-                    borderRadius: 8, border: `2px solid ${C.navy}`, color: C.navy, textDecoration: "none"
+                    borderRadius: 4, border: `2px solid ${C.navy}`, color: C.navy, textDecoration: "none"
                   }}
                 >
                   <FaPhone size={14} /> {fleetDetail.callButtonLabel}
@@ -295,7 +295,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                 className="other-card"
                 style={{
                   display: "block", padding: "12px 16px",
-                  borderRadius: 10, border: `1px solid ${C.navy}`,
+                  borderRadius: 4, border: `1px solid ${C.navy}`,
                   textDecoration: "none",
                 }}
               >

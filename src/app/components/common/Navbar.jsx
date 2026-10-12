@@ -2,19 +2,33 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { FaBars, FaPhone, FaChevronDown } from "react-icons/fa6";
+import { FaBars, FaPhone, FaChevronDown, FaChevronRight } from "react-icons/fa6";
 import TextLogo from "./TextLogo";
 import MobileMenu from "./MobileMenu";
 
-export default function Navbar({ site, nav, fleet, services }) {
+export default function Navbar({ site, nav, fleet, services, resources }) {
   const DROPDOWNS = {
     "/fleet": {
-      items: fleet.map((f) => ({ label: f.name, href: `/fleet/${f.id}` })),
+      items: fleet.map((f) => ({ label: f.name, href: `/fleet/${f.id}`, image: f.image })),
       viewAll: { label: nav.fleetViewAll, href: "/fleet" },
     },
     "/services": {
-      items: services.map((s) => ({ label: s.label, href: `/services/${s.id}` })),
+      items: services.map((s) => ({ label: s.label, href: `/services/${s.id}`, description: s.description })),
       viewAll: { label: nav.servicesViewAll, href: "/services" },
+    },
+    "/blog": resources && {
+      columns: [
+        { heading: resources.guidesHeading, items: resources.guides.map((p) => ({ label: p.title, href: `/blog/${p.id}` })) },
+        {
+          heading: resources.topicsHeading,
+          items: [
+            ...resources.categories.map((c) => ({ label: c.label, href: `/blog/category/${c.id}` })),
+            { label: resources.faqLabel, href: "/faq" },
+          ],
+        },
+      ],
+      note: resources.note,
+      viewAll: { label: resources.viewAll, href: "/blog" },
     },
   }
 
@@ -46,93 +60,119 @@ export default function Navbar({ site, nav, fleet, services }) {
   return (
     <>
       <style>{`
-  .nav-dropdown {
+/* ── Header dropdown menus ──
+   Square, clean panels that open flush under the header: thin gold top
+   line, divider lines between items, light hover with a gold marker. */
+.nav-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
-  left: auto;
-  right: 0;
-  transform: none;
-  background: #fff;
-  border: 1.5px solid #d6e8f5;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(15,45,74,0.15);
+  top: calc(100% + 22px);
+  background: #ffffff;
+  border: 1px solid #e3e9f0;
+  border-top: 3px solid #c9a84c;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 18px 40px rgba(15, 45, 74, 0.16);
   z-index: 100;
-  min-width: 200px;
-  overflow: hidden;
-  animation: dropInSimple 0.15s ease forwards;
+  animation: navDrop 0.16s ease-out both;
 }
-.nav-dropdown.fleet-dropdown {
-  min-width: 300px;
-  left: 0;
-  right: 0;
-  transform: none;
-  animation: dropInSimple 0.15s ease forwards;
+/* invisible bridge so the menu stays open while the cursor moves down */
+.nav-dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -26px; height: 26px;
 }
-.nav-dropdown.services-dropdown {
-  min-width: 200px;
-  left: 0;
-  right: 0;
-  transform: none;
-  animation: dropInSimple 0.15s ease forwards;
-}
-.dropdown-item {
-  display: block;
-  padding: 9px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #4a6b85;
-  text-decoration: none;
-  transition: all 0.15s;
-  border-bottom: 1px solid #f0f6fb;
-}
-.dropdown-item:hover {
-  background: #f0f6fb;
-  color: #0f2d4a;
-  padding-left: 20px;
-}
-.dropdown-item:last-child { border-bottom: none; }
-.view-all-link {
-  display: block;
-  padding: 10px 16px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #c9a84c;
-  text-decoration: none;
-  background: #0f2d4a;
-  transition: opacity 0.15s;
-}
-.view-all-link:hover { opacity: 0.85; }
-@keyframes dropInSimple {
-  from { opacity: 0; transform: translateY(-8px); }
+@keyframes navDrop {
+  from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.fleet-dropdown-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 8px;
-  gap: 2px;
+.nav-dropdown .dd-heading {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #86671e;
+  padding: 18px 22px 10px;
 }
-.fleet-dropdown-item {
-  display: block;
-  padding: 9px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #4a6b85;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.15s;
-}
-.fleet-dropdown-item:hover {
-  background: #f0f6fb;
+.nav-dropdown .dd-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 22px;
+  border-top: 1px solid #edf1f5;
   color: #0f2d4a;
+  text-decoration: none;
+  transition: background-color 0.15s;
 }
-.fleet-dropdown-footer {
-  border-top: 1.5px solid #d6e8f5;
-  padding: 10px 16px;
-  background: #0f2d4a;
+.nav-dropdown .dd-item::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: #c9a84c;
+  transform: scaleY(0);
+  transition: transform 0.15s;
 }
+.nav-dropdown .dd-item:hover,
+.nav-dropdown .dd-item:focus-visible {
+  background: #f5f7fa;
+}
+.nav-dropdown .dd-item:hover::before,
+.nav-dropdown .dd-item:focus-visible::before {
+  transform: scaleY(1);
+}
+.nav-dropdown .dd-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.nav-dropdown .dd-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #5b7389;
+}
+.nav-dropdown .dd-thumb {
+  flex: none;
+  width: 64px;
+  height: 40px;
+  object-fit: contain;
+}
+.nav-dropdown .dd-arrow {
+  margin-left: auto;
+  color: #c9a84c;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.nav-dropdown .dd-item:hover .dd-arrow { opacity: 1; transform: translateX(0); }
+.nav-dropdown .dd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 22px;
+  border-top: 1px solid #e3e9f0;
+  background: #f5f7fa;
+  font-size: 13px;
+}
+.nav-dropdown .dd-footer a {
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #0f2d4a;
+  text-decoration: none;
+}
+.nav-dropdown .dd-footer a:hover { color: #86671e; }
+.fleet-dropdown { left: -120px; width: 640px; }
+.fleet-dropdown .dd-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.fleet-dropdown .dd-grid .dd-item:nth-child(odd) { border-right: 1px solid #edf1f5; }
+.services-dropdown { left: 0; width: 340px; }
+.nav-dropdown .dd-cols { display: grid; grid-template-columns: 1fr 1fr; }
+.nav-dropdown .dd-cols > div + div { border-left: 1px solid #edf1f5; }
+.resources-dropdown { left: -220px; width: 620px; }
 `}</style>
 
       <header
@@ -189,61 +229,89 @@ export default function Navbar({ site, nav, fleet, services }) {
                     />
                   </Link>
 
-                  {/* Fleet dropdown — 2 column grid */}
+                  {/* Fleet dropdown — two columns with a picture of each unit */}
                   {dropdown && isOpen && link.href === "/fleet" && (
                     <div
                       className="nav-dropdown fleet-dropdown"
                       onMouseEnter={() => openDropdown(link.href)}
                       onMouseLeave={() => closeDropdown()}
                     >
-                      <div className="fleet-dropdown-grid">
+                      <div className="dd-heading">{link.label}</div>
+                      <div className="dd-grid">
                         {dropdown.items.map((item) => (
                           <Link
                             key={item.href}
                             href={item.href}
-                            className="fleet-dropdown-item"
+                            className="dd-item"
                             onClick={() => setActiveDropdown(null)}
                           >
-                            {item.label}
+                            {item.image ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={item.image} alt="" className="dd-thumb" loading="lazy" />
+                            ) : null}
+                            <span className="dd-title">{item.label}</span>
                           </Link>
                         ))}
                       </div>
-                      <div className="fleet-dropdown-footer">
-                        <Link
-                          href={dropdown.viewAll.href}
-                          className="view-all-link"
-                          onClick={() => setActiveDropdown(null)}
-                        >
+                      <div className="dd-footer">
+                        <span style={{ color: "#5b7389" }}>{nav.mobileCallLabel}: <a href={site.phoneHref} style={{ textTransform: "none", letterSpacing: 0 }}>{site.phone}</a></span>
+                        <Link href={dropdown.viewAll.href} onClick={() => setActiveDropdown(null)}>
                           {dropdown.viewAll.label} →
                         </Link>
                       </div>
                     </div>
                   )}
 
-                  {/* Services dropdown — single column */}
+                  {/* Services dropdown — industries with a short line each */}
                   {dropdown && isOpen && link.href === "/services" && (
                     <div
                       className="nav-dropdown services-dropdown"
                       onMouseEnter={() => openDropdown(link.href)}
                       onMouseLeave={() => closeDropdown()}
                     >
+                      <div className="dd-heading">{link.label}</div>
                       {dropdown.items.map((item) => (
                         <Link
                           key={item.href}
                           href={item.href}
-                          className="dropdown-item"
+                          className="dd-item"
                           onClick={() => setActiveDropdown(null)}
                         >
-                          {item.label}
+                          <span>
+                            <span className="dd-title">{item.label}</span>
+                            {item.description ? <span className="dd-sub">{item.description}</span> : null}
+                          </span>
+                          <FaChevronRight size={11} className="dd-arrow" />
                         </Link>
                       ))}
-                      <Link
-                        href={dropdown.viewAll.href}
-                        className="view-all-link"
-                        onClick={() => setActiveDropdown(null)}
-                      >
-                        {dropdown.viewAll.label} →
-                      </Link>
+                      <div className="dd-footer">
+                        <Link href={dropdown.viewAll.href} onClick={() => setActiveDropdown(null)}>
+                          {dropdown.viewAll.label} →
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Resources dropdown — guides on the left, topics + FAQ on the right */}
+                  {dropdown && isOpen && link.href === "/blog" && (
+                    <div className="nav-dropdown resources-dropdown" onMouseEnter={() => openDropdown(link.href)} onMouseLeave={() => closeDropdown()}>
+                      <div className="dd-cols">
+                        {dropdown.columns.map((col) => (
+                          <div key={col.heading}>
+                            <div className="dd-heading">{col.heading}</div>
+                            {col.items.map((item) => (
+                              <Link key={item.href} href={item.href} className="dd-item" onClick={() => setActiveDropdown(null)}>
+                                <span className="dd-title" style={{ fontWeight: 600 }}>{item.label}</span>
+                                <FaChevronRight size={11} className="dd-arrow" />
+                              </Link>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="dd-footer">
+                        <span>{dropdown.note}</span>
+                        <Link href={dropdown.viewAll.href} onClick={() => setActiveDropdown(null)}>{dropdown.viewAll.label} →</Link>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -280,7 +348,7 @@ export default function Navbar({ site, nav, fleet, services }) {
             <a
               href={site.phoneHref}
               aria-label={`Call ${site.phone}`}
-              className="flex items-center gap-2 h-9 px-2.5 rounded-full transition-colors"
+              className="flex items-center gap-2 h-9 px-2.5 rounded-[3px] transition-colors"
               style={{ backgroundColor: "rgba(201,168,76,0.18)", color: "#ffffff" }}
             >
               <FaPhone size={14} style={{ color: "#c9a84c" }} />
@@ -290,7 +358,7 @@ export default function Navbar({ site, nav, fleet, services }) {
               onClick={() => setMenuOpen(true)}
               aria-label="Open navigation menu"
               aria-expanded={menuOpen}
-              className="flex items-center justify-center w-9 h-9 rounded-md transition-colors hover:bg-white/10"
+              className="flex items-center justify-center w-9 h-9 rounded-[4px] transition-colors hover:bg-white/10"
             >
               <FaBars size={20} style={{ color: "#ffffff" }} />
             </button>
@@ -298,7 +366,7 @@ export default function Navbar({ site, nav, fleet, services }) {
         </div>
       </header>
 
-      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} site={site} nav={nav} fleet={fleet} services={services} />
+      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} site={site} nav={nav} fleet={fleet} services={services} resources={resources} />
     </>
   )
 }

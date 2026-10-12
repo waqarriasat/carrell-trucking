@@ -64,7 +64,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
         .quote-interest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .quote-interest {
           position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
-          padding: 11px 10px; border-radius: 8px; cursor: pointer; text-align: center;
+          padding: 11px 10px; border-radius: 4px; cursor: pointer; text-align: center;
           border: 1.5px solid ${C.border}; background: ${C.light};
           font-size: 13px; font-weight: 700; color: ${C.text};
           transition: border-color .15s, background .15s, color .15s;
@@ -104,7 +104,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
           <div className="quote-grid">
 
             {/* Form */}
-            <div style={{ background: "#fff", borderRadius: 16, padding: "28px 24px", border: `1.5px solid ${C.border}` }}>
+            <div style={{ background: "#fff", borderRadius: 4, padding: "28px 24px", border: `1.5px solid ${C.border}` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <div style={{ width: 28, height: 2, background: C.gold }} />
                 <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -119,7 +119,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
               {status === "success" && (
                 <div style={{
                   background: "#f0fdf4", border: "1.5px solid #86efac",
-                  borderRadius: 10, padding: "14px 16px", marginBottom: 20,
+                  borderRadius: 4, padding: "14px 16px", marginBottom: 20,
                   display: "flex", alignItems: "center", gap: 10
                 }}>
                   <FaCheck size={14} style={{ color: "#16a34a", flexShrink: 0 }} />
@@ -133,7 +133,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
               {status === "error" && (
                 <div style={{
                   background: "#fef2f2", border: "1.5px solid #fca5a5",
-                  borderRadius: 10, padding: "14px 16px", marginBottom: 20
+                  borderRadius: 4, padding: "14px 16px", marginBottom: 20
                 }}>
                   <p style={{ fontSize: 13, color: "#dc2626", fontWeight: 600, margin: 0 }}>
                     {errorMsg}
@@ -147,13 +147,13 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                   <div>
                     <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.nameLabel}</label>
                     <input name="name" type="text" placeholder={form.namePlaceholder} required
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
                     />
                   </div>
                   <div>
                     <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.phoneLabel}</label>
                     <input name="phone" type="tel" placeholder={form.phonePlaceholder} required
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
                     />
                   </div>
                 </div>
@@ -163,13 +163,13 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                   <div>
                     <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.emailLabel}</label>
                     <input name="email" type="email" placeholder={form.emailPlaceholder}
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
                     />
                   </div>
                   <div>
                     <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.companyLabel}</label>
                     <input name="company" type="text" placeholder={form.companyPlaceholder}
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
                     />
                   </div>
                 </div>
@@ -196,7 +196,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                     {FLEET_OPTIONS.map((option, i) => (
                       <label key={i} style={{
                         display: "flex", alignItems: "center", gap: 8,
-                        padding: "8px 12px", borderRadius: 8,
+                        padding: "8px 12px", borderRadius: 4,
                         border: `1.5px solid ${C.border}`,
                         background: C.light, cursor: "pointer",
                         fontSize: 12, fontWeight: 600, color: C.text
@@ -215,7 +215,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                     {SERVICES.map((service, i) => (
                       <label key={i} style={{
                         display: "flex", alignItems: "center", gap: 8,
-                        padding: "8px 14px", borderRadius: 8,
+                        padding: "8px 14px", borderRadius: 4,
                         border: `1.5px solid ${C.border}`,
                         background: C.light, cursor: "pointer",
                         fontSize: 12, fontWeight: 600, color: C.text
@@ -231,7 +231,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 <div style={{ marginTop: 20 }}>
                   <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.durationLabel}</label>
                   <select name="duration"
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
                   >
                     <option value="">{form.durationPlaceholder}</option>
                     {form.durations.map((d, i) => (
@@ -244,7 +244,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 <div style={{ marginTop: 14 }}>
                   <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.locationLabel}</label>
                   <input name="location" type="text" placeholder={form.locationPlaceholder} required
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                    style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
                   />
                 </div>
 
@@ -252,7 +252,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 <div style={{ marginTop: 14 }}>
                   <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.notesLabel}</label>
                   <textarea name="notes" placeholder={form.notesPlaceholder} rows={4}
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" }}
+                    style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" }}
                   />
                 </div>
 
@@ -262,7 +262,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                   disabled={status === "loading"}
                   style={{
                     width: "100%", padding: "13px",
-                    borderRadius: 8, border: "none",
+                    borderRadius: 4, border: "none",
                     background: status === "loading" ? "#d4b86a" : C.gold,
                     color: C.dark, fontSize: 14, fontWeight: 800,
                     cursor: status === "loading" ? "not-allowed" : "pointer",
@@ -281,7 +281,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
             {/* Right panel */}
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div style={{ background: C.dark, borderRadius: 14, padding: "24px 20px", border: `1.5px solid ${C.navy}` }}>
+              <div style={{ background: C.dark, borderRadius: 4, padding: "24px 20px", border: `1.5px solid ${C.navy}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
                   <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{page.whyEyebrow}</span>
@@ -299,12 +299,12 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 </div>
               </div>
 
-              <div style={{ background: "#fff", borderRadius: 14, padding: "24px 20px", border: `1.5px solid ${C.border}` }}>
+              <div style={{ background: "#fff", borderRadius: 4, padding: "24px 20px", border: `1.5px solid ${C.border}` }}>
                 <h3 style={{ fontSize: 15, fontWeight: 900, color: C.dark, margin: "0 0 16px" }}>{page.callTitle}</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                   {page.contacts.map((c) => ({ ...c, icon: getIcon(c.icon, "fa/FaPhone") })).map((contact, i) => (
                     <a key={i} href={contact.href} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
-                      <div style={{ width: 36, height: 36, borderRadius: 8, background: contact.color + "18", border: `1px solid ${contact.color}33`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: 4, background: contact.color + "18", border: `1px solid ${contact.color}33`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                         <contact.icon size={14} style={{ color: contact.color }} />
                       </div>
                       <div>
@@ -316,7 +316,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 </div>
               </div>
 
-              <div style={{ background: C.gold + "15", borderRadius: 12, padding: "16px 18px", border: `1.5px solid ${C.gold}44` }}>
+              <div style={{ background: C.gold + "15", borderRadius: 4, padding: "16px 18px", border: `1.5px solid ${C.gold}44` }}>
                 <p style={{ fontSize: 12, color: C.dark, margin: 0, lineHeight: 1.6, fontWeight: 600 }}>
                   📋 <strong>{page.noteBold}</strong> {page.noteText}
                 </p>

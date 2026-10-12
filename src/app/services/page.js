@@ -82,7 +82,7 @@ export default async function ServicesPage() {
               return (
                 <div key={service.id} style={{
                   background: "#fff",
-                  borderRadius: 16,
+                  borderRadius: 4,
                   overflow: "hidden",
                   border: `1.5px solid ${C.border}`,
                   boxShadow: "0 2px 12px rgba(15,45,74,0.06)",
@@ -103,7 +103,7 @@ export default async function ServicesPage() {
                       display: "flex", alignItems: "center", gap: 10
                     }}>
                       <div style={{
-                        width: 36, height: 36, borderRadius: 8,
+                        width: 36, height: 36, borderRadius: 4,
                         background: C.gold,
                         display: "flex", alignItems: "center", justifyContent: "center"
                       }}>
@@ -148,7 +148,7 @@ export default async function ServicesPage() {
                             href={`/fleet/${f.id}`}
                             style={{
                               display: "block", padding: "8px 12px",
-                              borderRadius: 8, border: `1px solid ${C.border}`,
+                              borderRadius: 4, border: `1px solid ${C.border}`,
                               fontSize: 12, fontWeight: 600, color: C.navy,
                               textDecoration: "none", background: C.light,
                               transition: "all 0.15s"
@@ -166,7 +166,7 @@ export default async function ServicesPage() {
                       style={{
                         display: "flex", alignItems: "center", justifyContent: "center",
                         gap: 6, fontSize: 12, fontWeight: 800,
-                        padding: "10px", borderRadius: 8,
+                        padding: "10px", borderRadius: 4,
                         background: C.gold, color: C.dark, textDecoration: "none"
                       }}
                     >
@@ -196,14 +196,14 @@ export default async function ServicesPage() {
             <Link href={page.ctaPrimaryButton.href} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               fontSize: 13, fontWeight: 700, padding: "12px 22px",
-              borderRadius: 8, background: C.gold, color: C.dark, textDecoration: "none"
+              borderRadius: 4, background: C.gold, color: C.dark, textDecoration: "none"
             }}>
               {page.ctaPrimaryButton.label}
             </Link>
             <a href={site.phoneHref} style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               fontSize: 13, fontWeight: 700, padding: "12px 22px",
-              borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
+              borderRadius: 4, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
             }}>
               <FaPhone size={13} /> {site.phone}
             </a>

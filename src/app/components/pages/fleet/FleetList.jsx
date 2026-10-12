@@ -24,7 +24,7 @@ function FleetCard({ item, fleetPage, site }) {
       <div className="fleet-card-left">
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 4 }}>
           <div style={{
-            width: 42, height: 42, borderRadius: 10,
+            width: 42, height: 42, borderRadius: 4,
             background: color + "18",
             border: `1px solid ${color}33`,
             display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
@@ -41,7 +41,7 @@ function FleetCard({ item, fleetPage, site }) {
           {item.listSizes.map((s, i) => (
             <span key={i} style={{
               fontSize: 11, fontWeight: 700, padding: "3px 10px",
-              borderRadius: 20, background: "#e8f2fb", color: C.navy
+              borderRadius: 4, background: "#e8f2fb", color: C.navy
             }}>{s}</span>
           ))}
         </div>
@@ -63,14 +63,14 @@ function FleetCard({ item, fleetPage, site }) {
           <Link href="/quote" style={{
             display: "inline-flex", alignItems: "center", gap: 6,
             fontSize: 13, fontWeight: 700, padding: "10px 20px",
-            borderRadius: 8, background: C.gold, color: C.dark, textDecoration: "none"
+            borderRadius: 4, background: C.gold, color: C.dark, textDecoration: "none"
           }}>
             <FaFileInvoice size={12} /> {fleetPage.quoteButtonLabel}
           </Link>
           <a href={site.phoneHref} style={{
             display: "inline-flex", alignItems: "center", gap: 6,
             fontSize: 13, fontWeight: 700, padding: "10px 20px",
-            borderRadius: 8, border: `2px solid ${C.navy}`, color: C.navy, textDecoration: "none"
+            borderRadius: 4, border: `2px solid ${C.navy}`, color: C.navy, textDecoration: "none"
           }}>
             <FaPhone size={12} /> {fleetPage.callButtonLabel}
           </a>
@@ -101,7 +101,7 @@ function FleetCard({ item, fleetPage, site }) {
           overflow: "hidden", textOverflow: "ellipsis",
           fontSize: 10, fontWeight: 800,
           textTransform: "uppercase", letterSpacing: 1.2,
-          padding: "4px 10px", borderRadius: 20,
+          padding: "4px 10px", borderRadius: 4,
           background: C.gold, color: C.dark
         }}>{item.badge}</span>
         {item.cornerBadge ? (
@@ -125,7 +125,7 @@ export default function FleetList({ fleetPage, fleet, site }) {
           display: grid;
           grid-template-columns: 1fr 280px;
           background: #fff;
-          border-radius: 16px;
+          border-radius: 4px;
           border: 1.5px solid #d6e8f5;
           overflow: hidden;
           box-shadow: 0 2px 12px rgba(15,45,74,0.07);

@@ -37,7 +37,7 @@ export default function WhyUs({ whyUs, site }) {
 
         {/* ── Satisfaction + ISO badges row (hidden when left empty in the admin) ── */}
         {(whyUs.badgeTitle || whyUs.badgeText || whyUs.badge1.image || whyUs.badge2.image) && (
-        <div className="flex flex-wrap items-center gap-6 mb-12 p-6 rounded-xl"
+        <div className="flex flex-wrap items-center gap-6 mb-12 p-6 rounded-[4px]"
           style={{ backgroundColor: "#ffffff", border: "1px solid #e1e8f0" }}>
           {whyUs.badge1.image && <div className="relative w-20 h-20 shrink-0">
             <Image
@@ -90,7 +90,7 @@ export default function WhyUs({ whyUs, site }) {
 
                 {/* Icon Container Wrapper */}
                 <div
-                  className="flex items-center justify-center w-16 h-16 rounded-xl mb-4 mt-2 relative p-3.5"
+                  className="flex items-center justify-center w-16 h-16 rounded-[4px] mb-4 mt-2 relative p-3.5"
                   style={{ backgroundColor: "#0f2d4a" }}
                   aria-hidden="true"
                 >
@@ -169,7 +169,7 @@ export default function WhyUs({ whyUs, site }) {
           </p>
           <a
             href={site.phoneHref}
-            className="flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-lg shrink-0 transition-opacity hover:opacity-90"
+            className="flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-[4px] shrink-0 transition-opacity hover:opacity-90"
             style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
           >
             {whyUs.stripButtonLabel}

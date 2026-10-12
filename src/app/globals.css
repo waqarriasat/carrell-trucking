@@ -57,6 +57,9 @@ body:has(#admin-root) {
 .wrap.bleed-right {
   padding-right: 0;
 }
+@media (min-width: 1280px) {
+  .wrap.xl-bleed-right { padding-right: 0; }
+}
 
 /* ── Light theme building blocks ──
    The page is light; content sits in blocks with light space between
@@ -93,12 +96,12 @@ body:has(#admin-root) {
 .panel {
   background: #ffffff;
   border: 1px solid #e1e8f0;
-  border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(15, 45, 74, 0.04), 0 10px 28px rgba(15, 45, 74, 0.06);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(15, 45, 74, 0.04), 0 8px 22px rgba(15, 45, 74, 0.06);
 }
 .panel-navy {
   background: #0f2d4a;
-  border-radius: 16px;
+  border-radius: 4px;
   box-shadow: 0 12px 32px rgba(15, 45, 74, 0.18);
 }
 
@@ -145,4 +148,15 @@ body:has(#admin-root) {
 @keyframes hero-progress {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
+}
+
+/* FAQ accordion */
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item[open] .faq-icon { transform: rotate(45deg); }
+.faq-item summary:hover h3 { text-decoration: underline; text-decoration-color: #c9a84c; text-underline-offset: 4px; }
+
+/* A page that already ends with its own navy call-to-action band doesn't
+   also get the footer's "Ready to rent?" band — no doubled blocks. */
+body:has(.site-main > .page-section.band-navy:last-child) .footer-cta {
+  display: none;
 }

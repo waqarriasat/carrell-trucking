@@ -130,7 +130,7 @@ export default function Testimonials({ testimonials, site }) {
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "11px 24px",
-                borderRadius: 8, background: C.gold, color: C.dark,
+                borderRadius: 4, background: C.gold, color: C.dark,
                 textDecoration: "none"
               }}
             >
@@ -142,7 +142,7 @@ export default function Testimonials({ testimonials, site }) {
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "11px 24px",
-                borderRadius: 8, textDecoration: "none"
+                borderRadius: 4, textDecoration: "none"
               }}
             >
               {testimonials.ctaCallLabel}

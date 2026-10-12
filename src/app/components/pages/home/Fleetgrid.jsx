@@ -206,7 +206,7 @@ function FleetCard({ item, linkLabel, brand }) {
     <Link
       href={`/fleet/${item.id}`}
       id={item.id}
-      className="group relative flex flex-col w-full rounded-xl border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col w-full rounded-[4px] border overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
       style={{
         backgroundColor: "#ffffff",
         borderColor: "#d6e8f5",
@@ -221,7 +221,7 @@ function FleetCard({ item, linkLabel, brand }) {
         <div className="absolute top-3 left-4 right-4 flex items-center justify-between w-full px-1">
           {item.badge ? (
             <span
-              className="text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
+              className="text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-[3px]"
               style={{
                 backgroundColor: "#c9a84c1f",
                 color: "#7d5f17",
@@ -232,7 +232,7 @@ function FleetCard({ item, linkLabel, brand }) {
             </span>
           ) : (
             <span
-              className="text-[9px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full"
+              className="text-[9px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-[3px]"
               style={{
                 backgroundColor: accent + "14",
                 color: accent,

@@ -143,7 +143,7 @@ export default async function AboutPage() {
           <div className="about-story-grid">
 
             {/* Image */}
-            <div style={{ borderRadius: 16, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
+            <div style={{ borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
               <img
                 src={page.storyImage}
                 alt={page.storyImageAlt}
@@ -211,7 +211,7 @@ export default async function AboutPage() {
             {VALUES.map((v, i) => (
               <div key={i} style={{
                 background: "#fff",
-                borderRadius: 14,
+                borderRadius: 4,
                 padding: "24px 20px",
                 border: `1.5px solid ${C.border}`,
                 position: "relative",
@@ -219,7 +219,7 @@ export default async function AboutPage() {
               }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: C.gold }} />
                 <div style={{
-                  width: 44, height: 44, borderRadius: 10,
+                  width: 44, height: 44, borderRadius: 4,
                   background: C.navy + "14", border: `1px solid ${C.navy}22`,
                   display: "flex", alignItems: "center", justifyContent: "center",
                   marginBottom: 14
@@ -257,7 +257,7 @@ export default async function AboutPage() {
             {TEAM.map((member, i) => (
               <div key={i} style={{
                 background: C.light,
-                borderRadius: 14,
+                borderRadius: 4,
                 padding: "28px 24px",
                 border: `1.5px solid ${C.border}`,
                 textAlign: "center",
@@ -304,14 +304,14 @@ export default async function AboutPage() {
               <a href={site.phoneHref} style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "12px 22px",
-                borderRadius: 8, background: C.gold, color: C.dark, textDecoration: "none"
+                borderRadius: 4, background: C.gold, color: C.dark, textDecoration: "none"
               }}>
                 <FaPhone size={13} /> {page.ctaCallLabel}
               </a>
               <a href={site.emailHref} style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 fontSize: 13, fontWeight: 700, padding: "12px 22px",
-                borderRadius: 8, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
+                borderRadius: 4, border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff", textDecoration: "none"
               }}>
                 <FaEnvelope size={13} /> {page.ctaEmailLabel}
               </a>
@@ -320,7 +320,7 @@ export default async function AboutPage() {
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8,
                   fontSize: 13, fontWeight: 700, padding: "12px 22px",
-                  borderRadius: 8, border: `2px solid ${C.muted}`, color: C.muted, textDecoration: "none"
+                  borderRadius: 4, border: `2px solid ${C.muted}`, color: C.muted, textDecoration: "none"
                 }}>
                 <FaLocationDot size={13} /> {page.ctaDirectionsLabel}
               </a>

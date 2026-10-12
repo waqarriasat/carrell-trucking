@@ -6,6 +6,7 @@ import {
   FaLocationDot,
   FaTruck,
   FaChevronRight,
+  FaFileLines,
 } from "react-icons/fa6";
 
 // ─────────────────────────────────────────────
@@ -72,7 +73,7 @@ function FooterLink({ href, children }) {
 }
 
 // ── Main component ────────────────────────────
-export default function Footer({ site, footer, fleet, services }) {
+export default function Footer({ site, footer, fleet, services, resources }) {
   const currentYear = new Date().getFullYear();
 
   const columns = [
@@ -84,24 +85,44 @@ export default function Footer({ site, footer, fleet, services }) {
       heading: footer.industriesHeading,
       links: services.map((s) => ({ label: s.label, href: `/services/${s.id}` })),
     },
+    resources && {
+      heading: footer.resourcesHeading,
+      links: [
+        { label: resources.viewAll, href: "/blog" },
+        ...resources.categories.map((c) => ({ label: c.label, href: `/blog/category/${c.id}` })),
+        { label: resources.faqLabel, href: "/faq" },
+      ],
+    },
     {
       heading: footer.contactHeading,
-      links: [
-        { label: `HQ: ${site.hqPhone || site.phone}`, href: site.hqPhoneHref || site.phoneHref },
-        site.salesPhone && { label: `Sales: ${site.salesPhone}${site.salesName ? ` (${site.salesName})` : ""}`, href: site.salesPhoneHref },
-        { label: site.email, href: site.emailHref },
-        { label: `HQ: ${site.address}`, href: site.mapsHref },
-        site.salesAddress && { label: `Sales & Yard: ${site.salesAddress}`, href: site.salesMapsHref },
-        { label: footer.contactQuoteLabel, href: "/quote" },
+      // Grouped by location: Headquarters, then Sales & Yard
+      groups: [
+        {
+          title: "Headquarters",
+          lines: [
+            { text: site.address, href: site.mapsHref, icon: FaLocationDot },
+            { text: site.hqPhone || site.phone, href: site.hqPhoneHref || site.phoneHref, icon: FaPhone },
+            { text: site.email, href: site.emailHref, icon: FaEnvelope },
+          ],
+        },
+        site.salesAddress && {
+          title: "Sales & Yard",
+          person: site.salesName ? `${site.salesName}, Sales` : "",
+          lines: [
+            { text: site.salesAddress, href: site.salesMapsHref, icon: FaLocationDot },
+            site.salesPhone && { text: site.salesPhone, href: site.salesPhoneHref, icon: FaPhone },
+            { text: footer.contactQuoteLabel, href: "/quote", icon: FaFileLines, strong: true },
+          ].filter(Boolean),
+        },
       ].filter(Boolean),
     },
-  ];
+  ].filter(Boolean);
 
   return (
     <footer>
 
       {/* ── CTA band: full-width navy ── */}
-      <div className="band-navy border-t" style={{ borderColor: "rgba(201,168,76,0.55)" }}>
+      <div className="footer-cta band-navy border-t" style={{ borderColor: "rgba(201,168,76,0.55)" }}>
         <div className="wrap py-9 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <p
@@ -136,7 +157,7 @@ export default function Footer({ site, footer, fleet, services }) {
       {/* ── 4-column grid: full-width white band ── */}
       <div className="bg-white">
       <div className="wrap py-12 lg:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-10 lg:gap-8">
 
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
           <div className="col-span-2 md:col-span-1">
@@ -151,7 +172,7 @@ export default function Footer({ site, footer, fleet, services }) {
 
             {/* Min rental badge */}
             <span
-              className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded-full border"
+              className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded-[3px] border"
               style={{ borderColor: "#c9a84c", color: "#86671e", backgroundColor: "#c9a84c14" }}
             >
               <FaTruck size={11} />
@@ -163,6 +184,31 @@ export default function Footer({ site, footer, fleet, services }) {
           {columns.map((col, ci) => (
             <div key={ci}>
               <ColHeading>{col.heading}</ColHeading>
+              {col.groups ? (
+                <div className="space-y-6">
+                  {col.groups.map((g) => (
+                    <div key={g.title}>
+                      <p className="text-sm font-bold" style={{ color: "#0f2d4a" }}>{g.title}</p>
+                      {g.person ? <p className="text-sm mt-0.5" style={{ color: "#4a6b85" }}>{g.person}</p> : null}
+                      <ul className="mt-2.5 space-y-2">
+                        {g.lines.map((l) => (
+                          <li key={l.text}>
+                            <a
+                              href={l.href}
+                              {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                              className={`flex items-start gap-2.5 text-sm leading-snug transition-colors hover:text-[#0f2d4a] ${l.strong ? "font-bold" : ""}`}
+                              style={{ color: l.strong ? "#0f2d4a" : "#4a6b85" }}
+                            >
+                              <l.icon size={12} className="mt-[3px] shrink-0" style={{ color: "#86671e" }} aria-hidden="true" />
+                              <span>{l.text}{l.strong ? " →" : ""}</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
               <ul>
                 {col.links.map((link, li) => (
                   <li key={li}>
@@ -170,6 +216,7 @@ export default function Footer({ site, footer, fleet, services }) {
                   </li>
                 ))}
               </ul>
+              )}
             </div>
           ))}
 

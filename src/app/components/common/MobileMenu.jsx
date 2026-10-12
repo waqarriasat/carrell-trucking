@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaXmark, FaPhone, FaChevronRight, FaChevronDown } from "react-icons/fa6";
 
-export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services }) {
+export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services, resources }) {
   const SUB_MENUS = {
     "/fleet": fleet.map((f) => ({
       label: f.name,
@@ -14,6 +14,12 @@ export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services
       label: s.label,
       href: `/services/${s.id}`,
     })),
+    "/blog": resources
+      ? [
+          ...resources.categories.map((c) => ({ label: c.label, href: `/blog/category/${c.id}` })),
+          { label: resources.faqLabel, href: "/faq" },
+        ]
+      : [],
   }
 
   const [openSection, setOpenSection] = useState(null)
@@ -57,7 +63,7 @@ export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services
           <button
             onClick={onClose}
             aria-label="Close menu"
-            className="p-2 rounded-md transition-colors hover:bg-white/10"
+            className="p-2 rounded-[4px] transition-colors hover:bg-white/10"
           >
             <FaXmark className="text-white" size={18} />
           </button>

@@ -69,7 +69,7 @@ export default async function NotFound() {
           <Link href="/" style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             fontSize: 13, fontWeight: 700, padding: "12px 24px",
-            borderRadius: 8, background: C.gold, color: C.dark,
+            borderRadius: 4, background: C.gold, color: C.dark,
             textDecoration: "none"
           }}>
             <FaHome size={14} /> {page.homeLabel}
@@ -77,7 +77,7 @@ export default async function NotFound() {
           <Link href="/fleet" style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             fontSize: 13, fontWeight: 700, padding: "12px 24px",
-            borderRadius: 8, border: `2px solid ${C.dark}`, color: C.dark,
+            borderRadius: 4, border: `2px solid ${C.dark}`, color: C.dark,
             textDecoration: "none"
           }}>
             <FaTruck size={14} /> {page.fleetLabel}
@@ -85,7 +85,7 @@ export default async function NotFound() {
           <a href={site.phoneHref} style={{
             display: "inline-flex", alignItems: "center", gap: 8,
             fontSize: 13, fontWeight: 700, padding: "12px 24px",
-            borderRadius: 8, border: `2px solid ${C.border}`, color: C.text,
+            borderRadius: 4, border: `2px solid ${C.border}`, color: C.text,
             textDecoration: "none"
           }}>
             <FaPhone size={14} /> {page.callLabel}
@@ -96,7 +96,7 @@ export default async function NotFound() {
         <div style={{
           background: C.light,
           border: `1px solid ${C.border}`,
-          borderRadius: 14, padding: "20px 24px"
+          borderRadius: 4, padding: "20px 24px"
         }}>
           <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: "#86671e", marginBottom: 14 }}>
             {page.quickLinksLabel}
@@ -105,7 +105,7 @@ export default async function NotFound() {
             {page.quickLinks.map((link, i) => (
               <Link key={i} href={link.href} style={{
                 fontSize: 12, fontWeight: 600, padding: "6px 14px",
-                borderRadius: 20, border: `1px solid ${C.border}`, background: "#fff",
+                borderRadius: 4, border: `1px solid ${C.border}`, background: "#fff",
                 color: C.dark, textDecoration: "none",
               }}>
                 {link.label}

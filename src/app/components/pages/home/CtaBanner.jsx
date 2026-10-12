@@ -42,7 +42,7 @@ export default function CtaBanner({ ctaBanner }) {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
                     href={ctaBanner.button.href}
-                    className="flex items-center justify-center gap-2 text-sm font-bold px-8 py-4 rounded-lg transition-all duration-200 hover:brightness-110 active:scale-95 shadow-lg"
+                    className="flex items-center justify-center gap-2 text-sm font-bold px-8 py-4 rounded-[4px] transition-all duration-200 hover:brightness-110 active:scale-95 shadow-lg"
                     style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
                   >
                     <FaFileLines size={14} />
@@ -69,7 +69,7 @@ export default function CtaBanner({ ctaBanner }) {
               })).map((item) => (
                 <div key={item.step} className="flex gap-4 items-start relative group">
                   <div
-                    className="flex items-center justify-center w-10 h-10 rounded-lg shrink-0 border"
+                    className="flex items-center justify-center w-10 h-10 rounded-[4px] shrink-0 border"
                     style={{
                       backgroundColor: "rgba(201, 168, 76, 0.1)",
                       borderColor: "rgba(201, 168, 76, 0.35)",

@@ -25,7 +25,7 @@ export const PLACEHOLDERS = [
   ["{state}", "State"],
   ["{zip}", "ZIP code"],
   ["{mapsLink}", "Google Maps link to the address"],
-  ["{hqPhone}", "Main phone with extension (e.g. 580-226-7811 ext 2)"],
+  ["{hqPhone}", "Main phone with extension (e.g. 580-226-7811, Ext. 2)"],
   ["{hqPhoneLink}", "Main phone + extension as a link (tel:)"],
   ["{cellLabel}", "Label for the cell number (e.g. After Hours)"],
   ["{salesName}", "Sales contact name"],
@@ -90,8 +90,8 @@ export function buildTokens(site) {
     state: site.state,
     zip: site.zip,
     mapsLink: mapsUrl(site.street, site.city, site.state, site.zip),
-    // Headquarters line with extension: "580-226-7811 ext 2"; the link dials the extension after a pause.
-    hqPhone: ext ? `${site.phone} ext ${ext}` : site.phone,
+    // Headquarters line with extension: "580-226-7811, Ext. 2"; the link dials the extension after a pause.
+    hqPhone: ext ? `${site.phone}, Ext. ${ext}` : site.phone,
     hqPhoneLink: `tel:${digits(site.phone)}${ext ? `,${ext}` : ""}`,
     cellLabel: site.cellLabel || "Cell",
     salesName: site.salesName || "",

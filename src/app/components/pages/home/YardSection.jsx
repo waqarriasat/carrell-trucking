@@ -122,7 +122,7 @@ export default function YardSection({ yard, site }) {
 
           {yard.image ? (
             <figure className="m-0">
-              <div className="relative w-full overflow-hidden rounded-xl border" style={{ borderColor: "#e1e8f0", aspectRatio: "1307 / 761" }}>
+              <div className="relative w-full overflow-hidden rounded-[4px] border" style={{ borderColor: "#e1e8f0", aspectRatio: "1307 / 761" }}>
                 <Image
                   src={yard.image}
                   alt={yard.imageAlt || ""}
@@ -146,7 +146,7 @@ export default function YardSection({ yard, site }) {
         {/* ── Row 2: ground-level delivery ── */}
         <div className="mt-14 lg:mt-20 pt-14 lg:pt-20 border-t grid lg:grid-cols-2 gap-8 lg:gap-14 items-center" style={{ borderColor: "#e3e9f0" }}>
           <figure className="m-0 order-2 lg:order-1">
-            <div className="overflow-hidden rounded-xl" style={{ backgroundColor: "#0a2038" }}>
+            <div className="overflow-hidden rounded-[4px]" style={{ backgroundColor: "#0a2038" }}>
               <DeliveryMedia url={yard.videoUrl} caption={yard.videoCaption} brand={site.logoTop} />
             </div>
             {yard.videoCaption ? (
