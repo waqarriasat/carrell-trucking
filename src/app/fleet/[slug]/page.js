@@ -2,7 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import FleetDetail from "@/app/components/pages/fleet/FleetDetail"
 import { getContent } from "@/app/lib/server/content"
-import { publishedPosts, faqItems } from "@/app/lib/content/blog"
+import { publishedPosts, faqItems, resourcesEnabled } from "@/app/lib/content/blog"
 import FaqList from "@/app/components/pages/blog/FaqList"
 import PostCard from "@/app/components/pages/blog/PostCard"
 import { plainText } from "@/app/components/pages/blog/Markdown"
@@ -34,8 +34,10 @@ export default async function FleetDetailPage({ params }) {
 
   const base = siteBaseUrl(seo)
   // Industries whose recommended equipment includes this unit (cross-links)
-  const faqs = faqItems(faq, item.id)
-  const posts = publishedPosts(blog).filter((p) => (p.fleet || []).includes(item.id)).slice(0, 3)
+  // Questions and guides only when Blog & FAQ are switched on
+  const showResources = resourcesEnabled(blog)
+  const faqs = showResources ? faqItems(faq, item.id) : []
+  const posts = showResources ? publishedPosts(blog).filter((p) => (p.fleet || []).includes(item.id)).slice(0, 3) : []
   const usedIn = services.filter((s) => (s.fleet || []).includes(item.id)).map(({ id, label }) => ({ id, label }))
 
   return (

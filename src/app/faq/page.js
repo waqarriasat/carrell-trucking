@@ -1,6 +1,7 @@
+import { notFound } from "next/navigation"
 import { getContent } from "@/app/lib/server/content"
 import { pageMeta, siteBaseUrl } from "@/app/lib/server/seo"
-import { faqItems } from "@/app/lib/content/blog"
+import { faqItems, resourcesEnabled } from "@/app/lib/content/blog"
 import JsonLd, { breadcrumbJsonLd } from "@/app/components/common/JsonLd"
 import PageTitle from "@/app/components/pages/blog/PageTitle"
 import FaqList from "@/app/components/pages/blog/FaqList"
@@ -12,7 +13,8 @@ export async function generateMetadata() {
 }
 
 export default async function FaqPage() {
-  const { faq, seo, site } = await getContent()
+  const { faq, seo, site, blog } = await getContent()
+  if (!resourcesEnabled(blog)) notFound()
   const base = siteBaseUrl(seo)
   const groups = faq.groups.filter((g) => (g.items || []).some((it) => it.q && it.a))
 

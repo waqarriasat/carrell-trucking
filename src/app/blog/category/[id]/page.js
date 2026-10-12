@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { getContent } from "@/app/lib/server/content"
 import { pageMeta, siteBaseUrl } from "@/app/lib/server/seo"
-import { publishedPosts, categoryOf } from "@/app/lib/content/blog"
+import { publishedPosts, categoryOf, resourcesEnabled } from "@/app/lib/content/blog"
 import JsonLd, { breadcrumbJsonLd } from "@/app/components/common/JsonLd"
 import PageTitle from "@/app/components/pages/blog/PageTitle"
 import PostCard from "@/app/components/pages/blog/PostCard"
@@ -23,6 +23,7 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params }) {
   const { id } = await params
   const { blog, seo, site } = await getContent()
+  if (!resourcesEnabled(blog)) notFound()
   const cat = categoryOf(blog, id)
   if (!cat) notFound()
   const posts = publishedPosts(blog).filter((p) => p.category === cat.id)
