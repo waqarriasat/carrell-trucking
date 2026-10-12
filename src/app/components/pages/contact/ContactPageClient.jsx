@@ -88,8 +88,8 @@ export default function ContactPageClient({ page, site }) {
                 rel={/^https?:/.test(info.href || "") ? "noopener noreferrer" : undefined}
                 style={{ textDecoration: "none" }}
               >
-                <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}`, display: "flex", alignItems: "flex-start", gap: 14, cursor: "pointer" }}>
-                  <div style={{ width: 42, height: 42, borderRadius: 10, flexShrink: 0, background: info.color + "18", border: `1px solid ${info.color}33`, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}`, display: "flex", alignItems: "flex-start", gap: 14, cursor: "pointer" }}>
+                  <div style={{ width: 42, height: 42, borderRadius: 4, flexShrink: 0, background: info.color + "18", border: `1px solid ${info.color}33`, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <info.icon size={16} style={{ color: info.color }} />
                   </div>
                   <div>
@@ -118,7 +118,7 @@ export default function ContactPageClient({ page, site }) {
               <h2 style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 900, color: C.dark, margin: "0 0 16px" }}>
                 {page.mapTitle}
               </h2>
-              <div style={{ borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}`, marginBottom: 12 }}>
+              <div style={{ borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}`, marginBottom: 12 }}>
                 <iframe
                   src={site.mapEmbedUrl}
                   width="100%" height="260"
@@ -128,14 +128,14 @@ export default function ContactPageClient({ page, site }) {
                   title={`${site.name} location`}
                 />
               </div>
-              <div style={{ background: C.light, borderRadius: 10, padding: "14px 16px", border: `1.5px solid ${C.border}`, display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }}>
+              <div style={{ background: C.light, borderRadius: 4, padding: "14px 16px", border: `1.5px solid ${C.border}`, display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }}>
                 <FaMapMarkerAlt size={14} style={{ color: C.gold, flexShrink: 0, marginTop: 2 }} />
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: C.dark }}>{page.mapLocationName}</div>
                   <div style={{ fontSize: 12, color: C.text }}>{page.mapLocationAddress}</div>
                 </div>
               </div>
-              <div style={{ background: C.light, borderRadius: 10, padding: "14px 16px", border: `1.5px solid ${C.border}`, display: "flex", alignItems: "flex-start", gap: 10 }}>
+              <div style={{ background: C.light, borderRadius: 4, padding: "14px 16px", border: `1.5px solid ${C.border}`, display: "flex", alignItems: "flex-start", gap: 10 }}>
                 <FaClock size={14} style={{ color: C.gold, flexShrink: 0, marginTop: 2 }} />
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: C.dark, marginBottom: 4 }}>{page.hoursTitle}</div>
@@ -156,11 +156,11 @@ export default function ContactPageClient({ page, site }) {
                 {page.formTitle}
               </h2>
 
-              <div style={{ background: C.light, borderRadius: 16, padding: "24px 20px", border: `1.5px solid ${C.border}` }}>
+              <div style={{ background: C.light, borderRadius: 4, padding: "24px 20px", border: `1.5px solid ${C.border}` }}>
 
                 {/* Success */}
                 {status === "success" && (
-                  <div style={{ background: "#f0fdf4", border: "1.5px solid #86efac", borderRadius: 10, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ background: "#f0fdf4", border: "1.5px solid #86efac", borderRadius: 4, padding: "12px 16px", marginBottom: 16, display: "flex", alignItems: "center", gap: 10 }}>
                     <FaCheck size={13} style={{ color: "#16a34a", flexShrink: 0 }} />
                     <p style={{ fontSize: 13, color: "#16a34a", fontWeight: 600, margin: 0 }}>
                       {form.successMessage}
@@ -170,7 +170,7 @@ export default function ContactPageClient({ page, site }) {
 
                 {/* Error */}
                 {status === "error" && (
-                  <div style={{ background: "#fef2f2", border: "1.5px solid #fca5a5", borderRadius: 10, padding: "12px 16px", marginBottom: 16 }}>
+                  <div style={{ background: "#fef2f2", border: "1.5px solid #fca5a5", borderRadius: 4, padding: "12px 16px", marginBottom: 16 }}>
                     <p style={{ fontSize: 13, color: "#dc2626", fontWeight: 600, margin: 0 }}>{errorMsg}</p>
                   </div>
                 )}
@@ -190,7 +190,7 @@ export default function ContactPageClient({ page, site }) {
                         type={field.type}
                         placeholder={field.placeholder}
                         required={field.required}
-                        style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", boxSizing: "border-box" }}
+                        style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", boxSizing: "border-box" }}
                       />
                     </div>
                   ))}
@@ -204,14 +204,14 @@ export default function ContactPageClient({ page, site }) {
                       placeholder={form.messagePlaceholder}
                       rows={4}
                       required
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" }}
+                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: "#fff", outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" }}
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    style={{ width: "100%", padding: "12px", borderRadius: 8, border: "none", background: status === "loading" ? "#d4b86a" : C.gold, color: C.dark, fontSize: 13, fontWeight: 800, cursor: status === "loading" ? "not-allowed" : "pointer" }}
+                    style={{ width: "100%", padding: "12px", borderRadius: 4, border: "none", background: status === "loading" ? "#d4b86a" : C.gold, color: C.dark, fontSize: 13, fontWeight: 800, cursor: status === "loading" ? "not-allowed" : "pointer" }}
                   >
                     {status === "loading" ? form.sendingLabel : form.submitLabel}
                   </button>
@@ -239,7 +239,7 @@ export default function ContactPageClient({ page, site }) {
           </h2>
           <div className="contact-team-grid">
             {TEAM_CONTACTS.map((member, i) => (
-              <div key={i} style={{ background: "#fff", borderRadius: 12, padding: "20px 18px", border: `1.5px solid ${C.border}`, position: "relative", overflow: "hidden" }}>
+              <div key={i} style={{ background: "#fff", borderRadius: 4, padding: "20px 18px", border: `1.5px solid ${C.border}`, position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: C.gold }} />
                 <div style={{ width: 40, height: 40, borderRadius: "50%", background: C.dark, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 10 }}>
                   <FaUser size={16} style={{ color: C.gold }} />

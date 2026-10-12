@@ -24,6 +24,7 @@ import { LEGACY_CONTENT_V10 } from "./legacy-v10"
 import { LEGACY_CONTENT_V11 } from "./legacy-v11"
 import { LEGACY_CONTENT_V12 } from "./legacy-v12"
 import { LEGACY_CONTENT_V13 } from "./legacy-v13"
+import { LEGACY_CONTENT_V14 } from "./legacy-v14"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -43,7 +44,8 @@ import { LEGACY_CONTENT_V13 } from "./legacy-v13"
 //     the Why Us cards, yard aerial out of the slider (own block).
 // 14: website address left empty until the domain is live (the site uses
 //     its current address for the sitemap, robots.txt and canonical links).
-export const CONTENT_VERSION = 14
+// 15: Resources menu (blog & FAQ) added to the header navigation.
+export const CONTENT_VERSION = 15
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -59,7 +61,8 @@ const STEPS = [
   { upTo: 11, from: LEGACY_CONTENT_V10, to: LEGACY_CONTENT_V11 },
   { upTo: 12, from: LEGACY_CONTENT_V11, to: LEGACY_CONTENT_V12 },
   { upTo: 13, from: LEGACY_CONTENT_V12, to: LEGACY_CONTENT_V13 },
-  { upTo: 14, from: LEGACY_CONTENT_V13, to: DEFAULT_CONTENT },
+  { upTo: 14, from: LEGACY_CONTENT_V13, to: LEGACY_CONTENT_V14 },
+  { upTo: 15, from: LEGACY_CONTENT_V14, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)

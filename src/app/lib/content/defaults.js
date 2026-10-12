@@ -11,6 +11,8 @@
 //  lib/content/resolve.js for the full list.
 // ─────────────────────────────────────────────
 
+import { BLOG_DEFAULTS, FAQ_DEFAULTS } from "./blog-defaults"
+
 const U = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`
 
 export const DEFAULT_CONTENT = {
@@ -60,6 +62,7 @@ export const DEFAULT_CONTENT = {
       { label: "Home", href: "/" },
       { label: "Fleet", href: "/fleet" },
       { label: "Services", href: "/services" },
+      { label: "Resources", href: "/blog" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
     ],
@@ -81,6 +84,7 @@ export const DEFAULT_CONTENT = {
     fleetHeading: "Fleet",
     industriesHeading: "Industries",
     contactHeading: "Contact",
+    resourcesHeading: "Resources",
     contactQuoteLabel: "Get a Quote",
     copyright: "All rights reserved.",
   },
@@ -827,4 +831,8 @@ export const DEFAULT_CONTENT = {
       { label: "Get a Quote", href: "/quote" },
     ],
   },
+
+  // ── Blog & FAQ (Admin → Blog & FAQ) ────────
+  blog: BLOG_DEFAULTS,
+  faq: FAQ_DEFAULTS,
 }

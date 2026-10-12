@@ -21,14 +21,14 @@ export default function FleetCTA({ fleetPage }) {
         {/* <div className="flex flex-col sm:flex-row gap-3 shrink-0">
           <Link
             href="/quote"
-            className="flex items-center justify-center gap-2 text-sm font-bold px-7 py-3.5 rounded-lg transition-opacity hover:opacity-90"
+            className="flex items-center justify-center gap-2 text-sm font-bold px-7 py-3.5 rounded-[4px] transition-opacity hover:opacity-90"
             style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
           >
             <FaFileAlt size={14} /> Get a Free Quote
           </Link>
           <a
             href="tel:580-226-7811"
-            className="flex items-center justify-center gap-2 text-sm font-bold px-7 py-3.5 rounded-lg transition-opacity hover:opacity-90"
+            className="flex items-center justify-center gap-2 text-sm font-bold px-7 py-3.5 rounded-[4px] transition-opacity hover:opacity-90"
             style={{ border: "2px solid rgba(255,255,255,0.8)", color: "#ffffff" }}
           >
             <FaPhone size={14} /> 580-226-7811

@@ -101,7 +101,7 @@ export default async function ServiceDetailPage({ params }) {
 
             {/* Left - Image + Features */}
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div style={{ borderRadius: 14, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
+              <div style={{ borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
                 <img
                   src={details.image}
                   alt={service.label}
@@ -109,7 +109,7 @@ export default async function ServiceDetailPage({ params }) {
                 />
               </div>
 
-              <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+              <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
                   <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -136,7 +136,7 @@ export default async function ServiceDetailPage({ params }) {
             {/* Right - Fleet + CTA */}
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
-              <div style={{ background: "#fff", borderRadius: 14, padding: "20px", border: `1.5px solid ${C.border}` }}>
+              <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
                   <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -150,7 +150,7 @@ export default async function ServiceDetailPage({ params }) {
                       href={`/fleet/${f.id}`}
                       style={{
                         display: "block", padding: "12px 14px",
-                        borderRadius: 10, border: `1.5px solid ${C.border}`,
+                        borderRadius: 4, border: `1.5px solid ${C.border}`,
                         textDecoration: "none", background: C.light,
                       }}
                     >
@@ -162,7 +162,7 @@ export default async function ServiceDetailPage({ params }) {
               </div>
 
               {/* Why Us */}
-              <div style={{ background: C.dark, borderRadius: 14, padding: "20px", border: `1.5px solid ${C.navy}` }}>
+              <div style={{ background: C.dark, borderRadius: 4, padding: "20px", border: `1.5px solid ${C.navy}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <div style={{ width: 24, height: 2, background: C.gold }} />
                   <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>
@@ -184,14 +184,14 @@ export default async function ServiceDetailPage({ params }) {
                 <Link href="/quote" style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   fontSize: 13, fontWeight: 800, padding: "13px",
-                  borderRadius: 8, background: C.gold, color: C.dark, textDecoration: "none"
+                  borderRadius: 4, background: C.gold, color: C.dark, textDecoration: "none"
                 }}>
                   <FaFileInvoice size={14} /> {page.quoteButtonLabel}
                 </Link>
                 <a href={site.phoneHref} style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   fontSize: 13, fontWeight: 800, padding: "13px",
-                  borderRadius: 8, border: `2px solid ${C.navy}`, color: C.navy, textDecoration: "none"
+                  borderRadius: 4, border: `2px solid ${C.navy}`, color: C.navy, textDecoration: "none"
                 }}>
                   <FaPhone size={14} /> {page.callButtonLabel}
                 </a>
@@ -214,7 +214,7 @@ export default async function ServiceDetailPage({ params }) {
             {services.filter(s => s.id !== service.id).map(s => (
               <Link key={s.id} href={`/services/${s.id}`} style={{
                 display: "block", padding: "12px 16px",
-                borderRadius: 10, border: `1px solid ${C.navy}`,
+                borderRadius: 4, border: `1px solid ${C.navy}`,
                 textDecoration: "none",
               }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: 2 }}>{s.label}</div>

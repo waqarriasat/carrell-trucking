@@ -72,7 +72,7 @@ function FooterLink({ href, children }) {
 }
 
 // ── Main component ────────────────────────────
-export default function Footer({ site, footer, fleet, services }) {
+export default function Footer({ site, footer, fleet, services, resources }) {
   const currentYear = new Date().getFullYear();
 
   const columns = [
@@ -83,6 +83,14 @@ export default function Footer({ site, footer, fleet, services }) {
     {
       heading: footer.industriesHeading,
       links: services.map((s) => ({ label: s.label, href: `/services/${s.id}` })),
+    },
+    resources && {
+      heading: footer.resourcesHeading,
+      links: [
+        { label: resources.viewAll, href: "/blog" },
+        ...resources.categories.map((c) => ({ label: c.label, href: `/blog/category/${c.id}` })),
+        { label: resources.faqLabel, href: "/faq" },
+      ],
     },
     {
       heading: footer.contactHeading,
@@ -95,7 +103,7 @@ export default function Footer({ site, footer, fleet, services }) {
         { label: footer.contactQuoteLabel, href: "/quote" },
       ].filter(Boolean),
     },
-  ];
+  ].filter(Boolean);
 
   return (
     <footer>
@@ -136,7 +144,7 @@ export default function Footer({ site, footer, fleet, services }) {
       {/* ── 4-column grid: full-width white band ── */}
       <div className="bg-white">
       <div className="wrap py-12 lg:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-10 lg:gap-8">
 
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
           <div className="col-span-2 md:col-span-1">
@@ -151,7 +159,7 @@ export default function Footer({ site, footer, fleet, services }) {
 
             {/* Min rental badge */}
             <span
-              className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded-full border"
+              className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase px-3 py-1.5 rounded-[3px] border"
               style={{ borderColor: "#c9a84c", color: "#86671e", backgroundColor: "#c9a84c14" }}
             >
               <FaTruck size={11} />

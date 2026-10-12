@@ -341,7 +341,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                 paused={paused}
                 runKey={restartKey}
                 onDone={nextSlide}
-                className="absolute z-10 bottom-4 right-4 rounded-full px-3 py-2 bg-[#0a2038]/75"
+                className="absolute z-10 bottom-4 right-4 rounded-[3px] px-3 py-2 bg-[#0a2038]/75"
               />
             </div>
           ) : null}
@@ -432,7 +432,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                 <Link
                   key={item.id}
                   href={`/fleet/${item.id}`}
-                  className="group relative flex flex-col justify-between p-4 rounded-lg border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+                  className="group relative flex flex-col justify-between p-4 rounded-[4px] border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                   style={{
                     backgroundColor: "rgba(10, 32, 56, 0.92)",
                     borderColor: "rgba(201, 168, 76, 0.35)",
@@ -441,7 +441,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
                 >
                   {item.badge && (
                     <span
-                      className="inline-block text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full mb-3 self-start border"
+                      className="inline-block text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-[3px] mb-3 self-start border"
                       style={{ backgroundColor: "#c9a84c22", color: "#c9a84c", borderColor: "#c9a84c55" }}
                     >
                       {item.badge}

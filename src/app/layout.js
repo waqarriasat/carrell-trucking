@@ -5,6 +5,7 @@ import Footer from "@/app/components/common/Footer";
 import SiteChrome from "@/app/components/common/SiteChrome";
 import { getContent } from "@/app/lib/server/content";
 import { siteBaseUrl } from "@/app/lib/server/seo";
+import { publishedPosts } from "@/app/lib/content/blog";
 import Convoy from "./components/common/Convoy";
 import WhatsAppButton from "@/app/components/common/WhatsAppButton";
 
@@ -47,7 +48,16 @@ export async function generateMetadata() {
 
 export default async function RootLayout({ children }) {
   const content = await getContent();
-  const { site, nav, footer, fleet, services, seo } = content;
+  const { site, nav, footer, fleet, services, seo, blog } = content;
+  // Header "Resources" menu + footer links (blog & FAQ)
+  const posts = publishedPosts(blog);
+  const resources = {
+    ...blog.menu,
+    guides: (posts.filter((p) => p.featured === "yes").length ? posts.filter((p) => p.featured === "yes") : posts)
+      .slice(0, 6)
+      .map(({ id, title }) => ({ id, title })),
+    categories: blog.categories.map(({ id, label }) => ({ id, label })),
+  };
   const base = siteBaseUrl(seo);
   const digits = (p) => String(p || "").replace(/[^\d+]/g, "");
   // Business details for search engines (Google business / Maps results)
@@ -88,8 +98,8 @@ export default async function RootLayout({ children }) {
       itemOffered: { "@type": "Service", name: `${f.name} rental`, url: `${base}/fleet/${f.id}` },
     })),
   };
-  const fleetLinks = fleet.map((f) => ({ id: f.id, name: f.name }));
-  const serviceLinks = services.map((s) => ({ id: s.id, label: s.label }));
+  const fleetLinks = fleet.map((f) => ({ id: f.id, name: f.name, image: f.image, badge: f.badge }));
+  const serviceLinks = services.map((s) => ({ id: s.id, label: s.label, description: s.description }));
 
   return (
     <html lang="en">
@@ -99,8 +109,8 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c") }}
         />
         <SiteChrome
-          navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} />}
-          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} />}
+          navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
+          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
           convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
         >

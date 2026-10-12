@@ -56,7 +56,7 @@ export default function TrustBar({ trustBar, site, services }) {
               <Link
                 key={service.id}
                 href={`/fleet?industry=${service.id}`}
-                className="pill-outline-navy inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase group"
+                className="pill-outline-navy inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-[3px] text-xs font-bold tracking-wider uppercase group"
               >
                 {service.label}
                 <FaChevronRight size={8} className="opacity-60 group-hover:opacity-100 transition-opacity" style={{ color: "#c9a84c" }} />
