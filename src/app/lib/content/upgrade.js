@@ -54,8 +54,8 @@ import { LEGACY_CONTENT_V19 } from "./legacy-v19"
 // 17: short labels (features, use cases, checklists, card lines) in Title Case.
 // 18: own yard photo for the About "Our Story" section.
 // 19: own photos (and descriptions) for the four service pages.
-// 20: yard video slide in the home hero slider; the About photo loop uses
-//     the same clip (container secured flat on the truck).
+// 20: yard video slide in the home hero slider (container secured flat on
+//     the truck; the About photo loop was remade the same way).
 export const CONTENT_VERSION = 20
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.

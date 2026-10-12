@@ -9,6 +9,7 @@
 const PHONE = "(max-width: 767px)"
 
 const BUILT_IN = {
+  "/videos/about-story.mp4": { webm: true, small: true },
   "/videos/hero-yard.mp4": { webm: true, small: true },
 }
 

@@ -684,7 +684,7 @@ export const DEFAULT_CONTENT = {
     ],
     storyImage: "/images/about/story-yard.webp",
     storyImageAlt: "Ardmore Trailer, Inc. equipment yard in Southern Oklahoma at sunset with storage trailers, refrigerated trailers, containers, an office trailer and a delivery truck",
-    storyVideo: "/videos/hero-yard.mp4",
+    storyVideo: "/videos/about-story.mp4",
     storyEyebrow: "Our Story",
     storyTitle: "Built on Trust, Delivered with Pride",
     storyParagraph1:
