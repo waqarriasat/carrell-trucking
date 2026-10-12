@@ -648,7 +648,7 @@ export const ADMIN_PAGES = [
         title: "Our story",
         path: "about",
         fields: [
-          img("storyImage", "Photo", { help: "Landscape photo, about 700 × 500px." }),
+          img("storyImage", "Photo", { help: "Landscape photo, about 1280 × 850px." }),
           t("storyImageAlt", "Photo description (for accessibility)"),
           t("storyEyebrow", "Small gold text", { width: "sm" }),
           t("storyTitle", "Heading"),

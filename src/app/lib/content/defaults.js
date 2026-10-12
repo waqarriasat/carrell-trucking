@@ -666,8 +666,8 @@ export const DEFAULT_CONTENT = {
       { value: "All States", label: "Availability" },
       { value: "24/7", label: "Support Available" },
     ],
-    storyImage: U("1601584115197-04ecc0da31d7", 700),
-    storyImageAlt: "Ardmore Trailer fleet",
+    storyImage: "/images/about/story-yard.webp",
+    storyImageAlt: "Ardmore Trailer, Inc. equipment yard in Southern Oklahoma at sunset with storage trailers, refrigerated trailers, containers, an office trailer and a delivery truck",
     storyEyebrow: "Our Story",
     storyTitle: "Built on Trust, Delivered with Pride",
     storyParagraph1:
