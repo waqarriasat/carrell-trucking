@@ -81,7 +81,7 @@ export const ADMIN_PAGES = [
           t("phone", "Main phone (Headquarters)", { width: "sm", help: "Placeholder: {phone}" }),
           t("phoneExt", "Main phone extension", { width: "xs", help: "Shown as “ext 2” on the Contact and Quote pages ({hqPhone}). Leave empty for none." }),
           t("cell", "Cell phone", { width: "sm", help: "Placeholder: {cell}" }),
-          t("cellLabel", "Cell phone label", { width: "sm", help: "e.g. “After Hours (Rick)”. Placeholder: {cellLabel}" }),
+          t("cellLabel", "Cell phone label", { width: "sm", help: "e.g. “After Hours — Rick Carrell”. Placeholder: {cellLabel}" }),
           t("email", "Public email", { help: "Placeholder: {email}" }),
           t("street", "Street address", { help: "Placeholder: {street}" }),
           t("city", "City", { width: "sm" }),
