@@ -1,0 +1,24 @@
+# Dependabot: keeps the website's libraries up to date.
+# Security fixes open a pull request as soon as an advisory is published
+# (enable "Dependabot security updates" in the repository settings);
+# routine updates are grouped into one weekly pull request.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: America/Chicago
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    labels: [dependencies]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels: [dependencies]
