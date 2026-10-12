@@ -57,6 +57,9 @@ body:has(#admin-root) {
 .wrap.bleed-right {
   padding-right: 0;
 }
+@media (min-width: 1280px) {
+  .wrap.xl-bleed-right { padding-right: 0; }
+}
 
 /* ── Light theme building blocks ──
    The page is light; content sits in blocks with light space between
