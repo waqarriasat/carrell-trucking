@@ -18,9 +18,14 @@ const C = {
   text: "#4a6b85",
 }
 
+// Quote form link with this unit (and the choice, if given) already selected.
+const quoteHref = (unit, interest) => `/quote?${new URLSearchParams(interest ? { unit, interest } : { unit }).toString()}`
+
 export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site, usedIn = [] }) {
   const allImages = [item.image, ...(item.gallery || [])].filter(Boolean)
   const [activeImage, setActiveImage] = useState(0)
+  // The "Request a Modification" button picks the Modification choice in the quote form.
+  const modifyOption = (fleetDetail.availableOptions || []).find((o) => /modif/i.test(o)) || "Modification"
 
   return (
     <>
@@ -40,6 +45,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
           grid-template-columns: repeat(4, 1fr);
           gap: 8px;
         }
+        .available-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        @media (max-width: 520px) { .available-grid { grid-template-columns: repeat(2, 1fr); } }
         .features-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -250,10 +257,67 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                 </div>
               )}
 
+              {/* Rent / Buy / Rent to Own / Modify — each opens the quote form pre-filled */}
+              {fleetDetail.availableOptions?.length > 0 && (
+                <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+                    <div style={{ width: 24, height: 2, background: C.gold }} />
+                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
+                      {fleetDetail.availableLabel}
+                    </span>
+                  </div>
+                  <div className="available-grid">
+                    {fleetDetail.availableOptions.map((opt) => (
+                      <Link
+                        key={opt}
+                        href={quoteHref(item.name, opt)}
+                        className="pill-outline-navy"
+                        style={{ fontSize: 12, fontWeight: 800, padding: "10px 8px", borderRadius: 4, textDecoration: "none", textAlign: "center" }}
+                      >
+                        {opt}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Custom modifications */}
+              {fleetDetail.mods?.length > 0 && (
+                <div style={{ background: C.light, borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                    <div style={{ width: 24, height: 2, background: C.gold }} />
+                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
+                      {fleetDetail.modsLabel}
+                    </span>
+                  </div>
+                  {fleetDetail.modsText ? (
+                    <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7, margin: "0 0 12px" }}>{fleetDetail.modsText}</p>
+                  ) : null}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 14 }}>
+                    {fleetDetail.mods.map((m) => (
+                      <span key={m} style={{
+                        display: "inline-flex", alignItems: "center", gap: 6,
+                        fontSize: 11, fontWeight: 700, padding: "5px 12px",
+                        borderRadius: 4, background: "#fff", border: `1px solid ${C.border}`, color: C.dark
+                      }}>
+                        <FaCheck size={8} style={{ color: C.gold }} /> {m}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    href={quoteHref(item.name, modifyOption)}
+                    className="btn-outline-navy"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, fontWeight: 800, padding: "10px 16px", borderRadius: 4, textDecoration: "none" }}
+                  >
+                    {fleetDetail.modsButtonLabel} →
+                  </Link>
+                </div>
+              )}
+
               {/* CTA Buttons */}
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 <Link
-                  href="/quote"
+                  href={quoteHref(item.name)}
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                     fontSize: 13, fontWeight: 800, padding: "13px",
