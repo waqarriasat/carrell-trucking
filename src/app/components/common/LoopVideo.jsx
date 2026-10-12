@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { videoSources } from "@/app/lib/video-sources"
 
 // ─────────────────────────────────────────────
 //  Silent looping video that only downloads when
@@ -29,8 +30,6 @@ export default function LoopVideo({ src, className, style }) {
     return () => io.disconnect()
   }, [])
 
-  // A .webm next to a /videos/*.mp4 (same name) is offered first, for browsers without H.264.
-  const webm = /^\/videos\/.+\.mp4$/i.test(src) ? src.replace(/\.mp4$/i, ".webm") : null
 
   return (
     <video
@@ -45,8 +44,7 @@ export default function LoopVideo({ src, className, style }) {
       preload="none"
       aria-hidden="true"
     >
-      {show && webm && <source src={webm} type="video/webm" />}
-      {show && <source src={src} />}
+      {show && videoSources(src).map((v) => <source key={v.src} {...v} />)}
     </video>
   )
 }

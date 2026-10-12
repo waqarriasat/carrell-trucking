@@ -122,6 +122,15 @@ export const DEFAULT_CONTENT = {
           button: { label: "", href: "" },
         },
         {
+          image: "/images/slides/yard-video.webp",
+          video: "/videos/hero-yard.mp4",
+          eyebrow: "Direct From Our Yard",
+          title: "From Our Yard",
+          titleAccent: "To Your Site.",
+          text: "Every trailer and container leaves from our own yard on Refinery Road in Ardmore, loaded on our own trucks and delivered to your location across Southern Oklahoma, North Texas and beyond.",
+          button: { label: "Browse Our Fleet", href: "/fleet" },
+        },
+        {
           image: "/images/slides/reefer-diesel.webp",
           eyebrow: "Refrigerated Trailer Rentals",
           title: "Cold Storage That Comes",

@@ -265,9 +265,12 @@ export const ADMIN_PAGES = [
             help: "Each slide shows its photo with its own text. Leave a slide's headline empty to show the main headline and description above (keep this on the first slide — it is the page's main heading for Google).",
             itemName: "slide",
             itemTitle: (sl) => (sl.title ? `${sl.title} ${sl.titleAccent || ""}`.trim() : "Main headline (from above)"),
-            newItem: { image: "", eyebrow: "", title: "", titleAccent: "", text: "", button: { label: "", href: "" } },
+            newItem: { image: "", video: "", eyebrow: "", title: "", titleAccent: "", text: "", button: { label: "", href: "" } },
             fields: [
-              img("image", "Photo", { help: "Landscape photo, about 1536 × 1024px. Keep the main subject and lettering a little right of centre." }),
+              img("image", "Photo", { help: "Landscape photo, about 1536 × 1024px. Keep the main subject and lettering a little right of centre. For a video slide, use the video's first frame." }),
+              t("video", "Moving photo (video, optional)", {
+                help: "A short silent .mp4 that plays over the photo while this slide is shown. Leave empty for a still photo.",
+              }),
               t("eyebrow", "Small gold text", { width: "sm" }),
               t("title", "Headline (white)", { width: "sm", help: "Leave empty to use the main headline above." }),
               t("titleAccent", "Headline — gold ending", { width: "sm" }),
