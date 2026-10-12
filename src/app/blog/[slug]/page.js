@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
     ...meta.openGraph,
     type: "article",
     publishedTime: post.date,
-    images: post.image ? [{ url: post.image }] : undefined,
+    images: post.image ? [{ url: post.image }] : meta.openGraph.images,
   }
   return meta
 }
