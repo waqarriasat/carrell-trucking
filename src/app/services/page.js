@@ -91,7 +91,9 @@ export default async function ServicesPage() {
                   <div style={{ position: "relative", height: 180, overflow: "hidden" }}>
                     <img
                       src={details.image}
-                      alt={service.label}
+                      alt={details.imageAlt || service.label}
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     />
                     <div style={{

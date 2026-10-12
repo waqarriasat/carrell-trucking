@@ -104,7 +104,7 @@ export default async function ServiceDetailPage({ params }) {
               <div style={{ borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
                 <img
                   src={details.image}
-                  alt={service.label}
+                  alt={details.imageAlt || service.label}
                   style={{ width: "100%", height: 280, objectFit: "cover", display: "block" }}
                 />
               </div>

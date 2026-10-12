@@ -73,7 +73,7 @@ function FooterLink({ href, children }) {
 }
 
 // ── Main component ────────────────────────────
-export default function Footer({ site, footer, fleet, services, resources }) {
+export default function Footer({ site, footer, fleet, services, resources, termsPublished }) {
   const currentYear = new Date().getFullYear();
 
   const columns = [
@@ -236,6 +236,12 @@ export default function Footer({ site, footer, fleet, services, resources }) {
               <>
                 {" · "}
                 <Link href="/privacy" className="underline-offset-2 hover:underline hover:text-[#0f2d4a]">{footer.privacyLabel}</Link>
+              </>
+            )}
+            {footer.termsLabel && termsPublished && (
+              <>
+                {" · "}
+                <Link href="/terms" className="underline-offset-2 hover:underline hover:text-[#0f2d4a]">{footer.termsLabel}</Link>
               </>
             )}
           </p>

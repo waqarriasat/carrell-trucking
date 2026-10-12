@@ -43,8 +43,14 @@ export async function generateMetadata() {
       url: "/",
       siteName: site.name,
     },
+    twitter: { card: "summary_large_image" },
   };
 }
+
+// Browser bar colour on phones (matches the navy header).
+export const viewport = {
+  themeColor: "#0f2d4a",
+};
 
 export default async function RootLayout({ children }) {
   const content = await getContent();
@@ -110,7 +116,7 @@ export default async function RootLayout({ children }) {
         />
         <SiteChrome
           navbar={<Navbar site={site} nav={nav} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
-          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
+          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} />}
           convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
         >

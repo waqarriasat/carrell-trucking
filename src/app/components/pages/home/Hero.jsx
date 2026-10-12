@@ -2,6 +2,7 @@
 import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { FaPhone, FaChevronRight, FaChevronLeft, FaArrowRight } from "react-icons/fa6";
+import { videoSources } from "@/app/lib/video-sources";
 
 // ─────────────────────────────────────────────
 //  Hero (home page, under the fleet banner)
@@ -64,7 +65,11 @@ function SlideDots({ count, current, onPick, className = "", progressMs = 0, pau
 // Each slide always shows the WHOLE photo (never cropped). If the frame is
 // a little wider or taller than the photo, the leftover space is filled
 // with a soft, blurred copy of the same photo instead of empty bars.
-function Slides({ images, current }) {
+// A slide can also have a short silent video: its photo (the video's first
+// frame) shows until it plays. The video only loads and plays while its
+// slide is on screen, starts from the beginning each time, and is skipped
+// for visitors who prefer reduced motion.
+function Slides({ images, videos = [], current, reducedMotion }) {
   return images.map((src, index) => (
     <div
       key={index}
@@ -79,6 +84,13 @@ function Slides({ images, current }) {
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt="" className="absolute inset-0 w-full h-full object-contain" draggable="false" loading={index === 0 ? "eager" : "lazy"} />
+      {videos[index] && index === current && !reducedMotion ? (
+        <video className="absolute inset-0 w-full h-full object-contain" autoPlay muted loop playsInline aria-hidden="true">
+          {videoSources(videos[index]).map((v) => (
+            <source key={v.src} {...v} />
+          ))}
+        </video>
+      ) : null}
     </div>
   ));
 }
@@ -216,6 +228,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
   const SLIDER_IMAGES = photoLayout && photoSlides.length
     ? photoSlides.map((sl) => sl.image)
     : (hero.slides || []).filter(Boolean);
+  const SLIDER_VIDEOS = photoLayout ? photoSlides.map((sl) => sl.video || "") : [];
   const slideCount = SLIDER_IMAGES.length;
   const slideMs = Math.max(2, Number(hero.slideSeconds) || 8) * 1000;
 
@@ -326,7 +339,7 @@ export default function Hero({ hero, site, fleet, compact = false }) {
           {slideCount ? (
             <div className="relative aspect-[3/2] xl:aspect-auto xl:min-h-[480px] mb-10 xl:mb-0" {...swipeProps}>
               <div className="absolute inset-0" aria-hidden="true">
-                <Slides images={SLIDER_IMAGES} current={currentSlide} />
+                <Slides images={SLIDER_IMAGES} videos={SLIDER_VIDEOS} current={currentSlide} reducedMotion={reducedMotion} />
               </div>
               {/* Thin gold line where text and photo meet */}
               <div className="absolute hidden xl:block inset-y-0 left-0 w-[3px] z-[1]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />

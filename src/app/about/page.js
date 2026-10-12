@@ -4,6 +4,7 @@ import { FaPhone, FaEnvelope, FaLocationDot, FaUsers } from "react-icons/fa6"
 import { getContent } from "@/app/lib/server/content"
 import { pageMeta } from "@/app/lib/server/seo"
 import { getIcon } from "@/app/lib/content/icons"
+import LoopVideo from "@/app/components/common/LoopVideo"
 
 const C = {
   dark:   "#0f2d4a",
@@ -150,28 +151,18 @@ export default async function AboutPage() {
               <img
                 src={page.storyImage}
                 alt={page.storyImageAlt}
+                loading="lazy"
+                decoding="async"
                 className="about-story-image"
                 style={{ width: "100%", height: 360, objectFit: "cover", display: "block" }}
               />
               {/* Silent loop over the photo; the photo shows while it loads and for reduced motion */}
               {page.storyVideo && (
-                <video
-                  key={page.storyVideo}
+                <LoopVideo
+                  src={page.storyVideo}
                   className="about-story-video"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  aria-hidden="true"
                   style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                >
-                  {/* A .webm next to the .mp4 (same name) is offered first, for browsers without H.264 */}
-                  {/\.mp4$/i.test(page.storyVideo) && page.storyVideo.startsWith("/videos/") && (
-                    <source src={page.storyVideo.replace(/\.mp4$/i, ".webm")} type="video/webm" />
-                  )}
-                  <source src={page.storyVideo} />
-                </video>
+                />
               )}
             </div>
 
@@ -293,7 +284,7 @@ export default async function AboutPage() {
                   ...(member.photo ? { overflow: "hidden" } : {}),
                 }}>
                   {member.photo ? (
-                    <img src={member.photo} alt={member.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    <img src={member.photo} alt={member.name} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                   ) : (
                     <FaUsers size={24} style={{ color: C.gold }} />
                   )}
