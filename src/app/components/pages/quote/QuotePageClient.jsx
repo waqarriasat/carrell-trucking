@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
 import { FaCheck } from "react-icons/fa"
 import { getIcon } from "@/app/lib/content/icons"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { submitQuote } from "@/app/actions/submitQuote"
+import { useLeadForm, SpamTrap, FieldError, FormNote } from "@/app/components/common/LeadFormParts"
 
 const C = {
   dark:   "#0f2d4a",
@@ -23,22 +23,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
   const WHY_QUOTE = page.whyItems.map((text) => ({ text }))
   const form = page.form
 
-  const [status, setStatus] = useState(null) // null | "loading" | "success" | "error"
-  const [errorMsg, setErrorMsg] = useState("")
-
-  async function handleSubmit(e) {
-    e.preventDefault()
-    setStatus("loading")
-    const formData = new FormData(e.target)
-    const result = await submitQuote(formData)
-    if (result.success) {
-      setStatus("success")
-      e.target.reset()
-    } else {
-      setStatus("error")
-      setErrorMsg(result.error)
-    }
-  }
+  const { status, errorMsg, fieldErrors, onSubmit, onInput, fieldProps } = useLeadForm(submitQuote)
 
   return (
     <>
@@ -104,7 +89,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
           <div className="quote-grid">
 
             {/* Form */}
-            <div style={{ background: "#fff", borderRadius: 4, padding: "28px 24px", border: `1.5px solid ${C.border}` }}>
+            <div data-lead-form style={{ position: "relative", scrollMarginTop: 120, background: "#fff", borderRadius: 4, padding: "28px 24px", border: `1.5px solid ${C.border}` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                 <div style={{ width: 28, height: 2, background: C.gold }} />
                 <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.goldText }}>
@@ -117,7 +102,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
               {/* Success message */}
               {status === "success" && (
-                <div style={{
+                <div role="status" style={{
                   background: "#f0fdf4", border: "1.5px solid #86efac",
                   borderRadius: 4, padding: "14px 16px", marginBottom: 20,
                   display: "flex", alignItems: "center", gap: 10
@@ -131,7 +116,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
               {/* Error message */}
               {status === "error" && (
-                <div style={{
+                <div role="alert" style={{
                   background: "#fef2f2", border: "1.5px solid #fca5a5",
                   borderRadius: 4, padding: "14px 16px", marginBottom: 20
                 }}>
@@ -141,36 +126,41 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 </div>
               )}
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={onSubmit} onInput={onInput} noValidate>
+                <SpamTrap />
                 {/* Name + Phone */}
                 <div className="quote-form-grid">
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.nameLabel}</label>
-                    <input name="name" type="text" placeholder={form.namePlaceholder} required
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                    <label htmlFor="quote-name" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.nameLabel}</label>
+                    <input id="quote-name" type="text" placeholder={form.namePlaceholder} required autoComplete="name"
+                      {...fieldProps("name", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" })}
                     />
+                  <FieldError name="name" errors={fieldErrors} />
                   </div>
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.phoneLabel}</label>
-                    <input name="phone" type="tel" placeholder={form.phonePlaceholder} required
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                    <label htmlFor="quote-phone" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.phoneLabel}</label>
+                    <input id="quote-phone" type="tel" placeholder={form.phonePlaceholder} required autoComplete="tel"
+                      {...fieldProps("phone", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" })}
                     />
+                  <FieldError name="phone" errors={fieldErrors} />
                   </div>
                 </div>
 
                 {/* Email + Company */}
                 <div className="quote-form-grid" style={{ marginTop: 14 }}>
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.emailLabel}</label>
-                    <input name="email" type="email" placeholder={form.emailPlaceholder}
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                    <label htmlFor="quote-email" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.emailLabel}</label>
+                    <input id="quote-email" type="email" placeholder={form.emailPlaceholder} autoComplete="email"
+                      {...fieldProps("email", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" })}
                     />
+                  <FieldError name="email" errors={fieldErrors} />
                   </div>
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.companyLabel}</label>
-                    <input name="company" type="text" placeholder={form.companyPlaceholder}
-                      style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                    <label htmlFor="quote-company" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.companyLabel}</label>
+                    <input id="quote-company" type="text" placeholder={form.companyPlaceholder} autoComplete="organization"
+                      {...fieldProps("company", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" })}
                     />
+                  <FieldError name="company" errors={fieldErrors} />
                   </div>
                 </div>
 
@@ -242,18 +232,20 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
                 {/* Location */}
                 <div style={{ marginTop: 14 }}>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.locationLabel}</label>
-                  <input name="location" type="text" placeholder={form.locationPlaceholder} required
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" }}
+                  <label htmlFor="quote-location" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.locationLabel}</label>
+                  <input id="quote-location" type="text" placeholder={form.locationPlaceholder} required autoComplete="street-address"
+                    {...fieldProps("location", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" })}
                   />
+                <FieldError name="location" errors={fieldErrors} />
                 </div>
 
                 {/* Notes */}
                 <div style={{ marginTop: 14 }}>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.notesLabel}</label>
-                  <textarea name="notes" placeholder={form.notesPlaceholder} rows={4}
-                    style={{ width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" }}
+                  <label htmlFor="quote-notes" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.notesLabel}</label>
+                  <textarea id="quote-notes" placeholder={form.notesPlaceholder} rows={4} maxLength={3000}
+                    {...fieldProps("notes", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", resize: "vertical", boxSizing: "border-box", fontFamily: "inherit" })}
                   />
+                <FieldError name="notes" errors={fieldErrors} />
                 </div>
 
                 {/* Submit */}
@@ -272,10 +264,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                   {status === "loading" ? form.sendingLabel : form.submitLabel}
                 </button>
 
-                <p style={{ fontSize: 11, color: C.text, textAlign: "center", marginTop: 10, marginBottom: 0 }}>
-                  {form.callText}{" "}
-                  <a href={site.phoneHref} style={{ color: C.goldText, fontWeight: 700, textDecoration: "none" }}>{site.phone}</a>
-                </p>
+                <FormNote form={form} site={site} />
               </form>
             </div>
 

@@ -13,6 +13,7 @@ import {
   STORAGE_ERROR,
 } from "@/app/lib/server/auth"
 import { saveContent } from "@/app/lib/server/content"
+import { listLeads, setLeadStatus, deleteLead } from "@/app/lib/server/leads"
 import { sendMail, isMailConfigured } from "@/app/lib/server/mailer"
 
 // ── Auth ──────────────────────────────────────
@@ -123,3 +124,33 @@ export async function saveContentAction(content, contentVersion) {
   }
 }
 
+
+// ── Leads (form messages) ─────────────────────
+
+export async function listLeadsAction() {
+  try {
+    await requireAdmin()
+    return { ok: true, leads: await listLeads() }
+  } catch (err) {
+    console.error("[admin] Could not load leads:", err)
+    return { ok: false, error: err.message || "Could not load messages." }
+  }
+}
+
+export async function setLeadStatusAction(id, status) {
+  try {
+    await requireAdmin()
+    return { ok: await setLeadStatus(String(id), String(status)) }
+  } catch (err) {
+    return { ok: false, error: err.message || "Could not update the message." }
+  }
+}
+
+export async function deleteLeadAction(id) {
+  try {
+    await requireAdmin()
+    return { ok: await deleteLead(String(id)) }
+  } catch (err) {
+    return { ok: false, error: err.message || "Could not delete the message." }
+  }
+}
