@@ -1,5 +1,6 @@
 import "server-only"
 import { cache } from "react"
+import { unstable_cache } from "next/cache"
 import { readJSON, writeJSON } from "./storage"
 import { DEFAULT_CONTENT } from "@/app/lib/content/defaults"
 import { mergeWithDefaults, resolveContent } from "@/app/lib/content/resolve"
@@ -26,8 +27,16 @@ async function readSaved() {
 // can fail the build). At runtime each request still reads fresh content.
 const isBuild = process.env.NEXT_PHASE === "phase-production-build"
 let buildSaved = null
+
+// At runtime the saved document is kept in Next's shared data cache, so the
+// many pages that re-render after a save read storage once, not once each
+// (each storage read is a billed "list" operation on Vercel Blob). Saving in
+// the admin clears it (CONTENT_TAG); a daily refresh is the safety net.
+export const CONTENT_TAG = "cms-content"
+const readSavedCached = unstable_cache(readSaved, ["cms-content-doc"], { tags: [CONTENT_TAG], revalidate: 86400 })
+
 const loadSaved = () => {
-  if (!isBuild) return readSaved()
+  if (!isBuild) return readSavedCached()
   buildSaved ??= readSaved().catch((err) => {
     buildSaved = null
     throw err
@@ -47,7 +56,7 @@ export const getRawContent = cache(async () => {
 export const getContent = cache(async () => resolveContent(await getRawContent()))
 
 export async function getContentMeta() {
-  const saved = await readJSON(CONTENT_FILE)
+  const saved = await loadSaved()
   return { updatedAt: saved?.updatedAt ?? null, updatedBy: saved?.updatedBy ?? null }
 }
 

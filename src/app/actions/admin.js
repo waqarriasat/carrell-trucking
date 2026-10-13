@@ -1,7 +1,7 @@
 "use server"
 
 import { redirect } from "next/navigation"
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import {
   login,
   clearSession,
@@ -12,7 +12,7 @@ import {
   MIN_PASSWORD_LENGTH,
   STORAGE_ERROR,
 } from "@/app/lib/server/auth"
-import { saveContent } from "@/app/lib/server/content"
+import { saveContent, CONTENT_TAG } from "@/app/lib/server/content"
 import { listLeads, setLeadStatus, deleteLead } from "@/app/lib/server/leads"
 import { sendMail, isMailConfigured } from "@/app/lib/server/mailer"
 
@@ -114,7 +114,8 @@ export async function saveContentAction(content, contentVersion) {
       return { ok: false, error: "Invalid content." }
     }
     const saved = await saveContent(content, session.email, Number(contentVersion) || 1)
-    // Every public page reads this content — refresh all of them.
+    // Every public page reads this content — drop the cached copy right away, then refresh all pages.
+    revalidateTag(CONTENT_TAG, { expire: 0 })
     revalidatePath("/", "layout")
     return { ok: true, content: saved, savedAt: new Date().toISOString() }
   } catch (err) {
