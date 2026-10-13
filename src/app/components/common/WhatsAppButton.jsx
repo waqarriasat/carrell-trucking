@@ -21,19 +21,15 @@ export default function WhatsAppButton({ site }) {
       rel="noopener noreferrer"
       aria-label={label}
       title={label}
-      className="group fixed z-[35] right-4 bottom-4 md:right-6 md:bottom-6 flex items-center gap-2 rounded-full shadow-lg transition-transform duration-200 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-      style={{
-        backgroundColor: "#25D366",
-        color: "#ffffff",
-        marginBottom: "env(safe-area-inset-bottom)",
-      }}
+      className="fixed z-[35] right-4 bottom-4 md:right-6 md:bottom-6 block transition-transform duration-200 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] rounded-full"
+      style={{ marginBottom: "env(safe-area-inset-bottom)", filter: "drop-shadow(0 3px 6px rgba(0,0,0,.28))" }}
     >
-      <span className="flex h-12 w-12 items-center justify-center">
-        <FaWhatsapp size={26} aria-hidden="true" />
-      </span>
-      {/* Label slides out on hover (desktop) */}
-      <span className="hidden md:block max-w-0 overflow-hidden whitespace-nowrap text-sm font-bold transition-all duration-300 group-hover:max-w-[200px] group-hover:pr-4">
-        {label}
+      {/* The official logo on its own: green speech bubble, white ring and phone (no extra circle). */}
+      <span className="relative block h-14 w-14" aria-hidden="true">
+        <svg viewBox="0 -32 448 512" className="absolute inset-0 h-full w-full">
+          <path fill="#25D366" d="M224 22C112.4 22 22 112.4 22 224c0 35.6 9.3 70.3 26.9 100.9L20 428l106.6-28c29.6 16.2 63 24.8 97.3 24.8C335.6 424.8 426 334.4 426 222.8 426 111.2 335.6 22 224 22z" />
+        </svg>
+        <FaWhatsapp className="absolute inset-0 h-full w-full" style={{ color: "#ffffff" }} />
       </span>
     </a>
   );
