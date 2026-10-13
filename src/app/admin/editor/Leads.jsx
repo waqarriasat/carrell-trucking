@@ -7,7 +7,7 @@ import {
 import { listLeadsAction, setLeadStatusAction, deleteLeadAction } from "@/app/actions/admin"
 
 // ─────────────────────────────────────────────
-//  Admin → Leads: every Contact and Quote form
+//  Admin → Leads: every Contact, Quote and Pickup form
 //  message, newest first, with a status so the
 //  team can see what has been answered.
 // ─────────────────────────────────────────────
@@ -98,7 +98,7 @@ export default function Leads({ leads, setLeads }) {
   return (
     <div className="space-y-5">
       <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
-        Every message sent through the Contact and Get-a-Quote forms is kept here, even if the email notification
+        Every message sent through the Contact, Get-a-Quote and Request Pickup forms is kept here, even if the email notification
         didn&apos;t arrive. Set a status as you reply, so everyone can see what still needs an answer.
       </p>
 

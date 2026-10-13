@@ -52,7 +52,7 @@ const phoneDigits = (v) => clean(v).replace(/\D/g, "")
 
 /**
  * @param {object} data   form values
- * @param {Array}  rules  [{ field, label, required?, max?, min?, type?: "phone" | "email" }]
+ * @param {Array}  rules  [{ field, label, required?, max?, min?, type?: "phone" | "email", message? }]
  * @returns {object}      { field: "message" } — empty when everything is fine
  */
 export function validate(data, rules) {
@@ -60,7 +60,7 @@ export function validate(data, rules) {
   for (const r of rules) {
     const value = clean(data[r.field])
     if (!value) {
-      if (r.required) errors[r.field] = `Please enter your ${r.label}.`
+      if (r.required) errors[r.field] = r.message || `Please enter your ${r.label}.`
       continue
     }
     if (r.type === "phone") {

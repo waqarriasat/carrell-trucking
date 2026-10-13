@@ -12,6 +12,11 @@ import { TRAP_FIELD, STARTED_FIELD } from "@/app/lib/lead-fields"
 
 const RED = "#dc2626"
 
+// Red border for a field with an error. The whole `border` is swapped (not just
+// borderColor): React drops a removed longhand without restoring the shorthand's colour.
+const errorBorder = (style) =>
+  style?.border ? { ...style, border: String(style.border).replace(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/i, RED) } : { ...style, borderColor: RED }
+
 // Form state + submit handling shared by both forms.
 export function useLeadForm(action) {
   const started = useRef(0)
@@ -61,7 +66,7 @@ export function useLeadForm(action) {
     name,
     "aria-invalid": fieldErrors[name] ? true : undefined,
     "aria-describedby": fieldErrors[name] ? `${name}-error` : undefined,
-    style: fieldErrors[name] ? { ...style, borderColor: RED } : style,
+    style: fieldErrors[name] ? errorBorder(style) : style,
   })
 
   return { status, errorMsg, fieldErrors, onSubmit, onInput, fieldProps }
