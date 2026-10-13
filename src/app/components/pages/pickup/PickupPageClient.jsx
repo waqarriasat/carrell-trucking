@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { submitPickup } from "@/app/actions/submitPickup"
-import { useLeadForm, SpamTrap, FieldError, FormNote } from "@/app/components/common/LeadFormParts"
+import { useLeadForm, SpamTrap, FieldError, FormNote, LocateButton, setFieldValue } from "@/app/components/common/LeadFormParts"
 
 const C = {
   dark:   "#0f2d4a",
@@ -21,11 +21,14 @@ const LABEL = { fontSize: 12, fontWeight: 700, color: C.dark, display: "block", 
 const INPUT = { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }
 const HELP = { fontSize: 11, color: C.text, margin: "5px 0 0" }
 
-function GroupTitle({ children, help }) {
+function GroupTitle({ children, help, action }) {
   return (
-    <div style={{ marginTop: 24, marginBottom: 12, paddingBottom: 8, borderBottom: `1.5px solid ${C.border}` }}>
-      <h3 style={{ fontSize: 14, fontWeight: 900, color: C.dark, margin: 0 }}>{children}</h3>
-      {help ? <p style={{ ...HELP, marginTop: 3 }}>{help}</p> : null}
+    <div style={{ marginTop: 24, marginBottom: 12, paddingBottom: 8, borderBottom: `1.5px solid ${C.border}`, display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
+      <div>
+        <h3 style={{ fontSize: 14, fontWeight: 900, color: C.dark, margin: 0 }}>{children}</h3>
+        {help ? <p style={{ ...HELP, marginTop: 3 }}>{help}</p> : null}
+      </div>
+      {action}
     </div>
   )
 }
@@ -38,6 +41,17 @@ export default function PickupPageClient({ page, site, units, draft }) {
   const [unitType, setUnitType] = useState("")
   const allSizes = [...new Set(units.flatMap((u) => u.sizes))]
   const sizes = units.find((u) => u.name === unitType)?.sizes ?? allSizes
+
+  // "Use my location" fills the address boxes (unknown states fall back to "Other").
+  const formRef = useRef(null)
+  function fillAddress(a) {
+    const f = formRef.current
+    const states = form.states || []
+    setFieldValue(f, "street", a.street)
+    setFieldValue(f, "city", a.city)
+    if (a.state) setFieldValue(f, "state", states.includes(a.state) ? a.state : states.includes("Other") ? "Other" : states[0])
+    setFieldValue(f, "zip", a.zip)
+  }
 
   // No pickup dates in the past (set in the browser so the page can stay static).
   const dateRef = useRef(null)
@@ -113,7 +127,7 @@ export default function PickupPageClient({ page, site, units, draft }) {
                 </div>
               )}
 
-              <form onSubmit={onSubmit} onInput={onInput} noValidate>
+              <form ref={formRef} onSubmit={onSubmit} onInput={onInput} noValidate>
                 <SpamTrap />
 
                 {/* Contact */}
@@ -136,7 +150,9 @@ export default function PickupPageClient({ page, site, units, draft }) {
                 </div>
 
                 {/* Pickup location */}
-                <GroupTitle help={form.locationHelp}>{form.locationHeading}</GroupTitle>
+                <GroupTitle help={form.locationHelp} action={site.locateButton === "yes" ? <LocateButton site={site} onFound={fillAddress} /> : null}>
+                  {form.locationHeading}
+                </GroupTitle>
                 <div>
                   <label htmlFor="pickup-street" style={LABEL}>{form.streetLabel}</label>
                   <input id="pickup-street" type="text" placeholder={form.streetPlaceholder} required autoComplete="street-address" {...fieldProps("street", INPUT)} />

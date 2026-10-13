@@ -122,7 +122,7 @@ export const ADMIN_PAGES = [
         path: "site",
         fields: [
           t("formRecipient", "Send quote & contact form messages to", {
-            help: "Email address that receives messages from the Contact and Get-a-Quote forms. Every message is also kept in Admin → Leads.",
+            help: "Email address that receives messages from the Contact, Get-a-Quote and Request Pickup forms. Every message is also kept in Admin → Leads.",
           }),
           {
             type: "select",
@@ -136,6 +136,18 @@ export const ADMIN_PAGES = [
             rows: 4,
             help: "Shown under “Thank you, [first name]!”. Leave an empty line between paragraphs. The email also lists what they sent, your phone number, address and business hours.",
           }),
+          {
+            type: "select",
+            key: "locateButton",
+            label: "“Use my location” button",
+            width: "sm",
+            options: [{ value: "no", label: "Hidden" }, { value: "yes", label: "Shown" }],
+            help: "On the Get-a-Quote and Request Pickup forms. When a visitor taps it (and allows location), their address is filled in for them.",
+          },
+          t("locateLabel", "Button text", { width: "sm" }),
+          t("locatingLabel", "Button text while searching", { width: "sm" }),
+          t("locateDenied", "Message when location is off"),
+          t("locateFailed", "Message when no address is found"),
         ],
       },
       {

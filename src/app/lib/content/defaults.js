@@ -40,6 +40,12 @@ export const DEFAULT_CONTENT = {
     confirmEmail: "yes",
     confirmIntro:
       "Thank you for contacting us. We've received your request and a member of the {company} team will get back to you, usually within one business day.\n\nNeed an answer sooner? Give us a call — we're happy to help.",
+    // "Use my location" button on the quote and pickup forms (Admin → Business Info → Form submissions)
+    locateButton: "no",
+    locateLabel: "Use my location",
+    locatingLabel: "Finding your location...",
+    locateDenied: "Location is turned off on this device. Please type your address.",
+    locateFailed: "We couldn't find your address. Please type it in.",
     whatsapp: "+1 (580) 221-3494",
     whatsappMessage: "Hi Ardmore Trailer, I'd like to ask about renting equipment.",
     whatsappLabel: "Chat on WhatsApp",
