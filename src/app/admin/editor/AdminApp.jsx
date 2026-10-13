@@ -28,8 +28,8 @@ const PAGE_ICONS = {
   alert: FaTriangleExclamation,
 }
 
-export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice, initialLeads = [], showUpcoming = false }) {
-  const ADMIN_PAGES = useMemo(() => visibleAdminPages(showUpcoming), [showUpcoming])
+export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice, initialLeads = [] }) {
+  const ADMIN_PAGES = useMemo(() => visibleAdminPages(), [])
   const [content, setContent] = useState(initialContent)
   const [savedJson, setSavedJson] = useState(() => JSON.stringify(initialContent))
   const [savedMeta, setSavedMeta] = useState(lastSaved)

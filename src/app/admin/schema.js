@@ -52,15 +52,19 @@ const breadcrumb = (key = "") => [
 ]
 
 // Settings for features that are built but not released yet carry `upcoming: true`.
-// They are left out of the admin unless it is opened with /admin?upcoming=1.
-function withoutUpcoming(fields = []) {
-  return fields.filter((f) => !f.upcoming).map((f) => (f.fields ? { ...f, fields: withoutUpcoming(f.fields) } : f))
+// They stay visible in the admin, labelled "not live yet" so they're easy to spot.
+const NOT_LIVE = " · not live yet"
+function markUpcoming(fields = []) {
+  return fields.map((f) => {
+    const g = f.fields ? { ...f, fields: markUpcoming(f.fields) } : f
+    return g.upcoming && g.label ? { ...g, label: `${g.label}${NOT_LIVE}` } : g
+  })
 }
-export function visibleAdminPages(showUpcoming = false) {
-  if (showUpcoming) return ADMIN_PAGES
-  return ADMIN_PAGES.filter((p) => !p.upcoming).map((p) => ({
+export function visibleAdminPages() {
+  return ADMIN_PAGES.map((p) => ({
     ...p,
-    sections: (p.sections || []).map((sec) => ({ ...sec, fields: withoutUpcoming(sec.fields) })),
+    label: p.upcoming ? `${p.label}${NOT_LIVE}` : p.label,
+    sections: (p.sections || []).map((sec) => ({ ...sec, fields: markUpcoming(sec.fields) })),
   }))
 }
 
@@ -135,7 +139,7 @@ export const ADMIN_PAGES = [
         path: "site",
         fields: [
           t("formRecipient", "Send quote & contact form messages to", {
-            help: "Email address that receives messages from the Contact and Get-a-Quote forms. Every message is also kept in Admin → Leads.",
+            help: "Email address that receives messages from the Contact, Get-a-Quote and Request Pickup forms. Every message is also kept in Admin → Leads.",
           }),
           {
             type: "select",
@@ -1200,7 +1204,6 @@ export const ADMIN_PAGES = [
   {
     id: "pickup",
     label: "Request Pickup",
-    upcoming: true,
     icon: "file",
     preview: "/request-pickup",
     restoreKeys: ["pickup"],

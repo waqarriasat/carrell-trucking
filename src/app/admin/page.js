@@ -24,7 +24,6 @@ export default async function AdminPage({ searchParams }) {
       lastSaved={meta.updatedAt}
       initialLeads={leads}
       notice={params?.passwordChanged ? "Your password has been changed." : null}
-      showUpcoming={params?.upcoming === "1"}
     />
   )
 }
