@@ -378,6 +378,9 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Secure, weather-tight dry containers for on-site storage. Perfect for construction sites, retail overflow, and industrial storage.",
       listFeatures: ["Weatherproof", "Ground Level Access", "Multiple Sizes", "Pest Resistant"],
+      // Highlight box on the unit page (shown when Admin → Fleet Page → "Highlight boxes" is on)
+      highlightTitle: "Pest-Resistant Feed & Farm Storage",
+      highlightText: "Steel walls and tight-sealing doors keep rodents, birds and rain away from cattle feed, seed, tack and farm equipment — dry and protected through Oklahoma storms and summer heat.",
       image: "/images/fleet/container-dry.webp",
       gallery: [],
     },
@@ -593,6 +596,16 @@ export const DEFAULT_CONTENT = {
     modsText: "Need it built your way? We modify any unit to fit your job — tell us what you need and we'll quote it.",
     mods: ["Extra Doors", "Windows", "Shelving", "Insulation", "Electrical", "Custom Build"],
     modsButtonLabel: "Request a Modification",
+    // Per-unit highlight box (e.g. pest-resistant feed storage) — hidden until switched on
+    showHighlights: "no",
+    // "Come see it at our yard" box — hidden until switched on
+    showYardBox: "no",
+    yardLabel: "See It Before You Buy",
+    yardTitle: "Pick Your Unit at Our Ardmore Yard",
+    yardText: "We're a local yard at {salesStreet} in {salesCity} — not an online reseller shipping a box sight unseen. Stop by, walk the rows and choose the exact unit you want, straight from the owner.",
+    yardPoints: ["Check the doors, seals and floor in person", "Choose the exact unit you'll get", "Deal directly with the owner — no middleman"],
+    yardButtonLabel: "Get Directions to Our Yard",
+    yardButtonHref: "{salesMapsLink}",
   },
 
   // ── Services / industries ──────────────────
