@@ -77,13 +77,21 @@ function Slides({ images, videos = [], current, reducedMotion }) {
         index === current ? "opacity-100" : "opacity-0"
       }`}
     >
-      {/* Photos and video fill the slide edge to edge (cropped a little to fit, never letterboxed) */}
+      {/* Photos fill the slide edge to edge. A video slide always shows the whole video:
+          any space above/below is filled with a soft blur of its own sky and ground. */}
+      {videos[index] ? (
+        <div
+          className="absolute -inset-8 bg-cover bg-center blur-2xl scale-110"
+          style={{ backgroundImage: `url('${src}')` }}
+          aria-hidden="true"
+        />
+      ) : null}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" className="absolute inset-0 w-full h-full object-cover" draggable="false" loading={index === 0 ? "eager" : "lazy"} />
+      <img src={src} alt="" className={`absolute inset-0 w-full h-full ${videos[index] ? "object-contain" : "object-cover"}`} draggable="false" loading={index === 0 ? "eager" : "lazy"} />
       {videos[index] && index === current && !reducedMotion ? (
         // Plays once and holds its last frame (no loop): the clip is shorter than a slide,
         // and a loop would visibly jump back to the start.
-        <video className="absolute inset-0 w-full h-full object-cover" autoPlay muted playsInline aria-hidden="true">
+        <video className="absolute inset-0 w-full h-full object-contain" autoPlay muted playsInline aria-hidden="true">
           {videoSources(videos[index]).map((v) => (
             <source key={v.src} {...v} />
           ))}
