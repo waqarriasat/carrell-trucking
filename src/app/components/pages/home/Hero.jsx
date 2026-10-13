@@ -85,7 +85,9 @@ function Slides({ images, videos = [], current, reducedMotion }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt="" className="absolute inset-0 w-full h-full object-contain" draggable="false" loading={index === 0 ? "eager" : "lazy"} />
       {videos[index] && index === current && !reducedMotion ? (
-        <video className="absolute inset-0 w-full h-full object-contain" autoPlay muted loop playsInline aria-hidden="true">
+        // Plays once and holds its last frame (no loop): the clip is shorter than a slide,
+        // and a loop would visibly jump back to the start.
+        <video className="absolute inset-0 w-full h-full object-contain" autoPlay muted playsInline aria-hidden="true">
           {videoSources(videos[index]).map((v) => (
             <source key={v.src} {...v} />
           ))}
