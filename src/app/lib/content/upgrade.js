@@ -31,6 +31,7 @@ import { LEGACY_CONTENT_V17 } from "./legacy-v17"
 import { LEGACY_CONTENT_V18 } from "./legacy-v18"
 import { LEGACY_CONTENT_V19 } from "./legacy-v19"
 import { LEGACY_CONTENT_V20 } from "./legacy-v20"
+import { LEGACY_CONTENT_V21 } from "./legacy-v21"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -59,7 +60,9 @@ import { LEGACY_CONTENT_V20 } from "./legacy-v20"
 //     the truck; the About photo loop was remade the same way).
 // 21: Rent / Buy / Rent to Own / Modify on every unit; Modification and
 //     custom modifications in the quote form.
-export const CONTENT_VERSION = 21
+// 22: highlight box per unit (pest-resistant feed & farm storage on the dry
+//     container) and the "see it at our yard" box — both hidden until switched on.
+export const CONTENT_VERSION = 22
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -82,7 +85,8 @@ const STEPS = [
   { upTo: 18, from: LEGACY_CONTENT_V17, to: LEGACY_CONTENT_V18 },
   { upTo: 19, from: LEGACY_CONTENT_V18, to: LEGACY_CONTENT_V19 },
   { upTo: 20, from: LEGACY_CONTENT_V19, to: LEGACY_CONTENT_V20 },
-  { upTo: 21, from: LEGACY_CONTENT_V20, to: DEFAULT_CONTENT },
+  { upTo: 21, from: LEGACY_CONTENT_V20, to: LEGACY_CONTENT_V21 },
+  { upTo: 22, from: LEGACY_CONTENT_V21, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)

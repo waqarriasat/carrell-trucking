@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import { FaLocationCrosshairs } from "react-icons/fa6"
 import { TRAP_FIELD, STARTED_FIELD } from "@/app/lib/lead-fields"
 
 // ─────────────────────────────────────────────
@@ -11,6 +12,11 @@ import { TRAP_FIELD, STARTED_FIELD } from "@/app/lib/lead-fields"
 // ─────────────────────────────────────────────
 
 const RED = "#dc2626"
+
+// Red border for a field with an error. The whole `border` is swapped (not just
+// borderColor): React drops a removed longhand without restoring the shorthand's colour.
+const errorBorder = (style) =>
+  style?.border ? { ...style, border: String(style.border).replace(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/i, RED) } : { ...style, borderColor: RED }
 
 // Form state + submit handling shared by both forms.
 export function useLeadForm(action) {
@@ -61,7 +67,7 @@ export function useLeadForm(action) {
     name,
     "aria-invalid": fieldErrors[name] ? true : undefined,
     "aria-describedby": fieldErrors[name] ? `${name}-error` : undefined,
-    style: fieldErrors[name] ? { ...style, borderColor: RED } : style,
+    style: fieldErrors[name] ? errorBorder(style) : style,
   })
 
   return { status, errorMsg, fieldErrors, onSubmit, onInput, fieldProps }
@@ -109,4 +115,66 @@ export function FormNote({ form, site, color = "#4a6b85", linkColor = "#86671e" 
       )}
     </div>
   )
+}
+
+// "Use my location": asks the browser for the visitor's position (only when tapped)
+// and turns it into an address via /api/locate. `onFound({ street, city, state, zip })`.
+export function LocateButton({ site, onFound }) {
+  const [state, setState] = useState("idle") // idle | busy | error
+  const [message, setMessage] = useState("")
+
+  function fail(text) {
+    setState("error")
+    setMessage(text)
+  }
+
+  function locate() {
+    if (!navigator.geolocation) return fail(site.locateDenied)
+    setState("busy")
+    setMessage("")
+    navigator.geolocation.getCurrentPosition(
+      async ({ coords }) => {
+        try {
+          const res = await fetch(`/api/locate?lat=${coords.latitude}&lon=${coords.longitude}`)
+          const data = await res.json()
+          if (!res.ok || data.error) return fail(data.error || site.locateFailed)
+          onFound(data)
+          setState("idle")
+        } catch {
+          fail(site.locateFailed)
+        }
+      },
+      (err) => fail(err.code === 1 ? site.locateDenied : site.locateFailed),
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 300000 }
+    )
+  }
+
+  return (
+    <span style={{ display: "inline-flex", flexDirection: "column", alignItems: "flex-end", gap: 4 }}>
+      <button
+        type="button"
+        onClick={locate}
+        disabled={state === "busy"}
+        style={{
+          display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 4,
+          border: "1.5px solid #c9a84c", background: "#fff", color: "#0f2d4a", fontSize: 11, fontWeight: 800,
+          cursor: state === "busy" ? "wait" : "pointer", whiteSpace: "nowrap",
+        }}
+      >
+        <FaLocationCrosshairs size={11} style={{ color: "#86671e" }} aria-hidden="true" />
+        {state === "busy" ? site.locatingLabel : site.locateLabel}
+      </button>
+      {state === "error" && message ? (
+        <span role="status" style={{ fontSize: 11, fontWeight: 600, color: "#86671e", textAlign: "right" }}>{message}</span>
+      ) : null}
+    </span>
+  )
+}
+
+// Fill an uncontrolled form field and let the form know it changed (clears its error).
+export function setFieldValue(form, name, value) {
+  const el = form?.elements?.namedItem(name)
+  if (!el || value == null) return
+  el.value = value
+  el.dispatchEvent(new Event("input", { bubbles: true }))
 }

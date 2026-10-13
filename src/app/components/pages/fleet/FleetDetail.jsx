@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { FaCheck, FaPhone } from "react-icons/fa"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
-import { FaFileInvoice } from "react-icons/fa6"
+import { FaFileInvoice, FaShieldHalved, FaLocationDot } from "react-icons/fa6"
 import { imageProps, isCutout } from "@/app/lib/content/images"
 
 const C = {
@@ -212,6 +212,19 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                 </div>
               </div>
 
+              {/* Highlight for this unit, e.g. pest-resistant feed storage (switch in Admin → Fleet Page) */}
+              {fleetDetail.showHighlights === "yes" && item.highlightTitle ? (
+                <div style={{ display: "flex", gap: 14, alignItems: "flex-start", background: C.gold + "14", borderRadius: 4, padding: "18px 20px", border: `1.5px solid ${C.gold}55` }}>
+                  <span style={{ width: 38, height: 38, borderRadius: 4, background: C.dark, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <FaShieldHalved size={16} style={{ color: C.gold }} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h2 style={{ fontSize: 15, fontWeight: 900, color: C.dark, margin: "0 0 6px" }}>{item.highlightTitle}</h2>
+                    {item.highlightText ? <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7, margin: 0 }}>{item.highlightText}</p> : null}
+                  </div>
+                </div>
+              ) : null}
+
               {/* Use Cases */}
               {item.useCases?.length > 0 && (
                 <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
@@ -313,6 +326,37 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                   </Link>
                 </div>
               )}
+
+              {/* See it at our yard — local, owner-direct (switch in Admin → Fleet Page) */}
+              {fleetDetail.showYardBox === "yes" && fleetDetail.yardTitle ? (
+                <div style={{ background: C.dark, borderRadius: 4, padding: "22px 20px", border: `1.5px solid ${C.navy}` }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                    <div style={{ width: 24, height: 2, background: C.gold }} />
+                    <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 3, color: C.gold }}>{fleetDetail.yardLabel}</span>
+                  </div>
+                  <h2 style={{ fontSize: 17, fontWeight: 900, color: "#fff", margin: "0 0 8px" }}>{fleetDetail.yardTitle}</h2>
+                  {fleetDetail.yardText ? <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.7, margin: "0 0 12px" }}>{fleetDetail.yardText}</p> : null}
+                  {fleetDetail.yardPoints?.length ? (
+                    <ul style={{ listStyle: "none", margin: "0 0 16px", padding: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+                      {fleetDetail.yardPoints.map((pt) => (
+                        <li key={pt} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#fff" }}>
+                          <FaCheck size={10} style={{ color: C.gold, flexShrink: 0 }} aria-hidden="true" /> {pt}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {fleetDetail.yardButtonLabel && fleetDetail.yardButtonHref ? (
+                    <a
+                      href={fleetDetail.yardButtonHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, fontWeight: 800, padding: "10px 16px", borderRadius: 4, border: `1.5px solid ${C.gold}`, color: C.gold, textDecoration: "none" }}
+                    >
+                      <FaLocationDot size={12} aria-hidden="true" /> {fleetDetail.yardButtonLabel}
+                    </a>
+                  ) : null}
+                </div>
+              ) : null}
 
               {/* CTA Buttons */}
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

@@ -7,7 +7,7 @@ import {
   FaMagnifyingGlass, FaFloppyDisk, FaRotateLeft, FaCircleCheck, FaBars, FaXmark, FaKey,
   FaRightFromBracket, FaWandMagicSparkles, FaClockRotateLeft, FaInbox,
 } from "react-icons/fa6"
-import { ADMIN_PAGES } from "../schema"
+import { visibleAdminPages } from "../schema"
 import { DEFAULT_CONTENT } from "@/app/lib/content/defaults"
 import { PLACEHOLDERS } from "@/app/lib/content/resolve"
 import { saveContentAction, logoutAction, requestPasswordResetAction } from "@/app/actions/admin"
@@ -28,7 +28,8 @@ const PAGE_ICONS = {
   alert: FaTriangleExclamation,
 }
 
-export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice, initialLeads = [] }) {
+export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice, initialLeads = [], showUpcoming = false }) {
+  const ADMIN_PAGES = useMemo(() => visibleAdminPages(showUpcoming), [showUpcoming])
   const [content, setContent] = useState(initialContent)
   const [savedJson, setSavedJson] = useState(() => JSON.stringify(initialContent))
   const [savedMeta, setSavedMeta] = useState(lastSaved)
@@ -189,7 +190,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
             </button>
           </div>
 
-          <SearchBox content={content} onPick={(hit) => goTo(hit.pageId, hit)} />
+          <SearchBox pages={ADMIN_PAGES} content={content} onPick={(hit) => goTo(hit.pageId, hit)} />
 
           <nav className="flex-1 overflow-y-auto px-3 pb-4">
             <NavItem icon={FaGauge} label="Dashboard" active={pageId === "dashboard"} onClick={() => goTo("dashboard")} />
@@ -277,7 +278,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
                 </div>
               )}
 
-              {pageId === "dashboard" && <Dashboard content={content} savedMeta={savedMeta} newCount={newCount} onOpen={goTo} />}
+              {pageId === "dashboard" && <Dashboard pages={ADMIN_PAGES} content={content} savedMeta={savedMeta} newCount={newCount} onOpen={goTo} />}
               {pageId === "leads" && <Leads leads={leads} setLeads={setLeads} />}
               {pageId === "account" && <Account adminEmail={adminEmail} />}
               {page && (
@@ -341,9 +342,9 @@ function NavItem({ icon: Icon, label, active, onClick, badge }) {
   )
 }
 
-function SearchBox({ content, onPick }) {
+function SearchBox({ pages, content, onPick }) {
   const [q, setQ] = useState("")
-  const index = useMemo(() => buildSearchIndex(ADMIN_PAGES, content), [content])
+  const index = useMemo(() => buildSearchIndex(pages, content), [pages, content])
   const results = useMemo(() => {
     const term = q.trim().toLowerCase()
     if (term.length < 2) return []
@@ -425,7 +426,7 @@ function PlaceholderHelp() {
   )
 }
 
-function Dashboard({ content, savedMeta, newCount, onOpen }) {
+function Dashboard({ pages, content, savedMeta, newCount, onOpen }) {
   const counts = {
     equipment: content.fleet.length,
     services: content.services.length,
@@ -453,7 +454,7 @@ function Dashboard({ content, savedMeta, newCount, onOpen }) {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        {ADMIN_PAGES.map((p) => {
+        {pages.map((p) => {
           const Icon = PAGE_ICONS[p.icon]
           return (
             <button

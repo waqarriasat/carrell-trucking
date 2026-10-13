@@ -22,8 +22,9 @@ const str = (v) => String(v ?? "").trim()
  * @param {Array}  o.fields    [{ label, value, list?, block? }]
  * @param {Array}  o.rules     field checks (see lead-guard validate)
  * @param {string} [o.tag]     short label for the email subject
+ * @param {object} [o.checks]  extra values that are checked by `rules` but not sent as their own rows
  */
-export async function handleLead({ kind, formData, customer, fields, rules, tag }) {
+export async function handleLead({ kind, formData, customer, fields, rules, tag, checks = {} }) {
   const { site, contact } = await getContent()
   const callUs = `Please call us at ${site.phone}.`
 
@@ -32,7 +33,7 @@ export async function handleLead({ kind, formData, customer, fields, rules, tag 
   if (spam === "fast") return { success: false, error: "Please check your details, then press the button again to send." }
   if (spam === "limit") return { success: false, error: `You've sent several messages in a short time. ${callUs}` }
 
-  const fieldErrors = validate({ ...customer, ...Object.fromEntries(fields.map((f) => [f.key, f.value])) }, rules)
+  const fieldErrors = validate({ ...customer, ...Object.fromEntries(fields.map((f) => [f.key, f.value])), ...checks }, rules)
   if (Object.keys(fieldErrors).length) {
     return { success: false, fieldErrors, error: "Please check the highlighted fields." }
   }

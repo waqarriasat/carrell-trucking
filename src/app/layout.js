@@ -118,7 +118,7 @@ export default async function RootLayout({ children }) {
         />
         <SiteChrome
           navbar={<Navbar site={site} nav={siteNav} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
-          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} />}
+          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} pickupLabel={content.pickup.published === "yes" ? content.pickup.linkLabel : ""} />}
           convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
         >

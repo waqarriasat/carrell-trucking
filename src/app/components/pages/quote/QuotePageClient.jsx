@@ -5,7 +5,7 @@ import { FaCheck } from "react-icons/fa"
 import { getIcon } from "@/app/lib/content/icons"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { submitQuote } from "@/app/actions/submitQuote"
-import { useLeadForm, SpamTrap, FieldError, FormNote } from "@/app/components/common/LeadFormParts"
+import { useLeadForm, SpamTrap, FieldError, FormNote, LocateButton, setFieldValue } from "@/app/components/common/LeadFormParts"
 
 const C = {
   dark:   "#0f2d4a",
@@ -280,7 +280,15 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
                 {/* Location */}
                 <div style={{ marginTop: 14 }}>
-                  <label htmlFor="quote-location" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 5 }}>{form.locationLabel}</label>
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10, marginBottom: 5 }}>
+                    <label htmlFor="quote-location" style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block" }}>{form.locationLabel}</label>
+                    {site.locateButton === "yes" && (
+                      <LocateButton
+                        site={site}
+                        onFound={(a) => setFieldValue(formRef.current, "location", [a.street, a.city, [a.state, a.zip].filter(Boolean).join(" ")].filter(Boolean).join(", "))}
+                      />
+                    )}
+                  </div>
                   <input id="quote-location" type="text" placeholder={form.locationPlaceholder} required autoComplete="street-address"
                     {...fieldProps("location", { width: "100%", padding: "9px 12px", borderRadius: 4, border: `1.5px solid ${C.border}`, fontSize: 13, color: C.dark, background: C.light, outline: "none", boxSizing: "border-box" })}
                   />

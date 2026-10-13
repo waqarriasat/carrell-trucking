@@ -3,7 +3,7 @@ import { siteBaseUrl } from "@/app/lib/server/seo"
 import { publishedPosts, resourcesEnabled } from "@/app/lib/content/blog"
 
 export default async function sitemap() {
-  const { fleet, services, seo, blog, terms } = await getContent()
+  const { fleet, services, seo, blog, terms, pickup } = await getContent()
   const baseUrl = siteBaseUrl(seo)
 
   const fleetPages = fleet.map((f) => ({
@@ -28,6 +28,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/contact`,       lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/quote`,         lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/privacy`,       lastModified: new Date(), changeFrequency: "yearly",  priority: 0.2 },
+    ...(pickup.published === "yes" ? [{ url: `${baseUrl}/request-pickup`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 }] : []),
     ...(terms.published === "yes" ? [{ url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 }] : []),
     // Blog & FAQ only when switched on (Admin → Blog & FAQ)
     ...(resourcesEnabled(blog)
