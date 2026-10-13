@@ -51,6 +51,19 @@ const breadcrumb = (key = "") => [
   t(`${key}breadcrumbCurrent`, "Breadcrumb: this page", { width: "sm" }),
 ]
 
+// Settings for features that are built but not released yet carry `upcoming: true`.
+// They are left out of the admin unless it is opened with /admin?upcoming=1.
+function withoutUpcoming(fields = []) {
+  return fields.filter((f) => !f.upcoming).map((f) => (f.fields ? { ...f, fields: withoutUpcoming(f.fields) } : f))
+}
+export function visibleAdminPages(showUpcoming = false) {
+  if (showUpcoming) return ADMIN_PAGES
+  return ADMIN_PAGES.filter((p) => !p.upcoming).map((p) => ({
+    ...p,
+    sections: (p.sections || []).map((sec) => ({ ...sec, fields: withoutUpcoming(sec.fields) })),
+  }))
+}
+
 export const ADMIN_PAGES = [
   // ── Business info ─────────────────────────
   {
@@ -122,7 +135,7 @@ export const ADMIN_PAGES = [
         path: "site",
         fields: [
           t("formRecipient", "Send quote & contact form messages to", {
-            help: "Email address that receives messages from the Contact, Get-a-Quote and Request Pickup forms. Every message is also kept in Admin → Leads.",
+            help: "Email address that receives messages from the Contact and Get-a-Quote forms. Every message is also kept in Admin → Leads.",
           }),
           {
             type: "select",
@@ -139,15 +152,16 @@ export const ADMIN_PAGES = [
           {
             type: "select",
             key: "locateButton",
+            upcoming: true,
             label: "“Use my location” button",
             width: "sm",
             options: [{ value: "no", label: "Hidden" }, { value: "yes", label: "Shown" }],
             help: "On the Get-a-Quote and Request Pickup forms. When a visitor taps it (and allows location), their address is filled in for them.",
           },
-          t("locateLabel", "Button text", { width: "sm" }),
-          t("locatingLabel", "Button text while searching", { width: "sm" }),
-          t("locateDenied", "Message when location is off"),
-          t("locateFailed", "Message when no address is found"),
+          t("locateLabel", "Button text", { width: "sm", upcoming: true }),
+          t("locatingLabel", "Button text while searching", { width: "sm", upcoming: true }),
+          t("locateDenied", "Message when location is off", { upcoming: true }),
+          t("locateFailed", "Message when no address is found", { upcoming: true }),
         ],
       },
       {
@@ -512,8 +526,8 @@ export const ADMIN_PAGES = [
               ta("description", "Description", { rows: 3 }),
               strings("features", "Features", { itemName: "feature", help: "The first 3 show on the home page card." }),
               strings("useCases", "Common use cases", { itemName: "use case" }),
-              t("highlightTitle", "Highlight box — heading", { help: "Optional. Shown on this unit's page when Fleet Page → Highlight boxes is on." }),
-              ta("highlightText", "Highlight box — text", { rows: 2 }),
+              t("highlightTitle", "Highlight box — heading", { upcoming: true, help: "Optional. Shown on this unit's page when Fleet Page → Highlight boxes is on." }),
+              ta("highlightText", "Highlight box — text", { rows: 2, upcoming: true }),
               { type: "select", key: "graphic", label: "Card illustration", options: GRAPHICS, width: "sm" },
               t("graphicLabel", "Illustration label", { width: "sm", help: "Small text printed on the illustration." }),
               { type: "subheading", label: "Fleet page card" },
@@ -583,6 +597,7 @@ export const ADMIN_PAGES = [
           {
             type: "select",
             key: "showHighlights",
+            upcoming: true,
             label: "Highlight boxes",
             width: "sm",
             options: [{ value: "no", label: "Hidden" }, { value: "yes", label: "Shown" }],
@@ -591,17 +606,18 @@ export const ADMIN_PAGES = [
           {
             type: "select",
             key: "showYardBox",
+            upcoming: true,
             label: "“See it at our yard” box",
             width: "sm",
             options: [{ value: "no", label: "Hidden" }, { value: "yes", label: "Shown" }],
             help: "A box on every equipment page inviting customers to visit the yard and pick their unit.",
           },
-          t("yardLabel", "Yard box — small gold text", { width: "sm" }),
-          t("yardTitle", "Yard box — heading"),
-          ta("yardText", "Yard box — text", { rows: 3, help: "{salesStreet} and {salesCity} are filled in from Business Info." }),
-          strings("yardPoints", "Yard box — points", { itemName: "point" }),
-          t("yardButtonLabel", "Yard box — button text", { width: "sm" }),
-          t("yardButtonHref", "Yard box — button link", { help: "{salesMapsLink} opens Google Maps at the Sales & Yard address." }),
+          t("yardLabel", "Yard box — small gold text", { width: "sm", upcoming: true }),
+          t("yardTitle", "Yard box — heading", { upcoming: true }),
+          ta("yardText", "Yard box — text", { rows: 3, upcoming: true, help: "{salesStreet} and {salesCity} are filled in from Business Info." }),
+          strings("yardPoints", "Yard box — points", { itemName: "point", upcoming: true }),
+          t("yardButtonLabel", "Yard box — button text", { width: "sm", upcoming: true }),
+          t("yardButtonHref", "Yard box — button link", { upcoming: true, help: "{salesMapsLink} opens Google Maps at the Sales & Yard address." }),
         ],
       },
     ],
@@ -1184,6 +1200,7 @@ export const ADMIN_PAGES = [
   {
     id: "pickup",
     label: "Request Pickup",
+    upcoming: true,
     icon: "file",
     preview: "/request-pickup",
     restoreKeys: ["pickup"],
