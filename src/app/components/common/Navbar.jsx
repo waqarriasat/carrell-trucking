@@ -6,7 +6,7 @@ import { FaBars, FaPhone, FaChevronDown, FaChevronRight } from "react-icons/fa6"
 import TextLogo from "./TextLogo";
 import MobileMenu from "./MobileMenu";
 
-export default function Navbar({ site, nav, fleet, services, resources }) {
+export default function Navbar({ site, nav, fleet, services, resources, topLinks = [] }) {
   const DROPDOWNS = {
     "/fleet": {
       items: fleet.map((f) => ({ label: f.name, href: `/fleet/${f.id}`, image: f.image })),
@@ -182,6 +182,20 @@ export default function Navbar({ site, nav, fleet, services, resources }) {
         ].join(" ")}
         style={{ backgroundColor: "#0f2d4a", borderColor: "#c9a84c" }}
       >
+        {/* Top bar (desktop) — small links above the main row, e.g. Request Pickup.
+            Only rendered when there is a link to show; globals.css adds its height to the page offset. */}
+        {topLinks.length > 0 && (
+          <div className="site-topbar hidden lg:block border-b" style={{ backgroundColor: "#0a2038", borderColor: "rgba(201,168,76,0.35)" }}>
+            <div className="wrap h-8 flex items-center justify-end gap-6">
+              {topLinks.map((l) => (
+                <Link key={l.href} href={l.href} className="text-[12px] font-semibold tracking-wide text-white/85 hover:text-[#c9a84c] transition-colors">
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Main row — dark navy: text logo on the left, prominent phone on the right */}
         <div className="flex items-center justify-between gap-4 wrap h-16 lg:h-20">
 
@@ -366,7 +380,7 @@ export default function Navbar({ site, nav, fleet, services, resources }) {
         </div>
       </header>
 
-      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} site={site} nav={nav} fleet={fleet} services={services} resources={resources} />
+      <MobileMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} site={site} nav={nav} fleet={fleet} services={services} resources={resources} extraLinks={topLinks.filter((l) => !nav.links.some((n) => n.href === l.href))} />
     </>
   )
 }

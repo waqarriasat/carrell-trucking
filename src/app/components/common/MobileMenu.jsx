@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaXmark, FaPhone, FaChevronRight, FaChevronDown } from "react-icons/fa6";
 
-export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services, resources }) {
+export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services, resources, extraLinks = [] }) {
   const SUB_MENUS = {
     "/fleet": fleet.map((f) => ({
       label: f.name,
@@ -140,6 +140,20 @@ export default function MobileMenu({ isOpen, onClose, site, nav, fleet, services
                 </li>
               )
             })}
+            {/* Extra links from the desktop top bar, e.g. Request Pickup */}
+            {extraLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={onClose}
+                  className="group flex items-center justify-between px-6 py-4 text-white/90 hover:text-white transition-colors border-b"
+                  style={{ borderColor: "#1e4d7b" }}
+                >
+                  <span className="font-medium tracking-wide">{link.label}</span>
+                  <FaChevronRight size={12} className="text-white/30 group-hover:text-white/70 transition-colors" />
+                </Link>
+              </li>
+            ))}
           </ul>
 
           {/* CTA button */}

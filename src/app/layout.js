@@ -107,6 +107,10 @@ export default async function RootLayout({ children }) {
     })),
   };
   const fleetLinks = fleet.map((f) => ({ id: f.id, name: f.name, image: f.image, badge: f.badge }));
+  // Small links in the header's top bar (only shown when there is at least one).
+  const topLinks = content.pickup.published === "yes"
+    ? [{ label: content.pickup.linkLabel, href: "/request-pickup" }, { label: nav.contactLabel || "Contact Us", href: "/contact" }]
+    : [];
   const serviceLinks = services.map((s) => ({ id: s.id, label: s.label, description: s.description }));
 
   return (
@@ -117,7 +121,7 @@ export default async function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd).replace(/</g, "\\u003c") }}
         />
         <SiteChrome
-          navbar={<Navbar site={site} nav={siteNav} fleet={fleetLinks} services={serviceLinks} resources={resources} />}
+          navbar={<Navbar site={site} nav={siteNav} fleet={fleetLinks} services={serviceLinks} resources={resources} topLinks={topLinks} />}
           footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} pickupLabel={content.pickup.published === "yes" ? content.pickup.linkLabel : ""} />}
           convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}

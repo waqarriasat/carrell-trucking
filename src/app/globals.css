@@ -35,6 +35,13 @@ body {
   animation: fadeIn 0.18s ease-out;
 }
 
+/* Header top bar (desktop only) adds 32px to the fixed header */
+@media (min-width: 1025px) {
+  body:has(.site-topbar) {
+    padding-top: 113px; /* 80px header + 32px bar + its 1px line */
+  }
+}
+
 /* Admin panel has no fixed site navbar above it */
 body:has(#admin-root) {
   padding-top: 0;
