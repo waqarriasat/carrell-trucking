@@ -208,7 +208,7 @@ Because the container sits on the ground, you can walk or roll equipment straigh
 - **Overhead clearance** — check for power lines, tree branches and roof edges, because the bed tilts upward during unloading.
 - **Door direction** — decide which way you want the doors to face so loading is convenient.
 - **Space around the doors** — leave enough room to open both doors fully.
-- **Permits and HOA rules** — some cities or neighborhoods require a permit for a container on a driveway or street. Check before delivery day.
+- **Not sure about the spot?** — if you're unsure where it should go, or whether your neighborhood has rules about it, ask us. We'll help you choose a spot that works.
 
 ## Placement tips
 
@@ -329,21 +329,21 @@ We own every refrigerated trailer and container we rent. You talk directly to th
       id: "oilfield-site-setup-mud-lab-generator-office",
       published: "yes",
       featured: "yes",
-      title: "Oilfield Site Setup: Mud Lab Trailers, Generators and Office Units",
-      metaTitle: "Oilfield Equipment Rental: Mud Lab Trailers, Generators & Offices",
+      title: "Oilfield Site Setup: Mud Lab Units, Generators and Office Units",
+      metaTitle: "Oilfield Equipment Rental: Mud Lab Units, Generators & Offices",
       metaDescription:
-        "How to equip a drilling pad: mud lab trailer rental, industrial generators, site offices and sanitation — delivered and set up across Southern Oklahoma and North Texas.",
+        "How to equip a drilling pad: ground-level mud lab rental, industrial generators, site offices and sanitation — delivered and set up across Southern Oklahoma and North Texas.",
       category: "job-site",
       date: "2026-10-02",
       image: "/images/slides/oilfield.webp",
       excerpt:
-        "What a drilling site needs on location — mud lab trailers, power, office space and sanitation — and how to plan delivery.",
+        "What a drilling site needs on location — a mud lab, power, office space and sanitation — and how to plan delivery.",
       fleet: ["mud-lab", "generator", "office", "portable-toilets"],
       body: `A drilling pad needs more than a rig. Crews need a place to test drilling fluid, reliable power, an office for paperwork and meetings, and sanitation. Here's how to plan the equipment for an oilfield location.
 
-## Mud lab trailers
+## Mud lab units
 
-A [mud lab trailer](/fleet/mud-lab) gives your mud engineer a climate-controlled lab on location to test and monitor drilling fluid. Typical features include a lab bench layout, ventilation and electrical service. Units can be custom fitted to your specification — call to discuss what your team needs.
+A [10 ft ground-level mud lab](/fleet/mud-lab) gives your mud engineer a climate-controlled lab on location to test and monitor drilling fluid. It sits flat on the ground — no steps or ramp — with room for a lab bench and electrical service. The same compact units also work as guard shacks and gate offices at the pad entrance.
 
 ## Power: industrial generators
 
@@ -503,7 +503,7 @@ export const FAQ_DEFAULTS = {
         },
         {
           q: "What equipment can I rent?",
-          a: "Dry storage containers, trailers, diesel and electric refrigerated trailers, refrigerated containers, generators, office units, portable toilets and hand wash stations, and oil field mud lab trailers. See the [full fleet](/fleet).",
+          a: "Dry storage containers, trailers, diesel and electric refrigerated trailers, refrigerated containers, generators, office units, portable toilets and hand wash stations, and 10 ft ground-level mud lab units. See the [full fleet](/fleet).",
           fleet: [],
         },
         {
@@ -554,8 +554,8 @@ export const FAQ_DEFAULTS = {
           fleet: ["container-dry"],
         },
         {
-          q: "Do I need a permit to put a container on my property?",
-          a: "It depends on your city, county or homeowners association. Some require a permit for a container on a driveway or street. Please check local rules before delivery.",
+          q: "Where on my property can the container go?",
+          a: "Most customers use a driveway, yard, parking area or job site — anywhere with firm, level ground and room for the truck. Not sure about your spot or your neighborhood's rules? Call {phone} or send us a photo and we'll help you choose.",
           fleet: ["container-dry"],
         },
       ],
@@ -617,8 +617,8 @@ export const FAQ_DEFAULTS = {
           fleet: ["portable-toilets"],
         },
         {
-          q: "Do you rent mud lab trailers for drilling sites?",
-          a: "Yes. Our oil field mud lab trailers can be custom fitted to your specification and delivered to your drilling pad along with generators and office units. See [oilfield site setup](/blog/oilfield-site-setup-mud-lab-generator-office).",
+          q: "Do you rent mud lab units for drilling sites?",
+          a: "Yes. Our 10 ft ground-level mud lab units are delivered to your drilling pad along with generators and office units — and they double as guard shacks. See [oilfield site setup](/blog/oilfield-site-setup-mud-lab-generator-office).",
           fleet: ["mud-lab", "generator"],
         },
         {

@@ -7,13 +7,14 @@
 import {
   FaBox, FaTruck, FaSnowflake, FaBolt, FaIndustry, FaPlug, FaBuilding, FaFlask,
   FaStore, FaHome, FaHardHat, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock,
-  FaUser, FaCheck, FaFileAlt,
+  FaUser, FaCheck, FaFileAlt, FaToilet, FaRestroom, FaShower,
 } from "react-icons/fa"
 import {
   FaShield, FaHandshake, FaTruck as Fa6Truck, FaAward, FaClock as Fa6Clock, FaUsers,
   FaClipboardCheck, FaTruckFast, FaWrench, FaRoad, FaCalendarDays, FaLocationDot, FaStar,
   FaThumbsUp, FaLeaf, FaGears, FaWarehouse, FaTemperatureHalf, FaDollarSign, FaHeadset,
   FaHelmetSafety, FaCircleCheck, FaBoxesStacked, FaTrailer, FaOilWell, FaFileContract,
+  FaTractor, FaUtensils, FaTents, FaChurch, FaHospital, FaLandmark, FaHouseFloodWater,
 } from "react-icons/fa6"
 
 export const ICONS = {
@@ -35,6 +36,9 @@ export const ICONS = {
   "fa/FaUser": FaUser,
   "fa/FaCheck": FaCheck,
   "fa/FaFileAlt": FaFileAlt,
+  "fa/FaToilet": FaToilet,
+  "fa/FaRestroom": FaRestroom,
+  "fa/FaShower": FaShower,
   "fa6/FaShield": FaShield,
   "fa6/FaHandshake": FaHandshake,
   "fa6/FaTruck": Fa6Truck,
@@ -52,6 +56,13 @@ export const ICONS = {
   "fa6/FaLeaf": FaLeaf,
   "fa6/FaGears": FaGears,
   "fa6/FaWarehouse": FaWarehouse,
+  "fa6/FaTractor": FaTractor,
+  "fa6/FaUtensils": FaUtensils,
+  "fa6/FaTents": FaTents,
+  "fa6/FaChurch": FaChurch,
+  "fa6/FaHospital": FaHospital,
+  "fa6/FaLandmark": FaLandmark,
+  "fa6/FaHouseFloodWater": FaHouseFloodWater,
   "fa6/FaTemperatureHalf": FaTemperatureHalf,
   "fa6/FaDollarSign": FaDollarSign,
   "fa6/FaHeadset": FaHeadset,

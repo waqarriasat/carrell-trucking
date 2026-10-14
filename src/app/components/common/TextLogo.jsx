@@ -12,13 +12,13 @@ export default function TextLogo({ top, bottom, size = "md", onLight = false }) 
   return (
     <span className="flex flex-col items-start leading-none">
       <span
-        className={`font-black ${big ? "text-[32px]" : "text-[24px] lg:text-[30px]"}`}
+        className={`font-black ${big ? "text-[32px]" : "text-[24px] max-[400px]:text-[21px] lg:text-[30px]"}`}
         style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "0.02em", color: onLight ? "#0f2d4a" : "#ffffff" }}
       >
         {top}
       </span>
       <span
-        className={`mt-1 font-bold uppercase ${big ? "text-[11px]" : "text-[9px] lg:text-[10.5px]"}`}
+        className={`mt-1 font-bold uppercase ${big ? "text-[11px]" : "text-[9px] max-[400px]:text-[8px] lg:text-[10.5px]"}`}
         style={{ fontFamily: "'Georgia', 'Times New Roman', serif", color: onLight ? "#86671e" : "#c9a84c", letterSpacing: "0.28em" }}
       >
         {bottom}

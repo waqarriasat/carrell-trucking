@@ -16,20 +16,22 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params
-  const { fleet } = await getContent()
-  const item = fleet.find((f) => f.id === slug)
+  const { fleet, draftFleet } = await getContent()
+  const item = fleet.find((f) => f.id === slug) || draftFleet.find((f) => f.id === slug)
   if (!item) return { title: "Not Found" }
-  return pageMeta({
+  const meta = pageMeta({
     title: `${item.name} for Rent — Southern Oklahoma & North Texas`,
     description: item.description,
     path: `/fleet/${item.id}`,
   })
+  // A unit not shown on the website yet is a draft: reachable by link, hidden from Google.
+  return item.published === "no" ? { ...meta, robots: { index: false, follow: false } } : meta
 }
 
 export default async function FleetDetailPage({ params }) {
   const { slug } = await params
-  const { fleet, fleetDetail, fleetPage, site, services, seo, blog, faq } = await getContent()
-  const item = fleet.find((f) => f.id === slug)
+  const { fleet, draftFleet, fleetDetail, fleetPage, site, services, seo, blog, faq } = await getContent()
+  const item = fleet.find((f) => f.id === slug) || draftFleet.find((f) => f.id === slug)
   if (!item) notFound()
 
   const base = siteBaseUrl(seo)
@@ -56,6 +58,7 @@ export default async function FleetDetailPage({ params }) {
       fleetDetail={fleetDetail}
       fleetPage={fleetPage}
       site={site}
+      draft={item.published === "no"}
     />
 
     {/* Questions about this unit (also in the FAQ page) */}

@@ -55,7 +55,7 @@ function SlideDots({ count, current, onPick, className = "", progressMs = 0, pau
           </button>
         );
       })}
-      <span className="ml-1 text-[11px] font-bold tabular-nums text-white" aria-hidden="true">
+      <span className="ml-1 text-[11px] font-bold tabular-nums whitespace-nowrap text-white" aria-hidden="true">
         {current + 1} / {count}
       </span>
     </div>
