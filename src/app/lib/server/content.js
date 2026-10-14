@@ -53,7 +53,14 @@ export const getRawContent = cache(async () => {
 })
 
 // Resolved content (placeholders filled) — what the public site renders.
-export const getContent = cache(async () => resolveContent(await getRawContent()))
+// Units switched off in Admin → Equipment ("Show on website") are left out of
+// `fleet` (menus, cards, quote form, sitemap…); their pages open only by direct
+// link, as drafts, from `draftFleet`.
+export const getContent = cache(async () => {
+  const content = resolveContent(await getRawContent())
+  const isLive = (f) => f.published !== "no"
+  return { ...content, fleet: content.fleet.filter(isLive), draftFleet: content.fleet.filter((f) => !isLive(f)) }
+})
 
 export async function getContentMeta() {
   const saved = await loadSaved()

@@ -21,7 +21,7 @@ const C = {
 // Quote form link with this unit (and the choice, if given) already selected.
 const quoteHref = (unit, interest) => `/quote?${new URLSearchParams(interest ? { unit, interest } : { unit }).toString()}`
 
-export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site, usedIn = [] }) {
+export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site, usedIn = [], draft = false }) {
   const allImages = [item.image, ...(item.gallery || [])].filter(Boolean)
   const [activeImage, setActiveImage] = useState(0)
   // The "Request a Modification" button picks the Modification choice in the quote form.
@@ -103,6 +103,12 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
           <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: "0 0 24px" }}>
             {item.description}
           </p>
+
+          {draft && (
+            <p className="mb-6 max-w-3xl border-l-4 px-4 py-3 text-sm font-semibold" style={{ borderColor: C.gold, background: "#fbf6e9", color: "#5c4613" }}>
+              Draft for review — this unit is not shown on the website or on Google until “Show on website” is switched on in Admin → Equipment.
+            </p>
+          )}
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {item.sizes.map((s, i) => (

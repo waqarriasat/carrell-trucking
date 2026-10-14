@@ -7,7 +7,7 @@
 import {
   FaBox, FaTruck, FaSnowflake, FaBolt, FaIndustry, FaPlug, FaBuilding, FaFlask,
   FaStore, FaHome, FaHardHat, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock,
-  FaUser, FaCheck, FaFileAlt,
+  FaUser, FaCheck, FaFileAlt, FaToilet, FaRestroom, FaShower,
 } from "react-icons/fa"
 import {
   FaShield, FaHandshake, FaTruck as Fa6Truck, FaAward, FaClock as Fa6Clock, FaUsers,
@@ -35,6 +35,9 @@ export const ICONS = {
   "fa/FaUser": FaUser,
   "fa/FaCheck": FaCheck,
   "fa/FaFileAlt": FaFileAlt,
+  "fa/FaToilet": FaToilet,
+  "fa/FaRestroom": FaRestroom,
+  "fa/FaShower": FaShower,
   "fa6/FaShield": FaShield,
   "fa6/FaHandshake": FaHandshake,
   "fa6/FaTruck": Fa6Truck,
