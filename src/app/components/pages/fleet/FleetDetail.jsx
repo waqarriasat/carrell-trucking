@@ -163,14 +163,15 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                     key={i}
                     className={`thumb ${activeImage === i ? "active" : ""}`}
                     onClick={() => setActiveImage(i)}
-                    style={{ position: "relative", height: 70 }}
+                    style={{ position: "relative", height: 70, background: isCutout(img) ? "linear-gradient(180deg, #ffffff 0%, #e8f1f9 100%)" : undefined }}
                   >
                     <Image
                       src={img}
                       alt={`${item.name} view ${i + 1}`}
                       fill
                       sizes="100px"
-                      className="object-cover"
+                      className={isCutout(img) ? "object-contain" : "object-cover"}
+                      style={isCutout(img) ? { padding: 6 } : undefined}
                       {...imageProps(img)}
                     />
                   </div>
