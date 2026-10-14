@@ -197,7 +197,7 @@ export default function Navbar({ site, nav, fleet, services, resources, topLinks
         )}
 
         {/* Main row — dark navy: text logo on the left, prominent phone on the right */}
-        <div className="flex items-center justify-between gap-4 wrap h-16 lg:h-20">
+        <div className="flex items-center justify-between gap-2 sm:gap-4 wrap h-16 lg:h-20">
 
           {/* Text logo (white + gold on the dark header) */}
           <Link href="/" className="flex items-center shrink-0 transition-opacity hover:opacity-90" aria-label={`${site.name} — Home`}>
@@ -362,11 +362,11 @@ export default function Navbar({ site, nav, fleet, services, resources, topLinks
             <a
               href={site.phoneHref}
               aria-label={`Call ${site.phone}`}
-              className="flex items-center gap-2 h-9 px-2.5 rounded-[3px] transition-colors"
+              className="flex items-center gap-2 max-[400px]:gap-1.5 h-9 px-2.5 max-[400px]:px-2 rounded-[3px] whitespace-nowrap transition-colors"
               style={{ backgroundColor: "rgba(201,168,76,0.18)", color: "#ffffff" }}
             >
               <FaPhone size={14} style={{ color: "#c9a84c" }} />
-              <span className="text-sm font-extrabold">{site.phone}</span>
+              <span className="text-sm max-[400px]:text-[13px] font-extrabold">{site.phone}</span>
             </a>
             <button
               onClick={() => setMenuOpen(true)}

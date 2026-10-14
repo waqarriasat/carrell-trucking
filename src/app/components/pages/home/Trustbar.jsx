@@ -25,14 +25,14 @@ export default function TrustBar({ trustBar, site, services }) {
         {TRUST_STATS.map((stat, i) => (
           <div
             key={i}
-            className={`panel relative overflow-hidden flex flex-col items-center justify-center text-center py-6 sm:py-7 px-4 ${
+            className={`panel relative overflow-hidden flex flex-col items-center justify-center text-center py-6 sm:py-7 px-3 sm:px-4 ${
               // Odd count on mobile: let the last stat use the full row
               TRUST_STATS.length % 2 === 1 && i === TRUST_STATS.length - 1 ? "col-span-2 lg:col-span-1" : ""
             }`}
           >
             <span className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: "#c9a84c" }} aria-hidden="true" />
             <span
-              className="block text-3xl md:text-4xl font-black tracking-tight leading-tight whitespace-nowrap mb-1.5"
+              className="block text-[26px] min-[400px]:text-3xl md:text-4xl font-black tracking-tight leading-tight whitespace-nowrap mb-1.5"
               style={{ color: NAVY, fontFamily: "'Georgia', 'Times New Roman', serif" }}
             >
               {stat.value}
