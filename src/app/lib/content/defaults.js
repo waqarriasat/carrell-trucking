@@ -585,7 +585,7 @@ export const DEFAULT_CONTENT = {
       listDescription:
         "Shower containers with men's and women's sides, plus ADA accessible shower units — for crew camps, remote sites and events.",
       listFeatures: ["Men's & Women's Sides", "ADA Units", "Private Stalls", "Climate Controlled", "Crew Camp Ready", "Delivered & Set Up"],
-      image: "",
+      image: "/images/fleet/shower-container.webp",
       gallery: [],
     },
     {
