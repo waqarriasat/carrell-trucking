@@ -26,21 +26,24 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { id } = await params
-  const { services, serviceDetail } = await getContent()
-  const service = services.find((s) => s.id === id)
+  const { services, draftServices, serviceDetail } = await getContent()
+  const service = services.find((s) => s.id === id) || draftServices.find((s) => s.id === id)
   if (!service) return { title: "Not Found" }
-  return pageMeta({
+  const meta = pageMeta({
     title: fill(serviceDetail.metaTitle, { service: service.label }),
     description: service.description,
     path: `/services/${service.id}`,
   })
+  // An industry not shown on the website yet is a draft: reachable by link, hidden from Google.
+  return service.published === "no" ? { ...meta, robots: { index: false, follow: false } } : meta
 }
 
 export default async function ServiceDetailPage({ params }) {
   const { id } = await params
-  const { services, fleet, serviceDetail: page, servicesPage, site, seo } = await getContent()
-  const service = services.find((s) => s.id === id)
+  const { services, draftServices, fleet, serviceDetail: page, servicesPage, site, seo } = await getContent()
+  const service = services.find((s) => s.id === id) || draftServices.find((s) => s.id === id)
   if (!service) notFound()
+  const draft = service.published === "no"
 
   const details = service
   const relatedFleet = fleet.filter(f => (details.fleet || []).includes(f.id))
@@ -91,6 +94,11 @@ export default async function ServiceDetailPage({ params }) {
           <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: 0 }}>
             {service.description}
           </p>
+          {draft && (
+            <p className="mt-6 max-w-3xl border-l-4 px-4 py-3 text-sm font-semibold" style={{ borderColor: C.gold, background: "#fbf6e9", color: "#5c4613" }}>
+              Draft for review — this industry is not shown on the website or on Google until “Show on website” is switched on in Admin → Services.
+            </p>
+          )}
         </div>
       </div>
 
@@ -101,13 +109,15 @@ export default async function ServiceDetailPage({ params }) {
 
             {/* Left - Image + Features */}
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div style={{ borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
-                <img
-                  src={details.image}
-                  alt={details.imageAlt || service.label}
-                  style={{ width: "100%", height: 280, objectFit: "cover", display: "block" }}
-                />
-              </div>
+              {details.image ? (
+                <div style={{ borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}` }}>
+                  <img
+                    src={details.image}
+                    alt={details.imageAlt || service.label}
+                    style={{ width: "100%", height: 280, objectFit: "cover", display: "block" }}
+                  />
+                </div>
+              ) : null}
 
               <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>

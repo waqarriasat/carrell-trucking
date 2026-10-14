@@ -653,7 +653,7 @@ export const ADMIN_PAGES = [
             key: "services",
             label: "Services",
             itemName: "service",
-            itemTitle: (s) => s.label,
+            itemTitle: (s) => (s.published === "no" ? `${s.label} · not live yet` : s.label),
             itemSubtitle: (s) => `/services/${s.id}`,
             previewPath: (s) => `/services/${s.id}`,
             idField: "id",
@@ -661,6 +661,14 @@ export const ADMIN_PAGES = [
             fields: [
               t("label", "Name", { width: "sm" }),
               { type: "slug", key: "id", label: "Page address", from: "label", prefix: "/services/" },
+              {
+                type: "select",
+                key: "published",
+                label: "Show on website",
+                width: "sm",
+                options: [{ value: "yes", label: "Shown" }, { value: "no", label: "Hidden" }],
+                help: "Hidden: the industry is left out of the Services page, menus, footer, quote form and Google. Its page still opens by direct link, marked as a draft.",
+              },
               { type: "icon", key: "icon", label: "Icon" },
               ta("description", "Description", { rows: 2 }),
               img("image", "Photo", { help: "Landscape photo, about 1200 × 800px. Keep the main subject in the centre — the card crops the top and bottom." }),
