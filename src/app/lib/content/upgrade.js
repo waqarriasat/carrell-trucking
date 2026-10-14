@@ -64,7 +64,8 @@ import { LEGACY_CONTENT_V22 } from "./legacy-v22"
 // 22: highlight box per unit (pest-resistant feed & farm storage on the dry
 //     container) and the "see it at our yard" box — both hidden until switched on.
 // 23: Rick's corrections — 47 years in business, office units 20/40 ft + 40 ft combo
-//     (ground level), mud lab 10 ft ground level / guard shack, containers 20/40/48 ft.
+//     (ground level), mud lab 10 ft ground level / guard shack, containers 20/40/48 ft,
+//     portable toilets (ADA, hand wash) and Residential reworded, softer placement line.
 export const CONTENT_VERSION = 23
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.

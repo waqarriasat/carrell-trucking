@@ -526,15 +526,17 @@ export const DEFAULT_CONTENT = {
       graphic: "portable-toilets",
       graphicLabel: "SANITATION",
       accent: "#0f2d4a",
-      sizes: ["Standard Toilet", "Hand Wash Station"],
+      sizes: ["Standard Toilet", "ADA Toilet", "Hand Wash Station"],
       description:
-        "Portable toilets and hand washing stations for job sites, oilfield crews, construction and events — delivered and placed where you need them.",
-      features: ["Standard Portable Toilet Units", "Freestanding Hand Wash Stations", "Delivered and Placed on Your Site"],
-      useCases: ["Construction Sites", "Oilfield Crews", "Outdoor Events", "Remote Work Sites"],
-      listSizes: ["Standard Toilet", "Hand Wash Station"],
+        "Clean portable toilets and freestanding hand wash stations for job sites, oilfield crews and outdoor events. We bring them out, set them up right where you want them, and help you work out how many your crew or crowd will need.",
+      features: ["Standard Portable Toilets", "ADA Accessible Units", "Freestanding Hand Wash Stations", "Delivered and Set Up on Your Site", "Help Choosing How Many You Need"],
+      useCases: ["Construction Sites", "Oilfield Crews", "Outdoor Events & Gatherings", "Farm & Ranch Work", "Remote Work Sites"],
+      listSizes: ["Standard Toilet", "ADA Toilet", "Hand Wash Station"],
       listDescription:
-        "Portable toilets and hand wash stations for crews, job sites and events. Delivered to your location.",
-      listFeatures: ["Portable Toilets", "Hand Wash Stations", "Job-Site Ready", "Event Ready", "Delivered to Your Site", "Short or Long Term"],
+        "Portable toilets, ADA units and hand wash stations for crews, job sites and events — delivered and set up for you.",
+      listFeatures: ["Portable Toilets", "ADA Units", "Hand Wash Stations", "Job-Site & Event Ready", "Delivered & Set Up", "Short or Long Term"],
+      highlightTitle: "Not Sure How Many You Need?",
+      highlightText: "Tell us how many people will use them and for how long — a crew on site all week or a crowd for one afternoon — and we'll recommend the right number of toilets and hand wash stations.",
       image: "/images/fleet/portable-toilets.webp",
       gallery: [],
     },
@@ -624,10 +626,13 @@ export const DEFAULT_CONTENT = {
       id: "residential",
       label: "Residential",
       icon: "fa/FaHome",
-      description: "Moving, renovation, and personal storage with flexible rental terms.",
+      description: "Extra room at home while you move, remodel or clear things out — a clean, lockable steel container set on your driveway at ground level, for as long as you need it.",
       image: "/images/services/residential.webp",
       imageAlt: "White Ardmore Trailer storage container on a home driveway holding furniture and moving boxes",
-      features: ["Home Renovation Storage", "Moving Assistance", "Personal Storage", "Garage Overflow", "Estate Management"],
+      features: ["Getting Your Home Ready to Sell", "Renovation & Remodeling", "Moving & Downsizing", "Decluttering the Garage", "College & Seasonal Storage", "Estate Cleanouts"],
+      // "Made for homeowners" box — hidden until switched on (Admin → Services → Service detail pages)
+      checklistTitle: "Made for Homeowners",
+      checklist: ["Ground Level — Walk Right In", "Lockable Steel Doors", "Wind & Water Tight", "Clean Inside, Ready to Load", "Easy to Move Later", "Real People Help You Pick the Size"],
       fleet: ["container-dry", "trailers", "office"],
     },
     {
@@ -689,6 +694,8 @@ export const DEFAULT_CONTENT = {
     quoteButtonLabel: "Get a Free Quote",
     callButtonLabel: "Call {phone}",
     otherLabel: "Other Services",
+    // Per-service checklist box (e.g. "Made for Homeowners" on Residential) — hidden until switched on
+    showChecklists: "no",
   },
 
   // ── About page ─────────────────────────────

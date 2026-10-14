@@ -131,6 +131,21 @@ export default async function ServiceDetailPage({ params }) {
                   ))}
                 </div>
               </div>
+
+              {/* Checklist for this service, e.g. "Made for Homeowners" (switch in Admin → Services) */}
+              {page.showChecklists === "yes" && details.checklistTitle && details.checklist?.length > 0 ? (
+                <div style={{ background: C.gold + "14", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.gold}55` }}>
+                  <h2 style={{ fontSize: 15, fontWeight: 900, color: C.dark, margin: "0 0 12px" }}>{details.checklistTitle}</h2>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    {details.checklist.map((f, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <FaCheck size={11} style={{ color: C.goldText, flexShrink: 0 }} aria-hidden="true" />
+                        <span style={{ fontSize: 13, color: C.text }}>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             {/* Right - Fleet + CTA */}

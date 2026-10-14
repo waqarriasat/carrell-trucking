@@ -208,7 +208,7 @@ Because the container sits on the ground, you can walk or roll equipment straigh
 - **Overhead clearance** — check for power lines, tree branches and roof edges, because the bed tilts upward during unloading.
 - **Door direction** — decide which way you want the doors to face so loading is convenient.
 - **Space around the doors** — leave enough room to open both doors fully.
-- **Permits and HOA rules** — some cities or neighborhoods require a permit for a container on a driveway or street. Check before delivery day.
+- **Not sure about the spot?** — if you're unsure where it should go, or whether your neighborhood has rules about it, ask us. We'll help you choose a spot that works.
 
 ## Placement tips
 
@@ -554,8 +554,8 @@ export const FAQ_DEFAULTS = {
           fleet: ["container-dry"],
         },
         {
-          q: "Do I need a permit to put a container on my property?",
-          a: "It depends on your city, county or homeowners association. Some require a permit for a container on a driveway or street. Please check local rules before delivery.",
+          q: "Where on my property can the container go?",
+          a: "Most customers use a driveway, yard, parking area or job site — anywhere with firm, level ground and room for the truck. Not sure about your spot or your neighborhood's rules? Call {phone} or send us a photo and we'll help you choose.",
           fleet: ["container-dry"],
         },
       ],
