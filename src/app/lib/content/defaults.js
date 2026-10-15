@@ -365,6 +365,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Dry Storage Container",
       badge: "Storage Container Rentals",
       cornerBadge: "Ground Level",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "yes",
       icon: "fa/FaBox",
       graphic: "container-dry",
       graphicLabel: "DRY STORAGE",
@@ -390,6 +392,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Trailers",
       badge: "Trailer Rentals",
       cornerBadge: "",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "yes",
       icon: "fa/FaTruck",
       graphic: "trailers",
       graphicLabel: "Trailers",
@@ -412,6 +416,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Refrigerated Diesel Trailer",
       badge: "Diesel Refrigerated Rentals",
       cornerBadge: "",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "yes",
       icon: "fa/FaSnowflake",
       graphic: "reefer-diesel",
       graphicLabel: "REFRIGERATED",
@@ -434,6 +440,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Refrigerated Electric Trailers",
       badge: "Electric Refrigerated Rentals",
       cornerBadge: "",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "yes",
       icon: "fa/FaBolt",
       graphic: "reefer-electric",
       graphicLabel: "E-POWER COLD",
@@ -456,6 +464,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Refrigerated Container",
       badge: "Refrigerated Container Rentals",
       cornerBadge: "Ground Level",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "yes",
       icon: "fa/FaIndustry",
       graphic: "reefer-container",
       graphicLabel: "REFRIGERATED",
@@ -478,6 +488,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Generator Units",
       badge: "Industrial Generator Rentals",
       cornerBadge: "",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "no",
       icon: "fa/FaPlug",
       graphic: "generator",
       graphicLabel: "POWER GEN",
@@ -500,6 +512,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Office Units",
       badge: "Mobile Office Rentals",
       cornerBadge: "Ground Level",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "yes",
       icon: "fa/FaBuilding",
       graphic: "office",
       graphicLabel: "HQ SITE OFFICE",
@@ -522,6 +536,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Portable Toilets & Hand Wash",
       badge: "Portable Sanitation Rentals",
       cornerBadge: "",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "no",
       icon: "fa/FaToilet",
       graphic: "portable-toilets",
       graphicLabel: "SANITATION",
@@ -548,6 +564,8 @@ export const DEFAULT_CONTENT = {
       shortName: "AC Restroom Trailer",
       badge: "Restroom Trailer Rentals",
       cornerBadge: "",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "no",
       icon: "fa/FaRestroom",
       graphic: "portable-toilets",
       graphicLabel: "RESTROOM TRAILER",
@@ -572,6 +590,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Shower Containers",
       badge: "Shower Unit Rentals",
       cornerBadge: "",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "no",
       icon: "fa/FaShower",
       graphic: "portable-toilets",
       graphicLabel: "SHOWERS",
@@ -594,6 +614,8 @@ export const DEFAULT_CONTENT = {
       shortName: "Oil Field Mud Lab",
       badge: "Mud Lab & Guard Shack Units",
       cornerBadge: "Ground Level",
+      // "no" hides the "Custom Modifications" box and the Modification button
+      offerMods: "yes",
       icon: "fa/FaFlask",
       graphic: "mud-lab",
       graphicLabel: "MUD LAB UNIT",

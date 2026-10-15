@@ -26,6 +26,9 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
   const [activeImage, setActiveImage] = useState(0)
   // The "Request a Modification" button picks the Modification choice in the quote form.
   const modifyOption = (fleetDetail.availableOptions || []).find((o) => /modif/i.test(o)) || "Modification"
+  // Modifications only where the unit offers them (Admin → Equipment → Offer modifications).
+  const offersMods = item.offerMods !== "no"
+  const availableOptions = (fleetDetail.availableOptions || []).filter((o) => offersMods || !/modif/i.test(o))
 
   return (
     <>
@@ -47,6 +50,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
         }
         .available-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
         @media (max-width: 520px) { .available-grid { grid-template-columns: repeat(2, 1fr); } }
+        .available-grid.three { grid-template-columns: repeat(3, 1fr); }
         .features-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -278,7 +282,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
               )}
 
               {/* Rent / Buy / Rent to Own / Modify — each opens the quote form pre-filled */}
-              {fleetDetail.availableOptions?.length > 0 && (
+              {availableOptions.length > 0 && (
                 <div style={{ background: "#fff", borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                     <div style={{ width: 24, height: 2, background: C.gold }} />
@@ -286,8 +290,8 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
                       {fleetDetail.availableLabel}
                     </span>
                   </div>
-                  <div className="available-grid">
-                    {fleetDetail.availableOptions.map((opt) => (
+                  <div className={`available-grid${availableOptions.length === 3 ? " three" : ""}`}>
+                    {availableOptions.map((opt) => (
                       <Link
                         key={opt}
                         href={quoteHref(item.name, opt)}
@@ -302,7 +306,7 @@ export default function FleetDetail({ item, fleet, fleetDetail, fleetPage, site,
               )}
 
               {/* Custom modifications */}
-              {fleetDetail.mods?.length > 0 && (
+              {offersMods && fleetDetail.mods?.length > 0 && (
                 <div style={{ background: C.light, borderRadius: 4, padding: "20px", border: `1.5px solid ${C.border}` }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                     <div style={{ width: 24, height: 2, background: C.gold }} />
