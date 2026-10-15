@@ -7,6 +7,7 @@ import {
   FaTruck,
   FaChevronRight,
   FaFileLines,
+  FaMapLocationDot,
 } from "react-icons/fa6";
 
 // ─────────────────────────────────────────────
@@ -111,6 +112,7 @@ export default function Footer({ site, footer, fleet, services, resources, terms
           lines: [
             { text: site.salesAddress, href: site.salesMapsHref, icon: FaLocationDot },
             site.salesPhone && { text: site.salesPhone, href: site.salesPhoneHref, icon: FaPhone },
+            areasLabel && { text: areasLabel, href: "/areas", icon: FaMapLocationDot, strong: true },
             { text: footer.contactQuoteLabel, href: "/quote", icon: FaFileLines, strong: true },
           ].filter(Boolean),
         },
@@ -236,12 +238,6 @@ export default function Footer({ site, footer, fleet, services, resources, terms
               <>
                 {" · "}
                 <Link href="/privacy" className="underline-offset-2 hover:underline hover:text-[#0f2d4a]">{footer.privacyLabel}</Link>
-              </>
-            )}
-            {areasLabel && (
-              <>
-                {" · "}
-                <Link href="/areas" className="underline-offset-2 hover:underline hover:text-[#0f2d4a]">{areasLabel}</Link>
               </>
             )}
             {pickupLabel && (

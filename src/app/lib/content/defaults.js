@@ -1175,6 +1175,11 @@ export const DEFAULT_CONTENT = {
     searchPlaceholder: "Type your town…",
     noResults: "We didn't find that town in our list — but we deliver to many more places. Call {phone} and ask.",
     stateNames: { OK: "Oklahoma", TX: "Texas" },
+    // Home page search strip (shown once Service Areas is live)
+    stripEyebrow: "Service Areas",
+    stripTitle: "Do We Deliver to You?",
+    stripText: "Type your town to see the units we deliver there — or view every town we serve across Southern Oklahoma and North Texas.",
+    stripButtonLabel: "See All Service Areas",
     notListedTitle: "Don't See Your Town?",
     notListedText: "These are the towns we deliver to most often. We go further too — call {phone} or request a quote with your address.",
     // Town pages. {town} = town name, {state} = OK / TX, {county}, {miles}, {direction}

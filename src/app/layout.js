@@ -57,7 +57,17 @@ export default async function RootLayout({ children }) {
   const { site, nav, footer, fleet, services, seo, blog } = content;
   // Header "Resources" menu + footer links (blog & FAQ) — hidden when switched off
   const showResources = resourcesEnabled(blog);
-  const siteNav = showResources ? nav : { ...nav, links: (nav.links || []).filter((l) => !isResourcesHref(l.href)) };
+  const resourcesNav = showResources ? nav : { ...nav, links: (nav.links || []).filter((l) => !isResourcesHref(l.href)) };
+  // "Service Areas" joins the menu (after Services) once it is switched on in the admin.
+  const areasLink = content.areas.published === "yes" ? { label: content.areas.navLabel, href: "/areas" } : null;
+  const siteNav = areasLink && !resourcesNav.links.some((l) => l.href === "/areas")
+    ? (() => {
+        const links = [...resourcesNav.links];
+        const at = links.findIndex((l) => l.href === "/services");
+        links.splice(at >= 0 ? at + 1 : links.length, 0, areasLink);
+        return { ...resourcesNav, links };
+      })()
+    : resourcesNav;
   const posts = publishedPosts(blog);
   const resources = showResources && {
     ...blog.menu,

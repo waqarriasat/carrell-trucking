@@ -6,13 +6,15 @@ import WhyUs from "./components/pages/home/WhyUs";
 import CtaBanner from "./components/pages/home/CtaBanner";
 import Testimonials from "./components/pages/home/Testimonials";
 import YardSection from "./components/pages/home/YardSection";
+import AreaSearch from "./components/pages/home/AreaSearch";
 import { getContent } from "@/app/lib/server/content";
+import { areasLive, liveTowns } from "@/app/lib/content/areas";
 
 // Home: the site-wide title and description, plus its canonical address
 export const metadata = { alternates: { canonical: "/" } };
 
 export default async function HomePage() {
-  const { home, site, fleet, services } = await getContent();
+  const { home, site, fleet, services, areas } = await getContent();
 
   return (
     <>
@@ -25,6 +27,10 @@ export default async function HomePage() {
         fleet={fleet.map(({ id, badge, shortName, sizes, cornerBadge }) => ({ id, badge, shortName, sizes, cornerBadge }))}
       />
       <TrustBar trustBar={home.trustBar} site={site} services={services} />
+      {/* "Do we deliver to you?" town search — only once Service Areas is switched on */}
+      {areasLive(areas) && liveTowns(areas).length ? (
+        <AreaSearch areas={areas} towns={liveTowns(areas).map(({ id, name, state }) => ({ id, name, state }))} phone={site.phone} />
+      ) : null}
       <FleetGrid fleetGrid={home.fleetGrid} fleet={fleet} brand={site.logoTop} />
       <YardSection yard={home.yard} site={site} />
       <WhyUs whyUs={home.whyUs} site={site} />
