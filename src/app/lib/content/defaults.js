@@ -615,7 +615,7 @@ export const DEFAULT_CONTENT = {
       badge: "Mud Lab & Guard Shack Units",
       cornerBadge: "Ground Level",
       // "no" hides the "Custom Modifications" box and the Modification button
-      offerMods: "no",
+      offerMods: "yes",
       icon: "fa/FaFlask",
       graphic: "mud-lab",
       graphicLabel: "MUD LAB UNIT",

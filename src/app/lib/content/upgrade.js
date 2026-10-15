@@ -69,8 +69,8 @@ import { LEGACY_CONTENT_V23 } from "./legacy-v23"
 //     portable toilets (ADA, hand wash) and Residential reworded, softer placement line,
 //     new restroom trailer and shower container units and 9 new industries
 //     (all hidden until switched on).
-// 24: "Offer modifications" per unit — only containers, trailers and offices show the
-//     modifications box (not generators, toilets, mud lab, restroom trailer or showers).
+// 24: "Offer modifications" per unit — containers, trailers, offices and the mud lab show
+//     the modifications box (not generators, toilets, restroom trailer or showers).
 export const CONTENT_VERSION = 24
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
