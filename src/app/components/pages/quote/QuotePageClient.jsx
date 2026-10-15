@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FaCheck } from "react-icons/fa"
 import { getIcon } from "@/app/lib/content/icons"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
@@ -26,19 +26,37 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
 
   const { status, errorMsg, fieldErrors, onSubmit, onInput, fieldProps } = useLeadForm(submitQuote)
 
+  // Chosen option and units. With "Modification" chosen, only units that offer
+  // modifications are listed (Admin → Equipment → Offer modifications).
+  const firstInterest = form.interests?.[0] || ""
+  const [interest, setInterest] = useState(firstInterest)
+  const [picked, setPicked] = useState([])
+  const isModify = /modif/i.test(interest)
+  const modUnits = new Set(FLEET_OPTIONS.filter((u) => u.mods).map((u) => u.name))
+  const units = isModify ? FLEET_OPTIONS.filter((u) => u.mods) : FLEET_OPTIONS
+  const showMods = isModify || picked.some((name) => modUnits.has(name))
+
+  function chooseInterest(option) {
+    setInterest(option)
+    if (/modif/i.test(option)) setPicked((list) => list.filter((name) => modUnits.has(name)))
+  }
+  const toggleUnit = (name) => setPicked((list) => (list.includes(name) ? list.filter((n) => n !== name) : [...list, name]))
+
   // Links from the equipment pages (/quote?unit=…&interest=…) pre-select the unit and the
   // choice. Done in the browser so this page stays static (fast and cached).
   const formRef = useRef(null)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const tick = (name, value) => {
+    const find = (list, value) => {
       const v = String(value || "").trim().toLowerCase()
-      if (!v || !formRef.current) return
-      const input = [...formRef.current.querySelectorAll(`input[name="${name}"]`)].find((i) => i.value.toLowerCase() === v)
-      if (input) input.checked = true
+      return v ? list.find((x) => x.toLowerCase() === v) : undefined
     }
-    tick("interest", params.get("interest"))
-    tick("equipment", params.get("unit"))
+    const wanted = find(form.interests || [], params.get("interest"))
+    const unit = find(FLEET_OPTIONS.map((u) => u.name), params.get("unit"))
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read once from the URL after load
+    if (wanted) setInterest(wanted)
+    if (unit && (!/modif/i.test(wanted || "") || modUnits.has(unit))) setPicked([unit])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -145,7 +163,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 </div>
               )}
 
-              <form ref={formRef} onSubmit={onSubmit} onInput={onInput} noValidate>
+              <form ref={formRef} onSubmit={onSubmit} onInput={onInput} onReset={() => { setInterest(firstInterest); setPicked([]) }} noValidate>
                 <SpamTrap />
                 {/* Name + Phone */}
                 <div className="quote-form-grid">
@@ -190,7 +208,7 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                     <div className="quote-interest-grid">
                       {form.interests.map((option, i) => (
                         <label key={i} className="quote-interest">
-                          <input type="radio" name="interest" value={option} defaultChecked={i === 0} />
+                          <input type="radio" name="interest" value={option} checked={interest === option} onChange={() => chooseInterest(option)} />
                           <span>{option}</span>
                         </label>
                       ))}
@@ -202,23 +220,23 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
                 <div style={{ marginTop: 20 }}>
                   <label style={{ fontSize: 12, fontWeight: 700, color: C.dark, display: "block", marginBottom: 10 }}>{form.equipmentLabel}</label>
                   <div className="quote-fleet-grid">
-                    {FLEET_OPTIONS.map((option, i) => (
-                      <label key={i} style={{
+                    {units.map(({ name: option }) => (
+                      <label key={option} style={{
                         display: "flex", alignItems: "center", gap: 8,
                         padding: "8px 12px", borderRadius: 4,
                         border: `1.5px solid ${C.border}`,
                         background: C.light, cursor: "pointer",
                         fontSize: 12, fontWeight: 600, color: C.text
                       }}>
-                        <input type="checkbox" name="equipment" value={option} style={{ accentColor: C.gold }} />
+                        <input type="checkbox" name="equipment" value={option} checked={picked.includes(option)} onChange={() => toggleUnit(option)} style={{ accentColor: C.gold }} />
                         {option}
                       </label>
                     ))}
                   </div>
                 </div>
 
-                {/* Modifications (optional — for any choice above) */}
-                {form.mods?.length ? (
+                {/* Modifications — when "Modification" is chosen or a unit that offers it is ticked */}
+                {showMods && form.mods?.length ? (
                   <fieldset style={{ marginTop: 20, border: 0, padding: 0, minWidth: 0 }}>
                     <legend style={{ fontSize: 12, fontWeight: 700, color: C.dark, padding: 0, marginBottom: 4 }}>{form.modsLabel}</legend>
                     {form.modsHelp ? (

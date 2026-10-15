@@ -13,7 +13,7 @@ export default async function QuotePage() {
     <QuotePageClient
       page={quote}
       site={site}
-      fleetOptions={fleet.map((f) => f.name)}
+      fleetOptions={fleet.map((f) => ({ name: f.name, mods: f.offerMods !== "no" }))}
       serviceOptions={services.map((s) => s.label)}
     />
   )
