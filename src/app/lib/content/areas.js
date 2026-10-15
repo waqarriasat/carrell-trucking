@@ -8,12 +8,13 @@
 // ─────────────────────────────────────────────
 import { fill } from "./resolve"
 
-export const areasLive = (areas) => areas?.published === "yes"
+// Live = switched on AND at least one town shown (no empty page, menu link or footer column).
+export const areasLive = (areas) => areas?.published === "yes" && (areas.towns || []).some((t) => t.published === "yes")
 
 export const isTownLive = (areas, town) => areasLive(areas) && town?.published === "yes"
 
 // Towns visitors can see (none while the section is hidden).
-export const liveTowns = (areas) => (areasLive(areas) ? (areas.towns || []).filter((t) => t.published === "yes") : [])
+export const liveTowns = (areas) => (areas?.published === "yes" ? (areas.towns || []).filter((t) => t.published === "yes") : [])
 
 export const townLabel = (town) => `${town.name}, ${town.state}`
 

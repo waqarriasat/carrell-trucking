@@ -61,7 +61,7 @@ export default async function RootLayout({ children }) {
   const showResources = resourcesEnabled(blog);
   const resourcesNav = showResources ? nav : { ...nav, links: (nav.links || []).filter((l) => !isResourcesHref(l.href)) };
   // "Service Areas" joins the menu (after Services) once it is switched on in the admin.
-  const areasLink = content.areas.published === "yes" ? { label: content.areas.navLabel, href: "/areas" } : null;
+  const areasLink = areasLive(content.areas) ? { label: content.areas.navLabel, href: "/areas" } : null;
   const siteNav = areasLink && !resourcesNav.links.some((l) => l.href === "/areas")
     ? (() => {
         const links = [...resourcesNav.links];
@@ -141,7 +141,7 @@ export default async function RootLayout({ children }) {
               areasLive={areasLive(content.areas)}
             />
           ) : null}
-          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} pickupLabel={content.pickup.published === "yes" ? content.pickup.linkLabel : ""} areasLabel={content.areas.published === "yes" ? content.areas.navLabel : ""} areaTowns={liveTowns(content.areas).map(({ id, name, state }) => ({ id, name, state })).sort((a, b) => a.name.localeCompare(b.name))} />}
+          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} pickupLabel={content.pickup.published === "yes" ? content.pickup.linkLabel : ""} areasLabel={areasLive(content.areas) ? content.areas.navLabel : ""} areaTowns={liveTowns(content.areas).map(({ id, name, state }) => ({ id, name, state })).sort((a, b) => a.name.localeCompare(b.name))} />}
           convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
         >

@@ -33,7 +33,7 @@ export default function AreasList({ towns, stateNames = {}, searchLabel, searchP
       </div>
 
       {shown.length === 0 ? (
-        <p className="mt-6 text-sm" style={{ color: "#4a6b85" }} role="status">{noResults}</p>
+        query ? <p className="mt-6 text-sm" style={{ color: "#4a6b85" }} role="status">{noResults}</p> : null
       ) : (
         states.map((st) => {
           const list = shown.filter((t) => t.state === st)
