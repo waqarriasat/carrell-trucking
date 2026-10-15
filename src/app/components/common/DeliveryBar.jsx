@@ -72,7 +72,9 @@ export default function DeliveryBar({ bar, towns = [], areasLive = false }) {
   function locate(quietOnFail = false) {
     if (!navigator.geolocation) return !quietOnFail && setStatus({ busy: false, message: bar.deniedText })
     markAsked()
-    setStatus({ busy: true, message: bar.locatingText })
+    // The quiet check on arrival never locks the box: a visitor who ignores
+    // the browser's location prompt can still type a ZIP or town.
+    if (!quietOnFail) setStatus({ busy: true, message: bar.locatingText })
     navigator.geolocation.getCurrentPosition(
       async ({ coords }) => {
         try {
@@ -192,6 +194,11 @@ export default function DeliveryBar({ bar, towns = [], areasLive = false }) {
         {town ? (
           <Link href={`/areas/${town.id}`} className="font-bold" style={{ color: "#86671e" }}>
             {bar.townLinkLabel.replace("{town}", town.name)}
+          </Link>
+        ) : place ? (
+          // Town we don't have a page for (or Service Areas is off): the quote form fills in the saved town.
+          <Link href="/quote" className="font-bold" style={{ color: "#86671e" }}>
+            {(bar.notListedLabel || "").replace("{town}", place.city)}
           </Link>
         ) : areasLive ? (
           <Link href="/areas" className="font-bold" style={{ color: "#86671e" }}>{bar.areasLinkLabel}</Link>

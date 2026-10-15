@@ -1175,6 +1175,8 @@ export const DEFAULT_CONTENT = {
     failedText: "We couldn't find that — try your town name.",
     townLinkLabel: "See what we deliver to {town} →",
     areasLinkLabel: "See all the towns we serve →",
+    // Shown when the visitor's town has no page (yet): links to the quote form with the town filled in.
+    notListedLabel: "We may still deliver to {town} — get a quote →",
   },
 
   // ── Service Areas (/areas and /areas/[town]) ─
