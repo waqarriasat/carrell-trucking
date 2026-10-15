@@ -1,9 +1,10 @@
 import { getContent } from "@/app/lib/server/content"
 import { siteBaseUrl } from "@/app/lib/server/seo"
 import { publishedPosts, resourcesEnabled } from "@/app/lib/content/blog"
+import { areasLive, liveTowns } from "@/app/lib/content/areas"
 
 export default async function sitemap() {
-  const { fleet, services, seo, blog, terms, pickup } = await getContent()
+  const { fleet, services, seo, blog, terms, pickup, areas } = await getContent()
   const baseUrl = siteBaseUrl(seo)
 
   const fleetPages = fleet.map((f) => ({
@@ -41,5 +42,12 @@ export default async function sitemap() {
       : []),
     ...fleetPages,
     ...servicePages,
+    // Service Areas only when switched on, and only towns that are shown
+    ...(areasLive(areas)
+      ? [
+          { url: `${baseUrl}/areas`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+          ...liveTowns(areas).map((t) => ({ url: `${baseUrl}/areas/${t.id}`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 })),
+        ]
+      : []),
   ]
 }

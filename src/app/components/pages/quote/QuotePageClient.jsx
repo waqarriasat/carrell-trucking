@@ -56,6 +56,10 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
     // eslint-disable-next-line react-hooks/set-state-in-effect -- read once from the URL after load
     if (wanted) setInterest(wanted)
     if (unit && (!/modif/i.test(wanted || "") || modUnits.has(unit))) setPicked([unit])
+    // Town pages link here with ?location=Town, ST — fill it in if the field is empty.
+    const location = String(params.get("location") || "").trim().slice(0, 200)
+    const field = formRef.current?.querySelector('[name="location"]')
+    if (location && field && !field.value) setFieldValue(formRef.current, "location", location)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
