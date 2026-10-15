@@ -29,11 +29,6 @@ export default async function TermsPage() {
         titleAccent={terms.titleAccent}
         text={terms.updated ? `Last updated: ${terms.updated}` : ""}
       >
-        {draft && (
-          <p className="mt-6 max-w-3xl border-l-4 px-4 py-3 text-sm font-semibold" style={{ borderColor: "#c9a84c", background: "#fbf6e9", color: "#5c4613" }}>
-            Draft for review — this page is not linked on the website or shown on Google until it is published in Admin → Terms &amp; Conditions.
-          </p>
-        )}
       </PageTitle>
       <section className="page-section wrap">
         <div className="max-w-[820px]">

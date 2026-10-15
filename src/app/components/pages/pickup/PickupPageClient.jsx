@@ -33,7 +33,7 @@ function GroupTitle({ children, help, action }) {
   )
 }
 
-export default function PickupPageClient({ page, site, units, draft }) {
+export default function PickupPageClient({ page, site, units }) {
   const form = page.form
   const { status, errorMsg, fieldErrors, onSubmit, onInput, fieldProps } = useLeadForm(submitPickup)
 
@@ -94,11 +94,6 @@ export default function PickupPageClient({ page, site, units, draft }) {
             {`${page.titleStart} `}<span style={{ color: C.goldText }}>{page.titleAccent}</span>
           </h1>
           <p style={{ fontSize: 13, color: C.text, maxWidth: 520, lineHeight: 1.7, margin: 0 }}>{page.text}</p>
-          {draft && (
-            <p className="mt-6 max-w-3xl border-l-4 px-4 py-3 text-sm font-semibold" style={{ borderColor: C.gold, background: "#fbf6e9", color: "#5c4613" }}>
-              Draft for review — this page is not linked on the website or shown on Google until it is switched on in Admin → Request Pickup.
-            </p>
-          )}
         </div>
       </div>
 

@@ -58,7 +58,6 @@ export default async function FleetDetailPage({ params }) {
       fleetDetail={fleetDetail}
       fleetPage={fleetPage}
       site={site}
-      draft={item.published === "no"}
     />
 
     {/* Questions about this unit (also in the FAQ page) */}

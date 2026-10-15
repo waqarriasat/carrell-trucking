@@ -220,7 +220,7 @@ export default function Navbar({ site, nav, fleet, services, resources, topLinks
                   <Link
                     href={link.href}
                     onClick={() => dropdown && setActiveDropdown(isOpen ? null : link.href)}
-                    className="relative flex items-center gap-1 px-3 xl:px-4 py-2 text-[15px] font-semibold tracking-wide transition-colors rounded text-white hover:text-[#c9a84c]"
+                    className="relative flex items-center gap-1 whitespace-nowrap px-2 xl:px-4 py-2 text-[14px] xl:text-[15px] font-semibold tracking-wide transition-colors rounded text-white hover:text-[#c9a84c]"
                   >
                     {link.label}
                     {dropdown && (
@@ -334,23 +334,23 @@ export default function Navbar({ site, nav, fleet, services, resources, topLinks
           </nav>
 
           {/* Desktop: prominent phone + quote button */}
-          <div className="hidden lg:flex items-center gap-5 shrink-0 pl-5 border-l" style={{ borderColor: "rgba(255,255,255,0.18)" }}>
+          <div className="hidden lg:flex items-center gap-3 xl:gap-5 shrink-0 pl-3 xl:pl-5 border-l" style={{ borderColor: "rgba(255,255,255,0.18)" }}>
             <a href={site.phoneHref} className="flex items-center gap-2.5 group" aria-label={`Call ${site.phone}`}>
-              <span className="flex items-center justify-center w-10 h-10 rounded-full" style={{ backgroundColor: "rgba(201,168,76,0.18)" }}>
+              <span className="hidden xl:flex items-center justify-center w-10 h-10 rounded-full" style={{ backgroundColor: "rgba(201,168,76,0.18)" }}>
                 <FaPhone size={15} style={{ color: "#c9a84c" }} />
               </span>
               <span className="leading-tight">
                 <span className="hidden xl:block text-[10px] font-extrabold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>
                   {nav.mobileCallLabel}
                 </span>
-                <span className="block text-xl font-extrabold tracking-wide text-white group-hover:text-[#c9a84c] transition-colors">
+                <span className="block text-lg xl:text-xl font-extrabold tracking-wide text-white whitespace-nowrap group-hover:text-[#c9a84c] transition-colors">
                   {site.phone}
                 </span>
               </span>
             </a>
             <Link
               href={nav.cta.href}
-              className="px-5 py-3 rounded text-sm font-extrabold tracking-wider uppercase transition-all duration-200 hover:brightness-110 active:scale-95"
+              className="px-4 xl:px-5 py-3 rounded text-sm font-extrabold tracking-wider uppercase whitespace-nowrap transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{ backgroundColor: "#c9a84c", color: "#0f2d4a" }}
             >
               {nav.cta.label}

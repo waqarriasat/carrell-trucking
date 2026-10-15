@@ -17,7 +17,6 @@ export default async function RequestPickupPage() {
       page={pickup}
       site={site}
       units={fleet.map((f) => ({ name: f.name, sizes: f.sizes || [] }))}
-      draft={pickup.published !== "yes"}
     />
   )
 }

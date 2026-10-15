@@ -43,7 +43,6 @@ export default async function ServiceDetailPage({ params }) {
   const { services, draftServices, fleet, serviceDetail: page, servicesPage, site, seo } = await getContent()
   const service = services.find((s) => s.id === id) || draftServices.find((s) => s.id === id)
   if (!service) notFound()
-  const draft = service.published === "no"
 
   const details = service
   const relatedFleet = fleet.filter(f => (details.fleet || []).includes(f.id))
@@ -94,11 +93,6 @@ export default async function ServiceDetailPage({ params }) {
           <p style={{ fontSize: 14, color: C.text, maxWidth: 560, lineHeight: 1.8, margin: 0 }}>
             {service.description}
           </p>
-          {draft && (
-            <p className="mt-6 max-w-3xl border-l-4 px-4 py-3 text-sm font-semibold" style={{ borderColor: C.gold, background: "#fbf6e9", color: "#5c4613" }}>
-              Draft for review — this industry is not shown on the website or on Google until “Show on website” is switched on in Admin → Services.
-            </p>
-          )}
         </div>
       </div>
 
