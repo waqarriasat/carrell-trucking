@@ -7,7 +7,7 @@ import { FaMagnifyingGlass, FaLocationDot } from "react-icons/fa6"
 // Town search + list, grouped by state. Filters as you type.
 const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "")
 
-export default function AreasList({ towns, stateNames = {}, searchLabel, searchPlaceholder, noResults, showHidden }) {
+export default function AreasList({ towns, stateNames = {}, searchLabel, searchPlaceholder, noResults }) {
   const [q, setQ] = useState("")
   const query = norm(q)
   const shown = query ? towns.filter((t) => norm(t.name).includes(query) || norm(t.county).includes(query)) : towns
@@ -53,7 +53,6 @@ export default function AreasList({ towns, stateNames = {}, searchLabel, searchP
                       <span className="min-w-0">
                         <span className="block text-sm font-bold" style={{ color: "#0f2d4a" }}>
                           {t.name}, {t.state}
-                          {showHidden && t.hidden ? <span className="ml-2 text-[10px] font-bold uppercase tracking-wider" style={{ color: "#9a7a24" }}>draft</span> : null}
                         </span>
                         <span className="block text-xs" style={{ color: "#4a6b85" }}>{t.county}</span>
                       </span>

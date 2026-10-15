@@ -17,7 +17,7 @@ const C = { dark: "#0f2d4a", goldText: "#86671e", gold: "#c9a84c", text: "#4a6b8
 export default async function AreasPage() {
   const { areas, seo } = await getContent()
   const draft = !areasLive(areas)
-  // While it's a draft, show every town (marked) so the list can be reviewed.
+  // While it's a draft, show every town so the list can be reviewed.
   const towns = draft ? areas.towns : liveTowns(areas)
 
   return (
@@ -38,22 +38,16 @@ export default async function AreasPage() {
             {areas.titleStart} <span style={{ color: C.goldText }}>{areas.titleAccent}</span>
           </h1>
           <p style={{ fontSize: 14, color: C.text, maxWidth: 620, lineHeight: 1.8, margin: 0 }}>{areas.text}</p>
-          {draft && (
-            <p className="mt-6 max-w-3xl border-l-4 px-4 py-3 text-sm font-semibold" style={{ borderColor: C.gold, background: "#fbf6e9", color: "#5c4613" }}>
-              Draft for review — Service Areas is not linked on the website or shown on Google until it is switched on in Admin → Service Areas.
-            </p>
-          )}
         </div>
       </div>
 
       <div className="page-section wrap">
         <AreasList
-          towns={towns.map(({ id, name, state, county, published }) => ({ id, name, state, county, hidden: published !== "yes" }))}
+          towns={towns.map(({ id, name, state, county }) => ({ id, name, state, county }))}
           stateNames={areas.stateNames}
           searchLabel={areas.searchLabel}
           searchPlaceholder={areas.searchPlaceholder}
           noResults={areas.noResults}
-          showHidden={draft}
         />
       </div>
 

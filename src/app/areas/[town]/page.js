@@ -103,12 +103,6 @@ export default async function TownPage({ params }) {
           {(town.intro || []).map((p, i) => (
             <p key={i} style={{ fontSize: 14, color: C.text, maxWidth: 680, lineHeight: 1.8, margin: "0 0 12px" }}>{p}</p>
           ))}
-          {draft && (
-            <p className="mt-4 max-w-3xl border-l-4 px-4 py-3 text-sm font-semibold" style={{ borderColor: C.gold, background: "#fbf6e9", color: "#5c4613" }}>
-              Draft for review — this town page is not linked on the website or shown on Google until Service Areas and this town are switched on in Admin → Service Areas.
-              {!(town.intro || []).length ? " The text for this town hasn't been written yet." : ""}
-            </p>
-          )}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 18 }}>
             <Link href={quoteHref} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 800, padding: "12px 18px", borderRadius: 4, background: C.gold, color: C.dark, textDecoration: "none" }}>
               <FaFileInvoice size={14} /> {townText(areas.quoteButtonLabel, town)}
