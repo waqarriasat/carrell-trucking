@@ -93,6 +93,7 @@ export const DEFAULT_CONTENT = {
     contactHeading: "Contact",
     resourcesHeading: "Resources",
     contactQuoteLabel: "Get a Quote",
+    allAreasLabel: "All service areas",
     copyright: "All rights reserved.",
     privacyLabel: "Privacy Policy",
     termsLabel: "Terms & Conditions",
@@ -1156,6 +1157,26 @@ export const DEFAULT_CONTENT = {
 
   // ── Terms & Conditions (Admin → Terms & Conditions) ─
   // Draft until the owner approves it: not linked, not in the sitemap, hidden from Google.
+  // ── "Delivering to" bar (under the header) ──
+  // Hidden until switched on (Admin → Header & Footer).
+  deliveryBar: {
+    enabled: "no",
+    // "yes": the browser asks for the visitor's location when they arrive.
+    // "no": only when they tap "Use my location" (browsers never block that).
+    askOnArrival: "no",
+    label: "Delivering to:",
+    emptyText: "Enter ZIP code or town",
+    inputLabel: "Your ZIP code or town",
+    inputPlaceholder: "e.g. 73401 or Durant",
+    useLocationLabel: "Use my location",
+    saveLabel: "Save",
+    locatingText: "Finding your location…",
+    deniedText: "Location is turned off — please type your ZIP code or town.",
+    failedText: "We couldn't find that — try your town name.",
+    townLinkLabel: "See what we deliver to {town} →",
+    areasLinkLabel: "See all the towns we serve →",
+  },
+
   // ── Service Areas (/areas and /areas/[town]) ─
   // Hidden until switched on. Town facts (county, direction, straight-line miles
   // from Ardmore) come from USPS ZIP-code coordinates — checked, not guessed.

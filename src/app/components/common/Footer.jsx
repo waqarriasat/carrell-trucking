@@ -74,7 +74,7 @@ function FooterLink({ href, children }) {
 }
 
 // ── Main component ────────────────────────────
-export default function Footer({ site, footer, fleet, services, resources, termsPublished, pickupLabel, areasLabel }) {
+export default function Footer({ site, footer, fleet, services, resources, termsPublished, pickupLabel, areasLabel, areaTowns = [] }) {
   const currentYear = new Date().getFullYear();
 
   const columns = [
@@ -85,6 +85,14 @@ export default function Footer({ site, footer, fleet, services, resources, terms
     {
       heading: footer.industriesHeading,
       links: services.map((s) => ({ label: s.label, href: `/services/${s.id}` })),
+    },
+    // Service Areas: the towns that are switched on (once the section is live)
+    areasLabel && areaTowns.length > 0 && {
+      heading: areasLabel,
+      links: [
+        ...areaTowns.map((t) => ({ label: `${t.name}, ${t.state}`, href: `/areas/${t.id}` })),
+        { label: footer.allAreasLabel || "All service areas", href: "/areas" },
+      ],
     },
     resources && {
       heading: footer.resourcesHeading,
@@ -112,7 +120,7 @@ export default function Footer({ site, footer, fleet, services, resources, terms
           lines: [
             { text: site.salesAddress, href: site.salesMapsHref, icon: FaLocationDot },
             site.salesPhone && { text: site.salesPhone, href: site.salesPhoneHref, icon: FaPhone },
-            areasLabel && { text: areasLabel, href: "/areas", icon: FaMapLocationDot, strong: true },
+            areasLabel && !areaTowns.length && { text: areasLabel, href: "/areas", icon: FaMapLocationDot, strong: true },
             { text: footer.contactQuoteLabel, href: "/quote", icon: FaFileLines, strong: true },
           ].filter(Boolean),
         },
@@ -159,7 +167,7 @@ export default function Footer({ site, footer, fleet, services, resources, terms
       {/* ── 4-column grid: full-width white band ── */}
       <div className="bg-white">
       <div className="wrap py-12 lg:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-10 lg:gap-8">
+        <div className={`grid grid-cols-2 md:grid-cols-3 ${columns.length >= 5 ? "xl:grid-cols-6" : "xl:grid-cols-5"} gap-10 lg:gap-8`}>
 
           {/* Col 1 — Company (enhanced: includes logo + blurb) */}
           <div className="col-span-2 md:col-span-1">

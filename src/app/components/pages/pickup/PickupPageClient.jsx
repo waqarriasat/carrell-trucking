@@ -5,6 +5,7 @@ import { FaCheck, FaPhone } from "react-icons/fa"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { submitPickup } from "@/app/actions/submitPickup"
 import { useLeadForm, SpamTrap, FieldError, FormNote, LocateButton, setFieldValue } from "@/app/components/common/LeadFormParts"
+import { readDelivery } from "@/app/components/common/DeliveryBar"
 
 const C = {
   dark:   "#0f2d4a",
@@ -57,6 +58,14 @@ export default function PickupPageClient({ page, site, units }) {
   const dateRef = useRef(null)
   useEffect(() => {
     if (dateRef.current) dateRef.current.min = new Date().toLocaleDateString("en-CA")
+    // Town from the "Delivering to" bar, if the visitor set one and the boxes are empty.
+    const saved = readDelivery()
+    const city = formRef.current?.querySelector('[name="city"]')
+    if (saved && city && !city.value) {
+      const names = { OK: "Oklahoma", TX: "Texas" }
+      fillAddress({ street: "", city: saved.city, state: names[saved.state] || saved.state, zip: saved.zip })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
