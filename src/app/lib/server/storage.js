@@ -22,11 +22,7 @@ const blobEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 let blobStorePromise = null
 function blobStore() {
   blobStorePromise ??= Promise.all([import("@vercel/blob"), import("./blob-store")]).then(([sdk, { createBlobStore }]) =>
-    createBlobStore(sdk, {
-      preferredAccess: process.env.BLOB_ACCESS,
-      // vercel_blob_rw_<storeId>_<secret> — used to build fresh public URLs.
-      storeId: String(process.env.BLOB_READ_WRITE_TOKEN || "").split("_")[3] || "",
-    })
+    createBlobStore(sdk, { preferredAccess: process.env.BLOB_ACCESS })
   )
   return blobStorePromise
 }

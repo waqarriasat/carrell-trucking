@@ -513,7 +513,7 @@ export const DEFAULT_CONTENT = {
       badge: "Mobile Office Rentals",
       cornerBadge: "Ground Level",
       // "no" hides the "Custom Modifications" box and the Modification button
-      offerMods: "yes",
+      offerMods: "no",
       icon: "fa/FaBuilding",
       graphic: "office",
       graphicLabel: "HQ SITE OFFICE",
@@ -615,7 +615,7 @@ export const DEFAULT_CONTENT = {
       badge: "Mud Lab & Guard Shack Units",
       cornerBadge: "Ground Level",
       // "no" hides the "Custom Modifications" box and the Modification button
-      offerMods: "yes",
+      offerMods: "no",
       icon: "fa/FaFlask",
       graphic: "mud-lab",
       graphicLabel: "MUD LAB UNIT",
