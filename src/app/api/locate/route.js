@@ -2,10 +2,30 @@
 // "Use my location" button, only after they allow it) into a street address,
 // using OpenStreetMap's free address lookup. Called through our server so the
 // lookup is identified properly and the visitor's IP isn't passed on.
+// GET /api/locate?zip=74701 — the town and state for a US ZIP code
+// (the "Delivering to" bar).
 
 export const dynamic = "force-dynamic"
 
 const LOOKUP_URL = process.env.GEOCODE_URL || "https://nominatim.openstreetmap.org/reverse"
+const SEARCH_URL = process.env.GEOCODE_SEARCH_URL || "https://nominatim.openstreetmap.org/search"
+const HEADERS = { "User-Agent": "ArdmoreTrailerWebsite/1.0 (delivery address lookup)", "Accept-Language": "en" }
+
+async function lookupZip(zip) {
+  const url = `${SEARCH_URL}?${new URLSearchParams({ postalcode: zip, countrycodes: "us", format: "jsonv2", addressdetails: "1", limit: "1" })}`
+  try {
+    const res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(6000), cache: "no-store" })
+    if (!res.ok) throw new Error(`lookup ${res.status}`)
+    const [hit] = await res.json()
+    const a = hit?.address || {}
+    const city = a.city || a.town || a.village || a.hamlet || String(hit?.display_name || "").split(",")[1]?.trim() || ""
+    if (!hit || !a.state) throw new Error("no match")
+    return Response.json({ city, state: a.state, zip })
+  } catch (err) {
+    console.error("[locate] ZIP lookup failed:", err?.message || err)
+    return Response.json({ error: "We couldn't find that ZIP code." }, { status: 502 })
+  }
+}
 const WINDOW_MS = 10 * 60 * 1000
 const MAX_PER_WINDOW = 20
 const recent = new Map()
@@ -21,6 +41,13 @@ function tooMany(key) {
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url)
+  const zip = searchParams.get("zip")
+  if (zip !== null) {
+    if (!/^\d{5}$/.test(zip)) return Response.json({ error: "Please enter a 5-digit ZIP code." }, { status: 400 })
+    const ip = (request.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "unknown"
+    if (tooMany(ip)) return Response.json({ error: "Too many lookups. Please type your town." }, { status: 429 })
+    return lookupZip(zip)
+  }
   const lat = Number(searchParams.get("lat"))
   const lon = Number(searchParams.get("lon"))
   if (!searchParams.get("lat") || !searchParams.get("lon") || !Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) {
@@ -32,7 +59,7 @@ export async function GET(request) {
   const url = `${LOOKUP_URL}?${new URLSearchParams({ format: "jsonv2", lat: lat.toFixed(6), lon: lon.toFixed(6), addressdetails: "1", zoom: "18" })}`
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "ArdmoreTrailerWebsite/1.0 (delivery address lookup)", "Accept-Language": "en" },
+      headers: HEADERS,
       signal: AbortSignal.timeout(6000),
       cache: "no-store",
     })

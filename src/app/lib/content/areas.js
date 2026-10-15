@@ -8,12 +8,13 @@
 // ─────────────────────────────────────────────
 import { fill } from "./resolve"
 
-export const areasLive = (areas) => areas?.published === "yes"
+// Live = switched on AND at least one town shown (no empty page, menu link or footer column).
+export const areasLive = (areas) => areas?.published === "yes" && (areas.towns || []).some((t) => t.published === "yes")
 
 export const isTownLive = (areas, town) => areasLive(areas) && town?.published === "yes"
 
 // Towns visitors can see (none while the section is hidden).
-export const liveTowns = (areas) => (areasLive(areas) ? (areas.towns || []).filter((t) => t.published === "yes") : [])
+export const liveTowns = (areas) => (areas?.published === "yes" ? (areas.towns || []).filter((t) => t.published === "yes") : [])
 
 export const townLabel = (town) => `${town.name}, ${town.state}`
 
@@ -26,4 +27,27 @@ export function townText(str, town) {
     miles: String(town.miles ?? ""),
     direction: town.direction || "",
   })
+}
+
+// Towns closest to this one (straight-line), with distance and direction from it.
+const DIRECTIONS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]
+const rad = (d) => (d * Math.PI) / 180
+// A town has a map point once both numbers are filled in (new towns start at 0, 0).
+export const hasPoint = (t) => Number.isFinite(t?.lat) && Number.isFinite(t?.lng) && !(t.lat === 0 && t.lng === 0)
+export function nearbyTowns(town, towns, { maxMiles = 40, limit = 6 } = {}) {
+  if (!hasPoint(town)) return []
+  return towns
+    .filter((t) => t.id !== town.id && hasPoint(t))
+    .map((t) => {
+      const dLat = rad(t.lat - town.lat), dLng = rad(t.lng - town.lng)
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(rad(town.lat)) * Math.cos(rad(t.lat)) * Math.sin(dLng / 2) ** 2
+      const miles = Math.round(3958.8 * 2 * Math.asin(Math.sqrt(a)))
+      const y = Math.sin(dLng) * Math.cos(rad(t.lat))
+      const x = Math.cos(rad(town.lat)) * Math.sin(rad(t.lat)) - Math.sin(rad(town.lat)) * Math.cos(rad(t.lat)) * Math.cos(dLng)
+      const bearing = ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360
+      return { town: t, miles, direction: DIRECTIONS[Math.round(bearing / 45) % 8] }
+    })
+    .filter((n) => n.miles > 0 && n.miles <= maxMiles)
+    .sort((a, b) => a.miles - b.miles)
+    .slice(0, limit)
 }

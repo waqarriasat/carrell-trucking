@@ -6,6 +6,7 @@ import { getIcon } from "@/app/lib/content/icons"
 import Breadcrumb from "@/app/components/common/Breadcrumb"
 import { submitQuote } from "@/app/actions/submitQuote"
 import { useLeadForm, SpamTrap, FieldError, FormNote, LocateButton, setFieldValue } from "@/app/components/common/LeadFormParts"
+import { readDelivery, deliveryLabel } from "@/app/components/common/DeliveryBar"
 
 const C = {
   dark:   "#0f2d4a",
@@ -59,7 +60,9 @@ export default function QuotePageClient({ page, site, fleetOptions, serviceOptio
     // Town pages link here with ?location=Town, ST — fill it in if the field is empty.
     const location = String(params.get("location") || "").trim().slice(0, 200)
     const field = formRef.current?.querySelector('[name="location"]')
-    if (location && field && !field.value) setFieldValue(formRef.current, "location", location)
+    // Otherwise use the town from the "Delivering to" bar, if the visitor set one.
+    const saved = location ? "" : deliveryLabel(readDelivery())
+    if ((location || saved) && field && !field.value) setFieldValue(formRef.current, "location", location || saved)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
