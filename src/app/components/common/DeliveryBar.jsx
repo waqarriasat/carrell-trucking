@@ -15,19 +15,32 @@ import { FaLocationDot, FaChevronDown, FaLocationCrosshairs } from "react-icons/
 
 const STORE_KEY = "ardmore-delivery"
 const ASKED_KEY = "ardmore-delivery-asked"
-const STATES = { oklahoma: "OK", texas: "TX", arkansas: "AR", kansas: "KS", "new mexico": "NM", louisiana: "LA" }
+// US states (and DC) — we only deliver in the United States.
+const STATES = {
+  alabama: "AL", alaska: "AK", arizona: "AZ", arkansas: "AR", california: "CA", colorado: "CO", connecticut: "CT",
+  delaware: "DE", "district of columbia": "DC", florida: "FL", georgia: "GA", hawaii: "HI", idaho: "ID", illinois: "IL",
+  indiana: "IN", iowa: "IA", kansas: "KS", kentucky: "KY", louisiana: "LA", maine: "ME", maryland: "MD",
+  massachusetts: "MA", michigan: "MI", minnesota: "MN", mississippi: "MS", missouri: "MO", montana: "MT",
+  nebraska: "NE", nevada: "NV", "new hampshire": "NH", "new jersey": "NJ", "new mexico": "NM", "new york": "NY",
+  "north carolina": "NC", "north dakota": "ND", ohio: "OH", oklahoma: "OK", oregon: "OR", pennsylvania: "PA",
+  "rhode island": "RI", "south carolina": "SC", "south dakota": "SD", tennessee: "TN", texas: "TX", utah: "UT",
+  vermont: "VT", virginia: "VA", washington: "WA", "west virginia": "WV", wisconsin: "WI", wyoming: "WY",
+}
+const US_CODES = new Set(Object.values(STATES))
 
 const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "")
 const stateCode = (s) => {
   const v = String(s || "").trim()
   return /^[A-Za-z]{2}$/.test(v) ? v.toUpperCase() : STATES[v.toLowerCase()] || v
 }
+const isUsState = (s) => US_CODES.has(stateCode(s))
 
 // Saved location for other parts of the site (forms). Safe if storage is blocked.
 export function readDelivery() {
   try {
     const v = JSON.parse(window.localStorage.getItem(STORE_KEY) || "null")
-    return v && v.city ? v : null
+    // A town saved before the US-only check (e.g. found abroad) is ignored.
+    return v && v.city && (!v.state || isUsState(v.state)) ? v : null
   } catch {
     return null
   }
@@ -81,6 +94,10 @@ export default function DeliveryBar({ bar, towns = [], areasLive = false }) {
           const res = await fetch(`/api/locate?lat=${coords.latitude}&lon=${coords.longitude}`)
           const data = await res.json()
           if (!res.ok || data.error || !data.city) throw new Error()
+          // Outside the US: not saved. On arrival stay quiet; otherwise ask for a ZIP code.
+          if ((data.country && data.country.toLowerCase() !== "us") || !isUsState(data.state)) {
+            return setStatus({ busy: false, message: quietOnFail ? "" : bar.outsideText })
+          }
           done(data)
         } catch {
           setStatus({ busy: false, message: quietOnFail ? "" : bar.failedText })
@@ -108,6 +125,7 @@ export default function DeliveryBar({ bar, towns = [], areasLive = false }) {
     }
     // "Durant" or "Durant, OK" — use as typed (matched to our towns when possible).
     const [city, st] = v.split(",").map((s) => s.trim())
+    if (st && !isUsState(st)) return setStatus({ busy: false, message: bar.outsideText })
     const match = towns.find((t) => norm(t.name) === norm(city) && (!st || t.state === stateCode(st)))
     done({ city: match ? match.name : city, state: match ? match.state : st || "", zip: "" })
   }
