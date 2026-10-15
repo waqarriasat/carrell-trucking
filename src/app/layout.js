@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import DeliveryBar from "@/app/components/common/DeliveryBar";
-import { areasLive, liveTowns } from "@/app/lib/content/areas";
+import { areasLive, footerTowns, liveTowns } from "@/app/lib/content/areas";
 import Navbar from "@/app/components/common/Navbar";
 import Footer from "@/app/components/common/Footer";
 import SiteChrome from "@/app/components/common/SiteChrome";
@@ -141,7 +141,7 @@ export default async function RootLayout({ children }) {
               areasLive={areasLive(content.areas)}
             />
           ) : null}
-          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} pickupLabel={content.pickup.published === "yes" ? content.pickup.linkLabel : ""} areasLabel={areasLive(content.areas) ? content.areas.navLabel : ""} areaTowns={liveTowns(content.areas).map(({ id, name, state }) => ({ id, name, state })).sort((a, b) => a.name.localeCompare(b.name))} />}
+          footer={<Footer site={site} footer={footer} fleet={fleetLinks} services={serviceLinks} resources={resources} termsPublished={content.terms.published === "yes"} pickupLabel={content.pickup.published === "yes" ? content.pickup.linkLabel : ""} areasLabel={areasLive(content.areas) ? content.areas.navLabel : ""} areaTowns={footerTowns(content.areas, Math.max(4, fleetLinks.length - 1)).map(({ id, name, state }) => ({ id, name, state }))} />}
           convoy={<Convoy fleet={fleet} />}
           whatsapp={<WhatsAppButton site={site} />}
         >
