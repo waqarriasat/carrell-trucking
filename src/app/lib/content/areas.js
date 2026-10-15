@@ -51,3 +51,18 @@ export function nearbyTowns(town, towns, { maxMiles = 40, limit = 6 } = {}) {
     .sort((a, b) => a.miles - b.miles)
     .slice(0, limit)
 }
+
+// A short list for the footer: closest towns from each state in turn (so
+// Oklahoma and Texas both show), then A–Z. "All service areas" links the rest.
+export function footerTowns(areas, count) {
+  const byState = new Map()
+  for (const t of [...liveTowns(areas)].sort((a, b) => (a.miles || 0) - (b.miles || 0))) {
+    if (!byState.has(t.state)) byState.set(t.state, [])
+    byState.get(t.state).push(t)
+  }
+  const queues = [...byState.values()], picked = []
+  while (picked.length < count && queues.some((q) => q.length)) {
+    for (const q of queues) if (q.length && picked.length < count) picked.push(q.shift())
+  }
+  return picked.sort((a, b) => a.name.localeCompare(b.name))
+}
