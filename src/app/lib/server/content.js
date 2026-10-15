@@ -52,12 +52,28 @@ export const getRawContent = cache(async () => {
   return mergeWithDefaults(content, DEFAULT_CONTENT)
 })
 
+// If storage can't be reached (outage or plan limit), visitors still get the
+// built-in content instead of an error page. The admin keeps using
+// getRawContent, which fails loudly, so a save can never overwrite the real
+// content with these defaults. (Errors are not cached, so the next request
+// tries storage again.)
+async function getRawForSite() {
+  try {
+    return await getRawContent()
+  } catch (err) {
+    // During a build, fail instead: the previous deployment stays live.
+    if (isBuild) throw err
+    console.error("[cms] Saved content unavailable — showing built-in content:", err?.message || err)
+    return mergeWithDefaults(null, DEFAULT_CONTENT)
+  }
+}
+
 // Resolved content (placeholders filled) — what the public site renders.
 // Units and industries switched off in the admin ("Show on website") are left
 // out of `fleet` / `services` (menus, cards, quote form, sitemap…); their pages
 // open only by direct link, as drafts, from `draftFleet` / `draftServices`.
 export const getContent = cache(async () => {
-  const content = resolveContent(await getRawContent())
+  const content = resolveContent(await getRawForSite())
   const isLive = (x) => x.published !== "no"
   return {
     ...content,

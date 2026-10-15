@@ -33,6 +33,7 @@ import { LEGACY_CONTENT_V19 } from "./legacy-v19"
 import { LEGACY_CONTENT_V20 } from "./legacy-v20"
 import { LEGACY_CONTENT_V21 } from "./legacy-v21"
 import { LEGACY_CONTENT_V22 } from "./legacy-v22"
+import { LEGACY_CONTENT_V23 } from "./legacy-v23"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -68,7 +69,9 @@ import { LEGACY_CONTENT_V22 } from "./legacy-v22"
 //     portable toilets (ADA, hand wash) and Residential reworded, softer placement line,
 //     new restroom trailer and shower container units and 9 new industries
 //     (all hidden until switched on).
-export const CONTENT_VERSION = 23
+// 24: "Offer modifications" per unit — containers, trailers, offices and the mud lab show
+//     the modifications box (not generators, toilets, restroom trailer or showers).
+export const CONTENT_VERSION = 24
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -93,7 +96,8 @@ const STEPS = [
   { upTo: 20, from: LEGACY_CONTENT_V19, to: LEGACY_CONTENT_V20 },
   { upTo: 21, from: LEGACY_CONTENT_V20, to: LEGACY_CONTENT_V21 },
   { upTo: 22, from: LEGACY_CONTENT_V21, to: LEGACY_CONTENT_V22 },
-  { upTo: 23, from: LEGACY_CONTENT_V22, to: DEFAULT_CONTENT },
+  { upTo: 23, from: LEGACY_CONTENT_V22, to: LEGACY_CONTENT_V23 },
+  { upTo: 24, from: LEGACY_CONTENT_V23, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
