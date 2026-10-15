@@ -10,8 +10,9 @@
 //    every write (cms/<doc>/<timestamp>-<rand>.json),
 //    so the Blob CDN can never serve an outdated copy.
 //  • A small pointer (cms-latest/<doc>.json) names the
-//    newest file. Reading downloads the pointer, then
-//    the file — two "simple" operations. Listing the
+//    newest file. Reading checks the pointer's version,
+//    downloads it, then the file — "simple" operations
+//    only. Listing the
 //    folder is an "advanced" operation (2,000 a month
 //    on the free plan), so it is only the fallback
 //    when the pointer is missing or out of date.
@@ -26,13 +27,15 @@ const other = (a) => (a === "public" ? "private" : "public")
 
 const pointerPath = (doc) => `cms-latest/${doc}.json`
 
+const cleanTag = (etag) => String(etag || "").replace(/^W\//, "").replace(/"/g, "")
+
 async function streamToString(stream) {
   const chunks = []
   for await (const chunk of stream) chunks.push(Buffer.from(chunk))
   return Buffer.concat(chunks).toString("utf8")
 }
 
-export function createBlobStore(sdk, { preferredAccess = null, storeId = "", log = console } = {}) {
+export function createBlobStore(sdk, { preferredAccess = null, log = console } = {}) {
   let access = preferredAccess === "public" || preferredAccess === "private" ? preferredAccess : null
   let lastStamp = 0
 
@@ -68,25 +71,31 @@ export function createBlobStore(sdk, { preferredAccess = null, storeId = "", log
     return streamToString(res.stream)
   }
 
-  // The pointer is overwritten on every save, so it is always read fresh:
-  // private stores skip the cache, public ones get a unique query string.
+  // The pointer is overwritten on every save, and the Blob CDN can keep serving
+  // the old copy for up to a minute. head() asks the store itself (always
+  // current) for the pointer's ETag; a downloaded copy with a different ETag is
+  // out of date, so we fall back to listing instead of caching old content.
   async function readPointer(doc) {
-    const pathname = pointerPath(doc)
-    for (const a of access ? [access] : ["private", "public"]) {
-      try {
-        const target = a === "public" && storeId
-          ? `https://${storeId}.public.blob.vercel-storage.com/${pathname}?v=${Date.now()}`
-          : pathname
-        const res = await sdk.get(target, { access: a, useCache: false })
-        if (res && res.statusCode === 200 && res.stream) {
-          access = a
-          return JSON.parse(await streamToString(res.stream))
-        }
-      } catch {
-        // Wrong access mode or not created yet — fall back to listing.
-      }
+    let info
+    try {
+      info = await sdk.head(pointerPath(doc))
+    } catch {
+      return null // not created yet (or the store is unreachable) — fall back to listing
     }
-    return null
+    const a = accessFromUrl(info.url)
+    access = access || a
+    const tag = cleanTag(info.etag)
+    try {
+      // A unique query string asks a public CDN for this exact version.
+      const target = a === "public" && tag ? `${info.url}?v=${encodeURIComponent(tag)}` : info.url
+      const res = await sdk.get(target, { access: a, useCache: false })
+      if (!res || res.statusCode !== 200 || !res.stream) return null
+      const got = cleanTag(res.blob?.etag || res.headers?.get?.("etag"))
+      if (tag && got && got !== tag) return null
+      return JSON.parse(await streamToString(res.stream))
+    } catch {
+      return null
+    }
   }
 
   function writePointer(doc, blob) {
