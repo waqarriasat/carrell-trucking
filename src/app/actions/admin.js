@@ -9,6 +9,10 @@ import {
   createResetToken,
   resetPassword,
   getBaseUrl,
+  listUsers,
+  addUser,
+  renewInvite,
+  removeUser,
   MIN_PASSWORD_LENGTH,
   STORAGE_ERROR,
 } from "@/app/lib/server/auth"
@@ -30,7 +34,7 @@ export async function logoutAction() {
 }
 
 const GENERIC_SENT =
-  "If that email belongs to the admin account, a password reset link has been sent. Please check your inbox (and spam folder)."
+  "If that email belongs to an admin login, a password reset link has been sent. Please check your inbox (and spam folder)."
 
 export async function requestPasswordResetAction(prevState, formData) {
   const email = String(formData.get("email") || "")
@@ -97,6 +101,81 @@ export async function resetPasswordAction(prevState, formData) {
   }
   if (!result.ok) return { error: result.error }
   redirect("/admin?passwordChanged=1")
+}
+
+// ── Users ─────────────────────────────────────
+
+// Emails a new person their set-up link. If email can't be sent, the owner
+// gets the link to pass on themselves.
+const escapeHtml = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c])
+
+async function sendInvite(user, token, invitedBy) {
+  const link = `${await getBaseUrl()}/admin/reset-password?token=${encodeURIComponent(token)}`
+  if (!isMailConfigured()) return { emailed: false, link }
+  const hello = user.name ? `Hi ${user.name},` : "Hello,"
+  const h = { hello: escapeHtml(hello), by: escapeHtml(invitedBy), email: escapeHtml(user.email) }
+  try {
+    await sendMail({
+      to: user.email,
+      subject: "Your website admin login",
+      text: `${hello}\n\n${invitedBy} added you to the website admin panel.\n\nOpen this link to choose your password (valid for 7 days):\n${link}\n\nAfter that, sign in at ${await getBaseUrl()}/admin with ${user.email}.`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:520px;margin:auto;padding:24px;border:1px solid #d6e8f5;border-radius:12px">
+          <h2 style="color:#0f2d4a;margin:0 0 12px">Your website admin login</h2>
+          <p style="color:#4a6b85;font-size:14px;line-height:1.6">${h.hello} ${h.by} added you to the website admin panel. Click the button below to choose your password. This link is valid for <strong>7 days</strong>.</p>
+          <p style="margin:24px 0"><a href="${link}" style="background:#c9a84c;color:#0f2d4a;padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:700">Choose my password</a></p>
+          <p style="color:#7a9bb5;font-size:12px;line-height:1.6">Then sign in with <strong>${h.email}</strong>.<br>If the button doesn't work, copy this link into your browser:<br><a href="${link}" style="color:#2d8fdd;word-break:break-all">${link}</a></p>
+        </div>`,
+    })
+    return { emailed: true }
+  } catch (err) {
+    console.error("[admin] Failed to send invite email:", err)
+    return { emailed: false, link }
+  }
+}
+
+export async function listUsersAction() {
+  try {
+    await requireAdmin()
+    return { ok: true, users: await listUsers() }
+  } catch (err) {
+    return { ok: false, error: err.message || "Could not load users." }
+  }
+}
+
+export async function addUserAction(name, email) {
+  try {
+    const session = await requireAdmin()
+    const result = await addUser(session, { name, email })
+    if (!result.ok) return result
+    const sent = await sendInvite(result.user, result.token, session.name || session.email)
+    return { ok: true, users: await listUsers(), ...sent }
+  } catch (err) {
+    return { ok: false, error: err.message || "Could not add this person." }
+  }
+}
+
+export async function resendInviteAction(id) {
+  try {
+    const session = await requireAdmin()
+    const result = await renewInvite(session, String(id))
+    if (!result.ok) return result
+    const sent = await sendInvite(result.user, result.token, session.name || session.email)
+    return { ok: true, users: await listUsers(), ...sent }
+  } catch (err) {
+    return { ok: false, error: err.message || "Could not send the link." }
+  }
+}
+
+export async function removeUserAction(id) {
+  try {
+    const session = await requireAdmin()
+    const result = await removeUser(session, String(id))
+    if (!result.ok) return result
+    return { ok: true, users: await listUsers() }
+  } catch (err) {
+    return { ok: false, error: err.message || "Could not remove this person." }
+  }
 }
 
 // ── Content ───────────────────────────────────

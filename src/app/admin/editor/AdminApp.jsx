@@ -13,6 +13,7 @@ import { PLACEHOLDERS } from "@/app/lib/content/resolve"
 import { saveContentAction, logoutAction, requestPasswordResetAction } from "@/app/actions/admin"
 import { EditorContext, Fields } from "./fields"
 import Leads from "./Leads"
+import Team from "./Team"
 import { buildSearchIndex, formatDate, setAt, toPath, validateContent, getAt } from "./utils"
 
 const PAGE_ICONS = {
@@ -28,7 +29,7 @@ const PAGE_ICONS = {
   alert: FaTriangleExclamation,
 }
 
-export default function AdminApp({ initialContent, contentVersion, adminEmail, lastSaved, notice, initialLeads = [] }) {
+export default function AdminApp({ initialContent, contentVersion, adminEmail, me, initialUsers = [], lastSaved, notice, initialLeads = [] }) {
   const ADMIN_PAGES = useMemo(() => visibleAdminPages(), [])
   const [content, setContent] = useState(initialContent)
   const [savedJson, setSavedJson] = useState(() => JSON.stringify(initialContent))
@@ -200,7 +201,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
               <NavItem key={p.id} icon={PAGE_ICONS[p.icon]} label={p.label} active={pageId === p.id} onClick={() => goTo(p.id)} />
             ))}
             <div className="mb-1 mt-4 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Settings</div>
-            <NavItem icon={FaUserShield} label="Account & Password" active={pageId === "account"} onClick={() => goTo("account")} />
+            <NavItem icon={FaUserShield} label="Account & Users" active={pageId === "account"} onClick={() => goTo("account")} />
           </nav>
 
           <div className="border-t border-white/10 p-3">
@@ -224,7 +225,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
             </button>
             <div className="min-w-0 flex-1">
               <div className="truncate text-base font-bold text-slate-900">
-                {page?.label || { account: "Account & Password", leads: "Leads" }[pageId] || "Dashboard"}
+                {page?.label || { account: "Account & Users", leads: "Leads" }[pageId] || "Dashboard"}
               </div>
               <div className="flex items-center gap-1.5 text-xs text-slate-500">
                 {dirty ? (
@@ -280,7 +281,7 @@ export default function AdminApp({ initialContent, contentVersion, adminEmail, l
 
               {pageId === "dashboard" && <Dashboard pages={ADMIN_PAGES} content={content} savedMeta={savedMeta} newCount={newCount} onOpen={goTo} />}
               {pageId === "leads" && <Leads leads={leads} setLeads={setLeads} />}
-              {pageId === "account" && <Account adminEmail={adminEmail} />}
+              {pageId === "account" && <Account adminEmail={adminEmail} me={me} initialUsers={initialUsers} />}
               {page && (
                 <>
                   <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -500,7 +501,7 @@ function Stat({ value, label }) {
   )
 }
 
-function Account({ adminEmail }) {
+function Account({ adminEmail, me, initialUsers }) {
   const [state, formAction, pending] = useActionState(requestPasswordResetAction, null)
   return (
     <div className="space-y-6">
@@ -540,6 +541,8 @@ function Account({ adminEmail }) {
           </div>
         </div>
       </section>
+
+      <Team me={me} initialUsers={initialUsers} />
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="text-base font-bold text-slate-900">Forgot your password?</h2>

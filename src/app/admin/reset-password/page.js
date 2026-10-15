@@ -10,7 +10,7 @@ export default async function ResetPasswordPage({ searchParams }) {
 
   if (!valid) {
     return (
-      <AuthShell brand={site.logoTop} title="Link expired" subtitle="This password link is invalid, has already been used, or has expired (links last 30 minutes).">
+      <AuthShell brand={site.logoTop} title="Link expired" subtitle="This password link is invalid, has already been used, or has expired. Reset links last 30 minutes; set-up links for new people last 7 days.">
         <Link
           href="/admin/forgot-password"
           className="block w-full rounded-lg bg-[#c9a84c] px-4 py-2.5 text-center text-sm font-bold text-[#0f2d4a] hover:brightness-105"
@@ -22,7 +22,7 @@ export default async function ResetPasswordPage({ searchParams }) {
   }
 
   return (
-    <AuthShell brand={site.logoTop} title="Choose a new password" subtitle={`Use at least ${MIN_PASSWORD_LENGTH} characters. You'll be signed in right after.`}>
+    <AuthShell brand={site.logoTop} title="Choose your password" subtitle={`Use at least ${MIN_PASSWORD_LENGTH} characters. You'll be signed in right after.`}>
       <ResetForm token={token} minLength={MIN_PASSWORD_LENGTH} />
     </AuthShell>
   )

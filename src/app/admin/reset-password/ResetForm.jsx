@@ -39,7 +39,7 @@ export default function ResetForm({ token, minLength }) {
       </div>
       <div>
         <label htmlFor="confirm" className="mb-1.5 block text-sm font-semibold text-slate-700">
-          Confirm new password
+          Confirm password
         </label>
         <input
           id="confirm"
@@ -52,7 +52,7 @@ export default function ResetForm({ token, minLength }) {
         />
       </div>
       <button disabled={pending} className={authButton}>
-        {pending ? "Saving…" : "Save new password"}
+        {pending ? "Saving…" : "Save password"}
       </button>
     </form>
   )
