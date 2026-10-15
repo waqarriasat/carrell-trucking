@@ -225,7 +225,8 @@ export const ADMIN_PAGES = [
           t("deniedText", "When location is off", { upcoming: true }),
           t("failedText", "When nothing is found", { upcoming: true }),
           t("townLinkLabel", "Link to the town page", { upcoming: true, help: "{town} = the visitor's town (only for towns shown in Service Areas)." }),
-          t("areasLinkLabel", "Link to all towns", { upcoming: true }),
+          t("areasLinkLabel", "Link to all towns", { upcoming: true, help: "Shown before the visitor has set a town." }),
+          t("notListedLabel", "Link when the town has no page", { upcoming: true, help: "{town} = the visitor's town. Opens the quote form with the town filled in." }),
         ],
       },
       {
