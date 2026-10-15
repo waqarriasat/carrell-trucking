@@ -125,6 +125,7 @@ function NumberField({ field, value, onChange }) {
         type="number"
         min={field.min}
         max={field.max}
+        step={field.step}
         className={inputCls}
         value={value ?? 0}
         onChange={(e) => onChange(e.target.value === "" ? 0 : Number(e.target.value))}

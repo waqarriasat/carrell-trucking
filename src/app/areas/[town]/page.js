@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { FaCheck, FaPhone } from "react-icons/fa"
@@ -8,7 +9,9 @@ import FaqList from "@/app/components/pages/blog/FaqList"
 import { plainText } from "@/app/components/pages/blog/Markdown"
 import { getContent } from "@/app/lib/server/content"
 import { pageMeta, siteBaseUrl } from "@/app/lib/server/seo"
-import { isTownLive, liveTowns, townLabel, townText } from "@/app/lib/content/areas"
+import { hasPoint, isTownLive, liveTowns, nearbyTowns, townLabel, townText } from "@/app/lib/content/areas"
+import { imageProps, isCutout } from "@/app/lib/content/images"
+import { fill } from "@/app/lib/content/resolve"
 
 // Town pages are drafts (reachable by link, hidden from Google) until both
 // Service Areas and the town are switched on in Admin → Service Areas.
@@ -45,6 +48,13 @@ const C = {
   text: "#4a6b85",
 }
 
+// OpenStreetMap embed centred on the town (no API key, no cookies).
+function mapUrl(town) {
+  const dLat = 0.09, dLng = 0.12
+  const box = [town.lng - dLng, town.lat - dLat, town.lng + dLng, town.lat + dLat].map((n) => n.toFixed(4)).join(",")
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${box}&layer=mapnik&marker=${town.lat},${town.lng}`
+}
+
 function Label({ children, light }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
@@ -63,9 +73,12 @@ export default async function TownPage({ params }) {
   const draft = !isTownLive(areas, town)
   const label = townLabel(town)
   const units = (town.fleet || []).map((fid) => fleet.find((f) => f.id === fid)).filter(Boolean)
-  const faqs = (town.faqs || []).filter((f) => f.q && f.a)
+  // The town's own questions first, then the ones every town page shares.
+  const faqs = [...(town.faqs || []), ...(areas.commonFaqs || []).map((f) => ({ q: townText(f.q, town), a: townText(f.a, town) }))].filter((f) => f.q && f.a)
   // Other towns: the live ones (or every town while reviewing drafts).
   const others = (draft ? areas.towns : liveTowns(areas)).filter((t) => t.id !== town.id)
+  const nearby = nearbyTowns(town, others)
+  const hasMap = hasPoint(town)
   const quoteHref = `/quote?${new URLSearchParams({ location: label }).toString()}`
   const base = siteBaseUrl(seo)
 
@@ -116,7 +129,7 @@ export default async function TownPage({ params }) {
 
       {/* Points + units */}
       <div className="page-section wrap">
-        <div style={{ width: "100%", display: "grid", gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", alignItems: "start" }}>
+        <div style={{ width: "100%", display: "grid", gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", alignItems: "start" }}>
           {(town.points || []).length ? (
             <div style={{ background: "#fff", borderRadius: 4, padding: 20, border: `1.5px solid ${C.border}` }}>
               <Label>{townText(areas.pointsLabel, town)}</Label>
@@ -132,11 +145,20 @@ export default async function TownPage({ params }) {
           {units.length ? (
             <div style={{ background: "#fff", borderRadius: 4, padding: 20, border: `1.5px solid ${C.border}` }}>
               <Label>{townText(areas.unitsLabel, town)}</Label>
-              <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fill, minmax(190px, 1fr))" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {units.map((f) => (
-                  <Link key={f.id} href={`/fleet/${f.id}`} style={{ display: "block", padding: "12px 14px", borderRadius: 4, border: `1.5px solid ${C.border}`, textDecoration: "none", background: C.light }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: C.dark, marginBottom: 3 }}>{f.name}</div>
-                    <div style={{ fontSize: 11, color: C.text }}>{(f.sizes || []).join(" · ")}</div>
+                  <Link key={f.id} href={`/fleet/${f.id}`} style={{ display: "flex", gap: 12, alignItems: "center", padding: 10, borderRadius: 4, border: `1.5px solid ${C.border}`, textDecoration: "none", background: C.light }}>
+                    {f.image ? (
+                      <span style={{ position: "relative", width: 92, height: 64, flexShrink: 0, borderRadius: 4, overflow: "hidden", background: "#fff" }}>
+                        <Image src={f.image} alt="" fill sizes="92px" {...imageProps(f.image)} style={{ objectFit: isCutout(f.image) ? "contain" : "cover" }} />
+                      </span>
+                    ) : null}
+                    <span style={{ minWidth: 0 }}>
+                      <span style={{ display: "block", fontSize: 13, fontWeight: 700, color: C.dark }}>
+                        {f.name} <span style={{ fontWeight: 600, fontSize: 11, color: C.text }}>{(f.sizes || []).join(" · ")}</span>
+                      </span>
+                      {f.listDescription ? <span style={{ display: "block", fontSize: 12, color: C.text, lineHeight: 1.5, marginTop: 2 }}>{f.listDescription}</span> : null}
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -158,6 +180,78 @@ export default async function TownPage({ params }) {
                 </li>
               ))}
             </ol>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Rent, buy or rent-to-own + getting the site ready */}
+      {(areas.options || []).length || (areas.prepItems || []).length ? (
+        <div className="page-section wrap">
+          <div style={{ width: "100%", display: "grid", gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", alignItems: "start" }}>
+            {(areas.options || []).length ? (
+              <div>
+                <Label>{townText(areas.optionsLabel, town)}</Label>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {areas.options.map((o, i) => (
+                    <div key={i} style={{ background: "#fff", border: `1.5px solid ${C.border}`, borderLeft: `4px solid ${C.gold}`, borderRadius: 4, padding: "12px 16px" }}>
+                      <div style={{ fontSize: 14, fontWeight: 800, color: C.dark, marginBottom: 3 }}>{o.title}</div>
+                      <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{townText(o.text, town)}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {(areas.prepItems || []).length ? (
+              <div style={{ background: C.light, border: `1.5px solid ${C.border}`, borderRadius: 4, padding: 20 }}>
+                <Label>{townText(areas.prepLabel, town)}</Label>
+                {areas.prepText ? <p style={{ fontSize: 13, color: C.text, lineHeight: 1.7, margin: "0 0 12px" }}>{townText(areas.prepText, town)}</p> : null}
+                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                  {areas.prepItems.map((p, i) => (
+                    <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13, color: C.text, lineHeight: 1.6 }}>
+                      <FaCheck size={11} style={{ color: C.goldText, flexShrink: 0, marginTop: 5 }} aria-hidden="true" /> {townText(p, town)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
+
+      {/* Map + nearby towns */}
+      {hasMap || nearby.length ? (
+        <div className="page-section wrap">
+          <div style={{ width: "100%", display: "grid", gap: 24, gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", alignItems: "start" }}>
+            {hasMap ? (
+              <div>
+                <Label>{townText(areas.mapLabel, town)}</Label>
+                <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", borderRadius: 4, overflow: "hidden", border: `1.5px solid ${C.border}`, background: C.light }}>
+                  <iframe
+                    title={townText(areas.mapLabel, town)}
+                    src={mapUrl(town)}
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                  />
+                </div>
+                {areas.mapNote ? <p style={{ fontSize: 12, color: C.text, lineHeight: 1.6, margin: "8px 0 0" }}>{townText(areas.mapNote, town)}</p> : null}
+              </div>
+            ) : null}
+            {nearby.length ? (
+              <div>
+                <Label>{townText(areas.nearbyLabel, town)}</Label>
+                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+                  {nearby.map(({ town: t, miles, direction }) => (
+                    <li key={t.id}>
+                      <Link href={`/areas/${t.id}`} style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "10px 14px", borderRadius: 4, border: `1.5px solid ${C.border}`, background: "#fff", textDecoration: "none" }}>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: C.dark }}>{townLabel(t)}</span>
+                        <span style={{ fontSize: 12, color: C.text }}>{fill(areas.nearbyDistance, { miles: String(miles), direction })}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}

@@ -35,6 +35,7 @@ import { LEGACY_CONTENT_V21 } from "./legacy-v21"
 import { LEGACY_CONTENT_V22 } from "./legacy-v22"
 import { LEGACY_CONTENT_V23 } from "./legacy-v23"
 import { LEGACY_CONTENT_V24 } from "./legacy-v24"
+import { LEGACY_CONTENT_V25 } from "./legacy-v25"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -74,7 +75,9 @@ import { LEGACY_CONTENT_V24 } from "./legacy-v24"
 //     the modifications box (not generators, toilets, restroom trailer or showers).
 // 25: Rick — Office Units and Mud Lab don't offer modifications either (only
 //     containers and trailers do).
-export const CONTENT_VERSION = 25
+// 26: town pages — map coordinates for every town, map / nearby towns / rent-buy /
+//     site-prep sections and shared questions, longer text for the first six towns.
+export const CONTENT_VERSION = 26
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -101,7 +104,8 @@ const STEPS = [
   { upTo: 22, from: LEGACY_CONTENT_V21, to: LEGACY_CONTENT_V22 },
   { upTo: 23, from: LEGACY_CONTENT_V22, to: LEGACY_CONTENT_V23 },
   { upTo: 24, from: LEGACY_CONTENT_V23, to: LEGACY_CONTENT_V24 },
-  { upTo: 25, from: LEGACY_CONTENT_V24, to: DEFAULT_CONTENT },
+  { upTo: 25, from: LEGACY_CONTENT_V24, to: LEGACY_CONTENT_V25 },
+  { upTo: 26, from: LEGACY_CONTENT_V25, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
