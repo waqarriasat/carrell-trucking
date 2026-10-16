@@ -167,6 +167,27 @@ export default async function TownPage({ params }) {
         </div>
       </div>
 
+      {/* What customers rent for */}
+      {(areas.uses || []).length ? (
+        <div className="page-section wrap">
+          <div style={{ width: "100%" }}>
+            <Label>{townText(areas.usesLabel, town)}</Label>
+            <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))" }}>
+              {areas.uses.map((u, i) => {
+                const card = (
+                  <>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: C.dark, marginBottom: 4 }}>{u.title}</div>
+                    <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{townText(u.text, town)}</div>
+                  </>
+                )
+                const style = { display: "block", background: "#fff", border: `1.5px solid ${C.border}`, borderTop: `3px solid ${C.gold}`, borderRadius: 4, padding: "14px 16px", textDecoration: "none" }
+                return u.href ? <Link key={i} href={u.href} style={style}>{card}</Link> : <div key={i} style={style}>{card}</div>
+              })}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       {/* How delivery works */}
       {(areas.steps || []).length ? (
         <div className="page-section wrap">
