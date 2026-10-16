@@ -20,8 +20,8 @@ export async function generateMetadata({ params }) {
   const item = fleet.find((f) => f.id === slug) || draftFleet.find((f) => f.id === slug)
   if (!item) return { title: "Not Found" }
   const meta = pageMeta({
-    title: `${item.name} for Rent — Southern Oklahoma & North Texas`,
-    description: item.description,
+    title: item.metaTitle || `${item.name} for Rent — Southern Oklahoma & North Texas`,
+    description: item.metaDescription || item.description,
     path: `/fleet/${item.id}`,
   })
   // A unit not shown on the website yet is a draft: reachable by link, hidden from Google.
