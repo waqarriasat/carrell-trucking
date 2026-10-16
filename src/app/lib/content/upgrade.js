@@ -38,6 +38,7 @@ import { LEGACY_CONTENT_V24 } from "./legacy-v24"
 import { LEGACY_CONTENT_V25 } from "./legacy-v25"
 import { LEGACY_CONTENT_V26 } from "./legacy-v26"
 import { LEGACY_CONTENT_V27 } from "./legacy-v27"
+import { LEGACY_CONTENT_V28 } from "./legacy-v28"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -84,7 +85,9 @@ import { LEGACY_CONTENT_V27 } from "./legacy-v27"
 // 28: Resources articles and FAQ match Rick's sizes — containers 20/40/48 ft (standard and
 //     high cube), offices 20/40 ft + 40 ft combo; 48 ft and high cube added to the size guide,
 //     pallet counts and electric reefer power corrected, ADA toilets mentioned.
-export const CONTENT_VERSION = 28
+// 29: Thackerville, Ringling, Pauls Valley, Gainesville, Denison and Atoka written
+//     (mud lab added to Ringling).
+export const CONTENT_VERSION = 29
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -114,7 +117,8 @@ const STEPS = [
   { upTo: 25, from: LEGACY_CONTENT_V24, to: LEGACY_CONTENT_V25 },
   { upTo: 26, from: LEGACY_CONTENT_V25, to: LEGACY_CONTENT_V26 },
   { upTo: 27, from: LEGACY_CONTENT_V26, to: LEGACY_CONTENT_V27 },
-  { upTo: 28, from: LEGACY_CONTENT_V27, to: DEFAULT_CONTENT },
+  { upTo: 28, from: LEGACY_CONTENT_V27, to: LEGACY_CONTENT_V28 },
+  { upTo: 29, from: LEGACY_CONTENT_V28, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
