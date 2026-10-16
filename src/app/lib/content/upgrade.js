@@ -41,6 +41,7 @@ import { LEGACY_CONTENT_V27 } from "./legacy-v27"
 import { LEGACY_CONTENT_V28 } from "./legacy-v28"
 import { LEGACY_CONTENT_V29 } from "./legacy-v29"
 import { LEGACY_CONTENT_V30 } from "./legacy-v30"
+import { LEGACY_CONTENT_V31 } from "./legacy-v31"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -93,7 +94,9 @@ import { LEGACY_CONTENT_V30 } from "./legacy-v30"
 //     Marlow and Lindsay).
 // 31: Privacy Policy covers the location / ZIP lookup, maps and browser storage; Terms gain a
 //     "Using This Website" disclaimer; optional legal note under the footer (hidden).
-export const CONTENT_VERSION = 31
+// 32: Industrial no longer says "custom specs welcome" (only containers and trailers are
+//     modified); Schools & Churches offers office space, not classrooms.
+export const CONTENT_VERSION = 32
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -126,7 +129,8 @@ const STEPS = [
   { upTo: 28, from: LEGACY_CONTENT_V27, to: LEGACY_CONTENT_V28 },
   { upTo: 29, from: LEGACY_CONTENT_V28, to: LEGACY_CONTENT_V29 },
   { upTo: 30, from: LEGACY_CONTENT_V29, to: LEGACY_CONTENT_V30 },
-  { upTo: 31, from: LEGACY_CONTENT_V30, to: DEFAULT_CONTENT },
+  { upTo: 31, from: LEGACY_CONTENT_V30, to: LEGACY_CONTENT_V31 },
+  { upTo: 32, from: LEGACY_CONTENT_V31, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
