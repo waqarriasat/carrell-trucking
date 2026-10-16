@@ -8,13 +8,18 @@
 // ─────────────────────────────────────────────
 import { fill } from "./resolve"
 
-// Live = switched on AND at least one town shown (no empty page, menu link or footer column).
-export const areasLive = (areas) => areas?.published === "yes" && (areas.towns || []).some((t) => t.published === "yes")
+// A town counts as shown only once it has text — a town switched to "Shown"
+// before it's written stays hidden, so no near-empty page goes live.
+export const hasTownText = (town) => (town?.intro || []).some((p) => String(p || "").trim())
+const isShown = (town) => town?.published === "yes" && hasTownText(town)
 
-export const isTownLive = (areas, town) => areasLive(areas) && town?.published === "yes"
+// Live = switched on AND at least one town shown (no empty page, menu link or footer column).
+export const areasLive = (areas) => areas?.published === "yes" && (areas.towns || []).some(isShown)
+
+export const isTownLive = (areas, town) => areasLive(areas) && isShown(town)
 
 // Towns visitors can see (none while the section is hidden).
-export const liveTowns = (areas) => (areas?.published === "yes" ? (areas.towns || []).filter((t) => t.published === "yes") : [])
+export const liveTowns = (areas) => (areas?.published === "yes" ? (areas.towns || []).filter(isShown) : [])
 
 export const townLabel = (town) => `${town.name}, ${town.state}`
 

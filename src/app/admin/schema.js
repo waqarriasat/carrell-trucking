@@ -1383,7 +1383,11 @@ export const ADMIN_PAGES = [
             key: "towns",
             label: "Towns",
             itemName: "town",
-            itemTitle: (t) => `${t.name}, ${t.state}${t.published === "yes" ? "" : " · hidden"}${(t.intro || []).length ? "" : " · no text yet"}`,
+            itemTitle: (t) => {
+              const written = (t.intro || []).some((p) => String(p || "").trim())
+              if (!written) return `${t.name}, ${t.state} · no text yet${t.published === "yes" ? " (stays hidden until written)" : ""}`
+              return `${t.name}, ${t.state}${t.published === "yes" ? "" : " · hidden"}`
+            },
             itemSubtitle: (t) => `/areas/${t.id}`,
             previewPath: (t) => `/areas/${t.id}`,
             idField: "id",
@@ -1398,7 +1402,7 @@ export const ADMIN_PAGES = [
                 label: "Show on website",
                 width: "sm",
                 options: [{ value: "no", label: "Hidden" }, { value: "yes", label: "Shown" }],
-                help: "Shown towns appear once the Service Areas page is Live.",
+                help: "Shown towns appear once the Service Areas page is Live. A town with no paragraphs stays hidden until it's written.",
               },
               t("county", "County", { width: "sm" }),
               { type: "number", key: "miles", label: "Miles from Ardmore (straight-line)", width: "sm" },
