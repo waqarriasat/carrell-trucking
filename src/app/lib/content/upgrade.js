@@ -39,6 +39,7 @@ import { LEGACY_CONTENT_V25 } from "./legacy-v25"
 import { LEGACY_CONTENT_V26 } from "./legacy-v26"
 import { LEGACY_CONTENT_V27 } from "./legacy-v27"
 import { LEGACY_CONTENT_V28 } from "./legacy-v28"
+import { LEGACY_CONTENT_V29 } from "./legacy-v29"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -87,7 +88,9 @@ import { LEGACY_CONTENT_V28 } from "./legacy-v28"
 //     pallet counts and electric reefer power corrected, ADA toilets mentioned.
 // 29: Thackerville, Ringling, Pauls Valley, Gainesville, Denison and Atoka written
 //     (mud lab added to Ringling).
-export const CONTENT_VERSION = 29
+// 30: Waurika, Marlow, Lindsay, Caddo, Purcell and Lawton written (mud lab added to
+//     Marlow and Lindsay).
+export const CONTENT_VERSION = 30
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -118,7 +121,8 @@ const STEPS = [
   { upTo: 26, from: LEGACY_CONTENT_V25, to: LEGACY_CONTENT_V26 },
   { upTo: 27, from: LEGACY_CONTENT_V26, to: LEGACY_CONTENT_V27 },
   { upTo: 28, from: LEGACY_CONTENT_V27, to: LEGACY_CONTENT_V28 },
-  { upTo: 29, from: LEGACY_CONTENT_V28, to: DEFAULT_CONTENT },
+  { upTo: 29, from: LEGACY_CONTENT_V28, to: LEGACY_CONTENT_V29 },
+  { upTo: 30, from: LEGACY_CONTENT_V29, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
