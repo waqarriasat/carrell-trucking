@@ -1331,6 +1331,16 @@ export const ADMIN_PAGES = [
           t("unitsLabel", "Units heading", { width: "sm" }),
           t("stepsLabel", "Steps heading", { width: "sm" }),
           strings("steps", "Delivery steps", { itemName: "step" }),
+          t("usesLabel", "What customers rent for — heading", { width: "sm" }),
+          {
+            type: "list",
+            key: "uses",
+            label: "What customers rent for",
+            itemName: "use",
+            itemTitle: (u) => u.title,
+            newItem: { title: "", text: "", href: "" },
+            fields: [t("title", "Title", { width: "sm" }), ta("text", "Text", { rows: 2 }), t("href", "Link (optional)", { width: "sm", help: "e.g. /fleet/container-dry" })],
+          },
           t("optionsLabel", "Rent / buy heading", { width: "sm" }),
           {
             type: "list",

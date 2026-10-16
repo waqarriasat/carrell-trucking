@@ -36,6 +36,7 @@ import { LEGACY_CONTENT_V22 } from "./legacy-v22"
 import { LEGACY_CONTENT_V23 } from "./legacy-v23"
 import { LEGACY_CONTENT_V24 } from "./legacy-v24"
 import { LEGACY_CONTENT_V25 } from "./legacy-v25"
+import { LEGACY_CONTENT_V26 } from "./legacy-v26"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -77,7 +78,9 @@ import { LEGACY_CONTENT_V25 } from "./legacy-v25"
 //     containers and trailers do).
 // 26: town pages — map coordinates for every town, map / nearby towns / rent-buy /
 //     site-prep sections and shared questions, longer text for the first six towns.
-export const CONTENT_VERSION = 26
+// 27: "What customers rent for" on town pages (from Rick); Madill, Marietta, Lone Grove,
+//     Davis, Sulphur and Kingston written (mud lab added to Lone Grove).
+export const CONTENT_VERSION = 27
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -105,7 +108,8 @@ const STEPS = [
   { upTo: 23, from: LEGACY_CONTENT_V22, to: LEGACY_CONTENT_V23 },
   { upTo: 24, from: LEGACY_CONTENT_V23, to: LEGACY_CONTENT_V24 },
   { upTo: 25, from: LEGACY_CONTENT_V24, to: LEGACY_CONTENT_V25 },
-  { upTo: 26, from: LEGACY_CONTENT_V25, to: DEFAULT_CONTENT },
+  { upTo: 26, from: LEGACY_CONTENT_V25, to: LEGACY_CONTENT_V26 },
+  { upTo: 27, from: LEGACY_CONTENT_V26, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)
