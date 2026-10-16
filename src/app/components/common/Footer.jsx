@@ -237,11 +237,16 @@ export default function Footer({ site, footer, fleet, services, resources, terms
 
       {/* ── Bottom bar ── */}
       <div className="border-t" style={{ backgroundColor: "#f3f6f9", borderColor: "#e3e9f0" }}>
+        {footer.showLegalNote === "yes" && footer.legalNote ? (
+          <p className="wrap pt-4 text-[11px] leading-relaxed text-center sm:text-left" style={{ color: "#4a6b85" }}>
+            {footer.legalNote}
+          </p>
+        ) : null}
         <div className="wrap py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
 
           {/* Copyright */}
           <p className="text-xs text-center sm:text-left" style={{ color: "#4a6b85" }}>
-            © {currentYear} {site.name}{`. ${footer.copyright}`}
+            © {currentYear} {String(site.name || "").replace(/\.$/, "")}{`. ${footer.copyright}`}
             {footer.privacyLabel && (
               <>
                 {" · "}

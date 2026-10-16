@@ -40,6 +40,7 @@ import { LEGACY_CONTENT_V26 } from "./legacy-v26"
 import { LEGACY_CONTENT_V27 } from "./legacy-v27"
 import { LEGACY_CONTENT_V28 } from "./legacy-v28"
 import { LEGACY_CONTENT_V29 } from "./legacy-v29"
+import { LEGACY_CONTENT_V30 } from "./legacy-v30"
 
 // 3: re-runs the v1 upgrade for copies an admin tab opened on an older build
 //    saved after the update (they were stamped 2 while still holding old text).
@@ -90,7 +91,9 @@ import { LEGACY_CONTENT_V29 } from "./legacy-v29"
 //     (mud lab added to Ringling).
 // 30: Waurika, Marlow, Lindsay, Caddo, Purcell and Lawton written (mud lab added to
 //     Marlow and Lindsay).
-export const CONTENT_VERSION = 30
+// 31: Privacy Policy covers the location / ZIP lookup, maps and browser storage; Terms gain a
+//     "Using This Website" disclaimer; optional legal note under the footer (hidden).
+export const CONTENT_VERSION = 31
 
 // Each step: copies saved before `upTo` that still hold `from` text get `to`.
 // Version 2 holds v1 text when saved from a stale tab, so it re-runs step 1.
@@ -122,7 +125,8 @@ const STEPS = [
   { upTo: 27, from: LEGACY_CONTENT_V26, to: LEGACY_CONTENT_V27 },
   { upTo: 28, from: LEGACY_CONTENT_V27, to: LEGACY_CONTENT_V28 },
   { upTo: 29, from: LEGACY_CONTENT_V28, to: LEGACY_CONTENT_V29 },
-  { upTo: 30, from: LEGACY_CONTENT_V29, to: DEFAULT_CONTENT },
+  { upTo: 30, from: LEGACY_CONTENT_V29, to: LEGACY_CONTENT_V30 },
+  { upTo: 31, from: LEGACY_CONTENT_V30, to: DEFAULT_CONTENT },
 ]
 
 const isPlainObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v)

@@ -54,10 +54,10 @@ export const DEFAULT_CONTENT = {
   },
 
   seo: {
-    title: "Ardmore Trailer, Inc. | Trailer & Container Rental in Oklahoma & North Texas",
+    title: "Trailer & Container Rental in Ardmore, OK | Ardmore Trailer, Inc.",
     titleTemplate: "%s | Ardmore Trailer, Inc.",
     description:
-      "Trailer and container rental, sales and rent-to-own from Ardmore, Oklahoma. Refrigerated trailers and containers, dry storage containers, generators, office units and portable toilets — delivered to your location. Call {phone}.",
+      "Rent, buy or rent-to-own containers, reefer trailers, offices, generators and portable toilets from Ardmore, OK — delivered across Southern OK and North Texas.",
     keywords: ["trailer rental", "container rental", "refrigerated trailer rental", "reefer trailer", "ground level storage container", "portable toilet rental", "Oklahoma", "North Texas", "Ardmore"],
     // Empty until the domain is live: the site then uses its current address.
     siteUrl: "",
@@ -95,6 +95,9 @@ export const DEFAULT_CONTENT = {
     contactQuoteLabel: "Get a Quote",
     allAreasLabel: "All service areas",
     copyright: "All rights reserved.",
+    // Short legal line under the bottom bar on every page (hidden until switched on)
+    showLegalNote: "no",
+    legalNote: "Information on this website is general guidance. Prices, availability, sizes and specifications are confirmed in your written quote or agreement. Photos may show similar units, and distances are approximate straight-line miles.",
     privacyLabel: "Privacy Policy",
     termsLabel: "Terms & Conditions",
   },
@@ -363,6 +366,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "container-dry",
       name: "Dry Storage Container",
+      // Google title and description for this unit page
+      metaTitle: "Storage Container Rental & Sales in Ardmore, OK",
+      metaDescription: "Rent, buy or rent-to-own 20, 40 and 48 ft storage containers from Ardmore, OK. Ground-level delivery across Southern Oklahoma and North Texas.",
       shortName: "Dry Storage Container",
       badge: "Storage Container Rentals",
       cornerBadge: "Ground Level",
@@ -390,6 +396,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "trailers",
       name: "Trailers",
+      // Google title and description for this unit page
+      metaTitle: "Storage Trailer Rental in Ardmore, OK",
+      metaDescription: "48 ft and 53 ft dry van storage trailers to rent, buy or rent-to-own — delivered from our Ardmore, OK yard across Southern Oklahoma and North Texas.",
       shortName: "Trailers",
       badge: "Trailer Rentals",
       cornerBadge: "",
@@ -414,6 +423,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "reefer-diesel",
       name: "Refrigerated Diesel Trailer",
+      // Google title and description for this unit page
+      metaTitle: "Diesel Reefer Trailer Rental in Ardmore, OK",
+      metaDescription: "Self-powered diesel refrigerated trailers for farms, events and remote sites — no outside power needed. Delivered across Southern Oklahoma and North Texas.",
       shortName: "Refrigerated Diesel Trailer",
       badge: "Diesel Refrigerated Rentals",
       cornerBadge: "",
@@ -438,6 +450,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "reefer-electric",
       name: "Refrigerated Electric Trailers",
+      // Google title and description for this unit page
+      metaTitle: "Electric Reefer Trailer Rental in Ardmore, OK",
+      metaDescription: "Quiet plug-in refrigerated trailers for restaurants, stores and warehouses with three-phase power. Rent or buy from Ardmore, OK, delivered to you.",
       shortName: "Refrigerated Electric Trailers",
       badge: "Electric Refrigerated Rentals",
       cornerBadge: "",
@@ -462,6 +477,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "reefer-container",
       name: "Refrigerated Container",
+      // Google title and description for this unit page
+      metaTitle: "Refrigerated Container Rental in Ardmore, OK",
+      metaDescription: "Ground-level 20 ft and 40 ft refrigerated containers for walk-in cold storage at your business or event. Delivered across Southern OK and North Texas.",
       shortName: "Refrigerated Container",
       badge: "Refrigerated Container Rentals",
       cornerBadge: "Ground Level",
@@ -486,6 +504,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "generator",
       name: "Generator Units",
+      // Google title and description for this unit page
+      metaTitle: "Generator Rental in Ardmore, OK",
+      metaDescription: "Diesel generators to power job sites, refrigerated units, offices and events. Rent from Ardmore, OK and we deliver across Southern OK and North Texas.",
       shortName: "Generator Units",
       badge: "Industrial Generator Rentals",
       cornerBadge: "",
@@ -510,6 +531,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "office",
       name: "Office Units",
+      // Google title and description for this unit page
+      metaTitle: "Office Trailer Rental in Ardmore, OK",
+      metaDescription: "Ground-level 20 ft and 40 ft job-site offices plus a 40 ft office + storage combo, with heat, A/C and power. Delivered across Southern OK and North Texas.",
       shortName: "Office Units",
       badge: "Mobile Office Rentals",
       cornerBadge: "Ground Level",
@@ -534,6 +558,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "portable-toilets",
       name: "Portable Toilets & Hand Wash Stations",
+      // Google title and description for this unit page
+      metaTitle: "Porta Potty & Hand Wash Rental in Ardmore, OK",
+      metaDescription: "Standard and ADA portable toilets plus hand wash stations for job sites, oilfield crews and events — delivered and set up from Ardmore, OK.",
       shortName: "Portable Toilets & Hand Wash",
       badge: "Portable Sanitation Rentals",
       cornerBadge: "",
@@ -562,6 +589,9 @@ export const DEFAULT_CONTENT = {
       // New unit — hidden until switched on (Admin → Equipment → Show on website)
       published: "no",
       name: "Air-Conditioned Restroom Trailer",
+      // Google title and description for this unit page
+      metaTitle: "Restroom Trailer Rental in Ardmore, OK",
+      metaDescription: "Air-conditioned restroom trailers with men's and women's sides, flushing toilets and sinks — for weddings, events and job sites in Southern OK and North Texas.",
       shortName: "AC Restroom Trailer",
       badge: "Restroom Trailer Rentals",
       cornerBadge: "",
@@ -588,6 +618,9 @@ export const DEFAULT_CONTENT = {
       // New unit — hidden until switched on (Admin → Equipment → Show on website)
       published: "no",
       name: "Shower Containers",
+      // Google title and description for this unit page
+      metaTitle: "Shower Container Rental in Ardmore, OK",
+      metaDescription: "Shower containers with men's and women's sides plus ADA shower units for crew camps, remote sites and events. Delivered from Ardmore, OK.",
       shortName: "Shower Containers",
       badge: "Shower Unit Rentals",
       cornerBadge: "",
@@ -612,6 +645,9 @@ export const DEFAULT_CONTENT = {
     {
       id: "mud-lab",
       name: "Oil Field Mud Lab",
+      // Google title and description for this unit page
+      metaTitle: "Mud Lab Rental for Oilfield Sites in Ardmore, OK",
+      metaDescription: "10 ft ground-level mud lab units for drilling-fluid testing, also used as guard shacks and gate offices. Delivered to well sites across Southern Oklahoma.",
       shortName: "Oil Field Mud Lab",
       badge: "Mud Lab & Guard Shack Units",
       cornerBadge: "Ground Level",
@@ -838,9 +874,9 @@ export const DEFAULT_CONTENT = {
 
   // ── Services listing page (/services) ──────
   servicesPage: {
-    metaTitle: "Services | Ardmore Trailer, Inc.",
+    metaTitle: "Trailer & Container Rental Services | Ardmore Trailer, Inc.",
     metaDescription:
-      "Trailer and container rental, sales and rent-to-own for commercial, residential, construction, and industrial needs — based in Southern Oklahoma, available across all states.",
+      "Trailer and container rental, sales and rent-to-own for commercial, residential, construction and industrial customers — delivered from Ardmore, OK.",
     breadcrumbHome: "Home",
     breadcrumbCurrent: "Services",
     eyebrow: "What We Do",
@@ -879,7 +915,7 @@ export const DEFAULT_CONTENT = {
 
   // ── About page ─────────────────────────────
   about: {
-    metaTitle: "About Us | Ardmore Trailer, Inc.",
+    metaTitle: "About Us — Owner-Run in Ardmore, OK | Ardmore Trailer, Inc.",
     metaDescription: "Learn about Ardmore Trailer, Inc. — Oklahoma's trusted trailer and container rental company.",
     breadcrumbHome: "Home",
     breadcrumbCurrent: "About",
@@ -1085,8 +1121,8 @@ export const DEFAULT_CONTENT = {
     eyebrow: "Your Privacy",
     titleStart: "Privacy",
     titleAccent: "Policy",
-    updated: "October 12, 2026",
-    body: "{company} respects your privacy. This page explains what information we collect through this website, how we use it and the choices you have.\n\n## Information We Collect\n\nWhen you fill in our **Contact** or **Get a Quote** form, we receive the details you type in:\n\n- Your name, phone number and email address\n- Your company name, if you give one\n- Your delivery location, the equipment you're interested in and your message or notes\n\nWe also receive the information you share when you call, text, email or message us on WhatsApp.\n\nWe do not ask for payment card details on this website.\n\n## How We Use Your Information\n\nWe use your details only to run our business with you:\n\n- To answer your questions and prepare quotes\n- To arrange rentals, sales, deliveries and pickups\n- To send you a confirmation that we received your request\n- To handle billing and keep the records the law requires\n\n## We Never Sell Your Information\n\nWe do not sell, rent or trade your personal information. We share it only with the services that help us run this website and our email (for example our website host and email provider), and only so they can do that work for us — or when the law requires it.\n\n## Cookies\n\nThis website does not use advertising cookies. The only cookie it sets is a sign-in cookie for our own staff's admin area. If we add website statistics in the future (such as Google Analytics), we will update this page.\n\n## How Long We Keep It\n\nWe keep enquiry details for as long as we need them to serve you and to meet our legal and accounting obligations, then we delete them.\n\n## Your Choices\n\nYou can ask us at any time to see, correct or delete the information we hold about you. Call us at {phone} or email [{email}](mailto:{email}).\n\n## Changes to This Policy\n\nIf we change this policy, we'll update this page and the date at the top.\n\n## Contact Us\n\nQuestions about this policy or your information? Contact **{company}**:\n\n- Address: {address}\n- Phone: {phone}\n- Email: [{email}](mailto:{email})",
+    updated: "October 16, 2026",
+    body: "{company} respects your privacy. This page explains what information we collect through this website, how we use it and the choices you have.\n\n## Information We Collect\n\nWhen you fill in our **Contact** or **Get a Quote** form, we receive the details you type in:\n\n- Your name, phone number and email address\n- Your company name, if you give one\n- Your delivery location, the equipment you're interested in and your message or notes\n\nWe also receive the information you share when you call, text, email or message us on WhatsApp.\n\nWe do not ask for payment card details on this website.\n\n## Your Location and ZIP Code\n\nSome parts of this website can find your town for you — the \"Delivering to\" box at the top of the page and the \"Use my location\" button on our forms.\n\n- **We only use your location if you allow it.** Your browser asks first, and you can say no and type a ZIP code or town instead.\n- **We use it only to find your town or address.** To do that, our website sends your ZIP code or map position to a map lookup service run by OpenStreetMap, which returns the matching town and address. We don't keep your map position.\n- **Your town is remembered on your own device**, in your browser's storage, so you don't have to enter it again and our forms can fill it in for you. It is not stored on our servers unless you send it to us in a form. You can change it at any time, or remove it by clearing your browser's site data.\n- **We deliver only in the United States**, so locations outside the U.S. are not saved.\n\n## Maps\n\nOur town pages show a map from OpenStreetMap. When the map loads, your browser connects to OpenStreetMap's servers, which receive standard information such as your IP address, as described in OpenStreetMap's own privacy policy.\n\n## How We Use Your Information\n\nWe use your details only to run our business with you:\n\n- To answer your questions and prepare quotes\n- To arrange rentals, sales, deliveries and pickups\n- To send you a confirmation that we received your request\n- To handle billing and keep the records the law requires\n\n## We Never Sell Your Information\n\nWe do not sell, rent or trade your personal information. We share it only with the services that help us run this website and our email (for example our website host and email provider), and only so they can do that work for us — or when the law requires it.\n\n## Cookies\n\nThis website does not use advertising cookies. The only cookie it sets is a sign-in cookie used by our own staff. Your browser's storage is used only to remember your delivery town, as explained above. If we add website statistics in the future (such as Google Analytics), we will update this page.\n\n## How Long We Keep It\n\nWe keep enquiry details for as long as we need them to serve you and to meet our legal and accounting obligations, then we delete them.\n\n## Your Choices\n\nYou can ask us at any time to see, correct or delete the information we hold about you. Call us at {phone} or email [{email}](mailto:{email}).\n\n## Changes to This Policy\n\nIf we change this policy, we'll update this page and the date at the top.\n\n## Contact Us\n\nQuestions about this policy or your information? Contact **{company}**:\n\n- Address: {address}\n- Phone: {phone}\n- Email: [{email}](mailto:{email})",
   },
 
   // ── Request a Pickup (Admin → Request Pickup) ─
@@ -1186,9 +1222,9 @@ export const DEFAULT_CONTENT = {
   areas: {
     published: "no",
     navLabel: "Service Areas",
-    metaTitle: "Service Areas | Trailer & Container Rental in Southern Oklahoma & North Texas",
+    metaTitle: "Towns We Serve in Southern Oklahoma & North Texas",
     metaDescription:
-      "Ardmore Trailer, Inc. delivers storage containers, refrigerated trailers, office units, generators and portable toilets to towns across Southern Oklahoma and North Texas. Find your town.",
+      "Storage containers, reefer trailers, office units, generators and portable toilets delivered from Ardmore to towns across Southern Oklahoma and North Texas.",
     breadcrumbHome: "Home",
     breadcrumbCurrent: "Service Areas",
     eyebrow: "Where We Deliver",
@@ -1857,7 +1893,7 @@ export const DEFAULT_CONTENT = {
     eyebrow: "Rental Terms",
     titleStart: "Terms &",
     titleAccent: "Conditions",
-    updated: "October 12, 2026",
-    body: "At {company}, these terms explain how renting, buying and rent-to-own work. They are a summary — **your signed rental, sales or rent-to-own agreement always takes priority** over this page.\n\n## Quotes & Pricing\n\n- Quotes are free and valid for the period stated on the quote.\n- Prices depend on the unit, rental length, delivery distance and site conditions.\n- Taxes, delivery and pickup charges are shown on your quote or agreement.\n\n## Rental Period & Payment\n\n- The rental period starts on the delivery date and ends when the unit is picked up.\n- Rent is billed in advance for each rental period, as set out in your agreement.\n- A deposit may be required before delivery.\n- Late payments may result in late fees or pickup of the unit.\n\n## Delivery & Pickup\n\n- You are responsible for clear, safe access to the delivery spot, with level, firm ground and enough room for our truck.\n- Please tell us in advance about gates, overhead wires, soft ground or other obstacles.\n- If we can't deliver or pick up because of site conditions, an extra trip charge may apply.\n- Units must be empty, clean and accessible on the pickup date.\n\n## Using the Equipment\n\n- Use the unit only for its intended purpose and at the agreed address.\n- Do not move, modify, paint or sublet the unit without our written permission.\n- Do not store hazardous, flammable, illegal or perishable goods (except in refrigerated units).\n- Keep the unit locked and secure. You are responsible for its contents.\n\n## Refrigerated Units\n\n- You are responsible for providing suitable power for electric units, and fuel where the agreement says so.\n- Please check the set temperature regularly and call us right away if there's a problem.\n- We are not responsible for the contents of a unit, including spoiled goods.\n\n## Damage, Loss & Insurance\n\n- The unit is your responsibility from delivery until pickup.\n- You will be charged for damage beyond normal wear and tear, cleaning, or loss of the unit.\n- We recommend that your business insurance covers rented equipment and its contents.\n\n## Purchases & Rent-to-Own\n\nSales and rent-to-own terms — including payments, ownership transfer and early buy-out — are set out in your written agreement.\n\n## Cancellations\n\nPlease let us know as early as possible if you need to cancel or change a delivery. Cancellation charges may apply once a unit has been dispatched.\n\n## Liability\n\nOur liability is limited to the amount you paid for the rental, as far as the law allows. We are not liable for indirect losses such as lost profits or spoiled goods.\n\n## Governing Law\n\nThese terms are governed by the laws of the State of Oklahoma.\n\n## Questions\n\nCall us at {phone} or email [{email}](mailto:{email}) — we're happy to explain anything before you sign.",
+    updated: "October 16, 2026",
+    body: "At {company}, these terms explain how renting, buying and rent-to-own work. They are a summary — **your signed rental, sales or rent-to-own agreement always takes priority** over this page.\n\n## Quotes & Pricing\n\n- Quotes are free and valid for the period stated on the quote.\n- Prices depend on the unit, rental length, delivery distance and site conditions.\n- Taxes, delivery and pickup charges are shown on your quote or agreement.\n\n## Rental Period & Payment\n\n- The rental period starts on the delivery date and ends when the unit is picked up.\n- Rent is billed in advance for each rental period, as set out in your agreement.\n- A deposit may be required before delivery.\n- Late payments may result in late fees or pickup of the unit.\n\n## Delivery & Pickup\n\n- You are responsible for clear, safe access to the delivery spot, with level, firm ground and enough room for our truck.\n- Please tell us in advance about gates, overhead wires, soft ground or other obstacles.\n- If we can't deliver or pick up because of site conditions, an extra trip charge may apply.\n- Units must be empty, clean and accessible on the pickup date.\n\n## Using the Equipment\n\n- Use the unit only for its intended purpose and at the agreed address.\n- Do not move, modify, paint or sublet the unit without our written permission.\n- Do not store hazardous, flammable, illegal or perishable goods (except in refrigerated units).\n- Keep the unit locked and secure. You are responsible for its contents.\n\n## Refrigerated Units\n\n- You are responsible for providing suitable power for electric units, and fuel where the agreement says so.\n- Please check the set temperature regularly and call us right away if there's a problem.\n- We are not responsible for the contents of a unit, including spoiled goods.\n\n## Damage, Loss & Insurance\n\n- The unit is your responsibility from delivery until pickup.\n- You will be charged for damage beyond normal wear and tear, cleaning, or loss of the unit.\n- We recommend that your business insurance covers rented equipment and its contents.\n\n## Purchases & Rent-to-Own\n\nSales and rent-to-own terms — including payments, ownership transfer and early buy-out — are set out in your written agreement.\n\n## Cancellations\n\nPlease let us know as early as possible if you need to cancel or change a delivery. Cancellation charges may apply once a unit has been dispatched.\n\n## Liability\n\nOur liability is limited to the amount you paid for the rental, as far as the law allows. We are not liable for indirect losses such as lost profits or spoiled goods.\n\n## Using This Website\n\n- **General information only.** We work to keep this website accurate and up to date, but it is general information, not an offer. Prices, availability, sizes, features and delivery areas are confirmed only in your written quote or agreement.\n- **Photos and measurements.** Photos may show a similar unit rather than the exact one you receive, and sizes and dimensions are approximate — ask us if exact measurements matter.\n- **Distances.** Distances shown on our town pages are approximate straight-line miles from our Ardmore yard, not driving distances.\n- **Local rules.** Some cities, neighborhoods and property owners have rules about where a container or trailer can be placed. Please check with them before delivery; information on this website is not legal or permit advice.\n- **Guides and calculators.** Our articles, checklists and figures (such as OSHA toilet counts or pallet capacity) are general guidance. Check the official source for your own situation.\n- **Links to other websites.** Links and maps from other companies are provided for convenience; we are not responsible for their content or their privacy practices.\n- **Our content.** The text, photos, logo and design of this website belong to {company}. Please don't copy them without our written permission.\n- **No guarantee of availability.** The website may occasionally be unavailable or contain errors; we may update or correct it at any time without notice.\n\n## Governing Law\n\nThese terms are governed by the laws of the State of Oklahoma.\n\n## Questions\n\nCall us at {phone} or email [{email}](mailto:{email}) — we're happy to explain anything before you sign.",
   },
 }
