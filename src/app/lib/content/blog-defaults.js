@@ -99,7 +99,7 @@ A steel storage container gives you weather-tight, lockable space right where yo
 
 ## Which size do you need?
 
-We rent [dry storage containers](/fleet/container-dry) in **20 ft and 40 ft** lengths. A 20 ft container suits most homes, small shops and single job sites; a 40 ft container doubles the floor space for warehouse overflow or large projects. Our [20 ft vs. 40 ft size guide](/blog/20-ft-vs-40-ft-storage-container-sizes) explains the dimensions and what fits.
+We rent [dry storage containers](/fleet/container-dry) in **20 ft, 40 ft and 48 ft** lengths, in standard and high cube heights. A 20 ft container suits most homes, small shops and single job sites; a 40 ft container doubles the floor space for warehouse overflow or large projects; and a 48 ft container gives the most room of all for big inventories and long items. Our [container size guide](/blog/20-ft-vs-40-ft-storage-container-sizes) explains the dimensions and what fits.
 
 ## Ground-level delivery — no forklift needed
 
@@ -107,7 +107,7 @@ Our containers are delivered on a tilt-bed truck and set **directly on the groun
 
 ## Delivered to you — or store at our yard
 
-Every container we rent is ours. We keep the fleet at our own yard on Refinery Road in Ardmore, Oklahoma. You can have the container **delivered to your location**, or **store your items at our yard** if you don't have space on site.
+Every container we rent is ours. We keep the fleet at our own yard on Refinery Road in Ardmore, Oklahoma, where you can come and look at the units before you choose. You can have the container **delivered to your location**, or **store your items at our yard** if you don't have space on site.
 
 ## Rent, buy or rent-to-own?
 
@@ -116,6 +116,10 @@ Every container we rent is ours. We keep the fleet at our own yard on Refinery R
 - **Rent-to-own** when you want to spread the cost and own it in the end.
 
 Read [Rent vs. Buy vs. Rent-to-Own](/blog/rent-vs-buy-vs-rent-to-own-trailers-containers) for a side-by-side comparison.
+
+## Need something custom?
+
+Containers can be modified — extra doors, windows, shelving, insulation or electrical — so the unit fits the way you work. Choose **Modification** on the [quote form](/quote) and tell us what you have in mind.
 
 ## Need it cold? Choose a refrigerated container
 
@@ -129,17 +133,17 @@ Call **{phone}** or [request a free quote](/quote) with the size you need, your 
       id: "20-ft-vs-40-ft-storage-container-sizes",
       published: "yes",
       featured: "yes",
-      title: "20 ft vs. 40 ft Storage Containers: Sizes, Dimensions and What Fits",
-      metaTitle: "20 ft vs 40 ft Storage Container Sizes & Dimensions | What Fits?",
+      title: "Storage Container Sizes: 20 ft vs. 40 ft vs. 48 ft and What Fits",
+      metaTitle: "20 ft vs 40 ft vs 48 ft Storage Container Sizes | What Fits?",
       metaDescription:
-        "Compare 20 ft and 40 ft storage container dimensions, floor space and capacity, with examples of what fits in each — and how to choose the right size for your project.",
+        "Compare 20 ft, 40 ft and 48 ft storage container dimensions, standard and high cube heights, floor space and pallet capacity — with examples of what fits in each.",
       category: "storage-containers",
       date: "2026-10-10",
       image: "/images/fleet/container-dry.webp",
       excerpt:
-        "Standard container dimensions, floor space and real-world examples of what fits in a 20 ft and a 40 ft storage container.",
+        "Container dimensions, high cube vs. standard height, and real-world examples of what fits in a 20 ft, 40 ft and 48 ft storage container.",
       fleet: ["container-dry", "reefer-container"],
-      body: `Choosing the right container size saves money and space. Here is how the two standard lengths compare, and how to decide which one fits your project.
+      body: `Choosing the right container size saves money and space. We rent and sell containers in 20 ft, 40 ft and 48 ft lengths — here is how they compare, and how to decide which one fits your project.
 
 ## Standard dimensions
 
@@ -147,28 +151,40 @@ Shipping-style storage containers are built to international standards, so the s
 
 - **20 ft container** — about 20 ft long, 8 ft wide and 8.5 ft tall outside; roughly 19 ft 4 in × 7 ft 8 in inside, with about **160 sq ft** of floor space and around 1,170 cubic feet of volume.
 - **40 ft container** — about 40 ft long, 8 ft wide and 8.5 ft tall outside; roughly 39 ft 5 in × 7 ft 8 in inside, with about **320 sq ft** of floor space and around 2,390 cubic feet of volume.
+- **48 ft container** — about 48 ft long and 9.5 ft tall outside (48 ft units are high cube), with roughly 47 ft of usable length inside. The 48 ft size isn't an international standard, so the width and inside measurements vary by maker — we'll give you the exact figures for the unit you choose.
 
 Exact interior measurements vary slightly by unit — ask us if a few inches matter for your load.
+
+## Standard vs. high cube
+
+A **high cube** container is one foot taller than a standard one — about 9.5 ft outside instead of 8.5 ft, with roughly 8 ft 10 in of inside height. A 40 ft high cube holds about 2,690 cubic feet, around 300 more than a standard 40 ft. Choose high cube for tall shelving, stacked boxes or equipment that won't fit under a standard ceiling; the floor space is the same.
 
 ## What fits in a 20 ft container?
 
 - The contents of a 1–2 bedroom home during a move or renovation
 - Tools, materials and small equipment for a single job site
 - Seasonal stock for a small retail shop
-- Around 8–10 standard pallets, depending on stacking
+- About 9–10 standard 48 × 40 in pallets on the floor
 
 ## What fits in a 40 ft container?
 
 - The contents of a 3–4 bedroom home
 - Warehouse or retail overflow, including long items
 - Materials for a large construction project or multiple crews
-- Around 20–24 standard pallets, depending on stacking
+- About 20–21 standard 48 × 40 in pallets on the floor
+
+## When to choose a 48 ft container
+
+- Large retail or warehouse overflow that would need two smaller containers
+- Long items such as pipe, lumber or equipment
+- Tall loads that benefit from high cube height
+- Sites with enough room for a longer delivery (see the [site checklist](/blog/ground-level-container-delivery-site-preparation))
 
 ## How to choose
 
 1. **List what you need to store** and estimate pallet count or room count.
 2. **Check your site** — a 40 ft container needs more room for delivery. See our [site preparation checklist](/blog/ground-level-container-delivery-site-preparation).
-3. **Think ahead** — if your needs may grow during the project, one 40 ft unit is often simpler than two 20 ft units.
+3. **Think ahead** — if your needs may grow during the project, one larger unit is often simpler than two small ones.
 4. **Consider temperature** — products that must stay cold need a [refrigerated container](/fleet/reefer-container) instead.
 
 ## Ground level means easy loading
@@ -254,7 +270,7 @@ Keep in mind: the unit runs on fuel, which needs to be topped up, and it makes e
 
 ## Electric refrigerated trailers
 
-An [electric refrigerated trailer](/fleet/reefer-electric) plugs into **shore power** (typically a 460V three-phase connection) instead of running a diesel engine.
+An [electric refrigerated trailer](/fleet/reefer-electric) plugs into **shore power** — usually a three-phase connection (460V is most common, and some units also run on 208–230V) — instead of running a diesel engine. Tell us what power you have and we'll confirm it matches the unit.
 
 Best for:
 
@@ -386,11 +402,11 @@ We own and deliver every unit, so the mud lab, generator, office and toilets com
 
 ## Site office
 
-An [office unit](/fleet/office) gives project managers a climate-controlled base for plans, paperwork and meetings. Office units come in several lengths with electrical service, HVAC and windows. Pair one with a [generator](/fleet/generator) if the site has no power yet.
+An [office unit](/fleet/office) gives project managers a climate-controlled base for plans, paperwork and meetings. Our ground-level office units come in **20 ft and 40 ft** lengths, plus a **40 ft combo** that pairs a 20 ft office with 20 ft of lockable storage — all with electrical service, heating and cooling and windows. Pair one with a [generator](/fleet/generator) if the site has no power yet.
 
 ## Secure storage
 
-Tools and materials left in the open invite theft and weather damage. A lockable [dry storage container](/fleet/container-dry) placed at ground level keeps them safe and easy to reach. See our [20 ft vs. 40 ft size guide](/blog/20-ft-vs-40-ft-storage-container-sizes).
+Tools and materials left in the open invite theft and weather damage. A lockable [dry storage container](/fleet/container-dry) placed at ground level keeps them safe and easy to reach. See our [container size guide](/blog/20-ft-vs-40-ft-storage-container-sizes).
 
 ## How many portable toilets do you need?
 
@@ -400,7 +416,7 @@ OSHA's construction sanitation standard (29 CFR 1926.51) sets the minimum number
 - **20 or more workers** — at least 1 toilet seat and 1 urinal per 40 workers
 - **200 or more workers** — at least 1 toilet seat and 1 urinal per 50 workers
 
-Many contractors add more units for comfort and to reduce servicing trips, and place [hand wash stations](/fleet/portable-toilets) next to the toilets.
+Many contractors add more units for comfort and to reduce servicing trips, include at least one **ADA-accessible toilet**, and place [hand wash stations](/fleet/portable-toilets) next to the toilets.
 
 ## Placement tips
 
@@ -566,7 +582,7 @@ export const FAQ_DEFAULTS = {
       items: [
         {
           q: "What sizes do your storage containers come in?",
-          a: "Dry storage containers come in 20 ft and 40 ft lengths. A 20 ft container has about 160 sq ft of floor space; a 40 ft has about 320 sq ft. See [20 ft vs. 40 ft sizes](/blog/20-ft-vs-40-ft-storage-container-sizes).",
+          a: "Dry storage containers come in 20 ft, 40 ft and 48 ft lengths, in standard and high cube heights. A 20 ft container has about 160 sq ft of floor space and a 40 ft about 320 sq ft. See our [container size guide](/blog/20-ft-vs-40-ft-storage-container-sizes).",
           fleet: ["container-dry"],
         },
         {
@@ -581,7 +597,7 @@ export const FAQ_DEFAULTS = {
         },
         {
           q: "What sizes do office units come in?",
-          a: "Office units are available in 10 ft, 20 ft and 40 ft lengths with electrical service and heating and cooling.",
+          a: "Ground-level office units come in 20 ft and 40 ft lengths, plus a 40 ft combo with a 20 ft office and 20 ft of lockable storage — all with electrical service and heating and cooling. For a smaller unit, our 10 ft mud lab also works as a guard shack or gate office.",
           fleet: ["office"],
         },
       ],
@@ -592,7 +608,7 @@ export const FAQ_DEFAULTS = {
       items: [
         {
           q: "What's the difference between diesel and electric refrigerated trailers?",
-          a: "A diesel reefer has its own diesel-powered refrigeration unit and needs no outside power. An electric reefer plugs into shore power (typically 460V three-phase), runs quieter and usually costs less to operate. See our [diesel vs. electric guide](/blog/diesel-vs-electric-refrigerated-trailer-rental).",
+          a: "A diesel reefer has its own diesel-powered refrigeration unit and needs no outside power. An electric reefer plugs into three-phase shore power (most often 460V), runs quieter and usually costs less to operate. See our [diesel vs. electric guide](/blog/diesel-vs-electric-refrigerated-trailer-rental).",
           fleet: ["reefer-diesel", "reefer-electric"],
         },
         {
